@@ -1,0 +1,83 @@
+<div>
+    <h1 class="ms-font-rubik"><mat-icon style="vertical-align: middle" class="ms-color-icons w3-margin-right">supervisor_account</mat-icon> Tercero</h1>
+    <h4 class="ms-font-karla" style="font-weight:700">{{data.name}}</h4>
+    <mat-divider></mat-divider>
+    <br>
+    <div class="w3-row">
+      <div class="w3-half">
+        <mat-list>
+          <h2>Información</h2>
+          <h3 mat-subheader>Tipo de tercero</h3>
+          <mat-list-item>
+            <mat-icon mat-list-icon class="ms-color-icons">card_travel</mat-icon>
+            <p mat-line>{{data.type}}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+
+          <h3 mat-subheader>Tipo de documento</h3>
+          <mat-list-item>
+            <mat-icon mat-list-icon class="ms-color-icons">class</mat-icon>
+            <p mat-line>{{data.docType}}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+
+          <h3 mat-subheader>Número de documento / RUC</h3>
+          <mat-list-item>
+            <p mat-list-icon class="ms-color-icons"><strong>#</strong></p>
+            <p mat-line>{{data.docNum}}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+
+          <h3 mat-subheader>Nombre/Empresa</h3>
+          <mat-list-item>
+            <mat-icon mat-list-icon class="ms-color-icons">assignment_ind</mat-icon>
+            <p mat-line>{{data.name}}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+      
+          <h3 mat-subheader>Dirección</h3>
+          <mat-list-item>
+            <mat-icon mat-list-icon class="ms-color-icons">location_on</mat-icon>
+            <p mat-line>{{data.address}}</p>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+      
+        </mat-list>
+      </div>
+      <div class="w3-half">
+          <mat-list>
+            <h2>Contacto</h2>
+            <h3 mat-subheader>Nombre</h3>
+            <mat-list-item>
+              <mat-icon mat-list-icon class="ms-color-icons">account_circle</mat-icon>
+              <p mat-line>{{data.contact.name}}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+  
+            <h3 mat-subheader>Apellido</h3>
+            <mat-list-item>
+              <mat-icon mat-list-icon class="ms-color-icons">account_circle</mat-icon>
+              <p mat-line>{{data.contact.lastname}}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+  
+            <h3 mat-subheader>Correo</h3>
+            <mat-list-item>
+              <mat-icon mat-list-icon class="ms-color-icons">email</mat-icon>
+              <p mat-line><a href="mailto:{{data.contact.email}}">{{data.contact.email}}</a></p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        
+            <h3 mat-subheader>Celular</h3>
+            <mat-list-item>
+              <mat-icon mat-list-icon class="ms-color-icons">phone_iphone</mat-icon>
+              <p mat-line>{{data.contact.phone}}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        
+          </mat-list>
+      </div>
+    </div>
+    
+  </div>
+  

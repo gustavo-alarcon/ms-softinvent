@@ -1,0 +1,217 @@
+.ms-color-b-bg{
+    background: #34495e !important;
+}
+
+.ms-color-b-1{
+    background: #2ECC71 !important;
+}
+
+.ms-color-b-2{
+    background: #2A3B4D !important;
+}
+
+.ms-color-b-3{
+    background: #fff !important;
+}
+
+.ms-color-b-4{
+    background: #2A3B4D !important;
+}
+
+.ms-color-l-bg{
+    background: #fff !important;
+}
+
+.ms-color-l-1{
+    background: #2ECC71 !important;
+}
+
+.ms-color-l-2{
+    background: #EDEDED !important;
+}
+
+.ms-color-l-3{
+    background: #34495E !important;
+}
+
+.ms-color-l-4{
+    background: #2A3B4C !important;
+}
+
+.ms-color-action-1{
+    background: #6F4082 !important;
+}
+
+.ms-color-action-2{
+    background: #844C9C !important;
+}
+
+.ms-color-action-3{
+    color: #fff !important;
+    background: #9B59B6 !important;
+}
+
+.ms-color-action-3:hover{
+    color: #fff !important;
+    background: #C671E8 !important;
+}
+
+.ms-color-action-4{
+    background: #B065CF !important;
+}
+
+.ms-color-action-5{
+    background: #C671E8 !important;
+}
+
+.ms-tcolor-action-3{
+    color: #9B59B6 !important;
+}
+
+.ms-tcolor-action-3:hover{
+    background: #C671E8 !important;
+}
+
+.ms-edit-action:hover{
+    background: #C671E8 !important;
+}
+
+.ms-color-icons{
+    color: #1ABC9C !important;
+}
+
+.ms-color-warn{
+    color: #fff;
+    background: #FF4D4D !important;
+}
+
+.ms-color-success{
+    color: #fff;
+    background: #2ECC71 !important;
+}
+
+.ms-color-l-disabled{
+    background: rgba(52, 73, 94, 0.3) !important;
+}
+
+.ms-color-b-disabled{
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.ms-tcolor-b-disabled{
+    color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.ms-table-header{
+    background: #333333;
+    font-weight: bold;
+}
+
+.ms-font-1{
+    font-family: 'Rubik', sans-serif;
+    font-weight: 900;
+    font-size: 2.5em;
+    color: #2b2b2b;
+}
+
+.ms-font-2{
+    font-family: 'Roboto', sans-serif;
+    color: #2b2b2b;
+    font-size: 1em;
+}
+
+.ms-font-3{
+    font-family: 'Poppins', sans-serif;
+    color: #2b2b2b;
+    font-size: 1em;
+}
+
+.ms-font-rubik{
+    font-family: 'Rubik', sans-serif;
+}
+
+.ms-font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.ms-font-karla {
+    font-family: 'Karla', sans-serif;
+}
+
+.ms-custom-dialogbox > mat-dialog-container {
+    background: #2A3B4D;
+}
+
+
+.ms-fill{
+    flex: 1 1 auto;
+}
+
+.ms-menu-icon{
+    font-size:2em !important;
+    width:36px !important;
+    height:36px !important;
+    color:#2b2b2b !important;
+    margin-top:0.1em !important;
+}
+
+.ms-login-left {
+    background-image: linear-gradient(180deg, rgba(52, 73, 94, 1), rgba(46, 204, 113, 0.2)), url('../images/welcome-left.jpg');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ms-login-follow {
+    font-family:  'Roboto', sans-serif;
+    color: rgb(255, 255, 255);
+}
+
+.ms-login-follow h1 {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 900 !important;
+    line-height: normal;
+    font-size: 2.5em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.ms-login-follow > div > a > i > span {
+    font-family:  'Roboto', sans-serif;
+    font-size: 0.6em;
+    font-weight: 600;
+    margin-left: 0.2em;
+}
+
+.ms-login-card{
+    width:25vw;
+}
+
+.ms-rs{
+    padding: 1.3em 1.3em 1.3em 40px;
+}
+
+
+.ms-rs:hover {
+    background-image: linear-gradient(to right, rgb(231, 38, 222), #9B59B6 )
+}
+
+.ms-copyright {
+    padding: 1em 0px 0px 40px;
+    color: white;
+}
+
+.ms-login-btn {
+    padding: 0.5em 0.5em;
+    margin: 0.4em 0 0.4em 0;
+    background-color: #9B59B6;
+    color: white;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 600px) {
+    .ms-login-card {
+        width:90vw;
+    }
+}

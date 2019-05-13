@@ -1,0 +1,58 @@
+<div class="w3-container w3-margin">
+  <div class="w3-display-container" style="height:100vh">
+    <div class="w3-display-middle w3-card-4" style="border-radius: 10px" *ngIf="auth.userInvent.uid === ''; else getStarted"> 
+      <div class="w3-center ms-color-l-2" style="border-radius: 10px 10px 0px 0px">
+        <img src="../../assets/images/logo-softinvent-color.png" alt="softinvent logo" style="width:30vh; margin: 24px">
+      </div>
+      <div class="w3-center w3-padding ms-color-b-bg" style="border-radius: 0px 0px 10px 10px">
+        <br>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginFormGroup" autocomplete="off">
+          <mat-progress-bar mode="indeterminate" *ngIf="auth.authLoader"></mat-progress-bar>
+          <br>
+          <p> </p>
+          <mat-form-field color="accent" style="width:90%">
+            <mat-icon matPrefix class="w3-margin-right" style="color:#fff">account_circle</mat-icon>
+            <input matInput type="text" placeholder="Usuario" autocomplete="off" formControlName="email" style="color:#fff">
+            <mat-error *ngIf="!loginFormGroup.valid">
+              Correo <strong>requerido *</strong>
+            </mat-error>
+          </mat-form-field>
+         
+          <mat-form-field color="accent" style="width:90%">
+            <mat-icon matPrefix class="w3-margin-right" style="color:#fff">vpn_key</mat-icon>
+            <input #passInput id="pass" matInput (keyup.enter)="checkAuth()" type="password" placeholder="password" formControlName="password" style="color:#fff">
+            <button mat-icon-button *ngIf="passInput.value && visibility" matSuffix aria-label="mostrar password" (click)="showPassword()"><mat-icon style="font-size: 1.3em; color:#fff">visibility</mat-icon></button>
+            <button mat-icon-button *ngIf="passInput.value && !visibility" matSuffix aria-label="mostrar password" (click)="showPassword()"><mat-icon style="font-size: 1.3em; color:#fff">visibility_off</mat-icon></button>
+            <mat-error *ngIf="!loginFormGroup.valid">
+              Password <Strong>requerido</Strong>
+            </mat-error>
+          </mat-form-field>
+          
+          <br>
+          <button mat-button (click)="checkAuth()" class="w3-round-large w3-margin-top w3-margin-bottom ms-color-action-3 ms-font-rubik" style="width:90%;font-weight:bold">INICIAR SESION</button>
+          
+        </form>
+        <br>
+        <div class="w3-center">
+            <img class="ms-login-card" src="../../assets/images/decoration login.png" alt="decoracion" style="margin: auto">
+            <br>
+            <p> </p>
+            <!-- <p style="color:#fff">No tienes un cuenta? <a routerLink="registrar" routerLinkActive="active" style="color:#2ECC71; font-weight: 800"> Regístrate</a></p> -->
+        </div>
+      </div>
+    </div>
+    <ng-template #getStarted>
+      <div class="w3-display-middle w3-center">
+        <img class="ms-login-card" src="../assets/images/logo-softinvent-color.png" alt="softinvent logo">
+        <h1 class="ms-font-1">Hola, {{auth.userInvent.name}} {{auth.userInvent.lastname}}</h1>
+        <div (click)="goToDashboard()" class="w3-center w3-btn w3-block ms-login-btn w3-round">Ir al dashboard</div>
+        <br>
+        <div (click)="auth.signOut()" class="w3-center w3-btn w3-block w3-border w3-border-purple w3-round">Cerrar sesión</div>
+      </div>
+    </ng-template>
+    
+    <div class="w3-display-bottomright">
+      <p style="color: #2b2b2b; margin-right:1em">V 1.0</p>
+    </div>
+  </div>
+</div>

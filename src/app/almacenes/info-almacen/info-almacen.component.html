@@ -1,0 +1,30 @@
+<div>
+  <h1 class="ms-font-rubik"><mat-icon style="vertical-align: middle" class="ms-color-icons w3-margin-right">store</mat-icon> Almacén</h1>
+  <h4 class="ms-font-karla" style="font-weight:700">{{data.name}}</h4>
+  <mat-divider></mat-divider>
+  <br>
+  <mat-list>
+
+    <h3 mat-subheader>Supervisor</h3>
+    <mat-list-item>
+      <mat-icon mat-list-icon class="ms-color-icons">account_circle</mat-icon>
+      <h4 mat-line>{{data.supervisor.name}}, {{data.supervisor.lastname}}</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <h3 mat-subheader>Correo</h3>
+    <mat-list-item>
+      <mat-icon mat-list-icon class="ms-color-icons">email</mat-icon>
+      <h4 mat-line><a href="mailto:{{data.supervisor.email}}">{{data.supervisor.email}}</a></h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <h3 mat-subheader>Celular</h3>
+    <mat-list-item>
+      <mat-icon mat-list-icon class="ms-color-icons">phone_iphone</mat-icon>
+      <h4 mat-line>{{data.supervisor.phone}}</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+  </mat-list>
+</div>
