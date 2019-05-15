@@ -27,3 +27,20 @@ export class SidenavService {
   saveLinkAccount(route) {
     this.lastLinkAccounts = route;
   }
+  /** Save Notification route */
+  saveLinkNotification(route) {
+    this.lastLinkNotification = route;
+  }
+  /** Get the last route with the parameter root
+   * root {stirng} : Root name of the Nav Tab
+   */
+  getlastLink(root): string {
+    if (root == 'Cuentas') {
+      return this.lastLinkAccounts;
+    }
+    if (root == 'Notificaciones') {
+      return this.lastLinkNotification;
+    }
+  }
+
+}
