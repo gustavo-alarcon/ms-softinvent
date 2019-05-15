@@ -27,6 +27,13 @@ import { MsTicketStepOneComponent } from '../ms-ticket/ms-sidenav-tickets-produc
 import { MsTicketStepTwoComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
 import { MsTicketStepThreeComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
 
+import { MsConfigComponent } from '../main/ms-config/ms-config.component';
+import { MsConfigAccountsComponent } from '../main/ms-config/ms-config-accounts/ms-config-accounts.component';
+import { MsConfigNotificationsComponent } from '../main/ms-config/ms-config-notifications/ms-config-notifications.component';
+import { MsUsersComponent } from '../main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-users/ms-users.component';
+import { MsPermitsComponent } from '../main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
+import { MsConfigAdminComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
+import { MsConfigStaffComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
 const routes: Routes = [
   {
     path: 'welcome', component: WelcomeComponent,
