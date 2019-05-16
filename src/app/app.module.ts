@@ -117,6 +117,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -217,7 +218,9 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     MatTabsModule,
     MatRadioModule,
-    MatCardModule
+    MatExpansionModule
+
+    MatCardModule,
   ],
   entryComponents: [
     CrearAlmacenComponent,

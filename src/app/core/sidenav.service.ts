@@ -12,11 +12,7 @@ export class SidenavService {
   
   constructor() { }
 
-  /*Al clickear abre el componente y si se vuelve a clickear esconde el componente, se usa en los botones del menu de configuracion*/
-  sidenavAll(): boolean {
-    this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
-    this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
-    return (true);
+  *  return boolean because use it to activate the sidenav
   }
  
   /** Toggle to Sidenav Accounts */

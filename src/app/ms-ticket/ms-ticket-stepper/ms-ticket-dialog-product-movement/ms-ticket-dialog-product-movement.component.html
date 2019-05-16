@@ -1,82 +1,206 @@
-<h1 mat-dialog-title>Producto:{{data.name}} | {{data.stock}}</h1>
-<div mat-dialog-content>
-
-  <div>
-    <mat-card>
+<div class="w3-hide-small">
+  <h1 mat-dialog-title>Producto:{{data.name}} | {{data.stock}}</h1>
+  <div mat-dialog-content>
+    <div>
+      <mat-card>
+        <div class="w3-row">
+          <div class="w3-container w3-third ">
+            <mat-form-field class="w3-block">
+              <input matInput placeholder="Cantidad" type="number">
+              <mat-hint>P/u S/. {{data.sale}}</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="w3-container w3-third">
+            <mat-form-field class="w3-block">
+              <input matInput #pInicial placeholder="Precio Inicial" disabled value="HOLA" class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="w3-container w3-third">
+            <mat-form-field class="w3-block">
+              <input matInput placeholder="Precio Final" disabled value=#pInicial.value class="form-control">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card>
       <div class="w3-row">
-        <div class="w3-container w3-third ">
-          <mat-form-field class="w3-block">
-            <input matInput placeholder="Cantidad" type="number" class="form-control">
-            <mat-hint>P/u S/. {{data.sale}}</mat-hint>
-          </mat-form-field>
-
+        <div class="w3-half w3-container ">
+          <div class="w3-padding-48	">
+            <mat-card>
+              <mat-radio-button value="1">Descuento</mat-radio-button>
+              <div class="w3-row">
+                <div class="w3-third w3-container">
+                  <mat-form-field class="w3-block">
+                    <input matInput placeholder="Soles" type="number">
+                  </mat-form-field>
+                </div>
+                <div class="w3-third w3-container">
+                  <h2>=</h2>
+                </div>
+                <div class="w3-third w3-container">
+                  <mat-form-field class="w3-block">
+                    <input matInput placeholder="Porcentaje" type="number">
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button color="primary" class="w3-block">Aplicar</button>
+            </mat-card>
+          </div>
         </div>
-        <div class="w3-container w3-third">
-
-          <mat-form-field class="w3-block">
-            <input matInput #pInicial placeholder="Precio Inicial" disabled value="HOLA" class="form-control">
-          </mat-form-field>
-        </div>
-        <div class="w3-container w3-third">
-          <mat-form-field class="w3-block">
-            <input matInput placeholder="Precio Final" disabled value=#pInicial.value class="form-control">
-          </mat-form-field>
-
-        </div>
-      </div>
-    </mat-card>
-    <div class="w3-row">
-      <div class="w3-half w3-container ">
-        <div class="w3-padding-48	">
-          <mat-card>
-            <mat-radio-button value="1">Descuento</mat-radio-button>
-            <div class="w3-row">
-              <div class="w3-third w3-container">
-                <mat-form-field class="w3-block">
-                  <input matInput placeholder="Soles" type="number">
-                </mat-form-field>
+        <div class="w3-half w3-container">
+          <div class="w3-padding-48	">
+            <mat-card>
+              <mat-radio-button value="2">Promocion</mat-radio-button>
+              <div class="w3-row">
+                <div class="w3-third w3-container">
+                  <mat-form-field class="w3-block">
+                    <input matInput placeholder="Soles" type="number">
+                  </mat-form-field>
+                </div>
+                <div class="w3-third w3-container">
+                  <h2>=</h2>
+                </div>
+                <div class="w3-third w3-container">
+                  <mat-form-field class="w3-block">
+                    <input matInput placeholder="Porcentaje" type="number">
+                  </mat-form-field>
+                </div>
               </div>
-              <div class="w3-third w3-container">
-                <h2>=</h2>
-              </div>
-              <div class="w3-third w3-container">
-                <mat-form-field class="w3-block">
-                  <input matInput placeholder="Porcentaje" type="number">
-                </mat-form-field>
-              </div>
-            </div>
-            <button mat-raised-button color="primary" class="w3-block">Aplicar</button>
-          </mat-card>
-        </div>
-      </div>
-      <div class="w3-half w3-container">
-        <div class="w3-padding-48	">
-
-          <mat-card>
-            <mat-radio-button value="2">Promocion</mat-radio-button>
-            <div class="w3-row">
-              <div class="w3-third w3-container">
-                <mat-form-field class="w3-block">
-                  <input matInput placeholder="Soles" type="number">
-                </mat-form-field>
-              </div>
-              <div class="w3-third w3-container">
-                <h2>=</h2>
-              </div>
-              <div class="w3-third w3-container">
-                <mat-form-field class="w3-block">
-                  <input matInput placeholder="Porcentaje" type="number">
-                </mat-form-field>
-              </div>
-            </div>
-
-            <button mat-raised-button color="primary" class="w3-block">Aplicar</button>
-          </mat-card>
+              <button mat-raised-button color="primary" class="w3-block">Aplicar</button>
+            </mat-card>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" class="w3-block">Agregar al carrito</button>
+  </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-raised-button color="primary" class="w3-block">Agregar al carrito</button>
+<div class="w3-hide-large w3-hide-medium">
+  <h1 mat-dialog-title>{{data.name}}</h1>
+  <div mat-dialog-content>
+    <div style="border-radius: 20px;">
+      <div class="ms-card-image" style="margin:10px">
+        <img [src]="imagePath || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+          alt="Photo of a Shiba Inu" style="width:100%;border-radius: 10px;">
+      </div>
+      <div class="w3-row">
+        <div class="w3-half w3-container" style="width:50% ; margin:0px">
+          <div class="w3-row">
+            <div class="w3-half w3-container" style="width:20% ; margin:0px">
+              <mat-icon>monetization_on</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:70% ; margin:0px">
+              <p style="margin:0px">Precio</p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-half w3-container" style="width:50% ">
+          <p style="margin:0px">S/.{{data.sale}}.00</p>
+        </div>
+      </div>
+      <div class="w3-row">
+        <div class="w3-half w3-container" style="width:50% ; margin:0px">
+          <div class="w3-row">
+            <div class="w3-half w3-container" style="width:20% ; margin:0px">
+              <mat-icon>list_all</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:70% ; margin:0px">
+              <p style="margin:0px">Stock</p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-half w3-container" style="width:50% ">
+          <p style="margin:0px">{{data.stock}}</p>
+        </div>
+      </div>
+      <div class="w3-row">
+        <div class="w3-half w3-container" style="width:50% ; margin:0px">
+          <div class="w3-row">
+            <div class="w3-half w3-container" style="width:20% ; margin:0px">
+              <mat-icon>category</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:70% ; margin:0px">
+              <p style="margin:0px">Categoria</p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-half w3-container" style="width:50% ">
+          <p style="margin:0px">{{data.category}}</p>
+        </div>
+      </div>
+      <div class="w3-row">
+        <div class="w3-half w3-container" style="width:50% ; margin:0px">
+          <div class="w3-row">
+            <div class="w3-half w3-container" style="width:20% ; margin:0px">
+              <mat-icon>location_on</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:70% ; margin:0px">
+              <p style="margin:0px">Ubicacion</p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-half w3-container" style="width:50% ">
+          <p style="margin:0px">{{data.warehouse}}</p>
+        </div>
+      </div>
+      <div class="w3-margin">
+        <mat-form-field class="w3-block">
+          <input matInput placeholder="Cantidad" value=1 type="number" [formControl]="cantidad" class="form-control">
+        </mat-form-field>
+      </div>
+      <div class="w3-margin">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Aplicar Promocion
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="w3-row">
+              <div class="w3-third w3-container">
+                <mat-form-field class="w3-block">
+                  <input matInput style="width:33%" placeholder="Soles" type="number">
+                </mat-form-field>
+              </div>
+              <div class="w3-third w3-container">
+                <h2 style="width:33%">=</h2>
+              </div>
+              <div class="w3-third w3-container">
+                <mat-form-field class="w3-block">
+                  <input matInput style="width:33%" placeholder="Porcentaje" type="number">
+                </mat-form-field>
+              </div>
+            </div>
+            <button mat-raised-button color="primary" class="w3-block">Aplicar</button>
+          </mat-expansion-panel>
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Aplicar Descuento
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="w3-row">
+              <div class="w3-third w3-container">
+                <mat-form-field class="w3-block">
+                  <input matInput style="width:33%" placeholder="Soles" type="number">
+                </mat-form-field>
+              </div>
+              <div class="w3-third w3-container">
+                <h2 style="width:33%">=</h2>
+              </div>
+              <div class="w3-third w3-container">
+                <mat-form-field class="w3-block">
+                  <input matInput style="width:33%" placeholder="Porcentaje" type="number">
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="w3-margin">
+    <button mat-raised-button color="primary" class="w3-block">Agregar al carrito (S/. {{  total }} )</button>
+  </div>
 </div>
