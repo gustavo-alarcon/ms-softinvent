@@ -22,6 +22,8 @@ import { MsUsersComponent } from '../main/ms-config/ms-config-accounts/ms-sidena
 import { MsPermitsComponent } from '../main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
 import { MsConfigAdminComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
 import { MsConfigStaffComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
+import { MsTicket2ProductSearchComponent } from '../ms-ticket2/ms-ticker2-stepper/ms-ticket2-product-search/ms-ticket2-product-search.component';
+
 const routes: Routes = [
   {
     path: 'welcome', component: WelcomeComponent,
@@ -85,6 +87,9 @@ const routes: Routes = [
       },
       {
         path: 'historial', component: HistorialComponent
+      },
+      {
+        path: 'dashboard', component: MsTicket2ProductSearchComponent
       }
 
     ]

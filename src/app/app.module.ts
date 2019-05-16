@@ -110,6 +110,10 @@ import { MsSidenavConfigNotificationsComponent } from './main/ms-config/ms-confi
 import { MsConfigAdminComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
 import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MsTicket2Component } from './ms-ticket2/ms-ticket2.component';
+import { MsTicker2StepperComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticker2-stepper.component';
+import { MsTicket2ProductSearchComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticket2-product-search/ms-ticket2-product-search.component';
+
 
 
 
@@ -159,7 +163,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MsTicketDialogProductDescriptionComponent,
     MsTicketDialogProductMovementComponent,
     MsTicketConfirmComponent,
-    MsTicketDeleteMovementComponent
+    MsTicketDeleteMovementComponent,
     MsConfigComponent,
     MsConfigAccountsComponent,
     MsSidenavConfigAccountsComponent,
@@ -168,7 +172,10 @@ import { MatTabsModule } from '@angular/material/tabs';
     MsConfigNotificationsComponent,
     MsSidenavConfigNotificationsComponent,
     MsConfigAdminComponent,
-    MsConfigStaffComponent
+    MsConfigStaffComponent,
+    MsTicket2Component,
+    MsTicker2StepperComponent,
+    MsTicket2ProductSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -205,7 +212,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRadioModule,
-    MatCardModule
+    MatCardModule,
     MatTabsModule
 
   ],

@@ -6,7 +6,7 @@ export class SidenavService {
   public sidenavAccountsToggle: boolean = true;
   public lastLinkAccounts: string = 'list';
   public lastLinkNotification: string = 'administrator';
-  public sidenavNotificationToggle: boolean = false;
+  public sidenavNotificationsToggle: boolean = false;
   constructor() { }
   sidenavAll(): boolean {
     this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
