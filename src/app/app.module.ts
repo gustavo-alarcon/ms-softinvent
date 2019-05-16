@@ -218,9 +218,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatNativeDateModule,
     MatTabsModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
 
-    MatCardModule,
+    MatCardModule
   ],
   entryComponents: [
     CrearAlmacenComponent,

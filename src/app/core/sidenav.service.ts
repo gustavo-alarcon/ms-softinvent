@@ -12,8 +12,8 @@ export class SidenavService {
   
   constructor() { }
 
-  *  return boolean because use it to activate the sidenav
-  }
+  // return boolean because use it to activate the sidenav
+  
  
   /** Toggle to Sidenav Accounts */
   sidenavUsuarios(): boolean {

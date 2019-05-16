@@ -100,7 +100,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'kardex', component: KardexComponent
+        path: 'kardex', component: MsTicketComponent
       },
       {
         path: 'stock', component: StockComponent
