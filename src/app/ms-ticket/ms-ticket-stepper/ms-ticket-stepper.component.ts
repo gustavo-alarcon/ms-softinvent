@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ms-ticket-stepper',
@@ -7,7 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MsTicketStepperComponent implements OnInit {
 
-  constructor() { }
+  links = [
+    { name: 'Productos', icon: 'shopping_basket', route: 'step-one' },
+    { name: 'Información', icon: 'assignment', route: 'step-two' },
+    { name: 'Listo', icon: 'check_circle', route: 'step-three' }
+  ];
+
+  activeLink: object;
+  
+  constructor(
+    private router: Router
+  ) {
+
+    switch (this.router.url) {
+      case '/main/ticket/step-one':
+        this.activeLink = this.links[0];
+        break;
+      
+      case '/main/ticket/step-two':
+        this.activeLink = this.links[1];
+        break;
+
+      case '/main/ticket/step-three':
+        this.activeLink = this.links[2];
+        break;
+    
+      default:
+        this.activeLink = this.links[0];
+        break;
+    }
+  }
 
   ngOnInit() {
   }

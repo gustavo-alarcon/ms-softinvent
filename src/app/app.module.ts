@@ -55,6 +55,15 @@ import { DetallesTransferenciaComponent } from './historial/detalles-transferenc
 import { DetallesEntradaComponent } from './historial/detalles-entrada/detalles-entrada.component';
 import { DetallesAentradaComponent } from './historial/detalles-aentrada/detalles-aentrada.component';
 import { DetallesAsalidaComponent } from './historial/detalles-asalida/detalles-asalida.component';
+import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/extender-correlativo.component';
+import { MsToolbarComponent } from './main/ms-toolbar/ms-toolbar.component';
+import { MsSidenavMenuComponent } from './main/ms-sidenav-menu/ms-sidenav-menu.component';
+import { MsTicketComponent } from './ms-ticket/ms-ticket.component';
+import { MsTicketStepperComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-stepper.component';
+import { MsSidenavTicketsProductsComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-sidenav-tickets-products.component';
+import { MsTicketStepOneComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-step-one.component';
+import { MsTicketStepTwoComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
+import { MsTicketStepThreeComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
 
 
 import { MsTicketComponent } from './ms-ticket/ms-ticket.component';
@@ -112,6 +121,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -149,7 +159,6 @@ import { MatCardModule } from '@angular/material/card';
     DetallesTransferenciaComponent,
     DetallesEntradaComponent,
     DetallesAentradaComponent,
-    DetallesAsalidaComponent,
     MsConfigComponent,
     MsConfigAccountsComponent,
     MsSidenavConfigAccountsComponent,
@@ -159,15 +168,20 @@ import { MatCardModule } from '@angular/material/card';
     MsSidenavConfigNotificationsComponent,
     MsConfigAdminComponent,
     MsConfigStaffComponent
-    MsSidenavNotificationsComponent,
-    MsTicketComponent,
-    MsTicketStepperComponent,
     MsTicketProductSearchComponent,
     MsTicketSidenavTempComponent,
     MsTicketDialogProductDescriptionComponent,
     MsTicketDialogProductMovementComponent,
     MsTicketConfirmComponent,
     MsTicketDeleteMovementComponent
+    MsToolbarComponent,
+    MsSidenavMenuComponent,
+    MsTicketComponent,
+    MsTicketStepperComponent,
+    MsSidenavTicketsProductsComponent,
+    MsTicketStepOneComponent,
+    MsTicketStepTwoComponent,
+    MsTicketStepThreeComponent
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,10 @@ import { MsConfigAdminComponent } from '../main/ms-config/ms-config-notification
 import { MsConfigStaffComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
 import { MsTicketProductSearchComponent } from '../ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
 import { MsSidenavNotificationsComponent } from '../ms-sidenav-notifications/ms-sidenav-notifications.component';
+import { MsTicketComponent } from '../ms-ticket/ms-ticket.component';
+import { MsTicketStepOneComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-step-one.component';
+import { MsTicketStepTwoComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
+import { MsTicketStepThreeComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
 
 const routes: Routes = [
   {
@@ -80,6 +84,24 @@ const routes: Routes = [
       },
       {
         path: 'kardex', component: MsTicketProductSearchComponent
+        path: 'ticket', component: MsTicketComponent,
+        children: [
+          {
+            path: '', component: MsTicketStepOneComponent
+          },
+          {
+            path: 'step-one', component: MsTicketStepOneComponent
+          },
+          {
+            path: 'step-two', component: MsTicketStepTwoComponent
+          },
+          {
+            path: 'step-three', component: MsTicketStepThreeComponent
+          }
+        ]
+      },
+      {
+        path: 'kardex', component: KardexComponent
       },
       {
         path: 'stock', component: StockComponent

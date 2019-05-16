@@ -1,0 +1,55 @@
+<mat-toolbar class="mat-elevation-z4 ms-color-b-1">
+  <ng-container>
+    <button mat-raised-button class="ms-color-action-3 w3-margin-right" (click)="toggleSideMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </ng-container>
+  <ng-container>
+    <img src="../../assets/images/logo-softinvent-horizontal-white.png" alt="logo softinvent" style="height:70%">
+  </ng-container>
+  <span class="ms-fill"></span>
+  <div style="margin-right:1em">
+    <button mat-icon-button>
+      <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+    </button>
+  </div>
+  <div class="w3-hide-small" *ngIf="auth.userInvent">
+    <button mat-raised-button class="ms-font-3 ms-color-action-3"
+      style="font-size:0.8em; border-radius:15px; color:whitesmoke" [matMenuTriggerFor]="menu">{{auth.userInvent.name}},
+      {{auth.userInvent.lastname}} <mat-icon>keyboard_arrow_down</mat-icon></button>
+    <mat-menu #menu="matMenu" class="ms-color-b-2">
+      <button mat-menu-item color="accent" class="ms-font-poppins" routerLink="configuracion">
+        <mat-icon>settings_box</mat-icon> Configuración
+      </button>
+      <button mat-menu-item color="accent" class="ms-font-poppins" (click)="auth.signOut()">
+        <mat-icon>exit_to_app</mat-icon> Cerrar sesión
+      </button>
+      <button mat-menu-item color="accent" class="ms-font-poppins">
+        <mat-icon>help_box</mat-icon> Ayuda
+      </button>
+      <button mat-menu-item color="accent" class="w3-small ms-font-poppins" disabled>version 1.0b</button>
+    </mat-menu>
+  </div>
+  <div class="w3-hide-large w3-hide-medium">
+    <button mat-icon-button color="primary" style="font-size:0.8em; border-radius:15px"
+      [matMenuTriggerFor]="menuResponsive">
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #menuResponsive="matMenu" class="ms-color-b-2">
+      <button mat-menu-item class="ms-font-poppins w3-border-bottom" style="margin-top:0px" disabled>
+        <mat-icon>account_circle</mat-icon>{{(auth.userInvent.name === 'undefined')? '...':auth.userInvent.name}},
+        {{(auth.userInvent.lastname === 'undefined')? '...':auth.userInvent.lastname}}
+      </button>
+      <button mat-menu-item class="ms-font-poppins" routerLink="configuracion">
+        <mat-icon>settings_box</mat-icon> Configuración
+      </button>
+      <button mat-menu-item class="ms-font-poppins" (click)="auth.signOut()">
+        <mat-icon>exit_to_app</mat-icon> Cerrar sesión
+      </button>
+      <button mat-menu-item class="ms-font-poppins">
+        <mat-icon>help_box</mat-icon> Ayuda
+      </button>
+      <button mat-menu-item class="w3-small ms-font-poppins" disabled>version 1.1b</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

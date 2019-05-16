@@ -1,0 +1,22 @@
+<mat-sidenav-container style="height:75vh">
+  <mat-sidenav mode="side" #sidenavLarge [(opened)]="sidenavTickets" class="ms-color-b-2">
+    <mat-toolbar>Tickets abiertos</mat-toolbar>
+    <button mat-button class="w3-block" style="padding-top:0.5em; text-align: left"
+      *ngFor="let cart of ticketsStateManagement; let i = index">
+      <mat-icon class="ms-color-icons" style="vertical-align: text-bottom">receipt</mat-icon> #{{ i + 1 | number: '2.'}}
+    </button><br>
+  </mat-sidenav>
+
+  <mat-sidenav mode="side" position="end" #sidenavLarge [(opened)]="sidenavTickets" class="ms-color-b-2">
+    <mat-toolbar><mat-icon style="vertical-align:middle" class="w3-margin-right">shopping_cart</mat-icon> Lista</mat-toolbar>
+    <button mat-button class="w3-block" style="padding-top:0.5em; text-align: left"
+      *ngFor="let cart of ticketsStateManagement; let i = index">
+      <mat-icon class="ms-color-icons" style="vertical-align: text-bottom">shopping_cart</mat-icon> Producto {{ i + 1 | number: '2.'}}
+    </button><br>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="ms-color-b-bg">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
