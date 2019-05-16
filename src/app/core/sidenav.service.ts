@@ -7,6 +7,7 @@ export class SidenavService {
   public sidenavAccountsToggle: boolean = true;
   public lastLinkAccounts: string = 'list';
   public lastLinkNotification: string = 'administrator';
+  public sidenavNotificationsToggle: boolean = false;
   
   constructor() { }
 
@@ -15,7 +16,7 @@ export class SidenavService {
     this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
     this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
     return (true);
-  public sidenavNotificationsToggle: boolean = true;
+ 
   }
  
   /** Toggle to Sidenav Accounts */
