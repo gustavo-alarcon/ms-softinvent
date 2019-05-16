@@ -83,7 +83,6 @@ const routes: Routes = [
         path: 'registrar', component: RegistrarComponent
       },
       {
-        path: 'kardex', component: MsTicketProductSearchComponent
         path: 'ticket', component: MsTicketComponent,
         children: [
           {
