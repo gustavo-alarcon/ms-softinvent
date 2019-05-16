@@ -13,7 +13,7 @@
     <button mat-raised-button class="ms-font-3 ms-color-action-3" style="font-size:0.8em; border-radius:15px; color:whitesmoke" [matMenuTriggerFor]="menu">{{auth.userInvent.name}}, {{auth.userInvent.lastname}} <mat-icon>keyboard_arrow_down</mat-icon></button>
     <!--button mat-stroked-button class="ms-font-3" color="primary" style="font-size:0.8em; border-radius:15px" [matMenuTriggerFor]="menu">{{(userInfo.name === 'undefined')? '...':userInfo.name}}, {{(userInfo.lastname === 'undefined')? '...':userInfo.lastname}} <mat-icon>keyboard_arrow_down</mat-icon></button-->
     <mat-menu #menu="matMenu" class="ms-color-b-2">
-      <button mat-menu-item color="accent" class="ms-font-poppins" routerLink="ms-config"><mat-icon>settings_box</mat-icon> Configuración</button>
+      <button mat-menu-item color="accent" class="ms-font-poppins" routerLink="config"><mat-icon>settings_box</mat-icon> Configuración</button>
       <button mat-menu-item color="accent" class="ms-font-poppins" (click)="auth.signOut()"><mat-icon>exit_to_app</mat-icon> Cerrar sesión</button>
       <button mat-menu-item color="accent" class="ms-font-poppins"><mat-icon>help_box</mat-icon> Ayuda</button>
       <button mat-menu-item color="accent" class="w3-small ms-font-poppins" disabled>version 1.0b</button>
@@ -23,7 +23,7 @@
     <button mat-icon-button color="primary" style="font-size:0.8em; border-radius:15px" [matMenuTriggerFor]="menuResponsive"><mat-icon>keyboard_arrow_down</mat-icon></button>
     <mat-menu #menuResponsive="matMenu" class="ms-color-b-2">
       <button mat-menu-item class="ms-font-poppins w3-border-bottom" style="margin-top:0px" disabled><mat-icon>account_circle</mat-icon>{{(auth.userInvent.name === 'undefined')? '...':auth.userInvent.name}}, {{(auth.userInvent.lastname === 'undefined')? '...':auth.userInvent.lastname}}</button>
-      <button mat-menu-item class="ms-font-poppins" routerLink="ms-config"><mat-icon>settings_box</mat-icon> Configuración</button>
+      <button mat-menu-item class="ms-font-poppins" routerLink="config"><mat-icon>settings_box</mat-icon> Configuración</button>
       <button mat-menu-item class="ms-font-poppins" (click)="auth.signOut()"><mat-icon>exit_to_app</mat-icon> Cerrar sesión</button>
       <button mat-menu-item class="ms-font-poppins"><mat-icon>help_box</mat-icon> Ayuda</button>
       <button mat-menu-item class="w3-small ms-font-poppins" disabled>version 1.1b</button>
