@@ -5,37 +5,38 @@
     </div>
     <div class="w3-col s12 m10 l10" style="min-height:87.5vh">
       <div>
-        <h2 class="ms-font-rubik w3-center" style="margin: 0px">
+        <h2 class="ms-font-rubik w3-left" style="width:80%; margin: 0px">
           <mat-icon style="vertical-align:middle;font-size: 30px; width:30px; height: 30px" class="ms-color-icons">
-            shopping_basket</mat-icon> LISTA DE PRODUCTOS #
+            shopping_basket</mat-icon> LISTA #
         </h2>
       </div>
       <div>
-        <button mat-mini-fab color class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em;">
-          <mat-icon>bookmark</mat-icon>
+        <button mat-raised-button class="ms-color-action-3">
+          <mat-icon>receipt</mat-icon>
         </button>
       </div>
 
       <div>
         <div class="w3-section w3-margin-left w3-margin-right animated fadeInUp delay-2">
-          <div class="row">
+          <div class="col">
             <div class="w3-container w3-center">
+              <h3 class="mat-headline w3-left">Detalle</h3>
 
-              <div class="w3-half">
-                <div class="w3-container w3-center">
-                  <mat-form-field color="accent" style="width:200px; margin:0em 0.2em 1em 0.2em">
-                    <mat-select placeholder="Comprobante" [formControl]="selectedType">
-                      <mat-option value="boleta">Boleta</mat-option>
-                      <mat-option value="factura">Factura</mat-option>
-                      <mat-option value="proforma">Proforma</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+              <div class="w3-container w3-center">
+                <mat-form-field color="accent" style="width:200px; margin:0em 0.2em 1em 0.2em">
+                  <mat-select placeholder="Comprobante" [formControl]="selectedType">
+                    <mat-option value="boleta">Boleta</mat-option>
+                    <mat-option value="factura">Factura</mat-option>
+                    <mat-option value="proforma">Proforma</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
 
-              <div class="w3-half">
+
+
+              <div class="w3-row">
                 <div class="w3-container w3-center">
-                  <mat-form-field color="accent" style="width:170px; margin:0em 0.2em 1em 0.2em">
+                  <mat-form-field color="accent" style="width:150px; margin:0em 0.2em 1em 0.2em">
                     <input matInput placeholder="Cliente" [formControl]="partyFromList"
                       (input)="setPartyField($event.target.value)" [matAutocomplete]="autoParty" autocomplete="off">
                     <mat-autocomplete #autoParty="matAutocomplete" (optionSelected)="setPartyField($event.option.value)"
@@ -45,11 +46,12 @@
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
-                  <button mat-icon-button matTooltip="Agregar cliente" matTooltipPosition="below">
+                  <button style="margin:0px" mat-icon-button matTooltip="Agregar cliente" matTooltipPosition="below">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                 </div>
               </div>
+
 
             </div>
           </div>
@@ -108,31 +110,47 @@
       <!-- MOBIL VERSION -->
       <div class="w3-hide-large w3-hide-medium">
         <div class="w3-card-4">
-          <header class="w3-container w3-dark-grey">
-            <div class="w3-quarter">1</div>
-            <div class="w3-third">Nombre del producto</div>
-            <div class="w3-rest">
-              <button mat-mini-fab color class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em;">
-                <mat-icon>create</mat-icon>
-              </button>
-              <button mat-mini-fab color class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em;">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
+          <header class="w3-dark-grey" style="height:10vh">
+            <div class="w3-row w3-section" style="height:10vh">
 
+              <div class="w3-col" style="width:10%; height:7vh; align-items:center">
+                <div class="w3-medium w3-margin" style="height:7vh">1</div>
+              </div>
+
+              <div class="w3-col" style="width:50%; height:7vh; align-items:center">
+                <div class="w3-small" style="height:7vh; margin:7px">Nombre del producto silla cafe con bordes verdes y
+                  piso blanco</div>
+              </div>
+
+              <div class="w3-col" style="width:20%; height:7vh; align-items:center">
+                <div style="height:5vh">
+                  <button mat-mini-fab color class="ms-color-disabled" style="margin:10px">
+                    <mat-icon>create</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="w3-col" style="width:20%; height:7vh; align-items:center">
+                <div style="height:5vh">
+                  <button mat-mini-fab color class="ms-color-disabled" style="margin:10px">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+            </div>
           </header>
-          <div class="w3-container w3-light-blue">
+
+          <div class="w3-container w3-teal">
             <p>Detalles</p>
           </div>
+
         </div>
       </div>
 
     </div>
-
-    <div class="w3-center">
-      <button mat-raised-button class="w3-button ms-color-action-3">Generar Ticket</button>
-    </div>
-
-
+  </div>
+  <div class="w3-container w3-center">
+    <button mat-raised-button class="w3-button ms-color-action-3">Generar Ticket</button>
   </div>
 </div>

@@ -4,11 +4,11 @@ import { MatDialog, MatBottomSheet, MatTableDataSource, MatPaginator, MatSort } 
 import { DatabaseService } from 'src/app/core/database.service';
 
 @Component({
-  selector: 'app-ms-ticket2-product-search',
-  templateUrl: './ms-ticket2-product-search.component.html',
+  selector: 'app-ms-ticket2-lista-detalle',
+  templateUrl: './ms-ticket2-lista-detalle.component.html',
   styles: []
 })
-export class MsTicket2ProductSearchComponent implements OnInit {
+export class MsTicket2ListaDetalleComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
   displayedColumns: string[] = ['name', 'stock', 'sale', 'warehouse'];
@@ -19,7 +19,7 @@ export class MsTicket2ProductSearchComponent implements OnInit {
   description: string;
   name: string;
   sale: string;
-  constructor(
+  constructor( 
     public dbs: DatabaseService,
     private dialog: MatDialog,
     private bottomSheet: MatBottomSheet

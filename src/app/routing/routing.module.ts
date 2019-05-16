@@ -22,7 +22,7 @@ import { MsUsersComponent } from '../main/ms-config/ms-config-accounts/ms-sidena
 import { MsPermitsComponent } from '../main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
 import { MsConfigAdminComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
 import { MsConfigStaffComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
-import { MsTicket2ProductSearchComponent } from '../ms-ticket2/ms-ticker2-stepper/ms-ticket2-product-search/ms-ticket2-product-search.component';
+import { MsTicket2ListaDetalleComponent } from '../ms-ticket2/ms-ticker2-stepper/ms-ticket2-lista-detalle/ms-ticket2-lista-detalle.component';
 
 const routes: Routes = [
   {
@@ -89,7 +89,7 @@ const routes: Routes = [
         path: 'historial', component: HistorialComponent
       },
       {
-        path: 'dashboard', component: MsTicket2ProductSearchComponent
+        path: 'dashboard', component: MsTicket2ListaDetalleComponent
       }
 
     ]

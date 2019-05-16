@@ -112,7 +112,7 @@ import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications
 import { MatTabsModule } from '@angular/material/tabs';
 import { MsTicket2Component } from './ms-ticket2/ms-ticket2.component';
 import { MsTicker2StepperComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticker2-stepper.component';
-import { MsTicket2ProductSearchComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticket2-product-search/ms-ticket2-product-search.component';
+import { MsTicket2ListaDetalleComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticket2-lista-detalle/ms-ticket2-lista-detalle.component';
 
 
 
@@ -175,7 +175,7 @@ import { MsTicket2ProductSearchComponent } from './ms-ticket2/ms-ticker2-stepper
     MsConfigStaffComponent,
     MsTicket2Component,
     MsTicker2StepperComponent,
-    MsTicket2ProductSearchComponent
+    MsTicket2ListaDetalleComponent
   ],
   imports: [
     BrowserModule,
