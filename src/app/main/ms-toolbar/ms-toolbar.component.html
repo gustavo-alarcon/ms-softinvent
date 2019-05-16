@@ -18,7 +18,7 @@
       style="font-size:0.8em; border-radius:15px; color:whitesmoke" [matMenuTriggerFor]="menu">{{auth.userInvent.name}},
       {{auth.userInvent.lastname}} <mat-icon>keyboard_arrow_down</mat-icon></button>
     <mat-menu #menu="matMenu" class="ms-color-b-2">
-      <button mat-menu-item color="accent" class="ms-font-poppins" routerLink="configuracion">
+      <button mat-menu-item color="accent" class="ms-font-poppins" routerLink="config">
         <mat-icon>settings_box</mat-icon> Configuración
       </button>
       <button mat-menu-item color="accent" class="ms-font-poppins" (click)="auth.signOut()">
@@ -40,7 +40,7 @@
         <mat-icon>account_circle</mat-icon>{{(auth.userInvent.name === 'undefined')? '...':auth.userInvent.name}},
         {{(auth.userInvent.lastname === 'undefined')? '...':auth.userInvent.lastname}}
       </button>
-      <button mat-menu-item class="ms-font-poppins" routerLink="configuracion">
+      <button mat-menu-item class="ms-font-poppins" routerLink="config">
         <mat-icon>settings_box</mat-icon> Configuración
       </button>
       <button mat-menu-item class="ms-font-poppins" (click)="auth.signOut()">
