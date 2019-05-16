@@ -7,7 +7,7 @@
   </ng-container>
   <span class="ms-fill"></span>
   <div style="margin-right:1em">
-      <button mat-icon-button><mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon></button>
+      <button mat-icon-button (click) = "sidenav.sidenavNotification()"><mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon></button>
   </div>
   <div class="w3-hide-small" *ngIf="auth.userInvent">
     <button mat-raised-button class="ms-font-3 ms-color-action-3" style="font-size:0.8em; border-radius:15px; color:whitesmoke" [matMenuTriggerFor]="menu">{{auth.userInvent.name}}, {{auth.userInvent.lastname}} <mat-icon>keyboard_arrow_down</mat-icon></button>
@@ -37,19 +37,20 @@
       <button mat-button class="w3-block" routerLink="dashboard" style="padding-top:0.5em; text-align: left" disabled><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">dashboard</mat-icon> Dashboard</button><br>
       <button mat-button class="w3-block" routerLink="almacenes" style="padding-top:0.5em; text-align: left"><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">store</mat-icon> Almacenes</button><br>
       <button mat-button class="w3-block" routerLink="terceros" style="padding-top:0.5em; text-align: left"><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">supervisor_account</mat-icon> Terceros</button><br>
-      <button mat-button class="w3-block" routerLink="documentos" style="padding-top:0.5em; text-align: left"><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">description</mat-icon> Documentos</button><br>
-      <button mat-button class="w3-block w3-border-bottom w3-border-pink" routerLink="productos" style="padding-top:0.5em; text-align: left"><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">shopping_basket</mat-icon> Productos</button><br>
-      <button mat-button class="w3-block" routerLink="registrar" style="padding-top:0.5em; text-align: left"><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">class</mat-icon> Registrar</button><br>
-      <button mat-button class="w3-block" routerLink="kardex" style="padding-top:0.5em; text-align: left" disabled><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">chrome_reader_mode</mat-icon> Kardex</button><br>
+      <button mat-button class="w3-block" routerLink="documentos" style="padding-top:0.5em; text-align: left"><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">description</mat-icon> Documentos</button><br>      
+      <button mat-button class="w3-block" routerLink="productos" style="padding-top:0.5em; text-align: left"><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">store</mat-icon> Productos</button><br>
+      <button mat-button class="w3-block" routerLink="kardex" style="padding-top:0.5em; text-align: left" ><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">chrome_reader_mode</mat-icon> Kardex</button><br>
       <button mat-button class="w3-block" routerLink="stock" style="padding-top:0.5em; text-align: left" ><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">list</mat-icon> Stock</button><br>
       <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em; text-align: left"><mat-icon class="ms-color-icons" style="vertical-align: text-bottom">assignment</mat-icon> Historial</button><br>
     </div>
     
+
   </mat-sidenav>
 
-  
+  <mat-sidenav-content class="ms-color-b-bg" style="position:static">
+      <app-ms-sidenav-notifications ></app-ms-sidenav-notifications>
 
-  <mat-sidenav-content class="ms-color-b-bg">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
+
 </mat-sidenav-container>

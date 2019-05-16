@@ -10,6 +10,7 @@ import { RoutingModule } from './routing/routing.module';
 import { AuthService } from './core/auth.service';
 import { environment } from 'src/environments/environment';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { SidenavService } from './core/sidenav.service';
 
 // COMPONENTS
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -52,6 +53,18 @@ import { DetallesEntradaComponent } from './historial/detalles-entrada/detalles-
 import { DetallesAentradaComponent } from './historial/detalles-aentrada/detalles-aentrada.component';
 import { DetallesAsalidaComponent } from './historial/detalles-asalida/detalles-asalida.component';
 
+
+import { MsTicketComponent } from './ms-ticket/ms-ticket.component';
+import { MsTicketStepperComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-stepper.component';
+import { MsTicketProductSearchComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
+import { MsTicketSidenavTempComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-sidenav-temp/ms-ticket-sidenav-temp.component';
+import { MsTicketDialogProductDescriptionComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
+import { MsTicketDialogProductMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
+import { MsTicketConfirmComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-confirm/ms-ticket-confirm.component';
+import { MsTicketDeleteMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-delete-movement/ms-ticket-delete-movement.component'; // npm install time-ago-pipe --save
+
+
+
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -84,6 +97,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { CorrelativePipe } from './pipes/correlative.pipe';
 import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/extender-correlativo.component';
+import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+
+
 
 @NgModule({
   declarations: [
@@ -122,7 +140,16 @@ import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/
     DetallesTransferenciaComponent,
     DetallesEntradaComponent,
     DetallesAentradaComponent,
-    DetallesAsalidaComponent
+    DetallesAsalidaComponent,
+    MsSidenavNotificationsComponent,
+    MsTicketComponent,
+    MsTicketStepperComponent,
+    MsTicketProductSearchComponent,
+    MsTicketSidenavTempComponent,
+    MsTicketDialogProductDescriptionComponent,
+    MsTicketDialogProductMovementComponent,
+    MsTicketConfirmComponent,
+    MsTicketDeleteMovementComponent
   ],
   imports: [
     BrowserModule,
@@ -157,11 +184,12 @@ import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/
     MatSelectModule,
     MatAutocompleteModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatRadioModule,
+    MatCardModule
 
-    
   ],
-  entryComponents:[
+  entryComponents: [
     CrearAlmacenComponent,
     EditarAlmacenComponent,
     InfoAlmacenComponent,
@@ -183,9 +211,14 @@ import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/
     DetallesAsalidaComponent,
     DetallesAentradaComponent,
     DetallesTransferenciaComponent,
-    DetallesEntradaComponent
+    DetallesEntradaComponent,
+    MsTicketDialogProductDescriptionComponent,
+    MsTicketDialogProductMovementComponent
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    SidenavService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

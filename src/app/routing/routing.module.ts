@@ -13,7 +13,8 @@ import { RegistrarComponent } from '../registrar/registrar.component';
 import { StockComponent } from '../stock/stock.component';
 import { KardexComponent } from '../kardex/kardex.component';
 import { HistorialComponent } from '../historial/historial.component';
-
+import { MsTicketProductSearchComponent } from '../ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
+import { MsSidenavNotificationsComponent } from '../ms-sidenav-notifications/ms-sidenav-notifications.component';
 const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent,
     children: [
@@ -43,7 +44,7 @@ const routes: Routes = [
         path: 'registrar', component: RegistrarComponent
       },
       {
-        path: 'kardex', component: KardexComponent
+        path: 'kardex', component: MsTicketProductSearchComponent
       },
       {
         path: 'stock', component: StockComponent
