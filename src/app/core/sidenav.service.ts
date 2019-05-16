@@ -4,17 +4,50 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SidenavService {
-
-  public sidenavNotificationToggle: boolean = false;
-
-  public temp: string = 'Usuarios';
+  
+  public sidenavAccountsToggle: boolean = true;
+  public sidenavNotificationsToggle: boolean = true;
+  public lastLinkAccounts: string = 'list';
+  public lastLinkNotification: string = 'administrator';
+  
   constructor() { }
- /**
-  *  return boolean because use it to activate the sidenav
-  *  Toggle to Sidenav System */
- sidenavNotification(): boolean {
-    this.sidenavNotificationToggle = !this.sidenavNotificationToggle;
-    return (this.sidenavNotificationToggle);
+
+  /*Al clickear abre el componente y si se vuelve a clickear esconde el componente, se usa en los botones del menu de configuracion*/
+  sidenavAll(): boolean {
+    this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
+    this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
+    return (true);
+  }
+ 
+  /** Toggle to Sidenav Accounts */
+  sidenavUsuarios(): boolean {
+    this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
+    return (this.sidenavAccountsToggle);
+  }
+/** Toggle to Sidenav Notifications */
+  sidenavNotificaciones(): boolean {
+    this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
+    return (this.sidenavNotificationsToggle);
+  }
+  /** Save Account route */
+  saveLinkAccount(route) {
+    this.lastLinkAccounts = route;
+  }
+  
+  /** Save Notification route */
+  saveLinkNotification(route) {
+    this.lastLinkNotification = route;
+  }
+  /** Get the last route with the parameter root
+   * root {stirng} : Root name of the Nav Tab
+   */
+  getlastLink(root): string {
+    if (root == 'Cuentas') {
+      return this.lastLinkAccounts;
+    }
+    if (root == 'Notificaciones') {
+      return this.lastLinkNotification;
+    }
   }
 
 }

@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RoutingModule } from './routing/routing.module';
 
+// PIPES
+import { CorrelativePipe } from './pipes/correlative.pipe';
+
 // SERVICES
 import { AuthService } from './core/auth.service';
 import { environment } from 'src/environments/environment';
@@ -62,8 +65,18 @@ import { MsTicketDialogProductDescriptionComponent } from './ms-ticket/ms-ticket
 import { MsTicketDialogProductMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
 import { MsTicketConfirmComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-confirm/ms-ticket-confirm.component';
 import { MsTicketDeleteMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-delete-movement/ms-ticket-delete-movement.component'; // npm install time-ago-pipe --save
+import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/extender-correlativo.component';
 
-
+import { MsConfigComponent } from './main/ms-config/ms-config.component';
+import { MsConfigAccountsComponent } from './main/ms-config/ms-config-accounts/ms-config-accounts.component';
+import { MsSidenavConfigAccountsComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-sidenav-config-accounts.component';
+import { MsPermitsComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
+import { MsUsersComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-users/ms-users.component';
+import { MsConfigNotificationsComponent } from './main/ms-config/ms-config-notifications/ms-config-notifications.component';
+import { MsSidenavConfigNotificationsComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-sidenav-config-notifications.component';
+import { MsConfigAdminComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
+import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
+import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
 
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
@@ -95,13 +108,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-import { CorrelativePipe } from './pipes/correlative.pipe';
-import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/extender-correlativo.component';
-import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-
-
 
 @NgModule({
   declarations: [
@@ -141,6 +150,15 @@ import { MatCardModule } from '@angular/material/card';
     DetallesEntradaComponent,
     DetallesAentradaComponent,
     DetallesAsalidaComponent,
+    MsConfigComponent,
+    MsConfigAccountsComponent,
+    MsSidenavConfigAccountsComponent,
+    MsPermitsComponent,
+    MsUsersComponent,
+    MsConfigNotificationsComponent,
+    MsSidenavConfigNotificationsComponent,
+    MsConfigAdminComponent,
+    MsConfigStaffComponent
     MsSidenavNotificationsComponent,
     MsTicketComponent,
     MsTicketStepperComponent,
@@ -185,9 +203,9 @@ import { MatCardModule } from '@angular/material/card';
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule
     MatRadioModule,
     MatCardModule
-
   ],
   entryComponents: [
     CrearAlmacenComponent,
