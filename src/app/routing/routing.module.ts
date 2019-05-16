@@ -35,7 +35,7 @@ const routes: Routes = [
     children: [
 
       {
-        path: 'ms-config', component: MsConfigComponent,
+        path: 'config', component: MsConfigComponent,
         children: [
           {
             path: 'config-accounts', component: MsConfigAccountsComponent,
