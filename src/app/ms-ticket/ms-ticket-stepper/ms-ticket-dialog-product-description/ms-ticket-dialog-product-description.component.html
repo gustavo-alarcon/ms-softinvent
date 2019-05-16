@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Producto: {{data.description}}</h1>
+<table cellspacing="0" style=" width: 100%;">
+  <tr>
+    <td>
+      <img style="margin:10px auto; display:block"
+        [src]="imageSrc ||  'https://banner2.kisspng.com/20180615/rtc/kisspng-avatar-user-profile-male-logo-profile-icon-5b238cb002ed52.870627731529056432012.jpg'"
+        width="200px" height="200px" />
+    </td>
+    <td>
+      <div style="margin:30px;">{{data.description}}.</div>
+    </td>
+  </tr>
+</table>

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SidenavService {
-
+  
   public sidenavAccountsToggle: boolean = true;
   public sidenavNotificationsToggle: boolean = true;
   public lastLinkAccounts: string = 'list';

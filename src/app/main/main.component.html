@@ -7,7 +7,7 @@
   </ng-container>
   <span class="ms-fill"></span>
   <div style="margin-right:1em">
-      <button mat-icon-button><mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon></button>
+      <button mat-icon-button (click) = "sidenav.sidenavNotification()"><mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon></button>
   </div>
   <div class="w3-hide-small" *ngIf="auth.userInvent">
     <button mat-raised-button class="ms-font-3 ms-color-action-3" style="font-size:0.8em; border-radius:15px; color:whitesmoke" [matMenuTriggerFor]="menu">{{auth.userInvent.name}}, {{auth.userInvent.lastname}} <mat-icon>keyboard_arrow_down</mat-icon></button>
@@ -55,12 +55,12 @@
       <button mat-button class="w3-block" routerLink="stock" style="padding-top:0.5em"><mat-icon class="ms-color-icons">list</mat-icon></button><br>
       <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em"><mat-icon class="ms-color-icons">assignment</mat-icon></button><br>
     </div>
-    
   </mat-sidenav>
 
-  
+  <mat-sidenav-content class="ms-color-b-bg" style="position:static">
+      <app-ms-sidenav-notifications ></app-ms-sidenav-notifications>
 
-  <mat-sidenav-content class="ms-color-b-bg">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
+
 </mat-sidenav-container>

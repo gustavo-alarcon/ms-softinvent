@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from "@angular/fire/firestore";
-import { Observable, of, BehaviorSubject} from "rxjs";
+import { Observable, of, BehaviorSubject } from "rxjs";
 import { AuthService } from "./auth.service";
 import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
@@ -69,8 +69,6 @@ export class DatabaseService {
   public dataCompany = new BehaviorSubject<any>([]);
   currentDataCompany = this.dataCompany.asObservable();
 
-
-  
 
   /*---------------- WAREHOUSES DATA --------------------- */
 
@@ -167,7 +165,7 @@ export class DatabaseService {
     private afs: AngularFirestore,
     public auth: AuthService,
     public snackbar: MatSnackBar
-  ) { 
+  ) {
 
     this.getConfig();
     this.getWarehouses();
@@ -180,57 +178,57 @@ export class DatabaseService {
     this.getProducts();
 
     this.dataDocumentToSet.next(this.documentToSet);
-    
-    
+
+
   }
 
   /*---------------- APP CONFIGURATION --------------------- */
 
   getConfig(): void {
     this.partyTypesDocument = this.afs.doc(`db/${this.auth.userInvent.db}/inventConfig/partyTypes`);
-    this.partyTypesDocument.valueChanges().subscribe( res => {
+    this.partyTypesDocument.valueChanges().subscribe(res => {
       this.partyTypes = res;
       this.dataPartyTypes.next(res);
     });
 
     this.partyDocumentTypesDocument = this.afs.doc(`db/${this.auth.userInvent.db}/inventConfig/partyDocumentTypes`);
-    this.partyDocumentTypesDocument.valueChanges().subscribe( res => {
+    this.partyDocumentTypesDocument.valueChanges().subscribe(res => {
       this.partyDocumentTypes = res;
       this.dataPartyDocumentTypes.next(res);
     });
 
     this.documentTypesDocument = this.afs.doc(`db/${this.auth.userInvent.db}/inventConfig/documentTypes`);
-    this.documentTypesDocument.valueChanges().subscribe( res => {
+    this.documentTypesDocument.valueChanges().subscribe(res => {
       this.documentTypes = res;
       this.dataDocumentTypes.next(res);
     });
 
     this.documentConfigDocument = this.afs.doc(`db/${this.auth.userInvent.db}/inventConfig/documentConfig`);
-    this.documentConfigDocument.valueChanges().subscribe( res => {
+    this.documentConfigDocument.valueChanges().subscribe(res => {
       this.documentConfig = res;
       this.dataDocumentConfig.next(res);
     });
 
     this.categoryTypesDocument = this.afs.doc(`db/${this.auth.userInvent.db}/inventConfig/categoryTypes`);
-    this.categoryTypesDocument.valueChanges().subscribe( res => {
+    this.categoryTypesDocument.valueChanges().subscribe(res => {
       this.categoryTypes = res;
       this.dataCategoryTypes.next(res);
     });
 
     this.currencyTypesDocument = this.afs.doc(`db/${this.auth.userInvent.db}/inventConfig/currencyTypes`);
-    this.currencyTypesDocument.valueChanges().subscribe( res => {
+    this.currencyTypesDocument.valueChanges().subscribe(res => {
       this.currencyTypes = res;
       this.dataCurrencyTypes.next(res);
     });
 
     this.unitTypesDocument = this.afs.doc(`db/${this.auth.userInvent.db}/inventConfig/unitTypes`);
-    this.unitTypesDocument.valueChanges().subscribe( res => {
+    this.unitTypesDocument.valueChanges().subscribe(res => {
       this.unitTypes = res;
       this.dataUnitTypes.next(res);
     });
 
     this.companyDocument = this.afs.doc(`companies/${this.auth.userInvent.company}`);
-    this.companyDocument.valueChanges().subscribe( res => {
+    this.companyDocument.valueChanges().subscribe(res => {
       this.company = res;
       this.dataCompany.next(res);
     });
@@ -242,33 +240,33 @@ export class DatabaseService {
   getWarehouses(): void {
     this.warehousesCollection = this.afs.collection(`db/${this.auth.userInvent.db}/warehouses`, ref => ref.orderBy('regDate', 'desc'));
     this.warehousesCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT
-        res.forEach((warehouse, index) => {
-          warehouse['index'] = index + 1;
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((warehouse, index) => {
+            warehouse['index'] = index + 1;
+          })
+          return res;
         })
-        return res;
-      })
-    )
-    .subscribe( res => {
-      this.warehouses = res;
-      this.dataWarehouses.next(res);
-    });
+      )
+      .subscribe(res => {
+        this.warehouses = res;
+        this.dataWarehouses.next(res);
+      });
   }
 
   deleteWarehouse(id): void {
-    this.warehousesCollection.doc(id).delete().then( () => {
+    this.warehousesCollection.doc(id).delete().then(() => {
       this.snackbar.open('Almacén borrado!', 'Cerrar', {
         duration: 6000
       });
     })
-    .catch( err => {
-      this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
-        duration: 6000
-      });
-      console.log(err);
-    })
+      .catch(err => {
+        this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
+          duration: 6000
+        });
+        console.log(err);
+      })
   }
 
   /*---------------- PARTIES --------------------- */
@@ -276,87 +274,87 @@ export class DatabaseService {
   getParties(): void {
     this.partiesCollection = this.afs.collection(`db/${this.auth.userInvent.db}/parties`, ref => ref.orderBy('regDate', 'desc'));
     this.partiesCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT
-        res.forEach((parties, index) => {
-          parties['index'] = index + 1;
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((parties, index) => {
+            parties['index'] = index + 1;
+          })
+          return res;
         })
-        return res;
-      })
-    )
-    .subscribe( res => {
-      this.parties = res;
-      this.dataParties.next(res);
-    });
+      )
+      .subscribe(res => {
+        this.parties = res;
+        this.dataParties.next(res);
+      });
   }
 
-  getPartiesCustomers(): void{
-    this.partiesCustomersCollection = this.afs.collection(`db/${this.auth.userInvent.db}/parties`, ref => ref.where('type','==','Cliente'));
+  getPartiesCustomers(): void {
+    this.partiesCustomersCollection = this.afs.collection(`db/${this.auth.userInvent.db}/parties`, ref => ref.where('type', '==', 'Cliente'));
     this.partiesCustomersCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT
-        res.forEach((partiesCustomers, index) => {
-          partiesCustomers['index'] = index + 1;
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((partiesCustomers, index) => {
+            partiesCustomers['index'] = index + 1;
+          })
+          return res;
         })
-        return res;
-      })
-    )
-    .subscribe( res => {
-      this.partiesCustomers = res;
-      this.dataPartiesCustomers.next(res);
-    });
+      )
+      .subscribe(res => {
+        this.partiesCustomers = res;
+        this.dataPartiesCustomers.next(res);
+      });
   }
 
-  getPartiesProviders(): void{
-    this.partiesProvidersCollection = this.afs.collection(`db/${this.auth.userInvent.db}/parties`, ref => ref.where('type','==','Proveedor'));
+  getPartiesProviders(): void {
+    this.partiesProvidersCollection = this.afs.collection(`db/${this.auth.userInvent.db}/parties`, ref => ref.where('type', '==', 'Proveedor'));
     this.partiesProvidersCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT
-        res.forEach((partiesProviders, index) => {
-          partiesProviders['index'] = index + 1;
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((partiesProviders, index) => {
+            partiesProviders['index'] = index + 1;
+          })
+          return res;
         })
-        return res;
-      })
-    )
-    .subscribe( res => {
-      this.partiesProviders = res;
-      this.dataPartiesProviders.next(res);
-    });
+      )
+      .subscribe(res => {
+        this.partiesProviders = res;
+        this.dataPartiesProviders.next(res);
+      });
   }
 
-  getPartiesStaff(): void{
-    this.partiesStaffCollection = this.afs.collection(`db/${this.auth.userInvent.db}/parties`, ref => ref.where('type','==','Personal'));
+  getPartiesStaff(): void {
+    this.partiesStaffCollection = this.afs.collection(`db/${this.auth.userInvent.db}/parties`, ref => ref.where('type', '==', 'Personal'));
     this.partiesStaffCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT
-        res.forEach((partiesStaff, index) => {
-          partiesStaff['index'] = index + 1;
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((partiesStaff, index) => {
+            partiesStaff['index'] = index + 1;
+          })
+          return res;
         })
-        return res;
-      })
-    )
-    .subscribe( res => {
-      this.partiesStaff = res;
-      this.dataPartiesStaff.next(res);
-    });
+      )
+      .subscribe(res => {
+        this.partiesStaff = res;
+        this.dataPartiesStaff.next(res);
+      });
   }
 
   deleteParty(id): void {
-    this.partiesCollection.doc(id).delete().then( () => {
+    this.partiesCollection.doc(id).delete().then(() => {
       this.snackbar.open('Tercero borrado!', 'Cerrar', {
         duration: 6000
       });
     })
-    .catch( err => {
-      this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
-        duration: 6000
-      });
-      console.log(err);
-    })
+      .catch(err => {
+        this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
+          duration: 6000
+        });
+        console.log(err);
+      })
   }
 
   /*---------------- DOCUMENTS --------------------- */
@@ -364,41 +362,41 @@ export class DatabaseService {
   getDocuments(): void {
     this.documentsCollection = this.afs.collection(`db/${this.auth.userInvent.db}/documents`, ref => ref.orderBy('regDate', 'desc'));
     this.documentsCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT
-        res.forEach((documents, index) => {
-          documents['index'] = index + 1;
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((documents, index) => {
+            documents['index'] = index + 1;
+          })
+          return res;
         })
-        return res;
-      })
-    )
-    .subscribe( res => {
-      this.documents = res;
-      this.dataDocuments.next(res);
-    });
+      )
+      .subscribe(res => {
+        this.documents = res;
+        this.dataDocuments.next(res);
+      });
   }
 
   getBookOfDocument(documentId) {
     this.bookCollection = this.afs.collection(`db/${this.auth.userInvent.db}/documents/${documentId}/book`, ref => ref.orderBy('correlative', 'asc'));
     this.bookCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT
-        res.forEach((documentInBook, index) => {
-          documentInBook['index'] = index + 1;
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((documentInBook, index) => {
+            documentInBook['index'] = index + 1;
+          })
+          return res;
         })
-        return res;
+      )
+      .subscribe(res => {
+        this.book = res;
+        this.dataBook.next(res);
       })
-    )
-    .subscribe( res => {
-      this.book = res;
-      this.dataBook.next(res);
-    })
     return this.bookCollection;
   }
 
-  
+
   /*
   setDocumentToUser(document): void {
 
@@ -534,18 +532,18 @@ export class DatabaseService {
   }*/
 
   deleteDocument(id): void {
-    this.documentsCollection.doc(id).delete().then( () => {
+    this.documentsCollection.doc(id).delete().then(() => {
 
       this.snackbar.open('Documento borrado!', 'Cerrar', {
         duration: 6000
       });
     })
-    .catch( err => {
-      this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
-        duration: 6000
-      });
-      console.log(err);
-    })
+      .catch(err => {
+        this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
+          duration: 6000
+        });
+        console.log(err);
+      })
   }
 
   /*---------------- PRODUCTS --------------------- */
@@ -553,30 +551,30 @@ export class DatabaseService {
   getProducts(): void {
     this.productsCollection = this.afs.collection(`db/${this.auth.userInvent.db}/products`, ref => ref.orderBy('regDate', 'desc'));
     this.productsCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT
-        res.forEach((product, index) => {
-          product['index'] = index + 1;
-        })
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((product, index) => {
+            product['index'] = index + 1;
+          })
 
-        
-        return res;
-      })
-    )
-    .subscribe( res => {
-      this.products = res;
-      this.dataProducts.next(res);
-    });
+
+          return res;
+        })
+      )
+      .subscribe(res => {
+        this.products = res;
+        this.dataProducts.next(res);
+      });
   }
 
   checkIfCategoryExist(_category): Observable<boolean> {
     return this.categoryTypesDocument.valueChanges()
       .pipe(
-        map( categories => {
+        map(categories => {
           let exist = false;
           categories['categoryTypes'].forEach(category => {
-            if(category === _category){
+            if (category === _category) {
               exist = true;
             }
           })
@@ -588,10 +586,10 @@ export class DatabaseService {
   checkIfUnitExist(_unit): Observable<boolean> {
     return this.unitTypesDocument.valueChanges()
       .pipe(
-        map( units => {
+        map(units => {
           let exist = false;
           units['unitTypes'].forEach(unit => {
-            if(unit === _unit){
+            if (unit === _unit) {
               exist = true;
             }
           })
@@ -601,17 +599,17 @@ export class DatabaseService {
   }
 
   deleteProduct(id): void {
-    this.productsCollection.doc(id).delete().then( () => {
+    this.productsCollection.doc(id).delete().then(() => {
       this.snackbar.open('Producto borrado!', 'Cerrar', {
         duration: 6000
       });
     })
-    .catch( err => {
-      this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
-        duration: 6000
-      });
-      console.log(err);
-    })
+      .catch(err => {
+        this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
+          duration: 6000
+        });
+        console.log(err);
+      })
   }
 
   /*---------------- REGISTRY --------------------- */
@@ -623,7 +621,7 @@ export class DatabaseService {
   }
 
   deleteItem(itemId): void {
-    this.documentToSet['productList'].splice(itemId,1);
+    this.documentToSet['productList'].splice(itemId, 1);
     this.documentToSet['productList'].forEach((element, i) => {
       element['index'] = i;
     })
@@ -660,28 +658,28 @@ export class DatabaseService {
     let validatedStock = true;
 
     switch (document['nature']) {
-      
+
       case 'SALIDA':
 
         this.documentToSet['vendorId'] = staff['id'];
         this.documentToSet['vendorName'] = staff['name'];
 
-        this.documentToSet['productList'].forEach( async (element, i) => {
+        this.documentToSet['productList'].forEach(async (element, i) => {
 
-          await this.productsCollection.doc(element['productId']).get().forEach( snapshot => {
-            if(snapshot.data()['stock'] >= element['quantity'] && validatedStock){
-              this.afs.firestore.runTransaction( async t => {
-                return t.get(snapshot.ref).then( doc => {
-                  t.update(snapshot.ref, {stock: doc.data().stock - element['quantity']});
+          await this.productsCollection.doc(element['productId']).get().forEach(snapshot => {
+            if (snapshot.data()['stock'] >= element['quantity'] && validatedStock) {
+              this.afs.firestore.runTransaction(async t => {
+                return t.get(snapshot.ref).then(doc => {
+                  t.update(snapshot.ref, { stock: doc.data().stock - element['quantity'] });
                 })
               })
-            }else{
+            } else {
               validatedStock = false;
               this.snackbar.open(`El stock del producto ${element['productName']} ha sido modificado y es menor a la cantidad que se pretende vender. Genere nuevamente el movimiento.`, 'Cerrar', {
                 duration: 30000
               });
             }
-            
+
           })
 
         });
@@ -691,17 +689,17 @@ export class DatabaseService {
 
       case 'AJUSTE DE SALIDA':
 
-        this.documentToSet['productList'].forEach( async (element, i) => {
+        this.documentToSet['productList'].forEach(async (element, i) => {
 
-          await this.productsCollection.doc(element['productId']).get().forEach( snapshot => {
+          await this.productsCollection.doc(element['productId']).get().forEach(snapshot => {
 
-            if(snapshot.data()['stock'] >= element['quantity'] && validatedStock){
-              this.afs.firestore.runTransaction( async t => {
-                return t.get(snapshot.ref).then( doc => {
-                  t.update(snapshot.ref, {stock: doc.data().stock - element['quantity']});
+            if (snapshot.data()['stock'] >= element['quantity'] && validatedStock) {
+              this.afs.firestore.runTransaction(async t => {
+                return t.get(snapshot.ref).then(doc => {
+                  t.update(snapshot.ref, { stock: doc.data().stock - element['quantity'] });
                 })
               })
-            }else{
+            } else {
               validatedStock = false;
               this.snackbar.open(`El stock del producto ${element['productName']} ha sido modificado y es menor a la cantidad que se pretende vender. Genere nuevamente el movimiento.`, 'Cerrar', {
                 duration: 30000
@@ -713,19 +711,19 @@ export class DatabaseService {
         });
 
         break;
-        
+
       case 'AJUSTE DE ENTRADA':
 
-        this.documentToSet['productList'].forEach( async (element, i) => {
+        this.documentToSet['productList'].forEach(async (element, i) => {
 
-          await this.productsCollection.doc(element['productId']).get().forEach( snapshot => {
-            
-              this.afs.firestore.runTransaction( async t => {
-                return t.get(snapshot.ref).then( doc => {
-                  t.update(snapshot.ref, {stock: doc.data().stock + element['quantity']});
-                })
+          await this.productsCollection.doc(element['productId']).get().forEach(snapshot => {
+
+            this.afs.firestore.runTransaction(async t => {
+              return t.get(snapshot.ref).then(doc => {
+                t.update(snapshot.ref, { stock: doc.data().stock + element['quantity'] });
               })
-            
+            })
+
           })
 
         })
@@ -734,16 +732,16 @@ export class DatabaseService {
 
       case 'ENTRADA':
 
-        this.documentToSet['productList'].forEach( async (element, i) => {
+        this.documentToSet['productList'].forEach(async (element, i) => {
 
-          await this.productsCollection.doc(element['productId']).get().forEach( snapshot => {
-            
-              this.afs.firestore.runTransaction( async t => {
-                return t.get(snapshot.ref).then( doc => {
-                  t.update(snapshot.ref, {stock: doc.data().stock + element['quantity']});
-                })
+          await this.productsCollection.doc(element['productId']).get().forEach(snapshot => {
+
+            this.afs.firestore.runTransaction(async t => {
+              return t.get(snapshot.ref).then(doc => {
+                t.update(snapshot.ref, { stock: doc.data().stock + element['quantity'] });
               })
-            
+            })
+
           })
 
         });
@@ -754,19 +752,19 @@ export class DatabaseService {
 
         this.documentToSet['warehouseDestination'] = warehouseDestination['name'];
 
-        this.documentToSet['productList'].forEach( async (element, i) => {
+        this.documentToSet['productList'].forEach(async (element, i) => {
 
-          await this.productsCollection.doc(element['productId']).get().forEach( snapshot => {
+          await this.productsCollection.doc(element['productId']).get().forEach(snapshot => {
 
-            if(snapshot.data()['stock'] >= element['quantity'] && validatedStock){
+            if (snapshot.data()['stock'] >= element['quantity'] && validatedStock) {
 
-              this.afs.firestore.runTransaction( async t => {
-                return t.get(snapshot.ref).then( doc => {
-                  t.update(snapshot.ref, {stock: doc.data().stock - element['quantity']});
+              this.afs.firestore.runTransaction(async t => {
+                return t.get(snapshot.ref).then(doc => {
+                  t.update(snapshot.ref, { stock: doc.data().stock - element['quantity'] });
                 })
               })
 
-            }else{
+            } else {
 
               validatedStock = false;
               this.snackbar.open(`El stock del producto ${element['productName']} ha sido modificado y es menor a la cantidad que se pretende vender. Genere nuevamente el movimiento.`, 'Cerrar', {
@@ -774,20 +772,20 @@ export class DatabaseService {
               });
 
             }
-            
+
           });
 
           let productExistOnDestination = false;
 
-          await this.productsCollection.get().forEach( snapshot => {
+          await this.productsCollection.get().forEach(snapshot => {
 
-            snapshot.docs.forEach( doc => {
-              
-              if(doc.data()['name'] === element['productName'] && doc.data()['warehouse'] === warehouseDestination['name']){
-                
-                this.afs.firestore.runTransaction( async t => {
-                  return t.get(doc.ref).then( doc => {
-                    t.update(doc.ref, {stock: doc.data().stock + element['quantity']});
+            snapshot.docs.forEach(doc => {
+
+              if (doc.data()['name'] === element['productName'] && doc.data()['warehouse'] === warehouseDestination['name']) {
+
+                this.afs.firestore.runTransaction(async t => {
+                  return t.get(doc.ref).then(doc => {
+                    t.update(doc.ref, { stock: doc.data().stock + element['quantity'] });
                   })
                 });
 
@@ -796,29 +794,29 @@ export class DatabaseService {
               }
 
             });
-            
+
           });
 
-          if(!productExistOnDestination){
-            this.productsCollection.doc(element['productId']).get().forEach( snapshot => {
+          if (!productExistOnDestination) {
+            this.productsCollection.doc(element['productId']).get().forEach(snapshot => {
               this.productsCollection
-              .add(snapshot.data())
-              .then( ref => {
-                ref.update({
-                  id: ref.id,
-                  initialStock: element['quantity'],
-                  stock: element['quantity'],
-                  warehouse: warehouseDestination['name'],
-                  userId: this.auth.userInvent.uid,
-                  userName: this.auth.userInvent.name + ', ' + this.auth.userInvent.lastname,
-                  regDate: Date.now()
+                .add(snapshot.data())
+                .then(ref => {
+                  ref.update({
+                    id: ref.id,
+                    initialStock: element['quantity'],
+                    stock: element['quantity'],
+                    warehouse: warehouseDestination['name'],
+                    userId: this.auth.userInvent.uid,
+                    userName: this.auth.userInvent.name + ', ' + this.auth.userInvent.lastname,
+                    regDate: Date.now()
+                  })
                 })
-              })
-              .catch( err => {
-                console.log(err);
-              })
+                .catch(err => {
+                  console.log(err);
+                })
             });
-            
+
           }
 
         });
@@ -831,51 +829,51 @@ export class DatabaseService {
     }
 
 
-    if(validatedStock){
+    if (validatedStock) {
 
       this.afs.collection(`db/${this.auth.userInvent.db}/history`)
-      .add(this.documentToSet)
-      .then( ref => {
-        ref.update({id: ref.id});
+        .add(this.documentToSet)
+        .then(ref => {
+          ref.update({ id: ref.id });
 
-        this.documentToSet = {
-          serie: '',
-          correlative: '',
-          documentName: '',
-          productList: []
-        };
-        this.dataDocumentToSet.next(this.documentToSet);
-        this.setDocLoading = false;
-        
-        this.snackbar.open('Documento GRABADO!', 'Cerrar', {
-          duration: 6000
+          this.documentToSet = {
+            serie: '',
+            correlative: '',
+            documentName: '',
+            productList: []
+          };
+          this.dataDocumentToSet.next(this.documentToSet);
+          this.setDocLoading = false;
+
+          this.snackbar.open('Documento GRABADO!', 'Cerrar', {
+            duration: 6000
+          });
+        })
+        .catch(err => {
+          this.snackbar.open('Oops!...Parece que hubo un error [Historial]', 'Cerrar', {
+            duration: 6000
+          });
+          console.log(err);
         });
-      })
-      .catch( err => {
-        this.snackbar.open('Oops!...Parece que hubo un error [Historial]', 'Cerrar', {
-          duration: 6000
-        });
-        console.log(err);
-      });
 
       //UPDATE CORRELATIVE
-      if(document['nature'] != 'ENTRADA'){
+      if (document['nature'] != 'ENTRADA') {
 
-        this.documentsCollection.doc(document['id']).get().forEach( doc => {
+        this.documentsCollection.doc(document['id']).get().forEach(doc => {
 
-          this.afs.firestore.runTransaction( async t => {
-            return t.get(doc.ref).then( doc => {
-              t.update(doc.ref, {actualCorrelative: doc.data().actualCorrelative + 1});
+          this.afs.firestore.runTransaction(async t => {
+            return t.get(doc.ref).then(doc => {
+              t.update(doc.ref, { actualCorrelative: doc.data().actualCorrelative + 1 });
             })
           });
 
         })
-        .then( () => {
-          this.snackbar.open(`${document['name']} N° ${document['actualCorrelative']} guardado en el historial`, 'Cerrar', {
-            duration: 6000
-          });
-        })
-   
+          .then(() => {
+            this.snackbar.open(`${document['name']} N° ${document['actualCorrelative']} guardado en el historial`, 'Cerrar', {
+              duration: 6000
+            });
+          })
+
         // if(this.documentAssigned){
 
         //   this.documentAssignedCollection.doc(this.documentToSet['id']).update({
@@ -900,7 +898,7 @@ export class DatabaseService {
         //     this.snackbar.open(`Documento N° ${this.documentToSet['correlative']} actualizado!`, 'Cerrar', {
         //       duration: 6000
         //     });
-            
+
         //   })
         //   .catch( err => {
         //     this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
@@ -908,9 +906,9 @@ export class DatabaseService {
         //     });
         //     console.log(err);
         //   });
-  
+
         // }else{
-  
+
         //   this.documentToSetCollection.doc(this.documentToSet['id']).update({
         //     observations: observations,
         //     partyDoc: party['docType'],
@@ -933,7 +931,7 @@ export class DatabaseService {
         //     this.snackbar.open(`Documento N° ${this.documentToSet['correlative']} actualizado!`, 'Cerrar', {
         //       duration: 6000
         //     });
-            
+
         //   })
         //   .catch( err => {
         //     this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
@@ -941,128 +939,128 @@ export class DatabaseService {
         //     });
         //     console.log(err);
         //   });
-  
+
         // }
 
       }
 
     }
-    
+
   }
 
 
   /*---------------- HISTORY --------------------- */
-  getHistory(documentNature, rangeStart, rangeEnd): void{
+  getHistory(documentNature, rangeStart, rangeEnd): void {
     this.historyCollection = this.afs.collection(`db/${this.auth.userInvent.db}/history`, ref => ref.where('regDate', '>=', rangeStart).where('regDate', '<', rangeEnd + 864E5));
     this.historyCollection.valueChanges()
-    .pipe(
-      map( res => {
-        //ADDING INDEX TO RESULT & EXCLUDING BY NATURE TYPE
-        let filteredResults = [];
-        let index = 1;
-        res.forEach(history => {
-          if(history['documentNature'] === documentNature){
-            history['index'] = index;
-            filteredResults.push(history);
-            index++;
-          }
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT & EXCLUDING BY NATURE TYPE
+          let filteredResults = [];
+          let index = 1;
+          res.forEach(history => {
+            if (history['documentNature'] === documentNature) {
+              history['index'] = index;
+              filteredResults.push(history);
+              index++;
+            }
+          });
+
+          var sortedHistory = filteredResults.sort((a, b) => b['regDate'] - a['regDate']);
+
+          return sortedHistory;
+        })
+      )
+      .subscribe(res => {
+        this.history = res;
+        this.dataHistory.next(res);
+        this.snackbar.open(`Listo!`, 'Cerrar', {
+          duration: 6000
         });
-
-        var sortedHistory = filteredResults.sort((a,b)=>b['regDate']-a['regDate']);
-
-        return sortedHistory;
-      })
-    )
-    .subscribe( res => {
-      this.history = res;
-      this.dataHistory.next(res);
-      this.snackbar.open(`Listo!`, 'Cerrar', {
-        duration: 6000
       });
-    });
   }
 
   cancelDocument(movement): void {
 
     let validatedStock = true;
 
-    this.historyCollection.doc(`${movement['id']}`).get().forEach( doc => {
+    this.historyCollection.doc(`${movement['id']}`).get().forEach(doc => {
 
-      doc.ref.update({state: 'Anulado'})
-      .then( () => {
-        this.snackbar.open(`Documento anulado!`, 'Cerrar', {
-          duration: 6000
+      doc.ref.update({ state: 'Anulado' })
+        .then(() => {
+          this.snackbar.open(`Documento anulado!`, 'Cerrar', {
+            duration: 6000
+          });
+        })
+        .catch(err => {
+          this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
+            duration: 6000
+          });
+          console.log(err);
         });
-      })
-      .catch( err => {
-        this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
-          duration: 6000
-        });
-        console.log(err);
-      });
 
-      doc.data()['productList'].forEach( product => {
+      doc.data()['productList'].forEach(product => {
 
-        this.productsCollection.doc(`${product['productId']}`).get().forEach( async doc => {
+        this.productsCollection.doc(`${product['productId']}`).get().forEach(async doc => {
 
-          if(movement['documentNature'] === 'ENTRADA' || movement['documentNature'] === 'AJUSTE DE ENTRADA'){
+          if (movement['documentNature'] === 'ENTRADA' || movement['documentNature'] === 'AJUSTE DE ENTRADA') {
 
-            this.afs.firestore.runTransaction( async t => {
-              return t.get(doc.ref).then( doc => {
-                t.update(doc.ref, {stock: doc.data()['stock'] - product['quantity']});
+            this.afs.firestore.runTransaction(async t => {
+              return t.get(doc.ref).then(doc => {
+                t.update(doc.ref, { stock: doc.data()['stock'] - product['quantity'] });
               });
             });
 
-          }else if(movement['documentNature'] === 'SALIDA' || movement['documentNature'] === 'AJUSTE DE SALIDA'){
+          } else if (movement['documentNature'] === 'SALIDA' || movement['documentNature'] === 'AJUSTE DE SALIDA') {
 
-            this.afs.firestore.runTransaction( async t => {
-              return t.get(doc.ref).then( doc => {
-                t.update(doc.ref, {stock: doc.data()['stock'] + product['quantity']});
+            this.afs.firestore.runTransaction(async t => {
+              return t.get(doc.ref).then(doc => {
+                t.update(doc.ref, { stock: doc.data()['stock'] + product['quantity'] });
               });
             });
 
-          }else if(movement['documentNature'] === 'TRANSFERENCIA'){
+          } else if (movement['documentNature'] === 'TRANSFERENCIA') {
 
             // movement['productList'].forEach( async (element, i) => {
 
-            await this.productsCollection.doc(product['productId']).get().forEach( snapshot => {
+            await this.productsCollection.doc(product['productId']).get().forEach(snapshot => {
 
-              if(snapshot.data()['stock'] >= product['quantity'] && validatedStock){
+              if (snapshot.data()['stock'] >= product['quantity'] && validatedStock) {
 
-                this.afs.firestore.runTransaction( async t => {
-                  return t.get(snapshot.ref).then( doc => {
-                    t.update(snapshot.ref, {stock: doc.data().stock + product['quantity']});
+                this.afs.firestore.runTransaction(async t => {
+                  return t.get(snapshot.ref).then(doc => {
+                    t.update(snapshot.ref, { stock: doc.data().stock + product['quantity'] });
                   })
                 })
 
               }
-              
+
             });
 
-            await this.productsCollection.get().forEach( snapshot => {
+            await this.productsCollection.get().forEach(snapshot => {
 
-              snapshot.docs.forEach( doc => {
-                
-                if(doc.data()['name'] === product['productName'] && doc.data()['warehouse'] === movement['warehouseDestination']){
-                  
-                  if(doc.data().stock >= product['quantity']){
-                    this.afs.firestore.runTransaction( async t => {
-                      return t.get(doc.ref).then( doc => {
-                        t.update(doc.ref, {stock: doc.data().stock - product['quantity']});
+              snapshot.docs.forEach(doc => {
+
+                if (doc.data()['name'] === product['productName'] && doc.data()['warehouse'] === movement['warehouseDestination']) {
+
+                  if (doc.data().stock >= product['quantity']) {
+                    this.afs.firestore.runTransaction(async t => {
+                      return t.get(doc.ref).then(doc => {
+                        t.update(doc.ref, { stock: doc.data().stock - product['quantity'] });
                       })
                     });
-                  }else{
+                  } else {
                     validatedStock = false;
                     this.snackbar.open(`El stock del producto ${product['productName']} es menor a la cantidad que se pretende restar (${doc.data().stock} - ${product['quantity']}). EL DOCUMENTO NO SE PUEDE ANULAR.`, 'Cerrar', {
                       duration: 8000
                     });
                   }
-                  
+
 
                 }
 
               });
-              
+
             });
 
             // });
@@ -1070,21 +1068,21 @@ export class DatabaseService {
           }
 
         });
-        
+
       })
 
     })
-    .then( () => {
-      this.snackbar.open('Stock reestablecido!', 'Cerrar', {
-        duration: 6000
+      .then(() => {
+        this.snackbar.open('Stock reestablecido!', 'Cerrar', {
+          duration: 6000
+        });
+      })
+      .catch(err => {
+        this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
+          duration: 6000
+        });
+        console.log(err);
       });
-    })
-    .catch( err => {
-      this.snackbar.open('Oops!...Parece que hubo un error', 'Cerrar', {
-        duration: 6000
-      });
-      console.log(err);
-    });
 
   }
 
@@ -1111,50 +1109,50 @@ export class DatabaseService {
     this.documentToSet['warehouseDestination'] = '';
 
     this.afs.collection(`db/${this.auth.userInvent.db}/history`)
-    .add(this.documentToSet)
-    .then( ref => {
-      ref.update({id: ref.id});
+      .add(this.documentToSet)
+      .then(ref => {
+        ref.update({ id: ref.id });
 
-      this.documentToSet = {
-        serie: '',
-        correlative: '',
-        documentName: '',
-        productList: []
-      };
-      this.dataDocumentToSet.next(this.documentToSet);
-      this.setDocLoading = false;
-      
-      this.snackbar.open('Documento ANULADO!', 'Cerrar', {
-        duration: 6000
+        this.documentToSet = {
+          serie: '',
+          correlative: '',
+          documentName: '',
+          productList: []
+        };
+        this.dataDocumentToSet.next(this.documentToSet);
+        this.setDocLoading = false;
+
+        this.snackbar.open('Documento ANULADO!', 'Cerrar', {
+          duration: 6000
+        });
+      })
+      .catch(err => {
+        this.snackbar.open('Oops!...Parece que hubo un error [Historial]', 'Cerrar', {
+          duration: 6000
+        });
+        console.log(err);
       });
-    })
-    .catch( err => {
-      this.snackbar.open('Oops!...Parece que hubo un error [Historial]', 'Cerrar', {
-        duration: 6000
-      });
-      console.log(err);
-    });
 
     //UPDATE CORRELATIVE
-    if(document['nature'] != 'ENTRADA'){
+    if (document['nature'] != 'ENTRADA') {
 
-      this.documentsCollection.doc(document['id']).get().forEach( doc => {
+      this.documentsCollection.doc(document['id']).get().forEach(doc => {
 
-        this.afs.firestore.runTransaction( async t => {
-          return t.get(doc.ref).then( doc => {
-            t.update(doc.ref, {actualCorrelative: doc.data().actualCorrelative + 1});
+        this.afs.firestore.runTransaction(async t => {
+          return t.get(doc.ref).then(doc => {
+            t.update(doc.ref, { actualCorrelative: doc.data().actualCorrelative + 1 });
           })
         });
 
       })
-      .then( () => {
-        this.snackbar.open(`${document['name']} N° ${document['actualCorrelative']} guardado en el historial`, 'Cerrar', {
-          duration: 6000
-        });
-      })
+        .then(() => {
+          this.snackbar.open(`${document['name']} N° ${document['actualCorrelative']} guardado en el historial`, 'Cerrar', {
+            duration: 6000
+          });
+        })
 
     }
 
   }
-  
+
 }
