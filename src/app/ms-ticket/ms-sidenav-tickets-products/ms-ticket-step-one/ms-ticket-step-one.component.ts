@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SidenavService } from 'src/app/core/sidenav.service';
 
 @Component({
   selector: 'app-ms-ticket-step-one',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MsTicketStepOneComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private sidenav: SidenavService
+  ) { }
 
   ngOnInit() {
   }

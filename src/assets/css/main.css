@@ -215,3 +215,8 @@
         width:90vw;
     }
 }
+
+.ms-step-toolbar{
+  display: grid;
+  grid-template-columns: auto 75px 75px;
+}

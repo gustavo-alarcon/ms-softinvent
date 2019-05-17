@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ticket } from '../../core/ms-types';
 import { Router } from '@angular/router';
+import { SidenavService } from 'src/app/core/sidenav.service';
 
 @Component({
   selector: 'app-ms-sidenav-tickets-products',
@@ -18,7 +19,9 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     {cart: [], customer: 'Gustavo, Alarcón'}
   ];
 
-  constructor() { }
+  constructor(
+    private sidenav: SidenavService
+  ) { }
 
   ngOnInit() {
   }

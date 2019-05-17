@@ -9,6 +9,9 @@ export class SidenavService {
   public sidenavNotificationsToggle: boolean = true;
   public lastLinkAccounts: string = 'list';
   public lastLinkNotification: string = 'administrator';
+
+  public sidenavTicketListToggle: boolean = false;
+  public sidenavProductListToggle: boolean = false;
   
   constructor() { }
 
@@ -44,6 +47,24 @@ export class SidenavService {
     if (root == 'Notificaciones') {
       return this.lastLinkNotification;
     }
+  }
+
+  /**
+   * @desc This functions toggles the sidenav ticket list menu in ticket section, step one
+   * @return { boolean } Returns the toggled state of sidenavTicketListToggle
+   */
+  sidenavTicketList(): boolean {
+    this.sidenavTicketListToggle = !this.sidenavTicketListToggle;
+    return (this.sidenavTicketListToggle);
+  }
+
+  /**
+   * @desc This functions toggles the sidenav product list menu in ticket section, step one
+   * @return { boolean } Returns the toggled state of sidenavProductListToggle
+   */
+  sidenavProductList(): boolean {
+    this.sidenavProductListToggle = !this.sidenavProductListToggle;
+    return (this.sidenavProductListToggle);
   }
 
 }
