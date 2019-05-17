@@ -105,30 +105,30 @@
             <img [src]="imagePath || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
               alt="Photo of a Shiba Inu" style="width:100%;border-top-left-radius: 5px;border-top-right-radius: 5px;">
           </div>
-          <div class="w3-row">
+          <div class="w3-row"style="align-items: center;display: flex">
             <div class="w3-half w3-container" style="width:50%;padding: 0px">
               <b>
                 <p style="margin:3px">{{prod['name']}}</p>
               </b>
             </div>
             <div class="w3-half w3-container" style="width:50% ;padding: 0px">
-              <p style="margin:3px; align-content: center"> S/.{{prod['sale']}}.00</p>
+              <p style="margin:3px; align-content: center;font-size: small"> S/.{{prod['sale']}}00.00</p>
             </div>
           </div>
-          <div class="w3-row" style="margin-top: 10px">
-            <div class="w3-half w3-container" style="width:20% ;align-self: auto;padding: 0px">
+          <div class="w3-row" style="margin-top: 10px;align-items: center;display: flex">
+            <div class="w3-half w3-container" style="width:20% ;align-self: auto;">
               <mat-icon class="ms-color-icons">category</mat-icon>
             </div>
-            <div class="w3-half w3-container" style="width:80%;padding: 0px">
-              <p style="margin:0px">{{prod['category']}}</p>
+            <div class="w3-half w3-container" style="width:80%">
+              <p style="margin:0px;font-size: small">{{prod['category']}}</p>
             </div>
           </div>
-          <div class="w3-row">
-            <div class="w3-half w3-container" style="width:20%;padding: 0px">
+          <div class="w3-row" style="align-items: center;display: flex">
+            <div class="w3-half w3-container" style="width:20%">
               <mat-icon class="ms-color-icons">place</mat-icon>
             </div>
-            <div class="w3-half w3-container" style="width:80%;padding: 0px">
-              <p style="margin:0px">{{prod['warehouse']}}</p>
+            <div class="w3-half w3-container" style="width:80%">
+              <p style="margin:0px;font-size: small;">{{prod['warehouse']}}</p>
             </div>
           </div>
         </div>
