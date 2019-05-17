@@ -8,13 +8,3 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
- 
-.ms-config-wraper{
-    display: flex;
-    justify-content: stretch;
-    flex-wrap: wrap;
-}
-
-.ms-config-wraper div{
-    flex: 1 1 auto;
-}
