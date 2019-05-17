@@ -5,9 +5,10 @@ import { Injectable } from '@angular/core';
 export class SidenavService {
   
   public sidenavAccountsToggle: boolean = true;
-  public sidenavNotificationsToggle: boolean = false;
+
   public lastLinkAccounts: string = 'list';
   public lastLinkNotification: string = 'administrator';
+  public sidenavNotificationsToggle: boolean = false;
 
   public sidenavTicketListToggle: boolean = false;
   public sidenavProductListToggle: boolean = false;
@@ -19,9 +20,7 @@ export class SidenavService {
     this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
     this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
     return (true);
- 
   }
-
   /** Toggle to Sidenav Accounts */
   sidenavUsuarios(): boolean {
     this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
