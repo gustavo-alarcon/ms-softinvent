@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog, MatBottomSheet, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
-import { MsTicketDialogProductDescriptionComponent } from '../ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
-import { MsTicketDialogProductMovementComponent } from '../ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
+import { MsTicketDialogProductDescriptionComponent } from '../../ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
+import { MsTicketDialogProductMovementComponent } from '../../ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
 
 @Component({
   selector: 'app-ms-ticket-product-search',
@@ -17,14 +17,15 @@ export class MsTicketProductSearchComponent implements OnInit {
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  imagePath: string;
+  imagePath: string = "https://material.angular.io/assets/img/examples/shiba1.jpg"; // Imagen de prueba, Si el campo esta vacio: muestra la otra imagen
   description: string;
   name: string;
   sale: string;
+  category: string;
+  warehouse: string;
   constructor(
     public dbs: DatabaseService,
-    private dialog: MatDialog,
-    private bottomSheet: MatBottomSheet
+    private dialog: MatDialog
   ) { }
   ngOnInit() {
     this.dbs.currentDataProducts.subscribe(products => {
@@ -35,6 +36,7 @@ export class MsTicketProductSearchComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+  
   /*realiza la busqueda de elementos con cada campo de la tabla */
   filterData(ref: string) {
     ref = ref.toLowerCase();
@@ -46,10 +48,12 @@ export class MsTicketProductSearchComponent implements OnInit {
       option['sale'].toString().includes(ref));
     this.dataSource.data = this.filteredProducts;
   }
-  /* Detalles() abre el dialog de detalles del producto
-  * @product{ string [] } : Lista de los campos del producto seleccionado en la tabla
-  * void : no retorna nada 
-  */
+
+  /**
+   * @desc  Abre el dialog de detalles del producto
+   * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
+   * @return { void } : Sin retornos
+   */
   detalles(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductDescriptionComponent, {
       data: { imagePath: this.imagePath, description: product.name }
@@ -64,11 +68,13 @@ export class MsTicketProductSearchComponent implements OnInit {
    */
   addProduct(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductMovementComponent, {
-      data: { name: product.name, sale: product.sale, stock: product.stock }
-    });
+      data: { name: product.name, sale: product.sale, stock: product.stock, category: product.category, warehouse: product.warehouse, imagePath: this.imagePath },
+      panelClass: 'ms-custom-dialogbox'
 
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
+
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Link } from "../../core/ms-types";
 
 @Component({
   selector: 'app-ms-ticket-stepper',
@@ -8,13 +9,13 @@ import { Router } from '@angular/router';
 })
 export class MsTicketStepperComponent implements OnInit {
 
-  links = [
-    { name: 'Productos', icon: 'shopping_basket', route: 'step-one' },
-    { name: 'Información', icon: 'assignment', route: 'step-two' },
-    { name: 'Listo', icon: 'check_circle', route: 'step-three' }
+  links: Array<Link> = [
+    {name:'Productos', icon:'shopping_basket', route:'step-one'},
+    {name:'Información', icon:'assignment', route:'step-two'},
+    {name:'Listo', icon:'check_circle', route:'step-three'}
   ];
 
-  activeLink: object;
+  activeLink: Link = this.links[0];
   
   constructor(
     private router: Router

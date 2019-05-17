@@ -15,6 +15,7 @@ import { KardexComponent } from '../kardex/kardex.component';
 import { HistorialComponent } from '../historial/historial.component';
 import { MsTicketProductSearchComponent } from '../ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
 import { MsSidenavNotificationsComponent } from '../ms-sidenav-notifications/ms-sidenav-notifications.component';
+import { MsTicket2ListaDetalleComponent } from '../ms-ticket2/ms-ticker2-stepper/ms-ticket2-lista-detalle/ms-ticket2-lista-detalle.component';
 import { MsTicketComponent } from '../ms-ticket/ms-ticket.component';
 import { MsTicketStepOneComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-step-one.component';
 import { MsTicketStepTwoComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
@@ -100,13 +101,16 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'kardex', component: KardexComponent
+        path: 'kardex', component: MsTicketComponent
       },
       {
         path: 'stock', component: StockComponent
       },
       {
         path: 'historial', component: HistorialComponent
+      },
+      {
+        path: 'dashboard', component: MsTicket2ListaDetalleComponent
       }
 
     ]

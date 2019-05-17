@@ -1,5 +1,3 @@
-import { convertActionBinding } from "@angular/compiler/src/compiler_util/expression_converter";
-
 export interface Staff {
   displayName: string,
   area: string,
@@ -42,6 +40,28 @@ export interface Discount {
 
 export interface ProductCart {
   name: string,
+  warehouse: string,
+  purchasePrice: number,
+  salePrice: number
+}
+
+export interface Promo {
+  id: string,
+  name: string,
+  percentage: number,
+  amount: number,
+  productId: string,
+  startDate: number,
+  endingDate: number
+}
+
+export interface Discount {
+  percentage: number,
+  amount: number,
+}
+
+export interface ProductCart {
+  name: string,
   price: number,
   stock: number,
   quantity: number,
@@ -62,7 +82,7 @@ export interface Ticket {
   total?: number,
   seller?: Staff
 }
-
+  
 export interface Link {
   name: string,
   icon: string,
