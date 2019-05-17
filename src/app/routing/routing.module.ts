@@ -13,8 +13,6 @@ import { RegistrarComponent } from '../registrar/registrar.component';
 import { StockComponent } from '../stock/stock.component';
 import { KardexComponent } from '../kardex/kardex.component';
 import { HistorialComponent } from '../historial/historial.component';
-import { MsTicketProductSearchComponent } from '../ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
-import { MsSidenavNotificationsComponent } from '../ms-sidenav-notifications/ms-sidenav-notifications.component';
 import { MsConfigComponent } from '../main/ms-config/ms-config.component';
 import { MsConfigAccountsComponent } from '../main/ms-config/ms-config-accounts/ms-config-accounts.component';
 import { MsConfigNotificationsComponent } from '../main/ms-config/ms-config-notifications/ms-config-notifications.component';
@@ -22,7 +20,13 @@ import { MsUsersComponent } from '../main/ms-config/ms-config-accounts/ms-sidena
 import { MsPermitsComponent } from '../main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
 import { MsConfigAdminComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
 import { MsConfigStaffComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
+import { MsTicketProductSearchComponent } from '../ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
+import { MsSidenavNotificationsComponent } from '../ms-sidenav-notifications/ms-sidenav-notifications.component';
 import { MsTicket2ListaDetalleComponent } from '../ms-ticket2/ms-ticker2-stepper/ms-ticket2-lista-detalle/ms-ticket2-lista-detalle.component';
+import { MsTicketComponent } from '../ms-ticket/ms-ticket.component';
+import { MsTicketStepOneComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-step-one.component';
+import { MsTicketStepTwoComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
+import { MsTicketStepThreeComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
 
 const routes: Routes = [
   {
@@ -38,7 +42,7 @@ const routes: Routes = [
     children: [
 
       {
-        path: 'ms-config', component: MsConfigComponent,
+        path: 'config', component: MsConfigComponent,
         children: [
           {
             path: 'config-accounts', component: MsConfigAccountsComponent,
@@ -80,7 +84,24 @@ const routes: Routes = [
         path: 'registrar', component: RegistrarComponent
       },
       {
-        path: 'kardex', component: MsTicketProductSearchComponent
+        path: 'ticket', component: MsTicketComponent,
+        children: [
+          {
+            path: '', component: MsTicketStepOneComponent
+          },
+          {
+            path: 'step-one', component: MsTicketStepOneComponent
+          },
+          {
+            path: 'step-two', component: MsTicketStepTwoComponent
+          },
+          {
+            path: 'step-three', component: MsTicketStepThreeComponent
+          }
+        ]
+      },
+      {
+        path: 'kardex', component: MsTicketComponent
       },
       {
         path: 'stock', component: StockComponent

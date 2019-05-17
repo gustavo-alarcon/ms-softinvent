@@ -9,17 +9,16 @@ import { SidenavService } from 'src/app/core/sidenav.service';
   styles: []
 })
 export class MainComponent implements OnInit {
-  opened: boolean = false;
-  openedNotification: boolean = false;
-  constructor(
-    public auth: AuthService,
-    public snackbar: MatSnackBar,
-    public sidenav: SidenavService,
-  ) { }
+
+  sideBarIsOpened = false;
+
+  constructor() { }
 
   ngOnInit() {
   }
-  openSidenav(): void {
-    this.opened = !this.opened;
+
+  toggleSideBar(shouldOpen: boolean) {
+    this.sideBarIsOpened = !this.sideBarIsOpened;
+    console.log(this.sideBarIsOpened);
   }
 }

@@ -1,16 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { SidenavService } from 'src/app/core/sidenav.service';
+import { StateManagementService } from 'src/app/core/state-management.service';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
-import { MsTicketDialogProductDescriptionComponent } from '../ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
-import { MsTicketDialogProductMovementComponent } from '../ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
+import { MsTicketDialogProductDescriptionComponent } from '../../ms-ticket-stepper/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
+import { MsTicketDialogProductMovementComponent } from '../../ms-ticket-stepper/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-ms-ticket-product-search',
-  templateUrl: './ms-ticket-product-search.component.html',
+  selector: 'app-ms-ticket-step-one',
+  templateUrl: './ms-ticket-step-one.component.html',
   styles: []
 })
-export class MsTicketProductSearchComponent implements OnInit {
+export class MsTicketStepOneComponent implements OnInit {
+
+  /**
+   * VARIABLES EDU
+   */
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
   displayedColumns: string[] = ['name', 'stock', 'sale', 'warehouse', 'Detalles', 'Agregar'];
@@ -23,10 +29,14 @@ export class MsTicketProductSearchComponent implements OnInit {
   sale: string;
   category: string;
   warehouse: string;
+
   constructor(
+    private sidenav: SidenavService,
+    private state: StateManagementService,
     public dbs: DatabaseService,
     private dialog: MatDialog
   ) { }
+
   ngOnInit() {
     this.dbs.currentDataProducts.subscribe(products => {
       this.filteredProducts = products;
@@ -36,8 +46,12 @@ export class MsTicketProductSearchComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  
-  /*realiza la busqueda de elementos con cada campo de la tabla */
+
+
+  /**
+   * @desc Función para filtrado de productos basada en coincidencia parcial
+   * @param ref { string }: Valor referencial para realizar la búsqueda en productos
+   */
   filterData(ref: string) {
     ref = ref.toLowerCase();
     this.filteredProducts = this.dbs.products.filter(option =>

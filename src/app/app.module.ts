@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RoutingModule } from './routing/routing.module';
 
+// PIPES
+import { CorrelativePipe } from './pipes/correlative.pipe';
+
 // SERVICES
 import { AuthService } from './core/auth.service';
 import { environment } from 'src/environments/environment';
@@ -52,18 +55,38 @@ import { DetallesTransferenciaComponent } from './historial/detalles-transferenc
 import { DetallesEntradaComponent } from './historial/detalles-entrada/detalles-entrada.component';
 import { DetallesAentradaComponent } from './historial/detalles-aentrada/detalles-aentrada.component';
 import { DetallesAsalidaComponent } from './historial/detalles-asalida/detalles-asalida.component';
-
-
+import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/extender-correlativo.component';
+import { MsToolbarComponent } from './main/ms-toolbar/ms-toolbar.component';
+import { MsSidenavMenuComponent } from './main/ms-sidenav-menu/ms-sidenav-menu.component';
 import { MsTicketComponent } from './ms-ticket/ms-ticket.component';
 import { MsTicketStepperComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-stepper.component';
+import { MsSidenavTicketsProductsComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-sidenav-tickets-products.component';
+import { MsTicketStepOneComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-step-one.component';
+import { MsTicketStepTwoComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
+import { MsTicketStepThreeComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
+
+
 import { MsTicketProductSearchComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
 import { MsTicketSidenavTempComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-sidenav-temp/ms-ticket-sidenav-temp.component';
 import { MsTicketDialogProductDescriptionComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
 import { MsTicketDialogProductMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
 import { MsTicketConfirmComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-confirm/ms-ticket-confirm.component';
-import { MsTicketDeleteMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-delete-movement/ms-ticket-delete-movement.component'; // npm install time-ago-pipe --save
+import { MsTicketDeleteMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-delete-movement/ms-ticket-delete-movement.component';
 
+import { MsConfigComponent } from './main/ms-config/ms-config.component';
+import { MsConfigAccountsComponent } from './main/ms-config/ms-config-accounts/ms-config-accounts.component';
+import { MsSidenavConfigAccountsComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-sidenav-config-accounts.component';
+import { MsPermitsComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
+import { MsUsersComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-users/ms-users.component';
+import { MsConfigNotificationsComponent } from './main/ms-config/ms-config-notifications/ms-config-notifications.component';
+import { MsSidenavConfigNotificationsComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-sidenav-config-notifications.component';
+import { MsConfigAdminComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
+import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
+import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
 
+import { MsTicket2Component } from './ms-ticket2/ms-ticket2.component';
+import { MsTicker2StepperComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticker2-stepper.component';
+import { MsTicket2ListaDetalleComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticket2-lista-detalle/ms-ticket2-lista-detalle.component';
 
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
@@ -95,26 +118,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-import { CorrelativePipe } from './pipes/correlative.pipe';
-import { ExtenderCorrelativoComponent } from './documentos/extender-correlativo/extender-correlativo.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatRadioModule } from '@angular/material/radio';
-import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
-import { MsConfigComponent } from './main/ms-config/ms-config.component';
-import { MsConfigAccountsComponent } from './main/ms-config/ms-config-accounts/ms-config-accounts.component';
-import { MsSidenavConfigAccountsComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-sidenav-config-accounts.component';
-import { MsPermitsComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
-import { MsUsersComponent } from './main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-users/ms-users.component';
-import { MsConfigNotificationsComponent } from './main/ms-config/ms-config-notifications/ms-config-notifications.component';
-import { MsSidenavConfigNotificationsComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-sidenav-config-notifications.component';
-import { MsConfigAdminComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
-import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MsTicket2Component } from './ms-ticket2/ms-ticket2.component';
-import { MsTicker2StepperComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticker2-stepper.component';
-import { MsTicket2ListaDetalleComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticket2-lista-detalle/ms-ticket2-lista-detalle.component';
-
-
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 @NgModule({
@@ -155,15 +162,6 @@ import { MsTicket2ListaDetalleComponent } from './ms-ticket2/ms-ticker2-stepper/
     DetallesEntradaComponent,
     DetallesAentradaComponent,
     DetallesAsalidaComponent,
-    MsSidenavNotificationsComponent,
-    MsTicketComponent,
-    MsTicketStepperComponent,
-    MsTicketProductSearchComponent,
-    MsTicketSidenavTempComponent,
-    MsTicketDialogProductDescriptionComponent,
-    MsTicketDialogProductMovementComponent,
-    MsTicketConfirmComponent,
-    MsTicketDeleteMovementComponent,
     MsConfigComponent,
     MsConfigAccountsComponent,
     MsSidenavConfigAccountsComponent,
@@ -173,9 +171,23 @@ import { MsTicket2ListaDetalleComponent } from './ms-ticket2/ms-ticker2-stepper/
     MsSidenavConfigNotificationsComponent,
     MsConfigAdminComponent,
     MsConfigStaffComponent,
+    MsTicketProductSearchComponent,
+    MsTicketSidenavTempComponent,
+    MsTicketDialogProductDescriptionComponent,
+    MsTicketDialogProductMovementComponent,
+    MsTicketConfirmComponent,
+    MsTicketDeleteMovementComponent,
     MsTicket2Component,
     MsTicker2StepperComponent,
-    MsTicket2ListaDetalleComponent
+    MsTicket2ListaDetalleComponent,
+    MsToolbarComponent,
+    MsSidenavMenuComponent,
+    MsTicketComponent,
+    MsTicketStepperComponent,
+    MsSidenavTicketsProductsComponent,
+    MsTicketStepOneComponent,
+    MsTicketStepTwoComponent,
+    MsTicketStepThreeComponent
   ],
   imports: [
     BrowserModule,
@@ -211,10 +223,11 @@ import { MsTicket2ListaDetalleComponent } from './ms-ticket2/ms-ticker2-stepper/
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule,
     MatRadioModule,
     MatCardModule,
-    MatTabsModule
-
+    MatExpansionModule,
+    MatCardModule
   ],
   entryComponents: [
     CrearAlmacenComponent,
