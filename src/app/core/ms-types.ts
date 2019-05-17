@@ -40,34 +40,14 @@ export interface Discount {
 
 export interface ProductCart {
   name: string,
-  warehouse: string,
-  purchasePrice: number,
-  salePrice: number
-}
-
-export interface Promo {
-  id: string,
-  name: string,
-  percentage: number,
-  amount: number,
-  productId: string,
-  startDate: number,
-  endingDate: number
-}
-
-export interface Discount {
-  percentage: number,
-  amount: number,
-}
-
-export interface ProductCart {
-  name: string,
-  price: number,
   stock: number,
   quantity: number,
   discountType: string,
   promo?: Promo,
-  discount?: Discount
+  discount?: Discount,
+  warehouse: string,
+  purchasePrice: number,
+  salePrice: number
 }
 
 export interface Ticket {
