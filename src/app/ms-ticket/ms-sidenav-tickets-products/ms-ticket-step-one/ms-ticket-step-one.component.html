@@ -1,4 +1,4 @@
-<div class="w3-container">
+<div class="w3-container"style ="padding: 0px">
   <mat-toolbar style="background:none;">
     <h2 class="mat-headline">Ticket #{{state.currentStateIndex + 1| number : '2.'}}</h2>
     <span class="ms-fill"></span>
@@ -96,7 +96,7 @@
         grid-template-columns: auto auto;">
       <ng-container *ngFor="let prod of filteredProducts; let i = index">
 
-        <div class="w3-white" style="border-radius: 5px;" (click)=addProduct(prod)>
+        <div class="w3-white" style="border-radius: 5px;;padding: 0px" (click)=addProduct(prod)>
           <div class="w3-center w3-red" style="vertical-align: middle;border-top-left-radius: 5px;border-bottom-right-radius: 10px;position:absolute; float: left; height:25px; width:25px;color: rgb(255,93,101) ;margin-left: auto;
               margin-right: auto;">
             {{prod['stock']}}
@@ -106,28 +106,28 @@
               alt="Photo of a Shiba Inu" style="width:100%;border-top-left-radius: 5px;border-top-right-radius: 5px;">
           </div>
           <div class="w3-row">
-            <div class="w3-half w3-container" style="width:50%">
+            <div class="w3-half w3-container" style="width:50%;padding: 0px">
               <b>
                 <p style="margin:3px">{{prod['name']}}</p>
               </b>
             </div>
-            <div class="w3-half w3-container" style="width:50% ">
+            <div class="w3-half w3-container" style="width:50% ;padding: 0px">
               <p style="margin:3px; align-content: center"> S/.{{prod['sale']}}.00</p>
             </div>
           </div>
           <div class="w3-row" style="margin-top: 10px">
-            <div class="w3-half w3-container" style="width:20% ;align-self: auto">
+            <div class="w3-half w3-container" style="width:20% ;align-self: auto;padding: 0px">
               <mat-icon class="ms-color-icons">category</mat-icon>
             </div>
-            <div class="w3-half w3-container" style="width:80%">
+            <div class="w3-half w3-container" style="width:80%;padding: 0px">
               <p style="margin:0px">{{prod['category']}}</p>
             </div>
           </div>
           <div class="w3-row">
-            <div class="w3-half w3-container" style="width:20%">
+            <div class="w3-half w3-container" style="width:20%;padding: 0px">
               <mat-icon class="ms-color-icons">place</mat-icon>
             </div>
-            <div class="w3-half w3-container" style="width:80%">
+            <div class="w3-half w3-container" style="width:80%;padding: 0px">
               <p style="margin:0px">{{prod['warehouse']}}</p>
             </div>
           </div>

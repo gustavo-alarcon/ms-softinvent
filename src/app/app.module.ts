@@ -68,8 +68,8 @@ import { MsTicketStepThreeComponent } from './ms-ticket/ms-sidenav-tickets-produ
 
 import { MsTicketProductSearchComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
 import { MsTicketSidenavTempComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-sidenav-temp/ms-ticket-sidenav-temp.component';
-import { MsTicketDialogProductDescriptionComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
-import { MsTicketDialogProductMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
+import { MsTicketDialogProductDescriptionComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
+import { MsTicketDialogProductMovementComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
 import { MsTicketConfirmComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-confirm/ms-ticket-confirm.component';
 import { MsTicketDeleteMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-delete-movement/ms-ticket-delete-movement.component';
 

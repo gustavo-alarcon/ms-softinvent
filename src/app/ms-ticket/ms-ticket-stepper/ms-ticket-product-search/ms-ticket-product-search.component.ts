@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
-import { MsTicketDialogProductDescriptionComponent } from '../ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
-import { MsTicketDialogProductMovementComponent } from '../ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
+import { MsTicketDialogProductDescriptionComponent } from '../../ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
+import { MsTicketDialogProductMovementComponent } from '../../ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
 
 @Component({
   selector: 'app-ms-ticket-product-search',
