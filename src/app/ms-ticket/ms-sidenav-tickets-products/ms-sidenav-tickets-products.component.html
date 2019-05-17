@@ -1,31 +1,82 @@
 <mat-sidenav-container style="width:100%">
 
-  <mat-sidenav mode="over" position="start" [(opened)]="sidenav.sidenavTicketListToggle" class="ms-color-b-2" style="width:200px">
-    <mat-toolbar style="width:100%">Tickets abiertos</mat-toolbar>
+  <mat-sidenav mode="over" position="start" [(opened)]="sidenav.sidenavTicketListToggle" class="ms-color-b-2"
+    style="width:343px">
+    <mat-toolbar style="width:100%">
+      <span>
+        <mat-icon class="ms-color-icons" style="vertical-align:middle">receipt</mat-icon> Tickets abiertos
+      </span>
+      <span class="ms-fill"></span>
+      <button mat-icon-button color="accent" (click)="sidenav.sidenavTicketList()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-toolbar>
     <div>
-      <button mat-button class="w3-block" style="padding-top:0.5em; text-align: left"
-        *ngFor="let cart of ticketsStateManagement; let i = index">
-        <mat-icon class="ms-color-icons" style="vertical-align: text-bottom">receipt</mat-icon>
+      <button mat-button class="w3-block mat-subheader-2" style="padding-top:0.5em; text-align: left"
+        *ngFor="let ticket of state.ticketsStateManagement; let i = index"
+        (click)="changeCurrentTicket(i);sidenav.sidenavTicketList()"
+        [ngClass]="{'ms-color-b-1':state.currentStateIndex === i}">
+        <mat-icon [ngClass]="{'ms-color-icons':state.currentStateIndex != i}" style="vertical-align: text-bottom">
+          receipt</mat-icon>
         #{{ i + 1 | number: '2.'}}
       </button><br>
     </div>
   </mat-sidenav>
 
-  <mat-sidenav mode="over" position="end" [(opened)]="sidenav.sidenavProductListToggle" class="ms-color-b-2" style="width:400px">
-    <mat-toolbar style="width:100%">Lista de compras</mat-toolbar>
-    <div>
-      <button mat-button class="w3-block" style="padding-top:0.5em; text-align: left"
-        *ngFor="let cart of ticketsStateManagement; let i = index">
-        <mat-icon class="ms-color-icons" style="vertical-align: text-bottom">shopping_cart</mat-icon>
-        #{{ i + 1 | number: '2.'}}
-      </button><br>
+  <mat-sidenav mode="over" position="end" [(opened)]="sidenav.sidenavProductListToggle" class="ms-color-b-2"
+    style="width:343px">
+    <mat-toolbar style="width:100%">
+      <span>
+        <mat-icon class="ms-color-icons" style="vertical-align:middle">shopping_cart</mat-icon> Lista de productos
+      </span>
+      <span class="ms-fill"></span>
+      <button mat-icon-button color="accent" (click)="sidenav.sidenavProductList()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="w3-padding">
+      <table class="w3-table w3-bordered">
+        <tr>
+          <th class="mat-subheading-2">#</th>
+          <th class="mat-subheading-2">Prod.</th>
+          <th class="mat-subheading-2">Cant.</th>
+          <th class="mat-subheading-2">Importe</th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let product of currentTicket.cart; let i = index">
+            <td class="mat-subheading-1">{{i + 1}}</td>
+            <td class="mat-subheading-1">{{product.name}}</td>
+            <td class="mat-subheading-1">{{product.quantity | number : '2.'}}</td>
+            <td class="mat-subheading-1">{{product.price | currency : 'S/.'}}</td>
+          </tr>
+          <tr style="border:none">
+            <td></td>
+            <td></td>
+            <td>Importe:</td>
+            <td>{{currentTicket.totalWithoutDiscount | currency : 'S/.'}}</td>
+          </tr>
+          <tr style="border:none">
+            <td></td>
+            <td></td>
+            <td>Desc.:</td>
+            <td>{{currentTicket.totalDiscount | currency : 'S/.'}}</td>
+          </tr>
+          <tr style="border:none">
+            <td></td>
+            <td></td>
+            <td class="ms-color-b-1" style="border-radius:5px 0px 0px 5px; font-weight:900">Total:</td>
+            <td class="ms-color-b-1" style="border-radius:0px 5px 5px 0px; font-weight:900">
+              {{currentTicket.totalWithDiscount | currency : 'S/.'}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </mat-sidenav>
 
-  
 
-  <mat-sidenav-content class="ms-color-b-bg" style="padding:1em">
+
+  <mat-sidenav-content class="ms-color-b-bg" style="padding:1em 0em; min-height: 70vh">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 

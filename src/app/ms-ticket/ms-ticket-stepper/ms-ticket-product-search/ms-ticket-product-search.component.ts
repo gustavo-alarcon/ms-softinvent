@@ -36,6 +36,7 @@ export class MsTicketProductSearchComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+  
   /*realiza la busqueda de elementos con cada campo de la tabla */
   filterData(ref: string) {
     ref = ref.toLowerCase();
@@ -47,10 +48,12 @@ export class MsTicketProductSearchComponent implements OnInit {
       option['sale'].toString().includes(ref));
     this.dataSource.data = this.filteredProducts;
   }
-  /* Detalles() abre el dialog de detalles del producto
-  * @product{ string [] } : Lista de los campos del producto seleccionado en la tabla
-  * void : no retorna nada 
-  */
+
+  /**
+   * @desc  Abre el dialog de detalles del producto
+   * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
+   * @return { void } : Sin retornos
+   */
   detalles(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductDescriptionComponent, {
       data: { imagePath: this.imagePath, description: product.name }
