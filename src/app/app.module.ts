@@ -84,6 +84,10 @@ import { MsConfigAdminComponent } from './main/ms-config/ms-config-notifications
 import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
 import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
 
+import { MsTicket2Component } from './ms-ticket2/ms-ticket2.component';
+import { MsTicker2StepperComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticker2-stepper.component';
+import { MsTicket2ListaDetalleComponent } from './ms-ticket2/ms-ticker2-stepper/ms-ticket2-lista-detalle/ms-ticket2-lista-detalle.component';
+
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -173,6 +177,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsTicketDialogProductMovementComponent,
     MsTicketConfirmComponent,
     MsTicketDeleteMovementComponent,
+    MsTicket2Component,
+    MsTicker2StepperComponent,
+    MsTicket2ListaDetalleComponent,
     MsToolbarComponent,
     MsSidenavMenuComponent,
     MsTicketComponent,
@@ -218,8 +225,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatNativeDateModule,
     MatTabsModule,
     MatRadioModule,
+    MatCardModule,
     MatExpansionModule,
-
     MatCardModule
   ],
   entryComponents: [

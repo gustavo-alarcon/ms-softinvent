@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-
 @Injectable({
   providedIn: 'root'
 })
 export class SidenavService {
   
   public sidenavAccountsToggle: boolean = true;
-  public sidenavNotificationsToggle: boolean = true;
+  public sidenavNotificationsToggle: boolean = false;
   public lastLinkAccounts: string = 'list';
   public lastLinkNotification: string = 'administrator';
 
@@ -16,14 +15,18 @@ export class SidenavService {
   constructor() { }
 
   // return boolean because use it to activate the sidenav
-  
- 
+  sidenavAll(): boolean {
+    this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
+    this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
+    return (true);
+  }
+
   /** Toggle to Sidenav Accounts */
   sidenavUsuarios(): boolean {
     this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
     return (this.sidenavAccountsToggle);
   }
-/** Toggle to Sidenav Notifications */
+  /** Toggle to Sidenav Notifications */
   sidenavNotificaciones(): boolean {
     this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
     return (this.sidenavNotificationsToggle);
