@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SidenavService } from 'src/app/core/sidenav.service';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
 import { MsTicketDialogProductDescriptionComponent } from './ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
 import { MsTicketDialogProductMovementComponent } from './ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
 import { FormControl } from '@angular/forms';
+import { SidenavService } from 'src/app/core/sidenav.service';
 
 @Component({
   selector: 'app-ms-ticket-step-one',

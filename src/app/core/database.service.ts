@@ -173,7 +173,6 @@ export class DatabaseService {
     this.getPartiesStaff();
     this.getPartiesCustomers();
     this.getPartiesProviders();
-    this.getPartiesStaff();
     this.getDocuments();
     this.getProducts();
 
