@@ -38,7 +38,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     let _discount = 0;
     this.currentTicket.cart.forEach(prod => {
       _discount += prod.discount.amount * prod.quantity;
-      _total += prod.price * prod.quantity
+      _total += prod.salePrice * prod.quantity
     })
     this.currentTicket.totalWithoutDiscount = _total;
     this.currentTicket.totalDiscount = _discount;

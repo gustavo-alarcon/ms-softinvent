@@ -13,27 +13,23 @@ export class StateManagementService {
         {
           name: 'Antare',
           stock: 4,
-          price: 1200.00,
           quantity: 1,
           discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
+          discount: {amount: 100, percentage: 10},
+          purchasePrice: 900.00,
+          salePrice: 1200.00,
+          warehouse: "TDA 410"
         },
         {
           name: 'Pirandello',
           stock: 10,
-          price: 400.00,
           quantity: 1,
           discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
-        {
-          name: 'Piscis',
-          stock: 8,
-          price: 800.00,
-          quantity: 1,
-          discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
+          discount: {amount: 100, percentage: 10},
+          purchasePrice: 150.00,
+          salePrice: 400.00,
+          warehouse: "Fortaleza"
+        }
       ], customer: 'Milagros, Palomino'
     },
     {
@@ -41,84 +37,24 @@ export class StateManagementService {
         {
           name: 'Aleman',
           stock: 2,
-          price: 1300.00,
           quantity: 2,
           discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
+          discount: {amount: 100, percentage: 10},
+          purchasePrice: 1000.00,
+          salePrice: 1300.00,
+          warehouse: "TDA 410"
         },
         {
           name: 'Sigma',
           stock: 10,
-          price: 500.00,
           quantity: 10,
           discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
-        {
-          name: 'Tauro',
-          stock: 8,
-          price: 900.00,
-          quantity: 8,
-          discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
+          discount: {amount: 100, percentage: 10},
+          purchasePrice: 200.00,
+          salePrice: 600.00,
+          warehouse: "Fortaleza"
         },
       ], customer: 'Gabriela, Nuñez'
-    },
-    {
-      cart: [
-        {
-          name: 'Classic',
-          stock: 3,
-          price: 1400.00,
-          quantity: 3,
-          discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
-        {
-          name: 'Luna',
-          stock: 8,
-          price: 600.00,
-          quantity: 8,
-          discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
-        {
-          name: 'Geminis',
-          stock: 1,
-          price: 1000.00,
-          quantity: 1,
-          discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
-      ], customer: 'Eduardo, Mollinedo'
-    },
-    {
-      cart: [
-        {
-          name: 'Antare',
-          stock: 10,
-          price: 1500.00,
-          quantity: 1,
-          discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
-        {
-          name: 'Pirandello',
-          stock: 10,
-          price: 700.00,
-          quantity: 1,
-          discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
-        {
-          name: 'Piscis',
-          stock: 10,
-          price: 1100.00,
-          quantity: 1,
-          discountType: 'discount',
-          discount: {amount: 100, percentage: 10}
-        },
-      ], customer: 'Gustavo, Alarcón'
     }
   ];
 

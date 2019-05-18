@@ -5,10 +5,22 @@ export interface Staff {
 }
 
 export interface Product {
+  alertStock: number,
+  category: string,
+  code: number,
+  currency: string,
+  id: string,
+  initialStock: number,
   name: string,
+  purchase: number,
+  regDate: number,
+  sale: number,
+  stock: number,
+  unit: string,
+  userId: string,
+  userName: string,
   warehouse: string,
-  purchasePrice: number,
-  salePrice: number
+  warningStock: number
 }
 
 export interface Promo {
@@ -28,12 +40,14 @@ export interface Discount {
 
 export interface ProductCart {
   name: string,
-  price: number,
   stock: number,
   quantity: number,
   discountType: string,
   promo?: Promo,
-  discount?: Discount
+  discount?: Discount,
+  warehouse: string,
+  purchasePrice: number,
+  salePrice: number
 }
 
 export interface Ticket {
@@ -48,10 +62,42 @@ export interface Ticket {
   total?: number,
   seller?: Staff
 }
-
+  
 export interface Link {
   name: string,
   icon: string,
   route: string
 }
 
+export interface Warehouses {
+  address: string,
+  id: string,
+  name: string,
+  regDate: number,
+  supervisor: Supervisor
+}
+
+export interface Supervisor {
+  email?: string,
+  lastname: string,
+  name: string,
+  phone?: number
+}
+
+export interface Parties {
+  address: string,
+  contacto: Contact,
+  docNum: number,
+  docType: string,
+  id: string,
+  name: string,
+  regDate: number,
+  type: string
+}
+
+export interface Contact {
+  email?: string,
+  lastname: string,
+  name: string,
+  phone?: string
+}
