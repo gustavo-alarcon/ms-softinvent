@@ -16,7 +16,6 @@ export class StateManagementService {
           quantity: 1,
           discountType: 'discount',
           discount: {amount: 100, percentage: 10},
-          purchasePrice: 900.00,
           salePrice: 1200.00,
           warehouse: "TDA 410"
         },
@@ -26,7 +25,6 @@ export class StateManagementService {
           quantity: 1,
           discountType: 'discount',
           discount: {amount: 100, percentage: 10},
-          purchasePrice: 150.00,
           salePrice: 400.00,
           warehouse: "Fortaleza"
         }
@@ -40,7 +38,6 @@ export class StateManagementService {
           quantity: 2,
           discountType: 'discount',
           discount: {amount: 100, percentage: 10},
-          purchasePrice: 1000.00,
           salePrice: 1300.00,
           warehouse: "TDA 410"
         },
@@ -50,7 +47,6 @@ export class StateManagementService {
           quantity: 10,
           discountType: 'discount',
           discount: {amount: 100, percentage: 10},
-          purchasePrice: 200.00,
           salePrice: 600.00,
           warehouse: "Fortaleza"
         },

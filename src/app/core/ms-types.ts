@@ -46,7 +46,6 @@ export interface ProductCart {
   promo?: Promo,
   discount?: Discount,
   warehouse: string,
-  purchasePrice: number,
   salePrice: number
 }
 
