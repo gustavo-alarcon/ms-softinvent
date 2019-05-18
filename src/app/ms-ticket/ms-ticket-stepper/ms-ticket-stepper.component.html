@@ -10,40 +10,23 @@
             receipt</mat-icon> Tickets
         </h2>
       </div>
-
       <div class="w3-margin-top">
         <nav mat-tab-nav-bar class="w3-hide-large w3-hide-medium w3-block">
-
-          <a  mat-tab-link
-              *ngFor="let link of links"
-              (click)=" activeLink = link;"
-              [routerLink]="link['route']"
-              routerLinkActive #rla="routerLinkActive"
-              [active]="rla.isActive"
-              [matTooltip]="link['name']">
+          <a mat-tab-link *ngFor="let link of links" (click)=" activeLink = link "
+            [routerLink]="link['route'] || link['tab.currentTab']" routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive" [matTooltip]="link['name']">
             <mat-icon style="vertical-align: middle">{{link['icon']}}</mat-icon>
           </a>
-
         </nav>
-
         <nav mat-tab-nav-bar class="w3-hide-small">
-
-          <a  mat-tab-link
-              *ngFor="let link of links"
-              (click)=" activeLink = link;"
-              [routerLink]="link['route']"
-              routerLinkActive #rla="routerLinkActive"
-              [active]="rla.isActive">
-            <mat-icon class="w3-margin-right" style="vertical-align: middle">{{link['icon']}}</mat-icon> {{link['name']}}
+          <a mat-tab-link *ngFor="let link of links" (click)=" activeLink = link;" [routerLink]="link['route']"
+            routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            <mat-icon class="w3-margin-right" style="vertical-align: middle">{{link['icon']}}</mat-icon>
+            {{link['name']}}
           </a>
-
         </nav>
-
         <app-ms-sidenav-tickets-products></app-ms-sidenav-tickets-products>
-
       </div>
-
-
     </div>
     <div class="w3-col s0 m1 l1">
       <p></p>

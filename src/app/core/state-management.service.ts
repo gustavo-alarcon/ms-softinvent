@@ -53,6 +53,13 @@ export class StateManagementService {
       ], customer: 'Gabriela, Nuñez'
     }
   ];
-
+  i : number;
   constructor() { }
+  agregarProducto(producto){
+    this.ticketsStateManagement[this.currentStateIndex].cart.push(producto);
+  }
+  agregarTicket(ticket){
+    this.ticketsStateManagement.push(ticket);
+  
+  }
 }

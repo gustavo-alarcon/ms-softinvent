@@ -12,6 +12,14 @@
       </button>
     </mat-toolbar>
     <div>
+      <div style="padding:4px">
+        <button mat-raised-button class="w3-round ms-color-action-3" style=" text-align: center; width: 100%;"
+          (click)=addTicket(state.ticketsStateManagement.length)>
+          <mat-icon style="vertical-align: middle">
+            add_circle</mat-icon>
+          Nueva Venta
+        </button>
+      </div>
       <button mat-button class="w3-block mat-subheader-2" style="padding-top:0.5em; text-align: left"
         *ngFor="let ticket of state.ticketsStateManagement; let i = index"
         (click)="changeCurrentTicket(i);sidenav.sidenavTicketList()"
@@ -34,6 +42,14 @@
         <mat-icon>cancel</mat-icon>
       </button>
     </mat-toolbar>
+    <div style="padding:4px">
+      <button mat-raised-button class="w3-round ms-color-action-3" style=" text-align: center; width: 100%;"
+        (click)=nextStep()>
+        <mat-icon style="vertical-align: middle">
+          next_week</mat-icon>
+        Continuar Venta({{currentTicket.totalWithDiscount | currency : 'S/.'}})
+      </button>
+    </div>
     <div class="w3-padding">
       <table class="w3-table w3-bordered">
         <tr>
@@ -71,11 +87,7 @@
         </tbody>
       </table>
     </div>
-
   </mat-sidenav>
-
-
-
   <mat-sidenav-content class="ms-color-b-bg" style="padding:1em 0em; min-height: 70vh">
     <router-outlet></router-outlet>
   </mat-sidenav-content>

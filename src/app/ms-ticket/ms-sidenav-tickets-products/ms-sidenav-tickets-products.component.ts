@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Ticket, Product } from '../../core/ms-types';
+import { Ticket, Product, ProductCart } from '../../core/ms-types';
 import { Router } from '@angular/router';
 import { SidenavService } from 'src/app/core/sidenav.service';
 import { StateManagementService } from 'src/app/core/state-management.service';
+import { MattabService } from 'src/app/core/mattab.service';
 
 @Component({
   selector: 'app-ms-sidenav-tickets-products',
@@ -12,14 +13,11 @@ import { StateManagementService } from 'src/app/core/state-management.service';
 export class MsSidenavTicketsProductsComponent implements OnInit {
 
   sidenavTickets: boolean = true;
-
-  
-
   currentTicket: Ticket;
-
   constructor(
     private sidenav: SidenavService,
-    private state: StateManagementService
+    private state: StateManagementService,
+    private mat: MattabService
   ) {
     this.changeCurrentTicket(0);
   }
@@ -32,8 +30,11 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     this.state.currentStateIndex = index;
     this.calcTotalSalePrice();
   }
-
-  calcTotalSalePrice(): void{
+ /**
+   * @desc  Cancula el preecio total del ticket
+   * @return { void } : Sin retornos
+   */
+  calcTotalSalePrice(): void {
     let _total = 0;
     let _discount = 0;
     this.currentTicket.cart.forEach(prod => {
@@ -44,5 +45,23 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     this.currentTicket.totalDiscount = _discount;
     this.currentTicket.totalWithDiscount = _total - _discount;
   }
-
+   /**
+   * @desc  agrega un nuevo ticket 
+   * @param {!Number[]} index  :indice del nuevo ticker a crear
+   * @return { void } : Sin retornos
+   */
+  addTicket(index): void {
+    let productList: Array<ProductCart> = [];
+    let ticket: Ticket = { cart: productList };
+    this.state.agregarTicket(ticket);
+    this.state.currentStateIndex = index;
+    this.currentTicket = this.state.ticketsStateManagement[index];
+  }
+   /**
+   * @desc  cambia al siguiente step
+   * @return { void } : Sin retornos
+   */
+  nextStep(): void {
+    this.mat.currentTab = "step-two";
+  }
 }
