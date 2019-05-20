@@ -13,8 +13,6 @@ import { RegistrarComponent } from '../registrar/registrar.component';
 import { StockComponent } from '../stock/stock.component';
 import { KardexComponent } from '../kardex/kardex.component';
 import { HistorialComponent } from '../historial/historial.component';
-import { MsTicketProductSearchComponent } from '../ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
-import { MsSidenavNotificationsComponent } from '../ms-sidenav-notifications/ms-sidenav-notifications.component';
 import { MsTicketComponent } from '../ms-ticket/ms-ticket.component';
 import { MsTicketStepOneComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-step-one.component';
 import { MsTicketStepTwoComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
@@ -26,6 +24,13 @@ import { MsUsersComponent } from '../main/ms-config/ms-config-accounts/ms-sidena
 import { MsPermitsComponent } from '../main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
 import { MsConfigAdminComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
 import { MsConfigStaffComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
+import { MsVentasComponent } from '../ventas/ms-ventas.component';
+import { MsVentasStepOneComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-step-one.component'
+import { MsVentasStepTwoComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-two/ms-ventas-step-two.component'
+import { MsVentasStepThreeComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-three/ms-ventas-step-three.component'
+
+
+
 const routes: Routes = [
   {
     path: 'welcome', component: WelcomeComponent,
@@ -80,6 +85,23 @@ const routes: Routes = [
       },
       {
         path: 'registrar', component: RegistrarComponent
+      },
+      {
+        path: 'venta', component:MsVentasComponent ,
+        children: [
+          {
+            path: '', component: MsTicketStepOneComponent
+          },
+          {
+            path: 'step-one', component: MsVentasStepOneComponent
+          },
+          {
+            path: 'step-two', component: MsVentasStepTwoComponent
+          },
+          {
+            path: 'step-three', component: MsVentasStepThreeComponent
+          }
+        ]
       },
       {
         path: 'ticket', component: MsTicketComponent,
