@@ -229,7 +229,7 @@
     </div>
   </div>
   <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
-    <button mat-raised-button  class="w3-block ms-color-action-3">Agregar al carrito ({{  total | currency : 'S/.' }}
+    <button mat-raised-button (click) = addProduct() class="w3-block ms-color-action-3">Agregar al carrito ({{  total | currency : 'S/.' }}
       )</button>
   </div>
 </div>

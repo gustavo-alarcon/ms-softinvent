@@ -6,6 +6,7 @@ import { MsTicketDialogProductDescriptionComponent } from './ms-ticket-dialog-pr
 import { MsTicketDialogProductMovementComponent } from './ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
 import { FormControl } from '@angular/forms';
 import { SidenavService } from 'src/app/core/sidenav.service';
+import { ProductCart, Promo, Discount, Ticket } from 'src/app/core/ms-types';
 
 @Component({
   selector: 'app-ms-ticket-step-one',
@@ -30,24 +31,27 @@ export class MsTicketStepOneComponent implements OnInit {
   category: string;
   warehouse: string;
 
+  ticket: Ticket;
+  productList: Array<ProductCart>;
   constructor(
     private sidenav: SidenavService,
     private state: StateManagementService,
     public dbs: DatabaseService,
     private dialog: MatDialog
-  ) { }
+  ) {
+    this.productList = [];
+    this.ticket = { cart: this.productList };
+    this.state.agregarTicket(this.ticket);
+  }
 
   ngOnInit() {
     this.dbs.currentDataProducts.subscribe(products => {
       this.filteredProducts = products;
       this.dataSource.data = this.filteredProducts;
     });
-
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
-
   /**
    * @desc Función para filtrado de productos basada en coincidencia parcial
    * @param ref { string }: Valor referencial para realizar la búsqueda en productos
@@ -62,7 +66,6 @@ export class MsTicketStepOneComponent implements OnInit {
       option['sale'].toString().includes(ref));
     this.dataSource.data = this.filteredProducts;
   }
-
   /**
    * @desc  Abre el dialog de detalles del producto
    * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
@@ -76,13 +79,21 @@ export class MsTicketStepOneComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-  /* addProduct() abre el dialog de agregar un producto
-   * @product{ string [] } : Lista de los campos del producto seleccionado en la tabla
-   * void : no retorna nada 
-   */
+  /**
+  * @desc  agrega un nuevo producto 
+  * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
+  * @return { void } : Sin retornos
+  */
   addProduct(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductMovementComponent, {
-      data: { name: product.name, sale: product.sale, stock: product.stock, category: product.category, warehouse: product.warehouse, imagePath: this.imagePath },
+      data: {
+        name: product.name,
+        sale: product.sale,
+        stock: product.stock,
+        category: product.category,
+        warehouse: product.warehouse,
+        imagePath: this.imagePath,
+      },
       panelClass: 'ms-custom-dialogbox'
 
     });
