@@ -142,7 +142,10 @@ export class CrearDocumentoComponent implements OnInit {
         duration: 4000
       })
     }
+  }
 
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

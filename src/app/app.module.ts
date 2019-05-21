@@ -83,6 +83,19 @@ import { MsConfigAdminComponent } from './main/ms-config/ms-config-notifications
 import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
 import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
 
+import { EditarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
+import { BorrarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/borrar-ticket/borrar-ticket.component';
+import { ConfirmacionProductComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
+import { ConfirmacionEditComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
+
+import { MsVentasComponent } from './ventas/ms-ventas.component';
+import { MsVentasStepperComponent } from './ventas/ms-ventas-stepper/ms-ventas-stepper.component';
+import { MsVentasStepOneComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-step-one.component';
+import { MsVentasStepTwoComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-two/ms-ventas-step-two.component';
+import { MsVentasStepThreeComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-three/ms-ventas-step-three.component';
+
+import { MsVentasProductSearchComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-product-search/ms-ventas-product-search.component';
+
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -117,14 +130,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MsVentasComponent } from './ventas/ms-ventas.component';
-import { MsVentasStepperComponent } from './ventas/ms-ventas-stepper/ms-ventas-stepper.component';
-import { MsVentasStepOneComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-step-one.component';
-import { MsVentasStepTwoComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-two/ms-ventas-step-two.component';
-import { MsVentasStepThreeComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-three/ms-ventas-step-three.component';
-
-import { MsVentasProductSearchComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-product-search/ms-ventas-product-search.component'
-
 
 @NgModule({
   declarations: [
@@ -179,7 +184,7 @@ import { MsVentasProductSearchComponent } from './ventas/ms-ventas-stepper/ms-ve
     MsTicketDialogProductMovementComponent,
     MsTicketConfirmComponent,
     MsTicketDeleteMovementComponent,
-     MsToolbarComponent,
+    MsToolbarComponent,
     MsSidenavMenuComponent,
     MsTicketComponent,
     MsTicketStepperComponent,
@@ -188,6 +193,10 @@ import { MsVentasProductSearchComponent } from './ventas/ms-ventas-stepper/ms-ve
     MsTicketStepOneComponent,
     MsTicketStepTwoComponent,
     MsTicketStepThreeComponent,
+    EditarTicketComponent,
+    BorrarTicketComponent,
+    ConfirmacionProductComponent,
+    ConfirmacionEditComponent,
     MsVentasStepOneComponent,
     MsVentasStepTwoComponent,
     MsVentasStepThreeComponent,
@@ -260,7 +269,11 @@ import { MsVentasProductSearchComponent } from './ventas/ms-ventas-stepper/ms-ve
     DetallesTransferenciaComponent,
     DetallesEntradaComponent,
     MsTicketDialogProductDescriptionComponent,
-    MsTicketDialogProductMovementComponent
+    MsTicketDialogProductMovementComponent,
+    EditarTicketComponent,
+    BorrarTicketComponent,
+    ConfirmacionProductComponent,
+    ConfirmacionEditComponent
   ],
   providers: [
     AuthService,

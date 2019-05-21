@@ -83,4 +83,8 @@ export class CrearTerceroComponent implements OnInit {
     }
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

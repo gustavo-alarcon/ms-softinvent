@@ -95,4 +95,8 @@ export class EditarAlmacenComponent implements OnInit {
     }
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

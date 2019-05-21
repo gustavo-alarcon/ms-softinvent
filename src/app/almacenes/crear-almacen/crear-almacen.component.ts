@@ -77,4 +77,7 @@ export class CrearAlmacenComponent implements OnInit {
     }
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }

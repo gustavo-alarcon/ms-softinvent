@@ -215,4 +215,8 @@ export class EditarProductoComponent implements OnInit {
     })
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
