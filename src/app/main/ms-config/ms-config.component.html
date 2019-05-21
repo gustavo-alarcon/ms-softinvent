@@ -1,10 +1,24 @@
-<div class="w3-section">
-  <h1 class="ms-font-rubik ms-color-2b" style="font-size:1.5em;"><mat-icon style="vertical-align:middle; font-size: 30px; width:30px; height: 30px">settings</mat-icon> Configuración</h1>
+<div class="w3-section w3-margin-left w3-margin-right animated fadeInUp delay-2">
+  <div class="w3-row">
+    <div class="w3-col s0 m1 l1">
+      <p></p>
+    </div>
+    <div class="w3-col s12 m10 l10">
+      <div>
+        <h2 class="ms-font-rubik" style="margin: 0px">
+          <mat-icon style="vertical-align:middle; font-size: 30px; width:30px; height: 30px" class="ms-color-icons">
+            settings</mat-icon> Configuración
+        </h2>
 
-  <nav mat-tab-nav-bar >
-    <a mat-tab-link *ngFor="let link of links"
-      (click)=" activeLink = link; sidenav.sidenavAll();" 
-      [routerLink]="link['route']+'/'+sidenav.getlastLink(link.name)"> {{link['name']}} </a>
-  </nav>
-  <router-outlet></router-outlet>
+        <nav mat-tab-nav-bar>
+          <a mat-tab-link *ngFor="let link of links" (click)=" activeLink = link; sidenav.sidenavAll();"
+            [routerLink]="link['route']+'/'+sidenav.getlastLink(link.name)"> {{link['name']}} </a>
+        </nav>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <div class="w3-col s0 m1 l1">
+      <p></p>
+    </div>
+  </div>
 </div>

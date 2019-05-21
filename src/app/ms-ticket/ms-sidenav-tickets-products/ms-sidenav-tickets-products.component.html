@@ -11,6 +11,7 @@
         <mat-icon>cancel</mat-icon>
       </button>
     </mat-toolbar>
+
     <div>
       <div style="padding:4px">
         <button mat-raised-button class="w3-round ms-color-action-3" style=" text-align: center; width: 100%;"
@@ -20,14 +21,22 @@
           Nueva Venta
         </button>
       </div>
-      <button mat-button class="w3-block mat-subheader-2" style="padding-top:0.5em; text-align: left"
+
+      <mat-toolbar class="w3-block mat-subheader-2"
+        style="width:100%;padding-top:0.5em; padding-bottom: 0.5em; text-align: left; background: none"
         *ngFor="let ticket of state.ticketsStateManagement; let i = index"
         (click)="changeCurrentTicket(i);sidenav.sidenavTicketList()"
         [ngClass]="{'ms-color-b-1':state.currentStateIndex === i}">
-        <mat-icon [ngClass]="{'ms-color-icons':state.currentStateIndex != i}" style="vertical-align: text-bottom">
-          receipt</mat-icon>
-        #{{ i + 1 | number: '2.'}}
-      </button><br>
+        <span>
+          <mat-icon class="ms-color-icons" style="vertical-align:middle">receipt</mat-icon> #{{ i + 1 | number: '2.'}}
+        </span>
+        <span class="ms-fill"></span>
+        <button mat-icon-button color="accent" (click)="deleteTicket(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <br>
     </div>
   </mat-sidenav>
 
@@ -57,6 +66,7 @@
           <th class="mat-subheading-2">Prod.</th>
           <th class="mat-subheading-2">Cant.</th>
           <th class="mat-subheading-2">Importe</th>
+          <th class="mat-subheading-2"> </th>
         </tr>
         <tbody>
           <tr *ngFor="let product of currentTicket.cart; let i = index">
@@ -64,6 +74,9 @@
             <td class="mat-subheading-1">{{product.name}}</td>
             <td class="mat-subheading-1">{{product.quantity | number : '2.'}}</td>
             <td class="mat-subheading-1">{{product.salePrice | currency : 'S/.'}}</td>
+            <td class="mat-subheading-1"> <button mat-icon-button style="padding: 0px" (click)=deleteProduct(product);>
+                <mat-icon>delete</mat-icon>
+              </button></td>
           </tr>
           <tr style="border:none">
             <td></td>

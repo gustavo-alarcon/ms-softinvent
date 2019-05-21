@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Ticket } from "./ms-types";
+import { CurrencyIndex } from '@angular/common/src/i18n/locale_data';
 
 @Injectable({
   providedIn: 'root'
@@ -58,8 +59,13 @@ export class StateManagementService {
   agregarProducto(producto){
     this.ticketsStateManagement[this.currentStateIndex].cart.push(producto);
   }
+  eliminarProducto(producto){
+    this.ticketsStateManagement[this.currentStateIndex].cart.splice(this.ticketsStateManagement[this.currentStateIndex].cart.indexOf(producto),1);
+  }
   agregarTicket(ticket){
     this.ticketsStateManagement.push(ticket);
-  
+  }
+  eliminarTicket(index){
+    this.ticketsStateManagement.splice ( index,1)
   }
 }

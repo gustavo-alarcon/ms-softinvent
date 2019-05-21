@@ -65,7 +65,7 @@ import { MsTicketStepOneComponent } from './ms-ticket/ms-sidenav-tickets-product
 import { MsTicketStepTwoComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
 import { MsTicketStepThreeComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
 
-import { MsTicketProductSearchComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-product-search/ms-ticket-product-search.component';
+import { MsTicketProductSearchComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-product-search/ms-ticket-product-search.component';
 import { MsTicketSidenavTempComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-sidenav-temp/ms-ticket-sidenav-temp.component';
 import { MsTicketDialogProductDescriptionComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
 import { MsTicketDialogProductMovementComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
@@ -82,6 +82,19 @@ import { MsSidenavConfigNotificationsComponent } from './main/ms-config/ms-confi
 import { MsConfigAdminComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
 import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
 import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
+
+import { EditarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
+import { BorrarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/borrar-ticket/borrar-ticket.component';
+import { ConfirmacionProductComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
+import { ConfirmacionEditComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
+
+import { MsVentasComponent } from './ventas/ms-ventas.component';
+import { MsVentasStepperComponent } from './ventas/ms-ventas-stepper/ms-ventas-stepper.component';
+import { MsVentasStepOneComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-step-one.component';
+import { MsVentasStepTwoComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-two/ms-ventas-step-two.component';
+import { MsVentasStepThreeComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-three/ms-ventas-step-three.component';
+
+import { MsVentasProductSearchComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-product-search/ms-ventas-product-search.component';
 
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
@@ -117,10 +130,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { EditarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
-import { BorrarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/borrar-ticket/borrar-ticket.component';
-import { ConfirmacionProductComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
-import { ConfirmacionEditComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
 
 @NgModule({
   declarations: [
@@ -175,10 +184,11 @@ import { ConfirmacionEditComponent } from './ms-ticket/ms-sidenav-tickets-produc
     MsTicketDialogProductMovementComponent,
     MsTicketConfirmComponent,
     MsTicketDeleteMovementComponent,
-     MsToolbarComponent,
+    MsToolbarComponent,
     MsSidenavMenuComponent,
     MsTicketComponent,
     MsTicketStepperComponent,
+    MsVentasStepperComponent,
     MsSidenavTicketsProductsComponent,
     MsTicketStepOneComponent,
     MsTicketStepTwoComponent,
@@ -186,7 +196,12 @@ import { ConfirmacionEditComponent } from './ms-ticket/ms-sidenav-tickets-produc
     EditarTicketComponent,
     BorrarTicketComponent,
     ConfirmacionProductComponent,
-    ConfirmacionEditComponent
+    ConfirmacionEditComponent,
+    MsVentasStepOneComponent,
+    MsVentasStepTwoComponent,
+    MsVentasStepThreeComponent,
+    MsVentasComponent,
+    MsVentasProductSearchComponent
   ],
   imports: [
     BrowserModule,

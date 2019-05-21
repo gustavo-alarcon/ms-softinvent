@@ -1,16 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { StateManagementService } from 'src/app/core/state-management.service';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
-import { MsTicketDialogProductDescriptionComponent } from '../../ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
-import { MsTicketDialogProductMovementComponent } from '../../ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
+import { MsTicketDialogProductDescriptionComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component'
+
+import { MsTicketDialogProductMovementComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
+import { FormControl } from '@angular/forms';
+import { SidenavService } from 'src/app/core/sidenav.service';
+import { ProductCart, Promo, Discount, Ticket } from 'src/app/core/ms-types';
 
 @Component({
-  selector: 'app-ms-ticket-product-search',
-  templateUrl: './ms-ticket-product-search.component.html',
+  selector: 'app-ms-ventas-step-one',
+  templateUrl: './ms-ventas-step-one.component.html',
   styles: []
 })
-export class MsTicketProductSearchComponent implements OnInit {
+export class MsVentasStepOneComponent implements OnInit {
+
+  /**
+   * VARIABLES EDU
+   */
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
   displayedColumns: string[] = ['name', 'stock', 'sale', 'warehouse', 'Detalles', 'Agregar'];
@@ -23,21 +31,32 @@ export class MsTicketProductSearchComponent implements OnInit {
   sale: string;
   category: string;
   warehouse: string;
+
+  ticket: Ticket;
+  productList: Array<ProductCart>;
   constructor(
+    private sidenav: SidenavService,
+    private state: StateManagementService,
     public dbs: DatabaseService,
     private dialog: MatDialog
-  ) { }
+  ) {
+    this.productList = [];
+    this.ticket = { cart: this.productList };
+    this.state.agregarTicket(this.ticket);
+  }
+
   ngOnInit() {
     this.dbs.currentDataProducts.subscribe(products => {
       this.filteredProducts = products;
       this.dataSource.data = this.filteredProducts;
     });
-
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  
-  /*realiza la busqueda de elementos con cada campo de la tabla */
+  /**
+   * @desc Función para filtrado de productos basada en coincidencia parcial
+   * @param ref { string }: Valor referencial para realizar la búsqueda en productos
+   */
   filterData(ref: string) {
     ref = ref.toLowerCase();
     this.filteredProducts = this.dbs.products.filter(option =>
@@ -48,7 +67,6 @@ export class MsTicketProductSearchComponent implements OnInit {
       option['sale'].toString().includes(ref));
     this.dataSource.data = this.filteredProducts;
   }
-
   /**
    * @desc  Abre el dialog de detalles del producto
    * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
@@ -62,13 +80,21 @@ export class MsTicketProductSearchComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-  /* addProduct() abre el dialog de agregar un producto
-   * @product{ string [] } : Lista de los campos del producto seleccionado en la tabla
-   * void : no retorna nada 
-   */
+  /**
+  * @desc  agrega un nuevo producto 
+  * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
+  * @return { void } : Sin retornos
+  */
   addProduct(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductMovementComponent, {
-      data: { name: product.name, sale: product.sale, stock: product.stock, category: product.category, warehouse: product.warehouse, imagePath: this.imagePath },
+      data: {
+        name: product.name,
+        sale: product.sale,
+        stock: product.stock,
+        category: product.category,
+        warehouse: product.warehouse,
+        imagePath: this.imagePath,
+      },
       panelClass: 'ms-custom-dialogbox'
 
     });

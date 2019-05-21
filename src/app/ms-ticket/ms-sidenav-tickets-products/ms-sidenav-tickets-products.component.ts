@@ -30,10 +30,10 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     this.state.currentStateIndex = index;
     this.calcTotalSalePrice();
   }
- /**
-   * @desc  Cancula el preecio total del ticket
-   * @return { void } : Sin retornos
-   */
+  /**
+    * @desc  Cancula el preecio total del ticket
+    * @return { void } : Sin retornos
+    */
   calcTotalSalePrice(): void {
     let _total = 0;
     let _discount = 0;
@@ -45,11 +45,11 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     this.currentTicket.totalDiscount = _discount;
     this.currentTicket.totalWithDiscount = _total - _discount;
   }
-   /**
-   * @desc  agrega un nuevo ticket 
-   * @param {!Number[]} index  :indice del nuevo ticker a crear
-   * @return { void } : Sin retornos
-   */
+  /**
+  * @desc  agrega un nuevo ticket 
+  * @param {!Number[]} index  :indice del nuevo ticker a crear
+  * @return { void } : Sin retornos
+  */
   addTicket(index): void {
     let productList: Array<ProductCart> = [];
     let ticket: Ticket = { cart: productList };
@@ -57,10 +57,29 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     this.state.currentStateIndex = index;
     this.currentTicket = this.state.ticketsStateManagement[index];
   }
-   /**
-   * @desc  cambia al siguiente step
-   * @return { void } : Sin retornos
-   */
+  /**
+  * @desc  elimina a un ticker de la lista de tickets
+  * @param {!Number[]} index indice del ticket a eliminar
+  * @return { void } : Sin retornos
+  */
+  deleteTicket(index): void {
+    this.state.eliminarTicket(index);
+    this.calcTotalSalePrice();
+  }
+  /**
+ * @desc  elimina a un producto del carrito
+ * @param {!producto[]} product producto actual
+ * @return { void } : Sin retornos
+ */
+  deleteProduct(product): void {
+    this.state.eliminarProducto(product);
+    this.calcTotalSalePrice();
+
+  }
+  /**
+  * @desc  cambia al siguiente step
+  * @return { void } : Sin retornos
+  */
   nextStep(): void {
     this.mat.currentTab = "step-two";
   }
