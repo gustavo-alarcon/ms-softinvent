@@ -1,111 +1,124 @@
+<div class="w3-center"
+    style="vertical-align: middle; float: right; margin-left: auto; margin-right: auto; background:#2A3B4D">
+    <button mat-icon-button style="background:#2A3B4D; border:none" (click)=onNoClick()>
+        <mat-icon class="w3-text-white">clear</mat-icon>
+    </button>
+</div>
 <div>
-    <h1 class="ms-font-rubik"><mat-icon style="vertical-align:middle" class="ms-color-icons">add_circle</mat-icon> Nuevo tercero</h1>
+    <h1 class="ms-font-rubik">
+        <mat-icon style="vertical-align:middle" class="ms-color-icons">add_circle</mat-icon> Nuevo tercero
+    </h1>
     <mat-divider></mat-divider>
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
     <mat-dialog-content>
-  
-      <form (ngSubmit)="onSubmit()" id="createPartyForm" [formGroup]="createPartyFormGroup">
-        
-        <div class="w3-row">
-            <div class="w3-half">
-                <div class="w3-margin">
-                    <p class="ms-font-karla">Datos de tercero</p>
-                    <mat-form-field style="width:100%" color="accent">
-                        <mat-icon matPrefix class="ms-color-icons w3-margin-right">card_travel</mat-icon>
-                        <mat-select #partyType placeholder="Tipo de tercero (*)" formControlName="type">
-                            <mat-option *ngFor="let type of dbs.partyTypes['partyTypes']" [value]="type">
-                            {{type}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="!createPartyFormGroup.valid">
-                            Campo <strong>requerido*</strong>
-                        </mat-error>
-                    </mat-form-field>
 
-                    <mat-form-field style="width:100%" color="accent">
-                        <mat-icon matPrefix class="ms-color-icons w3-margin-right">class</mat-icon>
-                        <mat-select #partyDocumentType placeholder="Tipo de documento (*)" formControlName="docType">
-                        <mat-option *ngFor="let type of dbs.partyDocumentTypes['partyDocumentTypes']" [value]="type">
-                            {{type}}
-                        </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="!createPartyFormGroup.valid">
-                            Campo <strong>requerido*</strong>
-                        </mat-error>
-                    </mat-form-field>
-                    
-                    <mat-form-field style="width:100%" color="accent">
-                        <p matPrefix class="ms-color-icons w3-margin-right"><strong>#</strong></p>
-                        <input matInput type="text" placeholder="Número de documento / RUC (*)" formControlName="docNum" (input)="checkIfExist($event.target.value)">
-                        <mat-error *ngIf="!createPartyFormGroup.valid">
-                            Campo <strong>requerido*</strong>
-                        </mat-error>
-                        <mat-hint *ngIf="alreadyExist">
-                            El tercero ya existe
-                        </mat-hint>
-                    </mat-form-field>
+        <form (ngSubmit)="onSubmit()" id="createPartyForm" [formGroup]="createPartyFormGroup">
 
-                    <mat-form-field style="width:100%" color="accent">
-                        <mat-icon matPrefix class="ms-color-icons w3-margin-right">assignment_ind</mat-icon>
-                        <input matInput type="text" placeholder="Nombre/Empresa (*)" formControlName="name">
-                        <mat-error *ngIf="!createPartyFormGroup.valid">
-                            Campo <strong>requerido*</strong>
-                        </mat-error>
-                    </mat-form-field>
+            <div class="w3-row">
+                <div class="w3-half">
+                    <div class="w3-margin">
+                        <p class="ms-font-karla">Datos de tercero</p>
+                        <mat-form-field style="width:100%" color="accent">
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">card_travel</mat-icon>
+                            <mat-select #partyType placeholder="Tipo de tercero (*)" formControlName="type">
+                                <mat-option *ngFor="let type of dbs.partyTypes['partyTypes']" [value]="type">
+                                    {{type}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="!createPartyFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
+                        </mat-form-field>
 
-                    <mat-form-field style="width:100%" color="accent">
-                        <mat-icon matPrefix class="ms-color-icons w3-margin-right">location_on</mat-icon>
-                        <input matInput type="text" placeholder="Dirección" formControlName="address">
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="w3-half">
-                <div class="w3-margin">
-                    <div *ngIf="partyDocumentType.value === 'RUC'; else default">
-                        <p class="ms-font-karla">Persona de contacto</p>
-        
                         <mat-form-field style="width:100%" color="accent">
-                        <mat-icon matPrefix class="ms-color-icons w3-margin-right">account_circle</mat-icon>
-                        <input matInput type="text" placeholder="Nombre" formControlName="contactName">
-                        <mat-error *ngIf="!createPartyFormGroup.valid">
-                            Campo <strong>requerido*</strong>
-                        </mat-error>
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">class</mat-icon>
+                            <mat-select #partyDocumentType placeholder="Tipo de documento (*)"
+                                formControlName="docType">
+                                <mat-option *ngFor="let type of dbs.partyDocumentTypes['partyDocumentTypes']"
+                                    [value]="type">
+                                    {{type}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="!createPartyFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
                         </mat-form-field>
-                
+
                         <mat-form-field style="width:100%" color="accent">
-                        <mat-icon matPrefix class="ms-color-icons w3-margin-right">account_circle</mat-icon>
-                        <input matInput type="text" placeholder="Apellido" formControlName="contactLastname">
-                        <mat-error *ngIf="!createPartyFormGroup.valid">
-                            Campo <strong>requerido*</strong>
-                        </mat-error>
+                            <p matPrefix class="ms-color-icons w3-margin-right"><strong>#</strong></p>
+                            <input matInput type="text" placeholder="Número de documento / RUC (*)"
+                                formControlName="docNum" (input)="checkIfExist($event.target.value)">
+                            <mat-error *ngIf="!createPartyFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
+                            <mat-hint *ngIf="alreadyExist">
+                                El tercero ya existe
+                            </mat-hint>
                         </mat-form-field>
-        
+
                         <mat-form-field style="width:100%" color="accent">
-                        <mat-icon matPrefix class="ms-color-icons w3-margin-right">email</mat-icon>
-                        <input matInput type="text" placeholder="Correo" formControlName="contactEmail">
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">assignment_ind</mat-icon>
+                            <input matInput type="text" placeholder="Nombre/Empresa (*)" formControlName="name">
+                            <mat-error *ngIf="!createPartyFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
                         </mat-form-field>
-        
+
                         <mat-form-field style="width:100%" color="accent">
-                        <mat-icon matPrefix class="ms-color-icons w3-margin-right">phone_iphone</mat-icon>
-                        <input matInput type="text" placeholder="Celular" formControlName="contactPhone">
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">location_on</mat-icon>
+                            <input matInput type="text" placeholder="Dirección" formControlName="address">
                         </mat-form-field>
                     </div>
-                    <ng-template #default>
-                        <div class="w3-display-container" style="height:40vh">
-                            <div class="w3-display-middle">
-                                <mat-icon class="ms-tcolor-b-disabled" style="font-size: 3em">account_circle</mat-icon>
-                            </div>
+                </div>
+                <div class="w3-half">
+                    <div class="w3-margin">
+                        <div *ngIf="partyDocumentType.value === 'RUC'; else default">
+                            <p class="ms-font-karla">Persona de contacto</p>
+
+                            <mat-form-field style="width:100%" color="accent">
+                                <mat-icon matPrefix class="ms-color-icons w3-margin-right">account_circle</mat-icon>
+                                <input matInput type="text" placeholder="Nombre" formControlName="contactName">
+                                <mat-error *ngIf="!createPartyFormGroup.valid">
+                                    Campo <strong>requerido*</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field style="width:100%" color="accent">
+                                <mat-icon matPrefix class="ms-color-icons w3-margin-right">account_circle</mat-icon>
+                                <input matInput type="text" placeholder="Apellido" formControlName="contactLastname">
+                                <mat-error *ngIf="!createPartyFormGroup.valid">
+                                    Campo <strong>requerido*</strong>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field style="width:100%" color="accent">
+                                <mat-icon matPrefix class="ms-color-icons w3-margin-right">email</mat-icon>
+                                <input matInput type="text" placeholder="Correo" formControlName="contactEmail">
+                            </mat-form-field>
+
+                            <mat-form-field style="width:100%" color="accent">
+                                <mat-icon matPrefix class="ms-color-icons w3-margin-right">phone_iphone</mat-icon>
+                                <input matInput type="text" placeholder="Celular" formControlName="contactPhone">
+                            </mat-form-field>
                         </div>
-                    </ng-template>
+                        <ng-template #default>
+                            <div class="w3-display-container" style="height:40vh">
+                                <div class="w3-display-middle">
+                                    <mat-icon class="ms-tcolor-b-disabled" style="font-size: 3em">account_circle
+                                    </mat-icon>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
             </div>
-        </div>
-  
-      </form>
+
+        </form>
     </mat-dialog-content>
-  
+
     <mat-dialog-actions>
         <button mat-raised-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
-        <button mat-raised-button form="createPartyForm" class="ms-color-b-1" style="margin:0.2em 0.2em" [disabled]="alreadyExist || !createPartyFormGroup.valid">Crear</button>
-      </mat-dialog-actions>
-  </div>
+        <button mat-raised-button form="createPartyForm" class="ms-color-b-1" style="margin:0.2em 0.2em"
+            [disabled]="alreadyExist || !createPartyFormGroup.valid">Crear</button>
+    </mat-dialog-actions>
+</div>

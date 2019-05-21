@@ -68,7 +68,7 @@
                     <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
                     <input matInput placeholder="Soles" type="number" min="0">
                   </mat-form-field>
-                </div> 
+                </div>
                 <div class="w3-third w3-container"
                   style="padding:0px;align-items: center;display: flex; justify-content: center">
                   <h2>=</h2>
@@ -88,8 +88,8 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Agregar al carrito
-      ({{total | currency : 'S/.'}})</button>
+    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Guardar cambios
+      {{total | currency : 'S/.'}}</button>
   </div>
 </div>
 <div class="w3-hide-large w3-hide-medium">
@@ -162,7 +162,8 @@
       </div>
       <div class="w3-margin">
         <mat-form-field class="w3-block">
-          <input matInput placeholder="Cantidad" type="number" value=0 min="0" max="{{data.stock}}" [formControl]="cantidad">
+          <input matInput placeholder="Cantidad" type="number" value=0 min="0" max="{{data.stock}}"
+            [formControl]="cantidad">
         </mat-form-field>
       </div>
       <div class="w3-margin">
@@ -235,7 +236,7 @@
     </div>
   </div>
   <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
-    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Agregar al carrito
+    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Guardar cambios
       ({{  total | currency : 'S/.' }}
       )</button>
   </div>

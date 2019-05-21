@@ -2,21 +2,22 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { ProductCart, Promo, Discount } from 'src/app/core/ms-types';
-import { StateManagementService } from 'src/app/core/state-management.service';
-import { ConfirmacionProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
+import { StateManagementService } from 'src/app/core/state-management.service'
+import { ConfirmacionEditComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
 
 export interface DialogData {
   name: string;
   sale: string;
   stock: string;
   warehouse: string;
-  category: string;
+  category: string; 
 }
 @Component({
-  selector: 'app-ms-ticket-dialog-product-movement',
-  templateUrl: './ms-ticket-dialog-product-movement.component.html'
+  selector: 'app-editar-ticket',
+  templateUrl: './editar-ticket.component.html',
+  styles: []
 })
-export class MsTicketDialogProductMovementComponent implements OnInit {
+export class EditarTicketComponent implements OnInit {
   /**Valor actual de las siguiente variables :
   * Cantidad
   * Descuento
@@ -26,7 +27,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   descuento = new FormControl()
   promocion = new FormControl()
   porcentajeDescuento = new FormControl() // valor actual del campo "promocion"
-  nDescuento: number = 0; // precio en soles del descuento
+  nDescuento: number = 0; // prcio en soles del descuento
   pDescuento: number = 0;// porcentaje del descuento
   pInicial: number = 0; // precio inicial sin descuentos
   cant: number = 0; // cantidad inicial
@@ -39,7 +40,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   discount: Discount;
   constructor(
     private dialog: MatDialog,
-    public dialogRef: MatDialogRef<MsTicketDialogProductMovementComponent>,
+    public dialogRef: MatDialogRef<EditarTicketComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService
   ) {
@@ -92,7 +93,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     console.log(this.newProduct);
   }
   confirmacionProduct():void {
-    var confirmDialogRef = this.dialog.open(ConfirmacionProductComponent, {
+    var confirmDialogRef = this.dialog.open(ConfirmacionEditComponent, {
       panelClass: 'ms-custom-modalbox'
     });
     confirmDialogRef.afterClosed()

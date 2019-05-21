@@ -105,4 +105,8 @@ export class EditarTerceroComponent implements OnInit {
     }
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

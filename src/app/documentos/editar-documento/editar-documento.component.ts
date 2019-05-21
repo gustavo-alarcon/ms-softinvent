@@ -137,4 +137,8 @@ export class EditarDocumentoComponent implements OnInit {
     }
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

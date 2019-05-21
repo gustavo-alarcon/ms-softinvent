@@ -118,7 +118,7 @@ export class CrearProductoComponent implements OnInit {
     this.createProductFormGroup.patchValue({
       stock: this.createProductFormGroup.get('initialStock').value
     })
-    
+
     this.dbs.productsCollection.add({
       id: '',
       category: this.createProductFormGroup.value.category.trim(),
@@ -137,43 +137,43 @@ export class CrearProductoComponent implements OnInit {
       userName: this.createProductFormGroup.value.userName,
       userId: this.createProductFormGroup.value.userId
     })
-    .then( ref => {
-      ref.update({id: ref.id});
+      .then(ref => {
+        ref.update({ id: ref.id });
 
-      this.loading = false;
-      this.dialogRef.close();
-    })
-    
-    
-    this.dbs.checkIfCategoryExist(this.createProductFormGroup.value.category).subscribe( exist => {
-      if(!exist){
+        this.loading = false;
+        this.dialogRef.close();
+      })
+
+
+    this.dbs.checkIfCategoryExist(this.createProductFormGroup.value.category).subscribe(exist => {
+      if (!exist) {
 
         this.dbs.categoryTypes['categoryTypes'].push(this.createProductFormGroup.value.category);
 
-        this.dbs.categoryTypesDocument.get().forEach( categoryArray => {
+        this.dbs.categoryTypesDocument.get().forEach(categoryArray => {
           categoryArray.ref.set({
             categoryTypes: this.dbs.categoryTypes['categoryTypes']
           })
         })
-        .catch(err => {
-          console.log(err);
-        })
+          .catch(err => {
+            console.log(err);
+          })
       }
     })
 
-    this.dbs.checkIfUnitExist(this.createProductFormGroup.value.unit).subscribe( exist => {
-      if(!exist){
+    this.dbs.checkIfUnitExist(this.createProductFormGroup.value.unit).subscribe(exist => {
+      if (!exist) {
 
         this.dbs.unitTypes['unitTypes'].push(this.createProductFormGroup.value.unit);
 
-        this.dbs.unitTypesDocument.get().forEach( unitArray => {
+        this.dbs.unitTypesDocument.get().forEach(unitArray => {
           unitArray.ref.set({
             unitTypes: this.dbs.unitTypes['unitTypes']
           })
         })
-        .catch(err => {
-          console.log(err);
-        })
+          .catch(err => {
+            console.log(err);
+          })
       }
     })
   }
@@ -183,7 +183,7 @@ export class CrearProductoComponent implements OnInit {
 
     var filteredProductNames = this.dbs.products.filter(option => option['name'].toString() === name);
 
-    if(filteredProductNames.length > 0){
+    if (filteredProductNames.length > 0) {
       this.nameAlreadyExist = true;
     }
   }
@@ -193,7 +193,7 @@ export class CrearProductoComponent implements OnInit {
 
     var filteredProductCodes = this.dbs.products.filter(option => option['code'].toString() === code);
 
-    if(filteredProductCodes.length > 0){
+    if (filteredProductCodes.length > 0) {
       this.codeAlreadyExist = true;
     }
   }
@@ -201,17 +201,21 @@ export class CrearProductoComponent implements OnInit {
   checkIfProductExist(warehouse, name, code): void {
     this.productAlreadyExist = false;
 
-    var filteredProducts = this.dbs.products.filter(option => 
+    var filteredProducts = this.dbs.products.filter(option =>
       option['name'].toString() === name &&
       option['code'].toString() === code &&
       option['warehouse'].toString() === warehouse);
 
-    if(filteredProducts.length > 0){
+    if (filteredProducts.length > 0) {
       this.productAlreadyExist = true;
-      this.snackbar.open(`Este producto ya existe en ${warehouse}` , "Cerrar", {
+      this.snackbar.open(`Este producto ya existe en ${warehouse}`, "Cerrar", {
         duration: 4000
       })
     }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

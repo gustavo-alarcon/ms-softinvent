@@ -73,8 +73,9 @@ export class MsTicketStepOneComponent implements OnInit {
    */
   detalles(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductDescriptionComponent, {
-      data: { imagePath: this.imagePath, description: product.name }
-    });
+      data: { imagePath: this.imagePath, description: product.name },
+      panelClass: 'ms-custom-dialogbox'
+    }); 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });

@@ -117,6 +117,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { EditarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
+import { BorrarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/borrar-ticket/borrar-ticket.component';
+import { ConfirmacionProductComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
+import { ConfirmacionEditComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
 
 @NgModule({
   declarations: [
@@ -178,7 +182,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsSidenavTicketsProductsComponent,
     MsTicketStepOneComponent,
     MsTicketStepTwoComponent,
-    MsTicketStepThreeComponent
+    MsTicketStepThreeComponent,
+    EditarTicketComponent,
+    BorrarTicketComponent,
+    ConfirmacionProductComponent,
+    ConfirmacionEditComponent
   ],
   imports: [
     BrowserModule,
@@ -246,7 +254,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
     DetallesTransferenciaComponent,
     DetallesEntradaComponent,
     MsTicketDialogProductDescriptionComponent,
-    MsTicketDialogProductMovementComponent
+    MsTicketDialogProductMovementComponent,
+    EditarTicketComponent,
+    BorrarTicketComponent,
+    ConfirmacionProductComponent,
+    ConfirmacionEditComponent
   ],
   providers: [
     AuthService,
