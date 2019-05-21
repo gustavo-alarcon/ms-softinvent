@@ -12,19 +12,19 @@
         <div class="w3-row">
           <div class="w3-container w3-third ">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Cantidad" type="number" value=0 min="0" max="{{data.stock}}"
+              <input matInput placeholder="Cantidad" type="number" value= {{data.quantity}} min="0" max="{{data.stock}}"
                 [formControl]="cantidad">
               <mat-hint>P/u S/. {{data.sale}}</mat-hint>
             </mat-form-field>
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Inicial" disabled value={{pInicial}} class="form-control">
+              <input matInput placeholder="Precio Inicial" disabled value={{data.sale*data.quantity}} class="form-control">
             </mat-form-field>
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Final" disabled value={{total}} class="form-control">
+              <input matInput placeholder="Precio Final" disabled value={{data.salePrice||total}} class="form-control">
             </mat-form-field>
           </div>
         </div>
@@ -39,7 +39,7 @@
                   <mat-form-field class="w3-block">
                     <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
                     <input matInput placeholder="Soles" placeholder="Soles" [formControl]="descuento"
-                      class="form-control" value="{{ nDescuento}}" type="number" min="0">
+                      class="form-control" value="{{data.discount.amount/data.quantity||nDescuento}}" type="number" min="0">
                   </mat-form-field>
                 </div>
                 <div class="w3-third w3-container w3-block"
@@ -51,7 +51,7 @@
                     <span matPrefix class="ms-color-icons w3-margin-right" style="font-size: 20px;
                     font-weight: 900;">%</span>
                     <input matInput placeholder="Porcentaje" [formControl]="porcentajeDescuento" class="form-control"
-                      value="{{ pDescuento}}" type="number" min="0" max="100">
+                      value="{{ data.discount.percentage||pDescuento}}" type="number" min="0" max="100">
                   </mat-form-field>
                 </div>
               </div>

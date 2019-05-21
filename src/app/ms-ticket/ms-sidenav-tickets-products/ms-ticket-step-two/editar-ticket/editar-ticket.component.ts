@@ -6,11 +6,17 @@ import { StateManagementService } from 'src/app/core/state-management.service'
 import { ConfirmacionEditComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
 
 export interface DialogData {
-  name: string;
-  sale: string;
-  stock: string;
-  warehouse: string;
-  category: string; 
+  name: string,
+  sale: string,
+  salePrice: string,
+  stock: number,
+  category: string,
+  warehouse:string,
+  imagePath: string,
+  quantity : number,
+  discountType : string,
+  discount : Discount,
+  total : string,
 }
 @Component({
   selector: 'app-editar-ticket',
@@ -81,13 +87,14 @@ export class EditarTicketComponent implements OnInit {
   */
   addProduct(): void {
     this.newProduct = {
-      stock: parseInt(this.data.stock),
+      stock: this.data.stock,
       name: this.data.name,
       discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },
       quantity: this.cant,
       warehouse: this.data.warehouse,
       discountType: "discount",
-      salePrice: parseFloat(this.data.sale)
+      salePrice: parseFloat(this.data.salePrice),
+      sale: parseFloat(this.data.sale)
     };
     this.carrito.agregarProducto(this.newProduct)
     console.log(this.newProduct);

@@ -46,7 +46,8 @@ export interface ProductCart {
   promo?: Promo,
   discount?: Discount,
   warehouse: string,
-  salePrice: number
+  salePrice: number,
+  sale : number
 }
 
 export interface Ticket {

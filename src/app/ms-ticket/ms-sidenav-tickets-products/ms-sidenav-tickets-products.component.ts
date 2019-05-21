@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { SidenavService } from 'src/app/core/sidenav.service';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { MattabService } from 'src/app/core/mattab.service';
+import { DataSource } from '@angular/cdk/table';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ms-sidenav-tickets-products',
@@ -21,12 +23,23 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   ) {
     this.changeCurrentTicket(0);
   }
-
+  subscriptions: Array<Subscription> = [];
   ngOnInit() {
-  }
+    let temp = this.state.ticketsStateManagement.subscribe(res => {
+      this.state.currentState = res;
+      this.currentTicket = this.state.currentState[this.state.currentStateIndex];
+      console.log(this.currentTicket);
 
+    })
+
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => {
+      sub.unsubscribe();
+    })
+  }
   changeCurrentTicket(index): void {
-    this.currentTicket = this.state.ticketsStateManagement[index];
+    this.currentTicket = this.state.currentState[index];
     this.state.currentStateIndex = index;
     this.calcTotalSalePrice();
   }
@@ -37,9 +50,11 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   calcTotalSalePrice(): void {
     let _total = 0;
     let _discount = 0;
+    console.log(this.currentTicket);
+
     this.currentTicket.cart.forEach(prod => {
       _discount += prod.discount.amount * prod.quantity;
-      _total += prod.salePrice * prod.quantity
+      _total += prod.salePrice;
     })
     this.currentTicket.totalWithoutDiscount = _total;
     this.currentTicket.totalDiscount = _discount;
@@ -63,8 +78,12 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   * @return { void } : Sin retornos
   */
   deleteTicket(index): void {
-    this.state.eliminarTicket(index);
-    this.calcTotalSalePrice();
+    if(this.state.currentState.length!=1)
+    {
+      this.state.eliminarTicket(index);
+      this.calcTotalSalePrice();
+    }
+ 
   }
   /**
  * @desc  elimina a un producto del carrito

@@ -93,7 +93,6 @@ export class MsTicketStepOneComponent implements OnInit {
         stock: product.stock,
         category: product.category,
         warehouse: product.warehouse,
-        imagePath: this.imagePath,
       },
       panelClass: 'ms-custom-dialogbox'
 

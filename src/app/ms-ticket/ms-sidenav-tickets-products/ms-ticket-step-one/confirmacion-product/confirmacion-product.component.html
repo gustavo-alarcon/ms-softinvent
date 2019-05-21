@@ -1,6 +1,6 @@
 <div class="w3-container w3-center">
     <h4 class="ms-font-karla" style="font-size:1.3em"><strong>¿Está seguro que desea agregar este artículo a su lista?</strong></h4>
     
-    <button mat-raised-button color="warn" mat-dialog-close style="margin:0.2em 0.2em">NO</button>
+    <button mat-raised-button color="warn" mat-dialog-close style="margin:0.2em 0.2em" (click)="onNoClick()" >NO</button>
     <button mat-raised-button class="ms-color-b-1" style="margin:0.2em 0.2em" (click)="addProduct()">SI</button>
   </div>

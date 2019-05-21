@@ -60,7 +60,7 @@ export class MsTicketStepTwoComponent implements OnInit {
     /*
      * @desc Pone a disposicion los datos del cart del ticketsStateManagement
      */
-    this.dataSource.data = this.state.ticketsStateManagement[this.state.currentStateIndex].cart;
+    this.dataSource.data = this.state.currentState[this.state.currentStateIndex].cart;
 
     /*
      * @desc Pie de tabla que enumera las paginas
@@ -93,8 +93,20 @@ export class MsTicketStepTwoComponent implements OnInit {
    * void : no retorna nada 
    */
   editProduct(product): void {
+    console.log(product);
     const dialogRef = this.dialog.open(EditarTicketComponent, {
-      data: { name: product.name, sale: product.sale, stock: product.stock, category: product.category, warehouse: product.warehouse, imagePath: this.imagePath },
+      data: {
+        name: product.name,
+        sale: product.sale,
+        salePrice: product.salePrice,
+        stock: product.stock,
+        category: product.category,
+        warehouse: product.warehouse,
+        imagePath: this.imagePath,
+        quantity: product.quantity,
+        discountType: product.discountType,
+        discount: product.discount,
+      },
       panelClass: 'ms-custom-dialogbox'
 
     });
@@ -103,9 +115,9 @@ export class MsTicketStepTwoComponent implements OnInit {
     });
   }
   deleteProduct(): void {
-  var confirmDialogRef = this.dialog.open(BorrarTicketComponent, {
-    panelClass: 'ms-custom-modalbox'
-  });
-  confirmDialogRef.afterClosed()
+    var confirmDialogRef = this.dialog.open(BorrarTicketComponent, {
+      panelClass: 'ms-custom-modalbox'
+    });
+    confirmDialogRef.afterClosed()
   }
 }

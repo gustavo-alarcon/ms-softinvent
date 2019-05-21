@@ -21,7 +21,8 @@ export class StateManagementService {
           discountType: 'discount',
           discount: { amount: 100, percentage: 10 },
           salePrice: 1200.00,
-          warehouse: "TDA 410"
+          warehouse: "TDA 410",
+          sale : 1300.00
         },
         {
           name: 'Pirandello',
@@ -30,7 +31,8 @@ export class StateManagementService {
           discountType: 'discount',
           discount: { amount: 100, percentage: 10 },
           salePrice: 400.00,
-          warehouse: "Fortaleza"
+          warehouse: "Fortaleza",
+          sale : 500.00
         }
       ], customer: 'Milagros, Palomino'
     },
@@ -43,7 +45,8 @@ export class StateManagementService {
           discountType: 'discount',
           discount: { amount: 100, percentage: 10 },
           salePrice: 1300.00,
-          warehouse: "TDA 410"
+          warehouse: "TDA 410",
+          sale : 2800.00
         },
         {
           name: 'Sigma',
@@ -52,7 +55,8 @@ export class StateManagementService {
           discountType: 'discount',
           discount: { amount: 100, percentage: 10 },
           salePrice: 600.00,
-          warehouse: "Fortaleza"
+          warehouse: "Fortaleza",
+          sale : 7000.00
         },
       ], customer: 'Gabriela, Nuñez'
     }
@@ -63,24 +67,30 @@ export class StateManagementService {
 
   constructor() { }
 
-  agregarProducto(producto) {
-    this.ticketsStateManagement[this.currentStateIndex].cart.push(producto);
-    console.log(this.currentState);
-    this.agregarTicket('asd');
-  }
-  eliminarProducto(producto){
-    this.ticketsStateManagement[this.currentStateIndex].cart.splice(this.ticketsStateManagement[this.currentStateIndex].cart.indexOf(producto),1);
-  }
-  agregarTicket(ticket){
-    this.ticketsStateManagement.push(ticket);
 
-  public agregarTicket(asd) {
-    let newTicket: Ticket;
-    this.currentState.push(newTicket);
+  agregarProducto(producto) {
+
+    this.currentState[this.currentStateIndex].cart.push(producto);
+    this.stateManagement.next(this.currentState);
+    // console.log(this.currentState);
+    //  this.agregarTicket('asd');
+  }
+  eliminarProducto(producto) {
+    this.currentState[this.currentStateIndex].cart.splice(this.currentState[this.currentStateIndex].cart.indexOf(producto), 1);
+    this.stateManagement.next(this.currentState);
+
+  }
+
+  public agregarTicket(ticket) {
+    //let newTicket: Ticket;
+    this.currentState.push(ticket);
     this.stateManagement.next(this.currentState);
     console.log(this.currentState);
   }
-  eliminarTicket(index){
-    this.ticketsStateManagement.splice ( index,1)
+
+  eliminarTicket(index) {
+    console.log("Si entra acas ")
+    this.currentState.splice(index, 1);
+    this.stateManagement.next(this.currentState);
   }
 }

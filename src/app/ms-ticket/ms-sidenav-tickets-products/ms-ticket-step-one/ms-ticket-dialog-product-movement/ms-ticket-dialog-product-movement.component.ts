@@ -86,15 +86,31 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       quantity: this.cant,
       warehouse: this.data.warehouse,
       discountType: "discount",
-      salePrice: parseFloat(this.data.sale)
+      salePrice: parseFloat(this.data.sale),
+      sale : parseFloat(this.data.sale)
     };
     this.carrito.agregarProducto(this.newProduct)
     console.log(this.newProduct);
   }
-  confirmacionProduct():void {
+  confirmacionProduct(): void {
     var confirmDialogRef = this.dialog.open(ConfirmacionProductComponent, {
-      panelClass: 'ms-custom-modalbox'
+      data: {
+        stock: parseInt(this.data.stock),
+        name: this.data.name,
+        discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },
+        quantity: this.cant,
+        warehouse: this.data.warehouse,
+        discountType: "discount",
+        salePrice: (parseFloat(this.data.sale)-this.nDescuento ) * this.cant ,
+        sale : parseFloat(this.data.sale)
+      },
+      panelClass: 'ms-custom-dialogbox'
+
     });
-    confirmDialogRef.afterClosed()
-    }
+    confirmDialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
 }
