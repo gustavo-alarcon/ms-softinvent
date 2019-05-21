@@ -42,15 +42,13 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     public dialogRef: MatDialogRef<MsTicketDialogProductMovementComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService
-  ) {
-    this.total = parseFloat(this.data.sale) * 1;
-    console.log('consoleee');
-  }
+  ) { }
   ngOnInit() {
     // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
     this.cantidad.valueChanges.subscribe(result => {
       this.cant = this.cantidad.value;
-      if (this.cantidad.value != '') {
+      console.log('cant:',this.cantidad.value)
+      if (this.cantidad.value) {
         this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
         this.pInicial = result * parseFloat(this.data.sale);
       }
@@ -58,6 +56,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
         this.total = 0;
       }
     });
+
     this.descuento.valueChanges.subscribe(result => {
       this.total = ((parseFloat(this.data.sale) - result) * this.cant);
       this.pDescuento = parseFloat(((100 * result) / parseInt(this.data.sale)).toFixed(2));

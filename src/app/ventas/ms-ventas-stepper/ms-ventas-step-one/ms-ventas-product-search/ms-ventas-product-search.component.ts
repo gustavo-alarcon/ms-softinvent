@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
 import { MsTicketDialogProductDescriptionComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component'
-
 import { MsTicketDialogProductMovementComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
 
 @Component({

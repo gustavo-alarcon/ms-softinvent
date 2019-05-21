@@ -3,7 +3,6 @@ import { StateManagementService } from 'src/app/core/state-management.service';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
 import { MsTicketDialogProductDescriptionComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component'
-
 import { MsTicketDialogProductMovementComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component'
 import { FormControl } from '@angular/forms';
 import { SidenavService } from 'src/app/core/sidenav.service';
@@ -74,8 +73,9 @@ export class MsVentasStepOneComponent implements OnInit {
    */
   detalles(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductDescriptionComponent, {
-      data: { imagePath: this.imagePath, description: product.name }
-    });
+      data: { imagePath: this.imagePath, description: product.name },
+      panelClass: 'ms-custom-dialogbox'
+    }); 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
@@ -93,7 +93,6 @@ export class MsVentasStepOneComponent implements OnInit {
         stock: product.stock,
         category: product.category,
         warehouse: product.warehouse,
-        imagePath: this.imagePath,
       },
       panelClass: 'ms-custom-dialogbox'
 

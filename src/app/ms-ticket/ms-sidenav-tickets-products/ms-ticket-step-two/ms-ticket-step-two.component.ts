@@ -8,7 +8,7 @@ import { CrearTerceroComponent } from 'src/app/terceros/crear-tercero/crear-terc
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { EditarTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
-import { BorrarTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/borrar-ticket/borrar-ticket.component';
+import { Ticket } from 'src/app/core/ms-types';
 
 @Component({
   selector: 'app-ms-ticket-step-two',
@@ -37,6 +37,7 @@ export class MsTicketStepTwoComponent implements OnInit {
    */
   selectedType = new FormControl();
   partyFromList = new FormControl();
+  currentTicket: Ticket;
 
   constructor(
     private sidenav: SidenavService,
@@ -58,10 +59,12 @@ export class MsTicketStepTwoComponent implements OnInit {
         map(docNum => docNum ? this.dbs.parties.filter(option => option['docNum'].toLowerCase().includes(docNum)) : this.dbs.parties)
       );
     /*
-     * @desc Pone a disposicion los datos del cart del ticketsStateManagement
+     * @desc Pone a disposicion los datos del cart del currentState
      */
-    this.dataSource.data = this.state.currentState[this.state.currentStateIndex].cart;
-
+    let temp = this.state.ticketsStateManagement.subscribe(res => {
+      this.state.currentState = res;
+      this.dataSource.data = this.state.currentState[this.state.currentStateIndex].cart;
+    })
     /*
      * @desc Pie de tabla que enumera las paginas
      */
@@ -93,7 +96,6 @@ export class MsTicketStepTwoComponent implements OnInit {
    * void : no retorna nada 
    */
   editProduct(product): void {
-    console.log(product);
     const dialogRef = this.dialog.open(EditarTicketComponent, {
       data: {
         name: product.name,
@@ -111,13 +113,15 @@ export class MsTicketStepTwoComponent implements OnInit {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
-  deleteProduct(): void {
-    var confirmDialogRef = this.dialog.open(BorrarTicketComponent, {
-      panelClass: 'ms-custom-modalbox'
-    });
-    confirmDialogRef.afterClosed()
+  /*
+  * @desc  elimina a un producto del carrito
+  * @param {!producto[]} product producto actual
+  * @return { void } : Sin retornos
+  */
+  deleteProduct(product): void {
+    this.state.eliminarProducto(product);
   }
+
 }

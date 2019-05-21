@@ -84,7 +84,6 @@ import { MsConfigStaffComponent } from './main/ms-config/ms-config-notifications
 import { MsSidenavNotificationsComponent } from './ms-sidenav-notifications/ms-sidenav-notifications.component';
 
 import { EditarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
-import { BorrarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/borrar-ticket/borrar-ticket.component';
 import { ConfirmacionProductComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
 import { ConfirmacionEditComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
 
@@ -194,7 +193,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsTicketStepTwoComponent,
     MsTicketStepThreeComponent,
     EditarTicketComponent,
-    BorrarTicketComponent,
     ConfirmacionProductComponent,
     ConfirmacionEditComponent,
     MsVentasStepOneComponent,
@@ -271,7 +269,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsTicketDialogProductDescriptionComponent,
     MsTicketDialogProductMovementComponent,
     EditarTicketComponent,
-    BorrarTicketComponent,
     ConfirmacionProductComponent,
     ConfirmacionEditComponent
   ],

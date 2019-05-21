@@ -33,8 +33,6 @@ export class ConfirmacionProductComponent implements OnInit {
   }
 
   addProduct(): void {
-    console.log(this.data);
-
     let newProduct: ProductCart;
     newProduct = {
       stock: parseInt(this.data.stock),
@@ -48,16 +46,8 @@ export class ConfirmacionProductComponent implements OnInit {
     };
     this.carrito.agregarProducto(newProduct)
     this.onNoClick();
-    this.onNoClick2();
-
-
   }
   onNoClick(): void {
     this.dialogRef.close();
-
-  }
-  onNoClick2(): void {
-    this.venta.close();
-
   }
 }

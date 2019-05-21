@@ -19,7 +19,7 @@
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Inicial" disabled value={{data.sale*data.quantity}} class="form-control">
+              <input matInput placeholder="Precio Inicial" disabled value={{data.sale*data.quantity||pInicial}} class="form-control">
             </mat-form-field>
           </div>
           <div class="w3-container w3-third">
@@ -58,7 +58,7 @@
             </mat-card>
           </div>
         </div>
-        <div class="w3-half w3-container">
+        <div class="w3-half w3-container w3-hide">
           <div class="w3-padding-48	">
             <mat-card>
               <mat-radio-button value="2">Promocion</mat-radio-button>
@@ -88,8 +88,8 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Guardar cambios
-      {{total | currency : 'S/.'}}</button>
+    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Guardar cambios 
+      ({{data.salePrice | currency : 'S/.'}})</button>
   </div>
 </div>
 <div class="w3-hide-large w3-hide-medium">
@@ -168,7 +168,7 @@
       </div>
       <div class="w3-margin">
         <mat-accordion>
-          <mat-expansion-panel>
+          <mat-expansion-panel class="w3-hide">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Aplicar Promocion
@@ -236,8 +236,7 @@
     </div>
   </div>
   <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
-    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Guardar cambios
-      ({{  total | currency : 'S/.' }}
-      )</button>
+    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Guardar cambios 
+      ({{  data.salePrice | currency : 'S/.' }})</button>
   </div>
 </div>

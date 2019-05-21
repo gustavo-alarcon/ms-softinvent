@@ -16,6 +16,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
 
   sidenavTickets: boolean = true;
   currentTicket: Ticket;
+  currentCart: ProductCart;
   constructor(
     private sidenav: SidenavService,
     private state: StateManagementService,
@@ -28,10 +29,8 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     let temp = this.state.ticketsStateManagement.subscribe(res => {
       this.state.currentState = res;
       this.currentTicket = this.state.currentState[this.state.currentStateIndex];
-      console.log(this.currentTicket);
-
+      //this.currentCart = res[this.state.currentStateIndex].cart;
     })
-
   }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
@@ -50,8 +49,6 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   calcTotalSalePrice(): void {
     let _total = 0;
     let _discount = 0;
-    console.log(this.currentTicket);
-
     this.currentTicket.cart.forEach(prod => {
       _discount += prod.discount.amount * prod.quantity;
       _total += prod.salePrice;
@@ -78,12 +75,10 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   * @return { void } : Sin retornos
   */
   deleteTicket(index): void {
-    if(this.state.currentState.length!=1)
-    {
+    if (this.state.currentState.length != 1) {
       this.state.eliminarTicket(index);
       this.calcTotalSalePrice();
     }
- 
   }
   /**
  * @desc  elimina a un producto del carrito
@@ -93,7 +88,6 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
     this.calcTotalSalePrice();
-
   }
   /**
   * @desc  cambia al siguiente step
