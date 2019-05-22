@@ -52,7 +52,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     if (this.state.currentState.length) {
       this.currentTicket = this.state.currentState[index];
       this.state.currentStateIndex = index;
-      this.calcTotalSalePrice();
+      this.state.calcTotalSalePrice();
     } else {
       this.snackbar.open("No hay tickets abiertos ...", "Cerrar", {
         duration: 6000
@@ -64,21 +64,21 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   * @desc  Cancula el preecio total del ticket
   * @return { void } : Sin retornos
   */
-  calcTotalSalePrice(): void {
-    let _total = 0;
-    let _discount = 0;
-    console.log(this.currentTicket);
-    if (this.currentTicket) {
-      this.currentTicket.cart.forEach(prod => {
-        _discount += prod.discount.amount;
-        _total += prod.salePrice;
-      })
-      this.currentTicket.totalWithoutDiscount = _total + _discount;
-      this.currentTicket.totalDiscount = _discount;
-      this.currentTicket.totalWithDiscount = _total;
-    }
+  // calcTotalSalePrice(): void {
+  //   let _total = 0;
+  //   let _discount = 0;
+  //   console.log(this.currentTicket);
+  //   if (this.currentTicket) {
+  //     this.currentTicket.cart.forEach(prod => {
+  //       _discount += prod.discount.amount;
+  //       _total += prod.salePrice;
+  //     })
+  //     this.currentTicket.totalWithoutDiscount = _total + _discount;
+  //     this.currentTicket.totalDiscount = _discount;
+  //     this.currentTicket.totalWithDiscount = _total;
+  //   }
 
-  }
+  // }
 
   /**
   * @desc  agrega un nuevo ticket 
@@ -100,7 +100,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   */
   deleteTicket(index): void {
     this.state.eliminarTicket(index);
-    this.calcTotalSalePrice();
+    this.state.calcTotalSalePrice();
   }
 
   /**
@@ -110,7 +110,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   */
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
-    this.calcTotalSalePrice();
+    this.state.calcTotalSalePrice();
   }
 
   /**
