@@ -105,4 +105,18 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
 
 
   }
+  Disminuir(): void {
+    if(this.cant > 0){ 
+    this.cant = this.cant - 1
+    this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
+    this.pInicial = this.cant * parseFloat(this.data.sale);
+    }
+  }
+  Aumentar(): void {
+    if(this.cant < parseFloat(this.data.stock)){
+    this.cant = this.cant + 1
+    this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
+    this.pInicial = this.cant * parseFloat(this.data.sale);
+    }
+  }
 }

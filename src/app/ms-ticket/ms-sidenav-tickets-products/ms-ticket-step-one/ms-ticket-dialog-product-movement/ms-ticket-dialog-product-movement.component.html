@@ -161,10 +161,12 @@
           <p style="margin:0px">{{data.warehouse}}</p>
         </div>
       </div>
-      <div class="w3-margin">
-        <mat-form-field class="w3-block">
-          <input matInput placeholder="Cantidad" type="number" value=0 min="0" max="{{data.stock}}" [formControl]="cantidad">
+      <div class="w3-margin w3-center">
+        <button icon-button class="w3-button w3-circle" style="background:#9B59B6" (click)="Disminuir()">-</button>
+        <mat-form-field class="w3-block" style="width:30%">
+          <input matInput class="w3-center" type="number" value={{cant}} min="0" max="{{data.stock}}" [formControl]="cantidad">
         </mat-form-field>
+        <button icon-button class="w3-button w3-circle" style="background:#9B59B6" (click)="Aumentar()">+</button>
       </div>
       <div class="w3-margin">
         <mat-accordion>
