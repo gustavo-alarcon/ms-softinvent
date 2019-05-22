@@ -14,6 +14,7 @@
             <mat-form-field class="w3-block">
               <input matInput placeholder="Cantidad" type="number" value=0    min="0" max="{{data.stock}}"
                 [formControl]="cantidad">
+
               <mat-hint>P/u S/. {{data.sale}}</mat-hint>
             </mat-form-field>
           </div>
@@ -88,7 +89,7 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="w3-block {'ms-color-action-3':data.stock==0}" [disabled]="data.stock==0" (click)="confirmacionProduct()">Agregar al carrito
+    <button mat-raised-button class="w3-block" [ngClass]="{'ms-color-action-3': !data.stock==0}" [disabled]="data.stock==0" (click)="confirmacionProduct()">Agregar al carrito
       ({{total | currency : 'S/.'}})</button>
   </div>
 </div>
@@ -235,7 +236,7 @@
     </div>
   </div>
   <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
-    <button mat-raised-button  class="w3-block {'ms-color-action-3':data.stock==0}" [disabled]="data.stock==0" (click)="confirmacionProduct()">Agregar al carrito
+    <button mat-raised-button  class="w3-block " [ngClass]="{'ms-color-action-3': !data.stock==0}" [disabled]="data.stock==0" (click)="confirmacionProduct()">Agregar al carrito
       ({{  total | currency : 'S/.' }}
       )</button>
   </div>
