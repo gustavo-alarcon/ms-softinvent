@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { ProductCart, Promo, Discount } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { ConfirmacionProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
+import { ProductosComponent } from 'src/app/productos/productos.component';
 
 export interface DialogData {
   name: string;
@@ -37,6 +38,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
+
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<MsTicketDialogProductMovementComponent>,
@@ -89,6 +91,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       sale : parseFloat(this.data.sale)
     };
     this.carrito.agregarProducto(this.newProduct)
+    
     console.log(this.newProduct);
   }
   confirmacionProduct(): void {
@@ -112,4 +115,9 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   }
 
 
+  addProducto() : void {
+    console.log(this.data.name);
+
+
+  }
 }

@@ -214,7 +214,7 @@
                 <mat-form-field class="w3-block">
                   <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
                   <input matInput style="width:33%" placeholder="Soles" [formControl]="descuento" class="form-control"
-                    value="{{ nDescuento}}" type="number">
+                    value="{{ nDescuento}}" min = 0 type="number">
                 </mat-form-field>
               </div>
               <div class="w3-third w3-container" style="padding: 0px">
@@ -225,7 +225,7 @@
                   <span matPrefix class="ms-color-icons w3-margin-right" style="font-size: 20px;
                   font-weight: 900;"> %</span>
                   <input matInput style="width:33%" placeholder="Porcentaje" [formControl]="porcentajeDescuento"
-                    class="form-control" value="{{  pDescuento }}" type="number">
+                    class="form-control" value="{{  pDescuento }}" min=0 max=100 type="number">
                 </mat-form-field>
               </div>
             </div>
@@ -235,7 +235,7 @@
     </div>
   </div>
   <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
-    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Agregar al carrito
+    <button mat-raised-button  class="w3-block {'ms-color-action-3':data.stock==0}" [disabled]="data.stock==0" (click)="confirmacionProduct()">Agregar al carrito
       ({{  total | currency : 'S/.' }}
       )</button>
   </div>
