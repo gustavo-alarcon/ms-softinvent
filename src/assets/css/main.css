@@ -85,9 +85,21 @@
     background: #FF4D4D !important;
 }
 
+.ms-color-icons-warn{
+    color: #FF4D4D;
+}
+
 .ms-color-success{
     color: #fff;
     background: #2ECC71 !important;
+}
+
+.ms-color-icons-success{
+    color: #2ECC71;
+}
+
+.ms-color-b-selected{
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 
 .ms-color-l-disabled{
@@ -128,6 +140,7 @@
 
 .ms-font-rubik{
     font-family: 'Rubik', sans-serif;
+    font-size:24px;
 }
 
 .ms-font-poppins {

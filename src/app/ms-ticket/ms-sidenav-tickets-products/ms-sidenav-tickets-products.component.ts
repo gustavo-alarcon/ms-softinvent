@@ -6,6 +6,7 @@ import { StateManagementService } from 'src/app/core/state-management.service';
 import { MattabService } from 'src/app/core/mattab.service';
 import { DataSource } from '@angular/cdk/table';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-ms-sidenav-tickets-products',
@@ -17,46 +18,68 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   sidenavTickets: boolean = true;
   currentTicket: Ticket;
   currentCart: ProductCart;
+
+  subscriptions: Array<Subscription> = [];
+
   constructor(
     private sidenav: SidenavService,
     private state: StateManagementService,
+    private snackbar: MatSnackBar,
     private mat: MattabService
   ) {
     this.changeCurrentTicket(0);
   }
-  subscriptions: Array<Subscription> = [];
+
+
   ngOnInit() {
-    let temp = this.state.ticketsStateManagement.subscribe(res => {
+    let ticketsSubs = this.state.ticketsStateManagement.subscribe(res => {
       this.state.currentState = res;
-      this.currentTicket = this.state.currentState[this.state.currentStateIndex];
-      //this.currentCart = res[this.state.currentStateIndex].cart;
+      this.currentTicket =
+        this.state.currentState[this.state.currentStateIndex];
+      console.log('Obs:',this.currentTicket);
     })
+
+    this.subscriptions.push(ticketsSubs);
   }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     })
   }
+
   changeCurrentTicket(index): void {
-    this.currentTicket = this.state.currentState[index];
-    this.state.currentStateIndex = index;
-    this.calcTotalSalePrice();
+    if (this.state.currentState.length) {
+      this.currentTicket = this.state.currentState[index];
+      this.state.currentStateIndex = index;
+      this.calcTotalSalePrice();
+    } else {
+      this.snackbar.open("No hay tickets abiertos ...", "Cerrar", {
+        duration: 6000
+      })
+    }
   }
+
   /**
-    * @desc  Cancula el preecio total del ticket
-    * @return { void } : Sin retornos
-    */
+  * @desc  Cancula el preecio total del ticket
+  * @return { void } : Sin retornos
+  */
   calcTotalSalePrice(): void {
     let _total = 0;
     let _discount = 0;
-    this.currentTicket.cart.forEach(prod => {
-      _discount += prod.discount.amount * prod.quantity;
-      _total += prod.salePrice;
-    })
-    this.currentTicket.totalWithoutDiscount = _total;
-    this.currentTicket.totalDiscount = _discount;
-    this.currentTicket.totalWithDiscount = _total - _discount;
+    console.log(this.currentTicket);
+    if (this.currentTicket) {
+      this.currentTicket.cart.forEach(prod => {
+        _discount += prod.discount.amount * prod.quantity;
+        _total += prod.salePrice;
+      })
+      this.currentTicket.totalWithoutDiscount = _total;
+      this.currentTicket.totalDiscount = _discount;
+      this.currentTicket.totalWithDiscount = _total - _discount;
+    }
+
   }
+
   /**
   * @desc  agrega un nuevo ticket 
   * @param {!Number[]} index  :indice del nuevo ticker a crear
@@ -65,30 +88,31 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   addTicket(index): void {
     let productList: Array<ProductCart> = [];
     let ticket: Ticket = { cart: productList };
-    this.state.agregarTicket(ticket);
     this.state.currentStateIndex = index;
-    this.currentTicket = this.state.ticketsStateManagement[index];
+    this.state.agregarTicket(ticket);
+    
   }
+
   /**
   * @desc  elimina a un ticker de la lista de tickets
   * @param {!Number[]} index indice del ticket a eliminar
   * @return { void } : Sin retornos
   */
   deleteTicket(index): void {
-    if (this.state.currentState.length != 1) {
-      this.state.eliminarTicket(index);
-      this.calcTotalSalePrice();
-    }
+    this.state.eliminarTicket(index);
+    this.calcTotalSalePrice();
   }
+
   /**
- * @desc  elimina a un producto del carrito
- * @param {!producto[]} product producto actual
- * @return { void } : Sin retornos
- */
+  * @desc  elimina a un producto del carrito
+  * @param {!producto[]} product producto actual
+  * @return { void } : Sin retornos
+  */
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
     this.calcTotalSalePrice();
   }
+
   /**
   * @desc  cambia al siguiente step
   * @return { void } : Sin retornos

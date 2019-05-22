@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Ticket } from "./ms-types";
 import { CurrencyIndex } from '@angular/common/src/i18n/locale_data';
-import { MsTicket } from "../core/classes/ticket";
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -9,9 +8,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class StateManagementService {
 
-  currentStateIndex: number;
+  public currentStateIndex: number;
 
-  currentState: Array<Ticket> = [
+  public currentState: Array<Ticket> = [
     {
       cart: [
         {
@@ -68,28 +67,23 @@ export class StateManagementService {
   constructor() { }
 
 
-  agregarProducto(producto) {
-
+  public agregarProducto(producto) {
     this.currentState[this.currentStateIndex].cart.push(producto);
     this.stateManagement.next(this.currentState);
-    // console.log(this.currentState);
-    //  this.agregarTicket('asd');
   }
-  eliminarProducto(producto) {
+
+  public eliminarProducto(producto) {
     this.currentState[this.currentStateIndex].cart.splice(this.currentState[this.currentStateIndex].cart.indexOf(producto), 1);
     this.stateManagement.next(this.currentState);
 
   }
 
   public agregarTicket(ticket) {
-    //let newTicket: Ticket;
     this.currentState.push(ticket);
     this.stateManagement.next(this.currentState);
-    console.log(this.currentState);
   }
 
-  eliminarTicket(index) {
-    console.log("Si entra acas ")
+  public eliminarTicket(index) {
     this.currentState.splice(index, 1);
     this.stateManagement.next(this.currentState);
   }

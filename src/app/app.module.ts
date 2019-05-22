@@ -66,11 +66,8 @@ import { MsTicketStepTwoComponent } from './ms-ticket/ms-sidenav-tickets-product
 import { MsTicketStepThreeComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
 
 import { MsTicketProductSearchComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-product-search/ms-ticket-product-search.component';
-import { MsTicketSidenavTempComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-sidenav-temp/ms-ticket-sidenav-temp.component';
 import { MsTicketDialogProductDescriptionComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
 import { MsTicketDialogProductMovementComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
-import { MsTicketConfirmComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-confirm/ms-ticket-confirm.component';
-import { MsTicketDeleteMovementComponent } from './ms-ticket/ms-ticket-stepper/ms-ticket-delete-movement/ms-ticket-delete-movement.component';
 
 import { MsConfigComponent } from './main/ms-config/ms-config.component';
 import { MsConfigAccountsComponent } from './main/ms-config/ms-config-accounts/ms-config-accounts.component';
@@ -130,6 +127,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -178,16 +176,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsConfigAdminComponent,
     MsConfigStaffComponent,
     MsTicketProductSearchComponent,
-    MsTicketSidenavTempComponent,
     MsTicketDialogProductDescriptionComponent,
     MsTicketDialogProductMovementComponent,
-    MsTicketConfirmComponent,
-    MsTicketDeleteMovementComponent,
     MsToolbarComponent,
     MsSidenavMenuComponent,
     MsTicketComponent,
-    MsTicketStepperComponent,
     MsVentasStepperComponent,
+    MsTicketStepperComponent,
     MsSidenavTicketsProductsComponent,
     MsTicketStepOneComponent,
     MsTicketStepTwoComponent,
