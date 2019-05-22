@@ -16,7 +16,6 @@ import { HistorialComponent } from '../historial/historial.component';
 import { MsTicketComponent } from '../ms-ticket/ms-ticket.component';
 import { MsTicketStepOneComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-step-one.component';
 import { MsTicketStepTwoComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
-import { MsTicketStepThreeComponent } from '../ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
 import { MsConfigComponent } from '../main/ms-config/ms-config.component';
 import { MsConfigAccountsComponent } from '../main/ms-config/ms-config-accounts/ms-config-accounts.component';
 import { MsConfigNotificationsComponent } from '../main/ms-config/ms-config-notifications/ms-config-notifications.component';
@@ -117,9 +116,6 @@ const routes: Routes = [
           },
           {
             path: 'step-two', component: MsTicketStepTwoComponent
-          },
-          {
-            path: 'step-three', component: MsTicketStepThreeComponent
           }
         ]
       },

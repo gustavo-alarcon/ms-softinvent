@@ -12,8 +12,7 @@ export class MsTicketStepperComponent implements OnInit {
 
   links: Array<Link> = [
     { name: 'Productos', icon: 'shopping_basket', route: 'step-one' },
-    { name: 'Información', icon: 'assignment', route: 'step-two' },
-    { name: 'Listo', icon: 'check_circle', route: 'step-three' }
+    { name: 'Información', icon: 'assignment', route: 'step-two' }
   ];
   activeLink: Link = this.links[0];
   constructor(
@@ -28,10 +27,6 @@ export class MsTicketStepperComponent implements OnInit {
 
       case '/main/ticket/step-two':
         this.activeLink = this.links[1];
-        break;
-
-      case '/main/ticket/step-three':
-        this.activeLink = this.links[2];
         break;
 
       default:
