@@ -70,12 +70,12 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     console.log(this.currentTicket);
     if (this.currentTicket) {
       this.currentTicket.cart.forEach(prod => {
-        _discount += prod.discount.amount * prod.quantity;
+        _discount += prod.discount.amount;
         _total += prod.salePrice;
       })
-      this.currentTicket.totalWithoutDiscount = _total;
+      this.currentTicket.totalWithoutDiscount = _total + _discount;
       this.currentTicket.totalDiscount = _discount;
-      this.currentTicket.totalWithDiscount = _total - _discount;
+      this.currentTicket.totalWithDiscount = _total;
     }
 
   }
