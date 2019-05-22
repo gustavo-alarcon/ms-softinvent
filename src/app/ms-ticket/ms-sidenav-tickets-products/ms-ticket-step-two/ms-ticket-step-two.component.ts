@@ -98,6 +98,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   editProduct(product): void {
     const dialogRef = this.dialog.open(EditarTicketComponent, {
       data: {
+        index : product.index,
         name: product.name,
         sale: product.sale,
         salePrice: product.salePrice,

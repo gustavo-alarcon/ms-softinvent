@@ -20,12 +20,12 @@
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Inicial" disabled value={{pInicial}} class="form-control">
+              <input matInput placeholder="Precio Inicial" disabled value={{data.sale*data.quantity||pInicial}} class="form-control">
             </mat-form-field>
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Final" disabled value={{total}} class="form-control">
+              <input matInput placeholder="Precio Final" disabled value={{data.salePrice||total}}  class="form-control">
             </mat-form-field>
           </div>
         </div>

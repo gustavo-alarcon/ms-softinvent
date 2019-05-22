@@ -5,6 +5,7 @@ import { ProductCart, Promo, Discount } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { ConfirmacionProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
 import { ProductosComponent } from 'src/app/productos/productos.component';
+import { database } from 'firebase';
 
 export interface DialogData {
   name: string;
@@ -38,7 +39,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
-
+  i : number = this.carrito.currentState[this.carrito.currentStateIndex].cart.length+1; // indice del producto
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<MsTicketDialogProductMovementComponent>,
@@ -75,28 +76,12 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  /**
-  * @desc  agrega un nuevo producto al carrito
-  * @return { void } : Sin retornos
-  */
-  addProduct(): void {
-    this.newProduct = {
-      stock: parseInt(this.data.stock),
-      name: this.data.name,
-      discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },
-      quantity: this.cant,
-      warehouse: this.data.warehouse,
-      discountType: "discount",
-      salePrice: parseFloat(this.data.sale),
-      sale : parseFloat(this.data.sale)
-    };
-    this.carrito.agregarProducto(this.newProduct)
-    
-    console.log(this.newProduct);
-  }
+ 
   confirmacionProduct(): void {
+    this.i++;
     var confirmDialogRef = this.dialog.open(ConfirmacionProductComponent, {
       data: {
+        index: this.i,
         stock: parseInt(this.data.stock),
         name: this.data.name,
         discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },

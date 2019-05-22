@@ -6,6 +6,7 @@ import { StateManagementService } from 'src/app/core/state-management.service'
 import { ConfirmacionEditComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
 
 export interface DialogData {
+  index : number,
   name: string,
   sale: string,
   salePrice: string,
@@ -33,11 +34,11 @@ export class EditarTicketComponent implements OnInit {
   descuento = new FormControl()
   promocion = new FormControl()
   porcentajeDescuento = new FormControl() // valor actual del campo "promocion"
-  nDescuento: number = 0; // prcio en soles del descuento
-  pDescuento: number = 0;// porcentaje del descuento
-  pInicial: number = 0; // precio inicial sin descuentos
-  cant: number = 0; // cantidad inicial
-  total: number = 0; //precio total con descuentos y cantidades
+  nDescuento: number = this.data.discount.amount/this.data.quantity; // prcio en soles del descuento
+  pDescuento: number = this.data.discount.percentage;// porcentaje del descuento
+  pInicial: number = parseFloat(this.data.sale)*this.data.quantity; // precio inicial sin descuentos
+  cant: number = this.data.quantity; // cantidad inicial
+  total: number = parseFloat(this.data.salePrice);//precio total con descuentos y cantidades
   isPromo: boolean = false;
   isDiscount: boolean = false;
   listaPromos: string[] = ['Dia de la madre', "cierra puerta"];
@@ -49,10 +50,7 @@ export class EditarTicketComponent implements OnInit {
     public dialogRef: MatDialogRef<EditarTicketComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService
-  ) {
-    this.total = parseFloat(this.data.sale) * 1;
-    console.log('consoleee');
-  }
+  ) {  }
   ngOnInit() {
     // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
     this.cantidad.valueChanges.subscribe(result => {
@@ -81,28 +79,24 @@ export class EditarTicketComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  /**
-  * @desc  agrega un nuevo producto al carrito
-  * @return { void } : Sin retornos
-  */
-  addProduct(): void {
-    this.newProduct = {
-      stock: this.data.stock,
-      name: this.data.name,
-      discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },
-      quantity: this.cant,
-      warehouse: this.data.warehouse,
-      discountType: "discount",
-      salePrice: parseFloat(this.data.salePrice),
-      sale: parseFloat(this.data.sale)
-    };
-    this.carrito.agregarProducto(this.newProduct)
-    console.log(this.newProduct);
-  }
-  confirmacionProduct():void {
+  confirmacionProduct(): void {
     var confirmDialogRef = this.dialog.open(ConfirmacionEditComponent, {
-      panelClass: 'ms-custom-modalbox'
+      data: {
+        index : this.data.index,
+        stock: this.data.stock,
+        name: this.data.name,
+        discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },
+        quantity: this.cant,
+        warehouse: this.data.warehouse,
+        discountType: "discount",
+        salePrice: (parseFloat(this.data.sale)-this.nDescuento ) * this.cant ,
+        sale : parseFloat(this.data.sale)
+      },
+      panelClass: 'ms-custom-dialogbox'
+
     });
-    confirmDialogRef.afterClosed()
-    }
+    confirmDialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }

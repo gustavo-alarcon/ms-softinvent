@@ -4,6 +4,7 @@ import { StateManagementService } from 'src/app/core/state-management.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { MsTicketDialogProductMovementComponent } from '../ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
 export interface DialogData {
+  index: number;
   stock: string;
   name: string;
   discount: Discount;
@@ -35,6 +36,7 @@ export class ConfirmacionProductComponent implements OnInit {
   addProduct(): void {
     let newProduct: ProductCart;
     newProduct = {
+      index : this.data.index,
       stock: parseInt(this.data.stock),
       name: this.data.name,
       discount: this.data.discount,

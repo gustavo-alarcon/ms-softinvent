@@ -39,6 +39,7 @@ export interface Discount {
 }
 
 export interface ProductCart {
+  index : number,
   name: string,
   stock: number,
   quantity: number,
