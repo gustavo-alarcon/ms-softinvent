@@ -38,11 +38,7 @@ export class MsTicketStepOneComponent implements OnInit {
     private state: StateManagementService,
     public dbs: DatabaseService,
     private dialog: MatDialog
-  ) {
-    this.productList = [];
-    this.ticket = { cart: this.productList };
-    this.state.agregarTicket(this.ticket);
-  }
+  ) { }
 
   ngOnInit() {
     this.dbs.currentDataProducts.subscribe(products => {
