@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class GenerarTicketComponent implements OnInit {
+  code: string;
 
   constructor() { }
 
   ngOnInit() {
+  }
+  GenerarTicket(party): void {
+
   }
 
 }

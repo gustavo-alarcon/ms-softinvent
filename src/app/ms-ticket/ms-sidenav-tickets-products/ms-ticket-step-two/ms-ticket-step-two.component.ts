@@ -74,7 +74,6 @@ export class MsTicketStepTwoComponent implements OnInit {
      * @desc Boton para ordenar los datos de la tabla
      */
     this.dataSource.sort = this.sort;
-
   }
   /* creatyParty() abre el dialog de agregar tercero
    * @product{ string [] } : Lista de los campos del tercero
