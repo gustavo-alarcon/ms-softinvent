@@ -81,7 +81,6 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     this.state.eliminarTicket(index);
     this.state.calcTotalSalePrice();
   }
-
   /**
   * @desc  elimina a un producto del carrito
   * @param {!producto[]} product producto actual
@@ -90,13 +89,5 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
     this.state.calcTotalSalePrice();
-  }
-
-  /**
-  * @desc  cambia al siguiente step
-  * @return { void } : Sin retornos
-  */
-  nextStep(): void {
-    this.mat.currentTab = "step-two";
   }
 }
