@@ -16,13 +16,13 @@
               class="w3-hide-medium w3-hide-large"
               [ngClass]="{'ms-color-action-3':state.currentState.length}"
               matTooltip="Lista de carritos de compras"
-              (click)="sidenav.sidenavProductList()">
+              (click)="sidenav.sidenavProductList(); state.calcTotalSalePrice()">
         <mat-icon style="color:white" style="vertical-align:middle">shopping_cart</mat-icon>
       </button>
       <button mat-button
               class="w3-hide-small"
               [ngClass]="{'ms-color-action-3':state.currentState.length}"
-              (click)="sidenav.sidenavProductList()"
+              (click)="sidenav.sidenavProductList(); state.calcTotalSalePrice()"
               [disabled]="!state.currentState.length">
         <mat-icon style="color:white" style="vertical-align:middle">shopping_cart</mat-icon> Lista
       </button>

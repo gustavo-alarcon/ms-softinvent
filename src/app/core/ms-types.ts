@@ -1,7 +1,18 @@
 export interface Staff {
-  displayName: string,
-  area: string,
-  code: number
+  address?: string,
+  code: string,
+  contact: {
+    email: string,
+    lastname: string,
+    name: string,
+    phone: number,
+  }
+  docNum: number,
+  id: string,
+  index: number,
+  name: string,
+  regDate: number,
+  type: string
 }
 
 export interface Product {
@@ -39,6 +50,7 @@ export interface Discount {
 }
 
 export interface ProductCart {
+  index: number,
   name: string,
   stock: number,
   quantity: number,
@@ -47,7 +59,7 @@ export interface ProductCart {
   discount?: Discount,
   warehouse: string,
   salePrice: number,
-  sale : number
+  sale: number
 }
 
 export interface Ticket {
@@ -62,7 +74,7 @@ export interface Ticket {
   total?: number,
   seller?: Staff
 }
-  
+
 export interface Link {
   name: string,
   icon: string,
@@ -92,7 +104,7 @@ export interface Parties {
   id: string,
   name: string,
   regDate: number,
-  type: string
+  type: string,
 }
 
 export interface Contact {

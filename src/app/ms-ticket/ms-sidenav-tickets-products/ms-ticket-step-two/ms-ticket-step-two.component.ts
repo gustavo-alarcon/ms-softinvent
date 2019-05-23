@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { EditarTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
 import { Ticket } from 'src/app/core/ms-types';
+import { GenerarTicketComponent } from './generar-ticket/generar-ticket.component';
 
 @Component({
   selector: 'app-ms-ticket-step-two',
@@ -73,7 +74,6 @@ export class MsTicketStepTwoComponent implements OnInit {
      * @desc Boton para ordenar los datos de la tabla
      */
     this.dataSource.sort = this.sort;
-
   }
   /* creatyParty() abre el dialog de agregar tercero
    * @product{ string [] } : Lista de los campos del tercero
@@ -98,6 +98,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   editProduct(product): void {
     const dialogRef = this.dialog.open(EditarTicketComponent, {
       data: {
+        index : product.index,
         name: product.name,
         sale: product.sale,
         salePrice: product.salePrice,
@@ -122,6 +123,11 @@ export class MsTicketStepTwoComponent implements OnInit {
   */
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
+  }
+  GenerarTicket(): void {
+    const dialogRef = this.dialog.open(GenerarTicketComponent, {
+      panelClass: 'ms-custom-dialogbox'
+    })
   }
 
 }

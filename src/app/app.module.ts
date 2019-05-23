@@ -63,7 +63,6 @@ import { MsTicketStepperComponent } from './ms-ticket/ms-ticket-stepper/ms-ticke
 import { MsSidenavTicketsProductsComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-sidenav-tickets-products.component';
 import { MsTicketStepOneComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-step-one.component';
 import { MsTicketStepTwoComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/ms-ticket-step-two.component';
-import { MsTicketStepThreeComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-three/ms-ticket-step-three.component';
 
 import { MsTicketProductSearchComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-product-search/ms-ticket-product-search.component';
 import { MsTicketDialogProductDescriptionComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/ms-ticket-dialog-product-description/ms-ticket-dialog-product-description.component';
@@ -91,6 +90,7 @@ import { MsVentasStepTwoComponent } from './ventas/ms-ventas-stepper/ms-ventas-s
 import { MsVentasStepThreeComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-three/ms-ventas-step-three.component';
 
 import { MsVentasProductSearchComponent } from './ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-product-search/ms-ventas-product-search.component';
+import { GenerarTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/generar-ticket/generar-ticket.component';
 
 // FIREBASE
 import { AngularFireModule } from '@angular/fire';
@@ -186,7 +186,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsSidenavTicketsProductsComponent,
     MsTicketStepOneComponent,
     MsTicketStepTwoComponent,
-    MsTicketStepThreeComponent,
     EditarTicketComponent,
     ConfirmacionProductComponent,
     ConfirmacionEditComponent,
@@ -194,7 +193,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsVentasStepTwoComponent,
     MsVentasStepThreeComponent,
     MsVentasComponent,
-    MsVentasProductSearchComponent
+    MsVentasProductSearchComponent,
+    GenerarTicketComponent
   ],
   imports: [
     BrowserModule,
@@ -265,7 +265,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsTicketDialogProductMovementComponent,
     EditarTicketComponent,
     ConfirmacionProductComponent,
-    ConfirmacionEditComponent
+    ConfirmacionEditComponent,
+    GenerarTicketComponent
   ],
   providers: [
     AuthService,

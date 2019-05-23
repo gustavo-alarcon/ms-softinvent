@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { ProductCart, Promo, Discount } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { ConfirmacionProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
+import { ProductosComponent } from 'src/app/productos/productos.component';
+import { database } from 'firebase';
 
 export interface DialogData {
   name: string;
@@ -37,6 +39,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
+  i : number = this.carrito.currentState[this.carrito.currentStateIndex].cart.length+1; // indice del producto
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<MsTicketDialogProductMovementComponent>,
@@ -47,7 +50,6 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
     this.cantidad.valueChanges.subscribe(result => {
       this.cant = this.cantidad.value;
-      console.log('cant:',this.cantidad.value)
       if (this.cantidad.value) {
         this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
         this.pInicial = result * parseFloat(this.data.sale);
@@ -73,27 +75,12 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  /**
-  * @desc  agrega un nuevo producto al carrito
-  * @return { void } : Sin retornos
-  */
-  addProduct(): void {
-    this.newProduct = {
-      stock: parseInt(this.data.stock),
-      name: this.data.name,
-      discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },
-      quantity: this.cant,
-      warehouse: this.data.warehouse,
-      discountType: "discount",
-      salePrice: parseFloat(this.data.sale),
-      sale : parseFloat(this.data.sale)
-    };
-    this.carrito.agregarProducto(this.newProduct)
-    console.log(this.newProduct);
-  }
+ 
   confirmacionProduct(): void {
+    this.i++;
     var confirmDialogRef = this.dialog.open(ConfirmacionProductComponent, {
       data: {
+        index: this.i,
         stock: parseInt(this.data.stock),
         name: this.data.name,
         discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },
@@ -104,12 +91,53 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
         sale : parseFloat(this.data.sale)
       },
       panelClass: 'ms-custom-dialogbox'
-
-    });
-    confirmDialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
-
+  Disminuir(): void {
+    if(this.cant > 0){ 
+    this.cant = this.cant - 1
+    this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
+    this.pInicial = this.cant * parseFloat(this.data.sale);
+    }
+  }
+  Aumentar(): void {
+    if(this.cant < parseFloat(this.data.stock)){
+    this.cant = this.cant + 1
+    this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
+    this.pInicial = this.cant * parseFloat(this.data.sale);
+    }
+  }
+  DisminuirS(): void {
+    if(this.nDescuento > 0) {
+      this.nDescuento = this.nDescuento-1
+      this.pDescuento = (100*this.nDescuento)/parseFloat(this.data.sale);
+      this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
+      this.total = parseFloat(this.total.toFixed(2));
+    }
+  }
+  AumentarS(): void {
+    if(this.nDescuento < parseInt(this.data.sale)){
+      this.nDescuento = this.nDescuento+1
+      this.pDescuento = parseFloat(((100*this.nDescuento)/parseFloat(this.data.sale)).toFixed(2));
+      this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
+      this.total = parseFloat(this.total.toFixed(2));
+    }
+  }
+  DisminuirP(): void {
+    if(this.pDescuento > 0) {
+      this.pDescuento = this.pDescuento-1
+      this.nDescuento = parseFloat(((parseFloat(this.data.sale)*this.pDescuento)/100).toFixed(2));
+      this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
+      this.total = parseFloat(this.total.toFixed(2));
+    }
+  }
+  AumentarP(): void {
+    if(this.pDescuento < 100) {
+      this.pDescuento = this.pDescuento+1
+      this.nDescuento = parseFloat(((parseFloat(this.data.sale)*this.pDescuento)/100).toFixed(2));
+      this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
+      this.total = parseFloat(this.total.toFixed(2));
+    }
+  }
 }

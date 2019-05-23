@@ -82,7 +82,7 @@
               <td class="mat-small">{{product.name}}</td>
               <td class="mat-small">{{product.quantity | number : '2.'}}</td>
               <td class="mat-small">
-                <span class="w3-block"><strong>{{product.salePrice | currency : 'S/.'}}</strong></span>
+                <span class="w3-block"><strong>{{product.salePrice + product.discount.amount | currency : 'S/.'}}</strong></span>
                 <span class="w3-block"><i>{{product.discount.amount | currency : 'S/.'}}</i></span>
               </td>
               <td class="mat-small"> <button mat-icon-button style="padding: 0px" (click)=deleteProduct(product);>
