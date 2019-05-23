@@ -88,10 +88,12 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
         warehouse: this.data.warehouse,
         discountType: "discount",
         salePrice: (parseFloat(this.data.sale)-this.nDescuento ) * this.cant ,
-        sale : parseFloat(this.data.sale)
+        sale : parseFloat(this.data.sale),
+        movement : this.dialogRef
       },
       panelClass: 'ms-custom-dialogbox'
     });
+
   }
 
   Disminuir(): void {
