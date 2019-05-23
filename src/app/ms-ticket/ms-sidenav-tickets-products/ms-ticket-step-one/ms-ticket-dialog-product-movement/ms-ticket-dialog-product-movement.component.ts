@@ -110,7 +110,10 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   }
   DisminuirS(): void {
     if(this.nDescuento > 0) {
-      this.nDescuento = this.nDescuento-1
+      if(this.nDescuento % 1 != 0){
+        this.nDescuento =this.nDescuento +1 -(this.nDescuento%1);
+      }
+      this.nDescuento = this.nDescuento-1; parseInt
       this.pDescuento = (100*this.nDescuento)/parseFloat(this.data.sale);
       this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
       this.total = parseFloat(this.total.toFixed(2));
@@ -118,6 +121,9 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   }
   AumentarS(): void {
     if(this.nDescuento < parseInt(this.data.sale)){
+      if(this.nDescuento % 1 != 0){
+        this.nDescuento =this.nDescuento -(this.nDescuento%1);
+      }
       this.nDescuento = this.nDescuento+1
       this.pDescuento = parseFloat(((100*this.nDescuento)/parseFloat(this.data.sale)).toFixed(2));
       this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
@@ -125,7 +131,10 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     }
   }
   DisminuirP(): void {
-    if(this.pDescuento > 0) {
+    if(this.pDescuento >0) {
+      if(this.pDescuento % 1 != 0){
+        this.pDescuento =this.pDescuento +1 -(this.pDescuento%1);
+      }
       this.pDescuento = this.pDescuento-1
       this.nDescuento = parseFloat(((parseFloat(this.data.sale)*this.pDescuento)/100).toFixed(2));
       this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
@@ -134,6 +143,9 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   }
   AumentarP(): void {
     if(this.pDescuento < 100) {
+      if(this.pDescuento % 1 != 0){
+        this.pDescuento =this.pDescuento -(this.pDescuento%1);
+      }
       this.pDescuento = this.pDescuento+1
       this.nDescuento = parseFloat(((parseFloat(this.data.sale)*this.pDescuento)/100).toFixed(2));
       this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
