@@ -50,7 +50,7 @@ export class EditarTicketComponent implements OnInit {
     public dialogRef: MatDialogRef<EditarTicketComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService
-  ) {  }
+    ) {  }
   ngOnInit() {
     // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
     this.cantidad.valueChanges.subscribe(result => {
@@ -90,7 +90,8 @@ export class EditarTicketComponent implements OnInit {
         warehouse: this.data.warehouse,
         discountType: "discount",
         salePrice: (parseFloat(this.data.sale)-this.nDescuento ) * this.cant ,
-        sale : parseFloat(this.data.sale)
+        sale : parseFloat(this.data.sale),
+        editar : this.dialogRef
       },
       panelClass: 'ms-custom-dialogbox'
 

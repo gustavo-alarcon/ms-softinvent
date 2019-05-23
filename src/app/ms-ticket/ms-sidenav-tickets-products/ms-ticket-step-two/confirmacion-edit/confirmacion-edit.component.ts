@@ -14,6 +14,7 @@ export interface DialogData {
   discountType: string;
   salePrice: string;
   sale: number;
+  editar : MatDialogRef<EditarTicketComponent>;
 }
 
 @Component({
@@ -27,7 +28,7 @@ export class ConfirmacionEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public state: StateManagementService,
     public dialogRef: MatDialogRef<ConfirmacionEditComponent>,
-    public venta: MatDialogRef<EditarTicketComponent>,
+    
   ) { }
 
   ngOnInit() {
@@ -47,8 +48,8 @@ export class ConfirmacionEditComponent implements OnInit {
       sale: this.data.sale
     };
     this.state.editarProducto(newProduct)
-    console.log('Edit PRoducto');
     this.onNoClick();
+    this.data.editar.close();
   }
   onNoClick(): void {
     this.dialogRef.close();
