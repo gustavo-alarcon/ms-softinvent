@@ -113,3 +113,8 @@ export interface Contact {
   name: string,
   phone?: string
 }
+export interface Serie {
+  numero: number,
+  seleccionado : string;
+  estado: boolean
+}
