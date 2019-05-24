@@ -49,7 +49,6 @@ export class MsTicketStepTwoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     /*
      * @desc Función para filtrado de terceros
      * @param ref docNum: Valor referencial para realizar la búsqueda del tercero
@@ -148,5 +147,5 @@ export class MsTicketStepTwoComponent implements OnInit {
       });
     }
   }
-
+  
 }

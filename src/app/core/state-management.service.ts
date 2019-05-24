@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Ticket } from "./ms-types";
+import { Ticket, ProductCart } from "./ms-types";
 import { CurrencyIndex } from '@angular/common/src/i18n/locale_data';
 import { BehaviorSubject } from 'rxjs';
 import { RouterLink } from '@angular/router';
@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
 export class StateManagementService {
 
   public currentStateIndex: number;
-
   public currentState: Array<Ticket> = [
     {
       cart: [
