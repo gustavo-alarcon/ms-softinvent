@@ -59,27 +59,6 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
       })
     }
   }
-
-  /**
-  * @desc  Cancula el preecio total del ticket
-  * @return { void } : Sin retornos
-  */
-  // calcTotalSalePrice(): void {
-  //   let _total = 0;
-  //   let _discount = 0;
-  //   console.log(this.currentTicket);
-  //   if (this.currentTicket) {
-  //     this.currentTicket.cart.forEach(prod => {
-  //       _discount += prod.discount.amount;
-  //       _total += prod.salePrice;
-  //     })
-  //     this.currentTicket.totalWithoutDiscount = _total + _discount;
-  //     this.currentTicket.totalDiscount = _discount;
-  //     this.currentTicket.totalWithDiscount = _total;
-  //   }
-
-  // }
-
   /**
   * @desc  agrega un nuevo ticket 
   * @param {!Number[]} index  :indice del nuevo ticker a crear
@@ -102,7 +81,6 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     this.state.eliminarTicket(index);
     this.state.calcTotalSalePrice();
   }
-
   /**
   * @desc  elimina a un producto del carrito
   * @param {!producto[]} product producto actual
@@ -111,13 +89,5 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
     this.state.calcTotalSalePrice();
-  }
-
-  /**
-  * @desc  cambia al siguiente step
-  * @return { void } : Sin retornos
-  */
-  nextStep(): void {
-    this.mat.currentTab = "step-two";
   }
 }

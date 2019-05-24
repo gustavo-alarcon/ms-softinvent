@@ -40,7 +40,6 @@
         <div class="w3-margin w3-center">
           <span class="mat-title" style="font-weight:100">Agregue una nueva venta!</span>
         </div>
-
       </ng-template>
 
       <br>
@@ -61,7 +60,7 @@
     <ng-container *ngIf="state.currentState.length && currentTicket">
       <div style="padding:4px">
         <button mat-raised-button class="w3-round ms-color-action-3" style=" text-align: center; width: 100%;"
-          (click)=nextStep()>
+          (click)=sidenav.sidenavProductList() routerLink="step-two">
           <mat-icon style="vertical-align: middle">
             next_week</mat-icon>
           Continuar Venta({{currentTicket.totalWithDiscount | currency : 'S/.'}})

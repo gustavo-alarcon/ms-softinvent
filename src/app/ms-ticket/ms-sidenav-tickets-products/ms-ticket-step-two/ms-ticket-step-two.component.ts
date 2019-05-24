@@ -64,7 +64,9 @@ export class MsTicketStepTwoComponent implements OnInit {
      */
     let temp = this.state.ticketsStateManagement.subscribe(res => {
       this.state.currentState = res;
-      this.dataSource.data = this.state.currentState[this.state.currentStateIndex].cart;
+      if (this.state.currentState[this.state.currentStateIndex]) {
+        this.dataSource.data = this.state.currentState[this.state.currentStateIndex].cart;
+      }
     })
     /*
      * @desc Pie de tabla que enumera las paginas
@@ -98,7 +100,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   editProduct(product): void {
     const dialogRef = this.dialog.open(EditarTicketComponent, {
       data: {
-        index : product.index,
+        index: product.index,
         name: product.name,
         sale: product.sale,
         salePrice: product.salePrice,

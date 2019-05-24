@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ProductCart, Discount } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { MsTicketDialogProductMovementComponent } from '../ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
 export interface DialogData {
   index: number;
@@ -12,7 +12,8 @@ export interface DialogData {
   warehouse: string;
   discountType: string;
   salePrice: string;
-  sale:number;
+  sale: number;
+  movement : MatDialogRef<MsTicketDialogProductMovementComponent>;
 }
 
 @Component({
@@ -27,7 +28,7 @@ export class ConfirmacionProductComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService,
     public dialogRef: MatDialogRef<ConfirmacionProductComponent>,
-    public venta  :  MatDialogRef<MsTicketDialogProductMovementComponent>,
+    public venta: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -36,7 +37,7 @@ export class ConfirmacionProductComponent implements OnInit {
   addProduct(): void {
     let newProduct: ProductCart;
     newProduct = {
-      index : this.data.index,
+      index: this.data.index,
       stock: parseInt(this.data.stock),
       name: this.data.name,
       discount: this.data.discount,
@@ -48,6 +49,8 @@ export class ConfirmacionProductComponent implements OnInit {
     };
     this.carrito.agregarProducto(newProduct)
     this.onNoClick();
+    this.data.movement.close();
+
   }
   onNoClick(): void {
     this.dialogRef.close();
