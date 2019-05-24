@@ -35,7 +35,9 @@
         <div class="w3-half w3-container ">
           <div class="w3-padding-48	">
             <mat-card>
-              <mat-radio-button value="1" [checked]="true">Descuento</mat-radio-button>
+              <!-- <mat-radio-button value="1" [checked]="true"> -->
+               <p>Descuento</p> 
+              <!-- </mat-radio-button> -->
               <div class="w3-row">
                 <div class="w3-third w3-container w3-block " style="padding:0px">
                   <mat-form-field class="w3-block">
@@ -60,10 +62,20 @@
             </mat-card>
           </div>
         </div>
-        <div class="w3-half w3-container w3-hide">
+        <div class="w3-half w3-container">
           <div class="w3-padding-48">
             <mat-card>
-              <mat-radio-button value="2">Promocion</mat-radio-button>
+                <p>Nro de serie</p>
+                  <ng-container *ngFor="let serie of series; let i = index">
+                    <div>
+                      <mat-checkbox class="example-margin" [ngModel]= serie.seleccionado [labelPosition]="after"
+                        [disabled]= serie.estado (click) = "onCheckbox(i)">
+                        {{serie.numero}}
+                      </mat-checkbox>
+      
+                    </div>
+                  </ng-container>
+              <!-- <mat-radio-button value="2">Promocion</mat-radio-button>
               <div class="w3-row">
                 <div class="w3-third w3-container" style="padding:0px">
                   <mat-form-field class="w3-block">
@@ -82,7 +94,7 @@
                     <input matInput placeholder="Porcentaje" type="number" min="0" max="100">
                   </mat-form-field>
                 </div>
-              </div>
+              </div> -->
             </mat-card>
           </div>
         </div>

@@ -126,6 +126,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { NoStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/no-stock/no-stock.component';
 
 
 @NgModule({
@@ -194,7 +195,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MsVentasStepThreeComponent,
     MsVentasComponent,
     MsVentasProductSearchComponent,
-    GenerarTicketComponent
+    GenerarTicketComponent,
+    NoStockComponent
   ],
   imports: [
     BrowserModule,
@@ -266,7 +268,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     EditarTicketComponent,
     ConfirmacionProductComponent,
     ConfirmacionEditComponent,
-    GenerarTicketComponent
+    GenerarTicketComponent,
+    NoStockComponent
   ],
   providers: [
     AuthService,

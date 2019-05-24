@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Ticket } from "./ms-types";
+import { Ticket, ProductCart } from "./ms-types";
 import { CurrencyIndex } from '@angular/common/src/i18n/locale_data';
 import { BehaviorSubject } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,6 @@ import { BehaviorSubject } from 'rxjs';
 export class StateManagementService {
 
   public currentStateIndex: number;
-
   public currentState: Array<Ticket> = [
     {
       cart: [
@@ -95,9 +95,17 @@ export class StateManagementService {
   }
 
   public eliminarTicket(index) {
+    if(this.currentState.length>1){
     this.currentState.splice(index, 1);
     this.stateManagement.next(this.currentState);
   }
+  else{
+    this.currentState[this.currentStateIndex].cart.splice(0,this.currentState[0].cart.length);
+    this.stateManagement.next(this.currentState);
+    this.currentState.splice(index, 1);
+    this.stateManagement.next(this.currentState);
+  }
+}
   public calcTotalSalePrice() {
     let _total = 0;
     let _discount = 0;

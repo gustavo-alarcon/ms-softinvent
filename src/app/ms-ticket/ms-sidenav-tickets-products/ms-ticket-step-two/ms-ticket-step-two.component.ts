@@ -10,6 +10,7 @@ import { startWith, map } from 'rxjs/operators';
 import { EditarTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
 import { Ticket } from 'src/app/core/ms-types';
 import { GenerarTicketComponent } from './generar-ticket/generar-ticket.component';
+import { NoStockComponent } from './no-stock/no-stock.component';
 
 @Component({
   selector: 'app-ms-ticket-step-two',
@@ -48,7 +49,6 @@ export class MsTicketStepTwoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     /*
      * @desc Función para filtrado de terceros
      * @param ref docNum: Valor referencial para realizar la búsqueda del tercero
@@ -127,9 +127,25 @@ export class MsTicketStepTwoComponent implements OnInit {
     this.state.eliminarProducto(product);
   }
   GenerarTicket(): void {
-    const dialogRef = this.dialog.open(GenerarTicketComponent, {
-      panelClass: 'ms-custom-dialogbox'
-    })
+    let flag: boolean = false;
+    this.state.currentState[this.state.currentStateIndex].cart.forEach((product, index) => {
+      console.log(index, product.stock, product.quantity)
+      if (product.stock < product.quantity) {
+        flag = true;
+      }
+    });
+    if (flag) {
+      console.log("avisos")
+      const dialogRef = this.dialog.open(NoStockComponent, {
+        panelClass: 'ms-custom-dialogbox'
+      });
+    }
+    else {
+      console.log("generar ticket")
+      const dialogRef = this.dialog.open(GenerarTicketComponent, {
+        panelClass: 'ms-custom-dialogbox'
+      });
+    }
   }
-
+  
 }

@@ -60,7 +60,9 @@
     <ng-container *ngIf="state.currentState.length && currentTicket">
       <div style="padding:4px">
         <button mat-raised-button class="w3-round ms-color-action-3" style=" text-align: center; width: 100%;"
-          (click)=sidenav.sidenavProductList() routerLink="step-two">
+          (click)=sidenav.sidenavProductList() routerLink="step-two"
+          [ngClass]="{'ms-color-action-3':state.currentState[state.currentStateIndex].cart.length}"
+          [disabled]="!state.currentState[state.currentStateIndex].cart.length">
           <mat-icon style="vertical-align: middle">
             next_week</mat-icon>
           Continuar Venta({{currentTicket.totalWithDiscount | currency : 'S/.'}})
@@ -81,7 +83,8 @@
               <td class="mat-small">{{product.name}}</td>
               <td class="mat-small">{{product.quantity | number : '2.'}}</td>
               <td class="mat-small">
-                <span class="w3-block"><strong>{{product.salePrice + product.discount.amount | currency : 'S/.'}}</strong></span>
+                <span
+                  class="w3-block"><strong>{{product.salePrice + product.discount.amount | currency : 'S/.'}}</strong></span>
                 <span class="w3-block"><i>{{product.discount.amount | currency : 'S/.'}}</i></span>
               </td>
               <td class="mat-small"> <button mat-icon-button style="padding: 0px" (click)=deleteProduct(product);>
