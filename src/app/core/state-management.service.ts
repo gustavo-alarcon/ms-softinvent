@@ -111,21 +111,27 @@ export class StateManagementService {
       this.currentState[this.currentStateIndex].totalWithDiscount = _total;
     }
   }
+
   public editarProducto(newProduct): void {
 
     console.log(newProduct);
+    console.log(newProduct.index)
     console.log(this.currentState[this.currentStateIndex].cart);
 
-    for (var _i = 0; _i < this.currentState.length; _i++) {
+    // for (var _i = 0; _i < this.currentState[this.currentStateIndex].cart.length; _i++) {
+    //   if (this.currentState[this.currentStateIndex].cart[_i].index == newProduct.index) {
+    //     newProduct==this.currentState[this.currentStateIndex].cart[_i]
+    //     this.stateManagement.next(this.currentState);
+    //   }
+    // };
 
-      if (this.currentState[this.currentStateIndex].cart[_i].index == newProduct.index) {
-        this.currentState[this.currentStateIndex].cart.splice(this.currentState[this.currentStateIndex].cart.indexOf(this.currentState[this.currentStateIndex].cart[_i]), 1);
-        this.stateManagement.next(this.currentState);
-        this.currentState[this.currentStateIndex].cart.push(newProduct);
+    this.currentState[this.currentStateIndex].cart.forEach((product, index) => {
+      if(product.index === newProduct.index){
+        this.currentState[this.currentStateIndex].cart[index] = newProduct;
         this.stateManagement.next(this.currentState);
       }
-    }
-   
+    });
 
   }
+
 }

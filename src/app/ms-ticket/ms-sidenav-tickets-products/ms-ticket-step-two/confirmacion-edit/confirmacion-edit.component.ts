@@ -28,7 +28,6 @@ export class ConfirmacionEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public state: StateManagementService,
     public dialogRef: MatDialogRef<ConfirmacionEditComponent>,
-    
   ) { }
 
   ngOnInit() {
@@ -48,9 +47,9 @@ export class ConfirmacionEditComponent implements OnInit {
       sale: this.data.sale
     };
     this.state.editarProducto(newProduct)
-    this.onNoClick();
-    this.data.editar.close();
+    this.dialogRef.close(true);
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }

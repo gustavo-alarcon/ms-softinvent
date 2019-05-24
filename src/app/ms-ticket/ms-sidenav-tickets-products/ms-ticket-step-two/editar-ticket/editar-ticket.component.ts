@@ -95,9 +95,9 @@ export class EditarTicketComponent implements OnInit {
       },
       panelClass: 'ms-custom-dialogbox'
 
-    });
-    confirmDialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    }).afterClosed().subscribe(res => {
+      if(res)
+      {this.dialogRef.close()}
+    })
   }
 }
