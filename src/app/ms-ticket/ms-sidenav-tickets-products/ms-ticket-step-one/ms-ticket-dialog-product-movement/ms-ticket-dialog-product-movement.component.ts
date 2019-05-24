@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { ProductCart, Promo, Discount } from 'src/app/core/ms-types';
+import { ProductCart, Promo, Discount,Serie } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { ConfirmacionProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
 import { ProductosComponent } from 'src/app/productos/productos.component';
@@ -36,6 +36,8 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   isPromo: boolean = false;
   isDiscount: boolean = false;
   listaPromos: string[] = ['Dia de la madre', "cierra puerta"];
+  series : Serie[] = [{numero : 1 , seleccionado : "",estado: false},{numero : 2 ,seleccionado : "", estado: false},{numero : 3 ,seleccionado : "", estado: false},{numero : 4 , seleccionado : "",estado: false}];
+  cantidadMaxima : number = 0;
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
@@ -53,6 +55,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       if (this.cantidad.value) {
         this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
         this.pInicial = result * parseFloat(this.data.sale);
+        this.cantidadMaxima =this.cantidad.value;
       }
       else {
         this.total = 0;
@@ -153,5 +156,33 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
       this.total = parseFloat(this.total.toFixed(2));
     }
+  }
+  cantMax : number =0;
+
+  onCheckbox(i) : void{
+    if( this.series[i].seleccionado == ""){
+      this.series[i].seleccionado = "checked";
+      this.cantMax++;
+    }
+    else{
+      this.series[i].seleccionado = "";
+      this.cantMax--;
+    }
+
+    if(this.cantMax == this.cantidadMaxima){
+     
+      this.series.forEach((serie, index) => {
+       serie.estado = true;
+      });
+    }
+    else{
+      this.series.forEach((serie, index) => {
+        serie.estado = false;
+       });
+    }
+    console.log(this.series);
+
+    console.log("checked" + this.cantMax + "Cantidad "+this.cantidadMaxima);
+
   }
 }
