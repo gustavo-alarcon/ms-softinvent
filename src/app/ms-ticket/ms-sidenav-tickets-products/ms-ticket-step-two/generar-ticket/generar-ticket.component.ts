@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Staff } from 'src/app/core/ms-types';
+import { DatabaseService } from 'src/app/core/database.service';
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-generar-ticket',
@@ -8,12 +11,12 @@ import { Component, OnInit } from '@angular/core';
 export class GenerarTicketComponent implements OnInit {
   code: string;
 
-  constructor() { }
+  constructor(
+    public dbs: DatabaseService,
+    public auth: AuthService,
+  ) { }
 
   ngOnInit() {
+    console.log('Staff Code:',this.auth.userInvent.code)
   }
-  GenerarTicket(party): void {
-
-  }
-
 }
