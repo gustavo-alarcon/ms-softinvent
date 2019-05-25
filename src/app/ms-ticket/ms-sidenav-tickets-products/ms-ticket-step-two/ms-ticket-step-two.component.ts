@@ -94,9 +94,9 @@ export class MsTicketStepTwoComponent implements OnInit {
       panelClass: 'ms-custom-dialogbox'
     });
   }
-  /* showPartySelected() abre la variable party
-   * @product{ string [] } : array de party
-   * void : retorna el nombre si el docNum coincide
+  /* showPartySelected() open the party variable
+   * @product{ string [] } : array of party
+   * void : return the name if the el docNum if it matches
    */
   showPartySelected(party): string | undefined {
     return party ? party['name'] : undefined;
@@ -127,19 +127,19 @@ export class MsTicketStepTwoComponent implements OnInit {
     });
   }
   /*
-  * @desc  elimina a un producto del carrito
+  * @desc remove a product from the cart
   * @param {!producto[]} product producto actual
-  * @return { void } : Sin retornos
+  * @return { void } : Without returns
   */
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
   }
   /*
   *@desc generates a new ticket if the stock of produc is less than the quantity, else show a dialog
-  *@param flag : this variable indicates the state of the condition
-  *return {void} : Sin retornos
+  *return {void} : Without returns
   */
   GenerateTicket(): void {
+    /** @const @private {flag} this variable indicates the state of the condition */
     let flag: boolean = false;
     if(this.state.currentState[this.state.currentStateIndex].cart.length>0){ 
       console.log(this.state.currentState[this.state.currentStateIndex].cart.length)
