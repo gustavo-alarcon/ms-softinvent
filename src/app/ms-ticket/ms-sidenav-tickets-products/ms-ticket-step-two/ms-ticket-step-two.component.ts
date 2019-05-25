@@ -134,7 +134,12 @@ export class MsTicketStepTwoComponent implements OnInit {
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
   }
-  GenerarTicket(): void {
+  /*
+  *@desc generates a new ticket if the stock of produc is less than the quantity, else show a dialog
+  *@param flag : this variable indicates the state of the condition
+  *return {void} : Sin retornos
+  */
+  GenerateTicket(): void {
     let flag: boolean = false;
     if(this.state.currentState[this.state.currentStateIndex].cart.length>0){ 
       console.log(this.state.currentState[this.state.currentStateIndex].cart.length)
