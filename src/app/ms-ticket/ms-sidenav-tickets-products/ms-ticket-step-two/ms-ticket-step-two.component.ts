@@ -32,6 +32,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   description: string;
   name: string;
   sale: string;
+  flag2: boolean = false;
 
   /**
    * 
@@ -49,6 +50,13 @@ export class MsTicketStepTwoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.state.currentState.length>0) { 
+    if(this.state.currentState[this.state.currentStateIndex].cart.length>0) {
+      this.flag2 = true;
+    }
+    else {
+      this.flag2 = false;
+    }}
     /*
      * @desc Función para filtrado de terceros
      * @param ref docNum: Valor referencial para realizar la búsqueda del tercero
@@ -128,6 +136,8 @@ export class MsTicketStepTwoComponent implements OnInit {
   }
   GenerarTicket(): void {
     let flag: boolean = false;
+    if(this.state.currentState[this.state.currentStateIndex].cart.length>0){ 
+      console.log(this.state.currentState[this.state.currentStateIndex].cart.length)
     this.state.currentState[this.state.currentStateIndex].cart.forEach((product, index) => {
       console.log(index, product.stock, product.quantity)
       if (product.stock < product.quantity) {
@@ -147,5 +157,5 @@ export class MsTicketStepTwoComponent implements OnInit {
       });
     }
   }
-  
+}
 }

@@ -167,6 +167,6 @@
 <div class="w3-container w3-center">
   <button mat-raised-button class="w3-button ms-color-action-3" 
   (click)="GenerarTicket()" 
-  [ngClass]="{'ms-color-action-3':state.currentState[state.currentStateIndex].cart.length}"
-  [disabled]="!state.currentState[state.currentStateIndex].cart.length">Generar Ticket</button>
+  [ngClass]="{'ms-color-action-3':flag2}"
+  [disabled]="!flag2">Generar Ticket</button>
 </div>
