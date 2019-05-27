@@ -36,22 +36,30 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   isPromo: boolean = false;
   isDiscount: boolean = false;
   listaPromos: string[] = ['Dia de la madre', "cierra puerta"];
-  series: Serie[] = [{ numero: 1, seleccionado: false, estado: false }, { numero: 2, seleccionado: false, estado: false }, { numero: 3, seleccionado: false, estado: false }, { numero: 4, seleccionado: false, estado: false }];
+  series: Serie[] = [
+    { numero: 1, seleccionado: false, estado: false },
+    { numero: 2, seleccionado: false, estado: false },
+    { numero: 3, seleccionado: false, estado: false },
+    { numero: 4, seleccionado: false, estado: false }];
   cantidadMaxima: number = 0;
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
   i: number = this.carrito.currentState[this.carrito.currentStateIndex].cart.length + 1; // indice del producto
+  sMarcados: number = 0;
+  aumento: boolean = false;
+  disminuye: boolean = false;
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<MsTicketDialogProductMovementComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService
   ) { }
+
   ngOnInit() {
     // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
     this.cantidad.valueChanges.subscribe(result => {
-      this.cant = this.cantidad.value;
+      this.cant = this.cantidad.value
       if (this.cantidad.value) {
         this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
         this.pInicial = result * parseFloat(this.data.sale);
@@ -60,11 +68,20 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       else {
         this.total = 0;
       }
-      for (var _i = 0; _i < this.cant; _i++) {
-        this.series[_i].seleccionado = true;
-        this.cantMax++;
 
-      }
+      // for (var _i = 0; _i < this.series.length; _i++) {
+
+      //   this.series[_i].seleccionado = false;
+
+
+      // }
+      // for (var _i = 0; _i < this.cantidad.value; _i++) {
+
+      //   this.series[_i].seleccionado = true;
+
+      // }
+
+      // this.cantMax = this.cantidad.value;
       console.log(this.series);
 
 
@@ -172,15 +189,18 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       if (this.series[i].seleccionado == false) {
         this.series[i].seleccionado = true;
         this.cantMax++;
+        this.series = [...this.series];
       }
       else {
         this.series[i].seleccionado = false;
         this.cantMax--;
+        this.series = [...this.series];
+
+
       }
 
       if (this.cantMax >= this.cantidadMaxima) {
         this.series[i].seleccionado = true;
-
         this.series.forEach((serie, index) => {
           if (serie.seleccionado == false)
             serie.estado = true;
