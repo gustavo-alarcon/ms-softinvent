@@ -66,10 +66,10 @@
           <div class="w3-padding-48">
             <mat-card>
                 <p>Nro de serie</p>
-                  <ng-container *ngFor="let serie of series; let i = index">
+                  <ng-container  *ngFor="let serie of series; let i = index">
                     <div>
-                      <mat-checkbox class="example-margin" [ngModel]= serie.seleccionado [labelPosition]="after"
-                        [disabled]= serie.estado (click) = "onCheckbox(i)">
+                      <mat-checkbox class="example-margin" [(checked)] = serie.seleccionado [labelPosition]="after"
+                        [disabled]= serie.estado (click) = "$event.stopPropagation(); onCheckbox(i)">
                         {{serie.numero}}
                       </mat-checkbox>
       
@@ -192,16 +192,7 @@
                 Nro de serie
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <ng-container *ngFor="let serie of series; let i = index">
-              <div>
-                <mat-checkbox class="example-margin" [ngModel]= serie.seleccionado [labelPosition]="after"
-                  [disabled]= serie.estado (click) = "onCheckbox(i)">
-                  {{serie.numero}}
-                </mat-checkbox>
-
-              </div>
-            </ng-container>
-
+           
           </mat-expansion-panel>
           <mat-expansion-panel class="w3-hide">
             <mat-expansion-panel-header>
