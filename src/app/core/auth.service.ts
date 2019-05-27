@@ -199,10 +199,7 @@ export class AuthService {
       accountType: 999,
       accountState: 999,
       regDate: 0,
-      permits: {
-        name: '',
-        id: ''
-      }
+      permits: ''
     };
 
     this.afAuth.auth.signOut().then(() => {
