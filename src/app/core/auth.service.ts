@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
 
 // APP IMPORTS
-import { User } from "./user";
+import { User } from "./ms-types";
 
 // ANGULAR FIRE V2 IMPORTS
 import { AngularFireAuth } from "@angular/fire/auth";
