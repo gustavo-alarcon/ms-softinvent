@@ -62,7 +62,7 @@
   <span class="ms-fill"></span>
 
   <button mat-raised-button class="w3-button ms-color-action-3" (click)="GenerateTicket()"
-    [ngClass]="{'ms-color-action-3':flag2}" [disabled]="!flag2">Generar Ticket</button>
+    [ngClass]="{'ms-color-action-3':!flag2}" [disabled]="flag2">Generar Ticket</button>
 
 </mat-toolbar>
 
