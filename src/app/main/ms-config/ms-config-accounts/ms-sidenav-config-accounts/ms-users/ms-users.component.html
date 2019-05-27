@@ -4,13 +4,18 @@
     </mat-icon>
     Lista de usuarios
   </h2>
-  <button mat-stroked-button color="primary" (click)="createNewUser()">
+  <button mat-raised-button class="ms-color-action-3" (click)="createNewUser()">
     <mat-icon>add_circle</mat-icon> Crear
   </button>
-  <mat-form-field class="w3-margin-left w3-block" style="margin-right:0.5em;max-width:30vw" appearance="standard">
+  <mat-form-field color="accent" class="w3-margin-left w3-block" style="margin-right:0.5em;max-width:30vw" appearance="standard">
     <mat-label>Buscar</mat-label>
     <mat-icon matPrefix style="vertical-align:middle">search</mat-icon>
     <input matInput type="text" placeholder="Escribir..." autocomplete="off" (input)="filterData($event.target.value)">
   </mat-form-field>
-  <br>
+  
+  <div>
+    <span *ngFor="let user of auth.currentDataUsers | async">
+      {{user | json}}
+    </span><br>
+  </div>
 </div>

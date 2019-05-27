@@ -19,6 +19,5 @@ export class MainComponent implements OnInit {
 
   toggleSideBar(shouldOpen: boolean) {
     this.sideBarIsOpened = !this.sideBarIsOpened;
-    console.log(this.sideBarIsOpened);
   }
 }

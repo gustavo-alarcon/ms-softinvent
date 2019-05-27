@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 import { MatSnackBar } from '@angular/material';
 
-import { AuthService } from "./auth.service";
-import { tap, map, take } from "rxjs/operators";
+import { AuthService } from './auth.service';
+import { tap, map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private auth: AuthService,
     private router: Router,
-    public snackbar: MatSnackBar){
+    public snackbar: MatSnackBar) {
   }
 
   canActivate(
@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
       take(1),
       map(user => !!user),
       tap(loggedIn => {
-        if(!loggedIn) {
+        if (!loggedIn) {
           this.snackbar.open('Acceso denegado', 'Cerrar', {
             duration: 6000
           });

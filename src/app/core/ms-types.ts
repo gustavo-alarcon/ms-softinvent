@@ -6,19 +6,62 @@ export interface Roles {
 }
 
 export interface User {
-  uid?: string;
-  name?: string;
-  lastname?: string;
-  email?: string;
+  uid: string;
+  name: string;
+  lastname: string;
+  displayName: string;
+  email: string;
   photoURL?: string;
-  db?: string;
+  db: string;
   roles?: Roles;
-  company?: string;
+  company: string;
   web?: string;
-  accountType?: number;
-  accountState?: number;
-  regDate?: Date;
+  accountType: number;
+  accountState: number;
+  regDate: number;
   code?: number;
+  permits: string;
+}
+
+export interface Permits {
+  name: string;
+  id: string;
+  createBy: string;
+  lastEditBy?: string;
+  regDate: number;
+  warehouse?: {
+    section: boolean;
+    create: boolean;
+    update: boolean;
+    remove: boolean;
+  };
+  parties?: {
+    section: boolean;
+    create: boolean;
+    update: boolean;
+    remove: boolean;
+  };
+  documents?: {
+    section: boolean;
+    create: boolean;
+    update: boolean;
+    remove: boolean;
+  };
+  products?: {
+    section: boolean;
+    create: boolean;
+    update: boolean;
+    remove: boolean;
+    addProduction: boolean;
+    readSalePrice: boolean;
+    readPurchasePrice: boolean;
+  };
+  configurations?: {
+    section: boolean;
+    accounts: boolean;
+    system: boolean;
+    notifications: boolean;
+  };
 }
 
 export interface Staff {
