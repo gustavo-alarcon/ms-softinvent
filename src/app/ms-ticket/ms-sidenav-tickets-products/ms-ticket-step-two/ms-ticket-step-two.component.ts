@@ -11,6 +11,7 @@ import { EditarTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-prod
 import { Ticket } from 'src/app/core/ms-types';
 import { GenerarTicketComponent } from './generar-ticket/generar-ticket.component';
 import { NoStockComponent } from './no-stock/no-stock.component';
+import { ConfirmacionDeleteComponent } from './confirmacion-delete/confirmacion-delete.component';
 
 @Component({
   selector: 'app-ms-ticket-step-two',
@@ -50,7 +51,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
- 
+
     /*
      * @desc Función para filtrado de terceros
      * @param ref docNum: Valor referencial para realizar la búsqueda del tercero
@@ -125,8 +126,10 @@ export class MsTicketStepTwoComponent implements OnInit {
   * @param {!producto[]} actual product
   * @return { void } : Without returns
   */
-  deleteProduct(product): void {
-    this.state.eliminarProducto(product);
+  ConfirmDeleteProduct(product): void {
+    const dialogRef = this.dialog.open(ConfirmacionDeleteComponent, {
+      panelClass: 'ms-custom-dialogbox'
+    });
   }
   /*
   *@desc generates a new ticket if the stock of produc is less than the quantity, else show a dialog
@@ -135,28 +138,28 @@ export class MsTicketStepTwoComponent implements OnInit {
   GenerateTicket(): void {
     /** @const @private {flag} this variable indicates the state of the condition */
     let flag: boolean = false;
-    if(this.state.currentState[this.state.currentStateIndex].cart){
-    if(this.state.currentState[this.state.currentStateIndex].cart.length>0){ 
-      console.log(this.state.currentState[this.state.currentStateIndex].cart.length)
-    this.state.currentState[this.state.currentStateIndex].cart.forEach((product, index) => {
-      console.log(index, product.stock, product.quantity)
-      if (product.stock < product.quantity) {
-        flag = true;
+    if (this.state.currentState[this.state.currentStateIndex].cart) {
+      if (this.state.currentState[this.state.currentStateIndex].cart.length > 0) {
+        console.log(this.state.currentState[this.state.currentStateIndex].cart.length)
+        this.state.currentState[this.state.currentStateIndex].cart.forEach((product, index) => {
+          console.log(index, product.stock, product.quantity)
+          if (product.stock < product.quantity) {
+            flag = true;
+          }
+        });
+        if (flag) {
+          console.log("avisos")
+          const dialogRef = this.dialog.open(NoStockComponent, {
+            panelClass: 'ms-custom-dialogbox'
+          });
+        }
+        else {
+          console.log("generar ticket")
+          const dialogRef = this.dialog.open(GenerarTicketComponent, {
+            panelClass: 'ms-custom-dialogbox'
+          });
+        }
       }
-    });
-    if (flag) {
-      console.log("avisos")
-      const dialogRef = this.dialog.open(NoStockComponent, {
-        panelClass: 'ms-custom-dialogbox'
-      });
-    }
-    else {
-      console.log("generar ticket")
-      const dialogRef = this.dialog.open(GenerarTicketComponent, {
-        panelClass: 'ms-custom-dialogbox'
-      });
     }
   }
-}
-}
 }

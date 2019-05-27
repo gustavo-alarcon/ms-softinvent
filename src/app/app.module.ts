@@ -127,6 +127,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NoStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/no-stock/no-stock.component';
+import { ConfirmacionDeleteComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-delete/confirmacion-delete.component';
+import { ConfirmacionDeleteTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/confirmacion-delete-ticket/confirmacion-delete-ticket.component';
 
 
 @NgModule({
@@ -196,7 +198,9 @@ import { NoStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-tic
     MsVentasComponent,
     MsVentasProductSearchComponent,
     GenerarTicketComponent,
-    NoStockComponent
+    NoStockComponent,
+    ConfirmacionDeleteComponent,
+    ConfirmacionDeleteTicketComponent
   ],
   imports: [
     BrowserModule,
@@ -269,7 +273,9 @@ import { NoStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-tic
     ConfirmacionProductComponent,
     ConfirmacionEditComponent,
     GenerarTicketComponent,
-    NoStockComponent
+    NoStockComponent,
+    ConfirmacionDeleteComponent,
+    ConfirmacionDeleteTicketComponent
   ],
   providers: [
     AuthService,

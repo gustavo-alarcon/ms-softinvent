@@ -6,8 +6,10 @@ import { StateManagementService } from 'src/app/core/state-management.service';
 import { MattabService } from 'src/app/core/mattab.service';
 import { DataSource } from '@angular/cdk/table';
 import { Subscription } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { state } from '@angular/animations';
+import { ConfirmacionDeleteComponent } from './ms-ticket-step-two/confirmacion-delete/confirmacion-delete.component';
+import { ConfirmacionDeleteTicketComponent } from './confirmacion-delete-ticket/confirmacion-delete-ticket.component';
 
 @Component({
   selector: 'app-ms-sidenav-tickets-products',
@@ -19,19 +21,17 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   sidenavTickets: boolean = true;
   currentTicket: Ticket;
   currentCart: ProductCart;
-
   subscriptions: Array<Subscription> = [];
 
   constructor(
     private sidenav: SidenavService,
     private state: StateManagementService,
     private snackbar: MatSnackBar,
-    private mat: MattabService
+    private mat: MattabService,
+    private dialog: MatDialog
   ) {
     this.changeCurrentTicket(0);
   }
-
-
   ngOnInit() {
     let ticketsSubs = this.state.ticketsStateManagement.subscribe(res => {
       this.state.currentState = res;
@@ -42,13 +42,11 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
 
     this.subscriptions.push(ticketsSubs);
   }
-
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     })
   }
-
   changeCurrentTicket(index): void {
     if (this.state.currentState.length) {
       this.currentTicket = this.state.currentState[index];
@@ -61,7 +59,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
       })
     }
   }
-  /**
+  /*
   * @desc  agrega un nuevo ticket 
   * @param {!Number[]} index  :indice del nuevo ticker a crear
   * @return { void } : Sin retornos
@@ -71,25 +69,29 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
     let ticket: Ticket = { state: false, cart: productList };
     this.state.currentStateIndex = index;
     this.state.agregarTicket(ticket);
-
   }
-
-  /**
-  * @desc  elimina a un ticker de la lista de tickets
-  * @param {!Number[]} index indice del ticket a eliminar
-  * @return { void } : Sin retornos
+  /*
+  * @desc open ConfirmacionDeleteComponent dialog
+  * @param {!producto[]} actual product
+  * @return { void } : Without returns
   */
-  deleteTicket(index): void {
-    this.state.eliminarTicket(index);
-    this.state.calcTotalSalePrice();
+  ConfirmDeleteProduct(product): void {
+    const dialogRef = this.dialog.open(ConfirmacionDeleteComponent, {
+      panelClass: 'ms-custom-dialogbox'
+    });
   }
-  /**
-  * @desc  elimina a un producto del carrito
-  * @param {!producto[]} product producto actual
-  * @return { void } : Sin retornos
+  /*
+  * @desc open ConfirmacionDeleteTicketComponent dialog
+  * @param {!producto[]} actual product
+  * @return { void } : Without returns
   */
-  deleteProduct(product): void {
-    this.state.eliminarProducto(product);
-    this.state.calcTotalSalePrice();
+  ConfirmDeleteTicket(product): void {
+    this.dialog.open(ConfirmacionDeleteTicketComponent, {
+      panelClass: 'ms-custom-dialogbox'
+    }).afterClosed().subscribe(res => {
+      if(res){
+        this.sidenav.sidenavTicketList()
+      }
+    })
   }
 }
