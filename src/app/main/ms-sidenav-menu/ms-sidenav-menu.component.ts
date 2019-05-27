@@ -14,10 +14,10 @@ export class MsSidenavMenuComponent implements OnInit {
    * @desc Variable used to toggle the sidemenu
    * @type {boolean}
    */
-  @Input() openedMenu: boolean = false;
+  @Input() openedMenu = false;
 
   constructor(
-    public auth:AuthService,
+    public auth: AuthService,
     public snackbar: MatSnackBar
   ) { }
 

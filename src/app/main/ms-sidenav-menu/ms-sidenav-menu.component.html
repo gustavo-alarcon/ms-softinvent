@@ -1,33 +1,98 @@
 <mat-sidenav-container style="height:92vh">
   <mat-sidenav mode="side" #sidenavLarge [(opened)]="openedMenu" class="ms-color-b-2">
-    <div class="w3-hide-small">
-      <button mat-button class="w3-block" routerLink="dashboard" style="padding-top:0.8em"><mat-icon class="ms-color-icons">dashboard</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Dashboard</p></button><br>
-      <button mat-button class="w3-block" routerLink="almacenes" style="padding-top:0.5em"><mat-icon class="ms-color-icons">store</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Almacenes</p></button><br>
-      <button mat-button class="w3-block" routerLink="terceros" style="padding-top:0.5em"><mat-icon class="ms-color-icons">supervisor_account</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Terceros</p></button><br>
-      <button mat-button class="w3-block" routerLink="documentos" style="padding-top:0.5em"><mat-icon class="ms-color-icons">description</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Documentos</p></button><br>
-      <button mat-button class="w3-block w3-border-bottom w3-border-pink" routerLink="productos" style="padding-top:0.5em"> <mat-icon class="ms-color-icons">shopping_basket</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Productos</p></button><br>
-      <button mat-button class="w3-block" routerLink="registrar" style="padding-top:0.5em"><mat-icon class="ms-color-icons">class</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Registrar</p></button><br>
-      <button mat-button class="w3-block" routerLink="venta" style="padding-top:0.5em"><mat-icon class="ms-color-icons">attach_money</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Venta</p></button><br>
-      <button mat-button class="w3-block" routerLink="ticket" style="padding-top:0.5em"><mat-icon class="ms-color-icons">receipt</mat-icon> <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Ticket</p></button><br>
-      <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em"><mat-icon class="ms-color-icons">history</mat-icon> <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Historial</p></button><br>
-      <button mat-button class="w3-block" routerLink="kardex" style="padding-top:0.5em"><mat-icon class="ms-color-icons">chrome_reader_mode</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Kardex</p></button><br>
-      <button mat-button class="w3-block" routerLink="stock" style="padding-top:0.5em"><mat-icon class="ms-color-icons">list</mat-icon> <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Stock</p></button><br>
-      <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em"><mat-icon class="ms-color-icons">assignment</mat-icon><p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Historial</p></button><br>
-    </div>
-    <div class="w3-hide-medium w3-hide-large">
-        <button mat-button class="w3-block" routerLink="dashboard" style="padding-top:0.8em"><mat-icon class="ms-color-icons">dashboard</mat-icon></button><br>
-        <button mat-button class="w3-block" routerLink="almacenes" style="padding-top:0.5em"><mat-icon class="ms-color-icons">store</mat-icon></button><br>
-        <button mat-button class="w3-block" routerLink="terceros" style="padding-top:0.5em"><mat-icon class="ms-color-icons">supervisor_account</mat-icon></button><br>
-        <button mat-button class="w3-block" routerLink="documentos" style="padding-top:0.5em"><mat-icon class="ms-color-icons">description</mat-icon></button><br>
-        <button mat-button class="w3-block w3-border-bottom w3-border-pink" routerLink="productos" style="padding-top:0.5em"> <mat-icon class="ms-color-icons">shopping_basket</mat-icon> </button><br>
-        <button mat-button class="w3-block" routerLink="registrar" style="padding-top:0.5em"><mat-icon class="ms-color-icons">class</mat-icon> </button><br>
-        <button mat-button class="w3-block" routerLink="venta" style="padding-top:0.5em"><mat-icon class="ms-color-icons">attach_money</mat-icon></button><br>
-        <button mat-button class="w3-block" routerLink="ticket" style="padding-top:0.5em"><mat-icon class="ms-color-icons">receipt</mat-icon></button><br>
-        <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em"><mat-icon class="ms-color-icons">history</mat-icon> </button><br>
-        <button mat-button class="w3-block" routerLink="kardex" style="padding-top:0.5em"><mat-icon class="ms-color-icons">chrome_reader_mode</mat-icon></button><br>
-        <button mat-button class="w3-block" routerLink="stock" style="padding-top:0.5em"><mat-icon class="ms-color-icons">list</mat-icon> </button><br>
-        <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em"><mat-icon class="ms-color-icons">assignment</mat-icon> </button><br>
-    </div>
+    <ng-scrollbar>
+      <div class="w3-hide-small">
+        <button mat-button class="w3-block" routerLink="dashboard" style="padding-top:0.8em">
+          <mat-icon class="ms-color-icons">dashboard</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Dashboard</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="almacenes" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">store</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Almacenes</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="terceros" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">supervisor_account</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Terceros</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="documentos" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">description</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Documentos</p>
+        </button><br>
+        <button mat-button class="w3-block w3-border-bottom w3-border-pink" routerLink="productos"
+          style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">shopping_basket</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Productos</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="registrar" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">class</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Registrar</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="venta" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">attach_money</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Venta</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="ticket" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">receipt</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Ticket</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">history</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Historial</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="kardex" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">chrome_reader_mode</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Kardex</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="stock" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">list</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Stock</p>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">assignment</mat-icon>
+          <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white"> Historial</p>
+        </button><br>
+      </div>
+      <div class="w3-hide-medium w3-hide-large">
+        <button mat-button class="w3-block" routerLink="dashboard" style="padding-top:0.8em">
+          <mat-icon class="ms-color-icons">dashboard</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="almacenes" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">store</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="terceros" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">supervisor_account</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="documentos" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">description</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block w3-border-bottom w3-border-pink" routerLink="productos"
+          style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">shopping_basket</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="registrar" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">class</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="venta" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">attach_money</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="ticket" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">receipt</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">history</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="kardex" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">chrome_reader_mode</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="stock" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">list</mat-icon>
+        </button><br>
+        <button mat-button class="w3-block" routerLink="historial" style="padding-top:0.5em">
+          <mat-icon class="ms-color-icons">assignment</mat-icon>
+        </button><br>
+      </div>
+    </ng-scrollbar>
+
 
   </mat-sidenav>
 
