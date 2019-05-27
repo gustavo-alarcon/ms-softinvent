@@ -95,7 +95,8 @@ export interface Ticket {
   subtotal?: number,
   igv?: number,
   total?: number,
-  seller?: Staff
+  seller?: Staff,
+  state: boolean
 }
 
 export interface Link {

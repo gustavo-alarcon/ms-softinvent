@@ -7,6 +7,7 @@ import { MattabService } from 'src/app/core/mattab.service';
 import { DataSource } from '@angular/cdk/table';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-ms-sidenav-tickets-products',
@@ -36,7 +37,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
       this.state.currentState = res;
       this.currentTicket =
         this.state.currentState[this.state.currentStateIndex];
-      console.log('Obs:',this.currentTicket);
+      console.log('Obs:', this.currentTicket);
     })
 
     this.subscriptions.push(ticketsSubs);
@@ -53,6 +54,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
       this.currentTicket = this.state.currentState[index];
       this.state.currentStateIndex = index;
       this.state.calcTotalSalePrice();
+      this.state.ChangeTicket();
     } else {
       this.snackbar.open("No hay tickets abiertos ...", "Cerrar", {
         duration: 6000
@@ -66,10 +68,10 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   */
   addTicket(index): void {
     let productList: Array<ProductCart> = [];
-    let ticket: Ticket = { cart: productList };
+    let ticket: Ticket = { state: false, cart: productList };
     this.state.currentStateIndex = index;
     this.state.agregarTicket(ticket);
-    
+
   }
 
   /**
