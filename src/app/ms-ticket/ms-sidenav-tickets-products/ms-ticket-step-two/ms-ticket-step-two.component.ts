@@ -4,14 +4,14 @@ import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/m
 import { DatabaseService } from 'src/app/core/database.service';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { SidenavService } from 'src/app/core/sidenav.service';
-import { CrearTerceroComponent } from 'src/app/terceros/crear-tercero/crear-tercero.component';
+import { CreatePartyComponent } from 'src/app/terceros/crear-tercero/crear-tercero.component';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { EditarTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
+import { EditTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
 import { Ticket } from 'src/app/core/ms-types';
-import { GenerarTicketComponent } from './generar-ticket/generar-ticket.component';
+import { GenerateTicketComponent } from './generar-ticket/generar-ticket.component';
 import { NoStockComponent } from './no-stock/no-stock.component';
-import { ConfirmacionDeleteComponent } from './confirmacion-delete/confirmacion-delete.component';
+import { ConfirmDeleteComponent } from './confirmacion-delete/confirmacion-delete.component';
 
 @Component({
   selector: 'app-ms-ticket-step-two',
@@ -85,7 +85,7 @@ export class MsTicketStepTwoComponent implements OnInit {
    * void : no retorna nada
    */
   createParty(): void {
-    const dialogRef = this.dialog.open(CrearTerceroComponent, {
+    const dialogRef = this.dialog.open(CreatePartyComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
@@ -101,7 +101,7 @@ export class MsTicketStepTwoComponent implements OnInit {
    * void : no retorna nada 
    */
   editProduct(product): void {
-    const dialogRef = this.dialog.open(EditarTicketComponent, {
+    const dialogRef = this.dialog.open(EditTicketComponent, {
       data: {
         index: product.index,
         name: product.name,
@@ -123,11 +123,11 @@ export class MsTicketStepTwoComponent implements OnInit {
   }
   /*
   * @desc remove a product from the cart
-  * @param {!producto[]} actual product
+  * @param {!product[]} actual product
   * @return { void } : Without returns
   */
   ConfirmDeleteProduct(product): void {
-    const dialogRef = this.dialog.open(ConfirmacionDeleteComponent, {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
@@ -155,7 +155,7 @@ export class MsTicketStepTwoComponent implements OnInit {
         }
         else {
           console.log("generar ticket")
-          const dialogRef = this.dialog.open(GenerarTicketComponent, {
+          const dialogRef = this.dialog.open(GenerateTicketComponent, {
             panelClass: 'ms-custom-dialogbox'
           });
         }

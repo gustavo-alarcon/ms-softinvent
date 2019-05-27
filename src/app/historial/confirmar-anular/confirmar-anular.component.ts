@@ -7,11 +7,11 @@ import { DatabaseService } from 'src/app/core/database.service';
   templateUrl: './confirmar-anular.component.html',
   styles: []
 })
-export class ConfirmarAnularComponent implements OnInit {
+export class ConfirmCancelComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ConfirmarAnularComponent>,
+    public dialogRef: MatDialogRef<ConfirmCancelComponent>,
     public dbs: DatabaseService
   ) { }
 

@@ -7,11 +7,11 @@ import { MatDialogRef } from '@angular/material';
   templateUrl: './confirmacion-delete-ticket.component.html',
   styles: []
 })
-export class ConfirmacionDeleteTicketComponent implements OnInit {
+export class ConfirmDeleteTicketComponent implements OnInit {
 
   constructor(
     private state: StateManagementService,
-    public dialogRef: MatDialogRef<ConfirmacionDeleteTicketComponent>,
+    public dialogRef: MatDialogRef<ConfirmDeleteTicketComponent>,
   ) { }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class ConfirmacionDeleteTicketComponent implements OnInit {
   /*
   * @desc  elimina a un ticker de la lista de tickets
   * @param {!Number[]} index indice del ticket a eliminar
-  * @return { void } : Sin retornos
+  * @return { void } : Without returns
   */
  deleteTicket(index): void {
   this.state.deleteTicket(index);

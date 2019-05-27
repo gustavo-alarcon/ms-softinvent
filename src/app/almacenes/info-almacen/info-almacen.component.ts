@@ -6,7 +6,7 @@ import { MAT_BOTTOM_SHEET_DATA } from '@angular/material';
   templateUrl: './info-almacen.component.html',
   styles: []
 })
-export class InfoAlmacenComponent implements OnInit {
+export class InfoWarehouseComponent implements OnInit {
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any

@@ -7,22 +7,22 @@ import { MatDialogRef } from '@angular/material';
   templateUrl: './confirmacion-delete.component.html',
   styles: []
 })
-export class ConfirmacionDeleteComponent implements OnInit {
+export class ConfirmDeleteComponent implements OnInit {
 
   constructor(
     private state: StateManagementService,
-    public dialogRef: MatDialogRef<ConfirmacionDeleteComponent>,
+    public dialogRef: MatDialogRef<ConfirmDeleteComponent>,
   ) { }
 
   ngOnInit() {
   }
   /*
   * @desc remove a product from the cart
-  * @param {!producto[]} actual product
+  * @param {!product[]} actual product
   * @return { void } : Without returns
   */
   deleteProduct(product): void {
-    this.state.deleteProducto(product);
+    this.state.deleteProduct(product);
     this.state.calcTotalSalePrice();
     this.dialogRef.close(true);
   }

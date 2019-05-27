@@ -2,14 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatabaseService } from 'src/app/core/database.service';
 import { MatSnackBar, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-import { ConfirmarBorrarAlmacenComponent } from '../confirmar-borrar-almacen/confirmar-borrar-almacen.component';
+import { ConfirmDeleteWarehouseComponent } from '../confirmar-borrar-almacen/confirmar-borrar-almacen.component';
 
 @Component({
   selector: 'app-editar-almacen',
   templateUrl: './editar-almacen.component.html',
   styles: []
 })
-export class EditarAlmacenComponent implements OnInit {
+export class EditWarehouseComponent implements OnInit {
 
   editWarehouseFormGroup: FormGroup;
   alreadyExist: boolean = false;
@@ -20,7 +20,7 @@ export class EditarAlmacenComponent implements OnInit {
     public dbs: DatabaseService,
     private fb: FormBuilder,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<EditarAlmacenComponent>,
+    public dialogRef: MatDialogRef<EditWarehouseComponent>,
     public dialog: MatDialog
   ) { }
 
@@ -66,7 +66,7 @@ export class EditarAlmacenComponent implements OnInit {
   }
 
   confirmDelete(): void{
-    var confirmDialogRef = this.dialog.open(ConfirmarBorrarAlmacenComponent, {
+    var confirmDialogRef = this.dialog.open(ConfirmDeleteWarehouseComponent, {
       data: this.data,
       panelClass: 'ms-custom-modalbox'
     });

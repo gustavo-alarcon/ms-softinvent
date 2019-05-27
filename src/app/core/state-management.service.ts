@@ -84,7 +84,7 @@ export class StateManagementService {
   * @param {!product[]} actual product
   * @return { void } : Without returns
   */
-  public addProducto(producto) {
+  public addProduct(producto) {
     this.currentState[this.currentStateIndex].cart.push(producto);
     this.stateManagement.next(this.currentState);
   }
@@ -93,7 +93,7 @@ export class StateManagementService {
   * @param {!product[]} actual product
   * @return { void } : Without returns
   */
-  public deleteProducto(producto) {
+  public deleteProduct(producto) {
     this.currentState[this.currentStateIndex].cart.splice(this.currentState[this.currentStateIndex].cart.indexOf(producto), 1);
     this.stateManagement.next(this.currentState);
   }
@@ -129,7 +129,7 @@ export class StateManagementService {
     }
   }
   /*
-  * @desc  calc de total price of the products 
+  * @desc  add the price of all the products in the cart
   * @return { void } : Without returns
   */
   public calcTotalSalePrice() {
@@ -150,7 +150,7 @@ export class StateManagementService {
   * @param {!newProduct[]}
   * @return { void } : Without returns
   */
-  public editProducto(newProduct): void {
+  public editProduct(newProduct): void {
     this.currentState[this.currentStateIndex].cart.forEach((product, index) => {
       if (product.index === newProduct.index) {
         this.currentState[this.currentStateIndex].cart[index] = newProduct;
@@ -160,7 +160,7 @@ export class StateManagementService {
   }
   /*
   * @desc  change the states of the tickets, push false in all the tickets and push true in the current ticket
-  * @return { void } : Sin retornos
+  * @return { void } : Without returns
   */
   public changeTicket(): void {
     this.currentState.forEach(current => {

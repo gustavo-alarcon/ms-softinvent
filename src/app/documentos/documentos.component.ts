@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../core/database.service';
 import { MatDialog, MatBottomSheet, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { CrearDocumentoComponent } from './crear-documento/crear-documento.component';
-import { EditarDocumentoComponent } from './editar-documento/editar-documento.component';
+import { CreateDocComponent } from './crear-documento/crear-documento.component';
+import { EditDocComponent } from './editar-documento/editar-documento.component';
 
 @Component({
   selector: 'app-documentos',
@@ -53,13 +53,13 @@ export class DocumentosComponent implements OnInit {
   }
 
   createDocument(): void {
-    const dialogRef = this.dialog.open(CrearDocumentoComponent,{
+    const dialogRef = this.dialog.open(CreateDocComponent,{
       panelClass: 'ms-custom-dialogbox'
     });
   }
 
   editDocument(document): void {
-    this.dialog.open(EditarDocumentoComponent, {
+    this.dialog.open(EditDocComponent, {
       data: document,
       panelClass: 'ms-custom-dialogbox'
     })

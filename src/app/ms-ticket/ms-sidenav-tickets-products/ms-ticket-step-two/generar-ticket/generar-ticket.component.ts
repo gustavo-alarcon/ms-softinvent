@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/core/auth.service';
   templateUrl: './generar-ticket.component.html',
   styles: []
 })
-export class GenerarTicketComponent implements OnInit {
+export class GenerateTicketComponent implements OnInit {
   code: string;
 
   constructor(

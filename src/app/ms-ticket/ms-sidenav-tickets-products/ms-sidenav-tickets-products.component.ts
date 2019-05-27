@@ -8,8 +8,8 @@ import { DataSource } from '@angular/cdk/table';
 import { Subscription } from 'rxjs';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { state } from '@angular/animations';
-import { ConfirmacionDeleteComponent } from './ms-ticket-step-two/confirmacion-delete/confirmacion-delete.component';
-import { ConfirmacionDeleteTicketComponent } from './confirmacion-delete-ticket/confirmacion-delete-ticket.component';
+import { ConfirmDeleteComponent } from './ms-ticket-step-two/confirmacion-delete/confirmacion-delete.component';
+import { ConfirmDeleteTicketComponent } from './confirmacion-delete-ticket/confirmacion-delete-ticket.component';
 
 @Component({
   selector: 'app-ms-sidenav-tickets-products',
@@ -50,7 +50,7 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   /*
   * @desc changes the actual ticket 
   * @param {!Number[]} index: index of the tickets
-  * @return { void } : Sin retornos
+  * @return { void } : Without returns
   */
   changeCurrentTicket(index): void {
     if (this.state.currentState.length) {
@@ -67,28 +67,28 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   /*
   * @desc  agrega un nuevo ticket 
   * @param {!Number[]} index  :indice del nuevo ticker a crear
-  * @return { void } : Sin retornos
+  * @return { void } : Without returns
   */
   addTicket(): void {
     this.state.addTicket();
   }
   /*
-  * @desc open ConfirmacionDeleteComponent dialog
+  * @desc open ConfirmDeleteComponent dialog
   * @param {!product[]} actual product
   * @return { void } : Without returns
   */
   ConfirmDeleteProduct(product): void {
-    const dialogRef = this.dialog.open(ConfirmacionDeleteComponent, {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
   /*
-  * @desc open ConfirmacionDeleteTicketComponent dialog
+  * @desc open ConfirmDeleteTicketComponent dialog
   * @param {!producto[]} actual product
   * @return { void } : Without returns
   */
   ConfirmDeleteTicket(product): void {
-    this.dialog.open(ConfirmacionDeleteTicketComponent, {
+    this.dialog.open(ConfirmDeleteTicketComponent, {
       panelClass: 'ms-custom-dialogbox'
     }).afterClosed().subscribe(res => {
       if(res){
