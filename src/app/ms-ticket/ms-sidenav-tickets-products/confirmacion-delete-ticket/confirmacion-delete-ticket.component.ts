@@ -22,7 +22,7 @@ export class ConfirmacionDeleteTicketComponent implements OnInit {
   * @return { void } : Sin retornos
   */
  deleteTicket(index): void {
-  this.state.eliminarTicket(index);
+  this.state.deleteTicket(index);
   this.state.calcTotalSalePrice();
   this.dialogRef.close(true);
 }

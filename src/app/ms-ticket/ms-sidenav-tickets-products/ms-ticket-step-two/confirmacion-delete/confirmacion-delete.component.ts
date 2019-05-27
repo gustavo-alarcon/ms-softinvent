@@ -22,7 +22,7 @@ export class ConfirmacionDeleteComponent implements OnInit {
   * @return { void } : Without returns
   */
   deleteProduct(product): void {
-    this.state.eliminarProducto(product);
+    this.state.deleteProducto(product);
     this.state.calcTotalSalePrice();
     this.dialogRef.close(true);
   }

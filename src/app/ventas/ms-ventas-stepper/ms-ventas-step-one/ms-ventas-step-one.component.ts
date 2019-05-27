@@ -41,7 +41,7 @@ export class MsVentasStepOneComponent implements OnInit {
   ) {
     this.productList = [];
     this.ticket = { state: false, cart: this.productList };
-    this.state.agregarTicket(this.ticket);
+    this.state.addTicket();
   }
 
   ngOnInit() {

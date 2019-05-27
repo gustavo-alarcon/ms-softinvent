@@ -121,7 +121,7 @@ export class MsVentasStepTwoComponent implements OnInit {
   * @return { void } : Sin retornos
   */
   deleteProduct(product): void {
-    this.state.eliminarProducto(product);
+    this.state.deleteProducto(product);
   }
 
 }

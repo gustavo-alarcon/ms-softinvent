@@ -47,7 +47,7 @@ export class ConfirmacionProductComponent implements OnInit {
       salePrice: parseFloat(this.data.salePrice),
       sale: this.data.sale
     };
-    this.carrito.agregarProducto(newProduct)
+    this.carrito.addProducto(newProduct)
     this.onNoClick();
     this.data.movement.close();
 

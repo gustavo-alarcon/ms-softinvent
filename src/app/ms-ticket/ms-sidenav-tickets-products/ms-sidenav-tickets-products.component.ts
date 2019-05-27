@@ -47,12 +47,17 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
       sub.unsubscribe();
     })
   }
+  /*
+  * @desc changes the actual ticket 
+  * @param {!Number[]} index: index of the tickets
+  * @return { void } : Sin retornos
+  */
   changeCurrentTicket(index): void {
     if (this.state.currentState.length) {
       this.currentTicket = this.state.currentState[index];
       this.state.currentStateIndex = index;
       this.state.calcTotalSalePrice();
-      this.state.ChangeTicket();
+      this.state.changeTicket();
     } else {
       this.snackbar.open("No hay tickets abiertos ...", "Cerrar", {
         duration: 6000
@@ -64,15 +69,12 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   * @param {!Number[]} index  :indice del nuevo ticker a crear
   * @return { void } : Sin retornos
   */
-  addTicket(index): void {
-    let productList: Array<ProductCart> = [];
-    let ticket: Ticket = { state: false, cart: productList };
-    this.state.currentStateIndex = index;
-    this.state.agregarTicket(ticket);
+  addTicket(): void {
+    this.state.addTicket();
   }
   /*
   * @desc open ConfirmacionDeleteComponent dialog
-  * @param {!producto[]} actual product
+  * @param {!product[]} actual product
   * @return { void } : Without returns
   */
   ConfirmDeleteProduct(product): void {

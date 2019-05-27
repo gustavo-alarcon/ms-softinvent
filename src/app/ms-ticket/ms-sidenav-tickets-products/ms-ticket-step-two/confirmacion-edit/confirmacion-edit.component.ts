@@ -32,7 +32,10 @@ export class ConfirmacionEditComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  /*
+  * @desc  edit the product info in the current ticket 
+  * @return { void } : Without returns
+  */
   editProduct(): void {
     let newProduct: ProductCart;
     newProduct = {
@@ -46,7 +49,7 @@ export class ConfirmacionEditComponent implements OnInit {
       salePrice: parseFloat(this.data.salePrice),
       sale: this.data.sale
     };
-    this.state.editarProducto(newProduct)
+    this.state.editProducto(newProduct)
     this.dialogRef.close(true);
   }
 
