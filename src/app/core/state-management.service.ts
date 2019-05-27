@@ -12,6 +12,7 @@ export class StateManagementService {
   public currentStateIndex: number;
   public currentState: Array<Ticket> = [
     {
+      state: true,
       cart: [
         {
           index: 0,
@@ -41,6 +42,7 @@ export class StateManagementService {
       totalWithDiscount: 1600,
     },
     {
+      state: false,
       cart: [
         {
           index: 0,
@@ -92,12 +94,15 @@ export class StateManagementService {
   public agregarTicket(ticket) {
     this.currentState.push(ticket);
     this.stateManagement.next(this.currentState);
+    this.ChangeTicket()
   }
 
   public eliminarTicket(index) {
     if(this.currentState.length>1){
     this.currentState.splice(index, 1);
     this.stateManagement.next(this.currentState);
+    this.ChangeTicket()
+    
   }
   else{
     this.currentState[this.currentStateIndex].cart.splice(0,this.currentState[0].cart.length);
@@ -139,7 +144,14 @@ export class StateManagementService {
         this.stateManagement.next(this.currentState);
       }
     });
+  }
 
+  public ChangeTicket(): void{
+    this.currentState.forEach((current,index) => {
+      current.state=false;
+    });
+    this.currentState[this.currentStateIndex].state=true;
+    this.stateManagement.next(this.currentState);
   }
 
 }

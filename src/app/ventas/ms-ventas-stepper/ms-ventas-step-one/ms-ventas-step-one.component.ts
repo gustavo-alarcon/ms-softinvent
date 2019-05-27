@@ -40,7 +40,7 @@ export class MsVentasStepOneComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.productList = [];
-    this.ticket = { cart: this.productList };
+    this.ticket = { state: false, cart: this.productList };
     this.state.agregarTicket(this.ticket);
   }
 
