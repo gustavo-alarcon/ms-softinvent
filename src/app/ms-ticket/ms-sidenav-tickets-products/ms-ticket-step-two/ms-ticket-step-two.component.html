@@ -15,25 +15,33 @@
   <mat-divider></mat-divider>
 </div>
 
-<div class="w3-row" style="width:300px">
-  <mat-form-field color="accent" style="width:220px">
-    <mat-select placeholder="Comprobante" [formControl]="selectedType">
+<mat-toolbar style="background: none">
+
+  <span class="ms-fill"></span>
+
+  <mat-form-field class="w3-small" color="accent" style="width:220px">
+    <mat-select class="w3-small" placeholder="Comprobante" [formControl]="selectedType">
       <mat-option value="boleta">Boleta</mat-option>
       <mat-option value="factura">Factura</mat-option>
       <mat-option value="proforma">Proforma</mat-option>
     </mat-select>
   </mat-form-field><br>
-</div>
 
-<div class="w3-row" style="width:220px">
+  <span class="ms-fill"></span>
+
+</mat-toolbar>
+
+<mat-toolbar style="background: none">
+
+  <span class="ms-fill"></span>
 
   <div class="w3-half w3-container" style="width:180px;padding: 0px">
-    <mat-form-field color="accent">
-      <input matInput placeholder="Cliente" [formControl]="partyFromList" [matAutocomplete]="autoParty"
+    <mat-form-field class="w3-small" color="accent">
+      <input class="w3-small" matInput placeholder="Cliente" [formControl]="partyFromList" [matAutocomplete]="autoParty"
         autocomplete="off">
-      <mat-autocomplete #autoParty="matAutocomplete" [displayWith]="showPartySelected">
-        <mat-option *ngFor="let party of filteredParties | async" [value]="party" color="accent">
-          <strong>{{party.name}}</strong>
+      <mat-autocomplete class="w3-small" #autoParty="matAutocomplete" [displayWith]="showPartySelected">
+        <mat-option class="w3-small" *ngFor="let party of filteredParties | async" [value]="party" color="accent">
+          <strong class="w3-small">{{party.name}}</strong>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
@@ -44,7 +52,19 @@
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
-</div>
+
+  <span class="ms-fill"></span>
+
+</mat-toolbar>
+
+<mat-toolbar style="background:none">
+
+  <span class="ms-fill"></span>
+
+  <button mat-raised-button class="w3-button ms-color-action-3" (click)="GenerateTicket()"
+    [ngClass]="{'ms-color-action-3':flag2}" [disabled]="!flag2">Generar Ticket</button>
+
+</mat-toolbar>
 
 <mat-divider></mat-divider>
 <div style="margin-bottom:1em">
@@ -162,11 +182,3 @@
     <br>
   </ng-container>
 </ng-container>
-
-<br>
-<div class="w3-container w3-center">
-  <button mat-raised-button class="w3-button ms-color-action-3" 
-  (click)="GenerarTicket()" 
-  [ngClass]="{'ms-color-action-3':state.currentState[state.currentStateIndex].cart.length}"
-  [disabled]="!state.currentState[state.currentStateIndex].cart.length">Generar Ticket</button>
-</div>

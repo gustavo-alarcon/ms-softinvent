@@ -32,6 +32,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   description: string;
   name: string;
   sale: string;
+  flag2: boolean = false;
 
   /**
    * 
@@ -49,6 +50,13 @@ export class MsTicketStepTwoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.state.currentState.length>0) { 
+    if(this.state.currentState[this.state.currentStateIndex].cart.length>0) {
+      this.flag2 = true;
+    }
+    else {
+      this.flag2 = false;
+    }}
     /*
      * @desc Función para filtrado de terceros
      * @param ref docNum: Valor referencial para realizar la búsqueda del tercero
@@ -86,9 +94,9 @@ export class MsTicketStepTwoComponent implements OnInit {
       panelClass: 'ms-custom-dialogbox'
     });
   }
-  /* showPartySelected() abre la variable party
-   * @product{ string [] } : array de party
-   * void : retorna el nombre si el docNum coincide
+  /* showPartySelected() open the party variable
+   * @product{ string [] } : array of party
+   * void : return the name if the el docNum if it matches
    */
   showPartySelected(party): string | undefined {
     return party ? party['name'] : undefined;
@@ -119,15 +127,22 @@ export class MsTicketStepTwoComponent implements OnInit {
     });
   }
   /*
-  * @desc  elimina a un producto del carrito
+  * @desc remove a product from the cart
   * @param {!producto[]} product producto actual
-  * @return { void } : Sin retornos
+  * @return { void } : Without returns
   */
   deleteProduct(product): void {
     this.state.eliminarProducto(product);
   }
-  GenerarTicket(): void {
+  /*
+  *@desc generates a new ticket if the stock of produc is less than the quantity, else show a dialog
+  *return {void} : Without returns
+  */
+  GenerateTicket(): void {
+    /** @const @private {flag} this variable indicates the state of the condition */
     let flag: boolean = false;
+    if(this.state.currentState[this.state.currentStateIndex].cart.length>0){ 
+      console.log(this.state.currentState[this.state.currentStateIndex].cart.length)
     this.state.currentState[this.state.currentStateIndex].cart.forEach((product, index) => {
       console.log(index, product.stock, product.quantity)
       if (product.stock < product.quantity) {
@@ -147,5 +162,5 @@ export class MsTicketStepTwoComponent implements OnInit {
       });
     }
   }
-  
+}
 }
