@@ -6,7 +6,7 @@ import { MatTableDataSource, MatPaginator, MatSort, MAT_DIALOG_DATA } from '@ang
   templateUrl: './detalles-salida.component.html',
   styles: []
 })
-export class DetallesSalidaComponent implements OnInit {
+export class ExitDetailsComponent implements OnInit {
 
   displayedColumns: string[] = ['index', 'quantity', 'productName', 'unitPrice', 'import'];
   dataSource = new MatTableDataSource();

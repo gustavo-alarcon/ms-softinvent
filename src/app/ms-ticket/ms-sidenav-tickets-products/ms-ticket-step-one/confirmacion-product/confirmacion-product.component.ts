@@ -22,12 +22,12 @@ export interface DialogData {
   styles: []
 })
 
-export class ConfirmacionProductComponent implements OnInit {
+export class ConfirmProductComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService,
-    public dialogRef: MatDialogRef<ConfirmacionProductComponent>,
+    public dialogRef: MatDialogRef<ConfirmProductComponent>,
     public venta: MatDialog,
   ) { }
 
@@ -47,7 +47,7 @@ export class ConfirmacionProductComponent implements OnInit {
       salePrice: parseFloat(this.data.salePrice),
       sale: this.data.sale
     };
-    this.carrito.agregarProducto(newProduct)
+    this.carrito.addProduct(newProduct)
     this.onNoClick();
     this.data.movement.close();
 

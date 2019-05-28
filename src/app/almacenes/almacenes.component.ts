@@ -4,9 +4,9 @@ import { MatBottomSheet, MatTableDataSource, MatSort } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material';
-import { CrearAlmacenComponent } from './crear-almacen/crear-almacen.component';
-import { EditarAlmacenComponent } from './editar-almacen/editar-almacen.component';
-import { InfoAlmacenComponent } from './info-almacen/info-almacen.component';
+import { CreateWarehouseComponent } from './crear-almacen/crear-almacen.component';
+import { EditWarehouseComponent } from './editar-almacen/editar-almacen.component';
+import { InfoWarehouseComponent } from './info-almacen/info-almacen.component';
 
 @Component({
   selector: 'app-almacenes',
@@ -54,20 +54,20 @@ export class AlmacenesComponent implements OnInit {
   }
 
   createWarehouse(): void {
-    const dialogRef = this.dialog.open(CrearAlmacenComponent,{
+    const dialogRef = this.dialog.open(CreateWarehouseComponent,{
       panelClass: 'ms-custom-dialogbox'
     });
   }
 
   editWarehouse(warehouse): void {
-    this.dialog.open(EditarAlmacenComponent, {
+    this.dialog.open(EditWarehouseComponent, {
       data: warehouse,
       panelClass: 'ms-custom-dialogbox'
     })
   }
 
   showInfo(warehouse){
-    this.bottomSheet.open(InfoAlmacenComponent,{
+    this.bottomSheet.open(InfoWarehouseComponent,{
       data: warehouse
     })
   }

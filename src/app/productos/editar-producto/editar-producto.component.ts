@@ -2,18 +2,18 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { EditarDocumentoComponent } from 'src/app/documentos/editar-documento/editar-documento.component';
+import { EditDocComponent } from 'src/app/documentos/editar-documento/editar-documento.component';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
 import { startWith, map } from 'rxjs/operators';
-import { ConfirmarBorrarProductoComponent } from '../confirmar-borrar-producto/confirmar-borrar-producto.component';
+import { ConfirmDeleteProductComponent } from '../confirmar-borrar-producto/confirmar-borrar-producto.component';
 
 @Component({
   selector: 'app-editar-producto',
   templateUrl: './editar-producto.component.html',
   styles: []
 })
-export class EditarProductoComponent implements OnInit {
+export class EditProductComponent implements OnInit {
 
   editProductFormGroup: FormGroup;
   categoryFromList = new FormControl("");
@@ -36,7 +36,7 @@ export class EditarProductoComponent implements OnInit {
     public auth: AuthService,
     private fb: FormBuilder,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<EditarDocumentoComponent>,
+    public dialogRef: MatDialogRef<EditDocComponent>,
     public dialog: MatDialog
   ) { }
 
@@ -199,7 +199,7 @@ export class EditarProductoComponent implements OnInit {
   }
 
   confirmDelete(): void{
-    var confirmDialogRef = this.dialog.open(ConfirmarBorrarProductoComponent, {
+    var confirmDialogRef = this.dialog.open(ConfirmDeleteProductComponent, {
       data: this.data,
       panelClass: 'ms-custom-modalbox'
     });

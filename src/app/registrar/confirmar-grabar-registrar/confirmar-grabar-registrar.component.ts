@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ConfirmarLimpiarRegistrarComponent } from '../confirmar-limpiar-registrar/confirmar-limpiar-registrar.component';
+import { ConfirmClearRegisterComponent } from '../confirmar-limpiar-registrar/confirmar-limpiar-registrar.component';
 import { DatabaseService } from 'src/app/core/database.service';
 
 @Component({
@@ -8,11 +8,11 @@ import { DatabaseService } from 'src/app/core/database.service';
   templateUrl: './confirmar-grabar-registrar.component.html',
   styles: []
 })
-export class ConfirmarGrabarRegistrarComponent implements OnInit {
+export class ConfirmSaveRegisterComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ConfirmarLimpiarRegistrarComponent>,
+    public dialogRef: MatDialogRef<ConfirmClearRegisterComponent>,
     public dbs: DatabaseService
   ) { }
 

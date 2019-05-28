@@ -7,11 +7,11 @@ import { DatabaseService } from 'src/app/core/database.service';
   templateUrl: './confirmar-borrar-almacen.component.html',
   styles: []
 })
-export class ConfirmarBorrarAlmacenComponent implements OnInit {
+export class ConfirmDeleteWarehouseComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ConfirmarBorrarAlmacenComponent>,
+    public dialogRef: MatDialogRef<ConfirmDeleteWarehouseComponent>,
     public dbs: DatabaseService
   ) { }
 

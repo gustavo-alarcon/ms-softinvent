@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './ms-ventas-step-three.component.html',
   styles: []
 })
-export class MsVentasStepThreeComponent implements OnInit {
+export class MsSalesStepThreeComponent implements OnInit {
 
   constructor() { }
 

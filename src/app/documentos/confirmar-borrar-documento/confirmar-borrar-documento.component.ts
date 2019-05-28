@@ -7,11 +7,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   templateUrl: './confirmar-borrar-documento.component.html',
   styles: []
 })
-export class ConfirmarBorrarDocumentoComponent implements OnInit {
+export class ConfirmDeleteDocComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ConfirmarBorrarDocumentoComponent>,
+    public dialogRef: MatDialogRef<ConfirmDeleteDocComponent>,
     public dbs: DatabaseService
   ) { }
 

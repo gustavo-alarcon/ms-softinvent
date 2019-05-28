@@ -4,13 +4,14 @@ import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/m
 import { DatabaseService } from 'src/app/core/database.service';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { SidenavService } from 'src/app/core/sidenav.service';
-import { CrearTerceroComponent } from 'src/app/terceros/crear-tercero/crear-tercero.component';
+import { CreatePartyComponent } from 'src/app/terceros/crear-tercero/crear-tercero.component';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { EditarTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
+import { EditTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
 import { Ticket } from 'src/app/core/ms-types';
-import { GenerarTicketComponent } from './generar-ticket/generar-ticket.component';
+import { GenerateTicketComponent } from './generar-ticket/generar-ticket.component';
 import { NoStockComponent } from './no-stock/no-stock.component';
+import { ConfirmDeleteComponent } from './confirmacion-delete/confirmacion-delete.component';
 
 @Component({
   selector: 'app-ms-ticket-step-two',
@@ -50,7 +51,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
- 
+
     /*
      * @desc Función para filtrado de terceros
      * @param ref docNum: Valor referencial para realizar la búsqueda del tercero
@@ -84,7 +85,7 @@ export class MsTicketStepTwoComponent implements OnInit {
    * void : no retorna nada
    */
   createParty(): void {
-    const dialogRef = this.dialog.open(CrearTerceroComponent, {
+    const dialogRef = this.dialog.open(CreatePartyComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
@@ -100,7 +101,7 @@ export class MsTicketStepTwoComponent implements OnInit {
    * void : no retorna nada 
    */
   editProduct(product): void {
-    const dialogRef = this.dialog.open(EditarTicketComponent, {
+    const dialogRef = this.dialog.open(EditTicketComponent, {
       data: {
         index: product.index,
         name: product.name,
@@ -122,11 +123,13 @@ export class MsTicketStepTwoComponent implements OnInit {
   }
   /*
   * @desc remove a product from the cart
-  * @param {!producto[]} actual product
+  * @param {!product[]} actual product
   * @return { void } : Without returns
   */
-  deleteProduct(product): void {
-    this.state.eliminarProducto(product);
+  ConfirmDeleteProduct(product): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      panelClass: 'ms-custom-dialogbox'
+    });
   }
   /*
   *@desc generates a new ticket if the stock of produc is less than the quantity, else show a dialog
@@ -135,28 +138,28 @@ export class MsTicketStepTwoComponent implements OnInit {
   GenerateTicket(): void {
     /** @const @private {flag} this variable indicates the state of the condition */
     let flag: boolean = false;
-    if(this.state.currentState[this.state.currentStateIndex].cart){
-    if(this.state.currentState[this.state.currentStateIndex].cart.length>0){ 
-      console.log(this.state.currentState[this.state.currentStateIndex].cart.length)
-    this.state.currentState[this.state.currentStateIndex].cart.forEach((product, index) => {
-      console.log(index, product.stock, product.quantity)
-      if (product.stock < product.quantity) {
-        flag = true;
+    if (this.state.currentState[this.state.currentStateIndex].cart) {
+      if (this.state.currentState[this.state.currentStateIndex].cart.length > 0) {
+        console.log(this.state.currentState[this.state.currentStateIndex].cart.length)
+        this.state.currentState[this.state.currentStateIndex].cart.forEach((product, index) => {
+          console.log(index, product.stock, product.quantity)
+          if (product.stock < product.quantity) {
+            flag = true;
+          }
+        });
+        if (flag) {
+          console.log("avisos")
+          const dialogRef = this.dialog.open(NoStockComponent, {
+            panelClass: 'ms-custom-dialogbox'
+          });
+        }
+        else {
+          console.log("generar ticket")
+          const dialogRef = this.dialog.open(GenerateTicketComponent, {
+            panelClass: 'ms-custom-dialogbox'
+          });
+        }
       }
-    });
-    if (flag) {
-      console.log("avisos")
-      const dialogRef = this.dialog.open(NoStockComponent, {
-        panelClass: 'ms-custom-dialogbox'
-      });
-    }
-    else {
-      console.log("generar ticket")
-      const dialogRef = this.dialog.open(GenerarTicketComponent, {
-        panelClass: 'ms-custom-dialogbox'
-      });
     }
   }
-}
-}
 }
