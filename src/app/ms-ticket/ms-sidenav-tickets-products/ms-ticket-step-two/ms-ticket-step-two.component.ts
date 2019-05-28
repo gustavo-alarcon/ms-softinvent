@@ -136,7 +136,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   *return {void} : Without returns
   */
   GenerateTicket(): void {
-    /** @const @private {flag} this variable indicates the state of the condition */
+    /*@const @private {flag} this variable indicates the state of the condition*/
     let flag: boolean = false;
     if (this.state.currentState[this.state.currentStateIndex].cart) {
       if (this.state.currentState[this.state.currentStateIndex].cart.length > 0) {

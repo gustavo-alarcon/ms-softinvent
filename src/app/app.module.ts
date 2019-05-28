@@ -129,6 +129,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NoStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/no-stock/no-stock.component';
 import { ConfirmDeleteComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-delete/confirmacion-delete.component';
 import { ConfirmDeleteTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/confirmacion-delete-ticket/confirmacion-delete-ticket.component';
+import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/edit-stock/edit-stock.component';
 
 
 @NgModule({
@@ -200,7 +201,8 @@ import { ConfirmDeleteTicketComponent } from './ms-ticket/ms-sidenav-tickets-pro
     GenerateTicketComponent,
     NoStockComponent,
     ConfirmDeleteComponent,
-    ConfirmDeleteTicketComponent
+    ConfirmDeleteTicketComponent,
+    EditStockComponent
   ],
   imports: [
     BrowserModule,
@@ -275,7 +277,8 @@ import { ConfirmDeleteTicketComponent } from './ms-ticket/ms-sidenav-tickets-pro
     GenerateTicketComponent,
     NoStockComponent,
     ConfirmDeleteComponent,
-    ConfirmDeleteTicketComponent
+    ConfirmDeleteTicketComponent,
+    EditStockComponent
   ],
   providers: [
     AuthService,
