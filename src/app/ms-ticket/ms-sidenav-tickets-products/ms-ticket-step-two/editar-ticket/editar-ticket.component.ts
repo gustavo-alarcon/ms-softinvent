@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { ProductCart, Promo, Discount } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service'
-import { ConfirmacionEditComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
+import { ConfirmEditComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
 
 export interface DialogData {
   index : number,
@@ -24,7 +24,7 @@ export interface DialogData {
   templateUrl: './editar-ticket.component.html',
   styles: []
 })
-export class EditarTicketComponent implements OnInit {
+export class EditTicketComponent implements OnInit {
   /**Valor actual de las siguiente variables :
   * Cantidad
   * Descuento
@@ -47,7 +47,7 @@ export class EditarTicketComponent implements OnInit {
   discount: Discount;
   constructor(
     private dialog: MatDialog,
-    public dialogRef: MatDialogRef<EditarTicketComponent>,
+    public dialogRef: MatDialogRef<EditTicketComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService
     ) {  }
@@ -80,7 +80,7 @@ export class EditarTicketComponent implements OnInit {
     this.dialogRef.close();
   }
   confirmacionProduct(): void {
-    var confirmDialogRef = this.dialog.open(ConfirmacionEditComponent, {
+    var confirmDialogRef = this.dialog.open(ConfirmEditComponent, {
       data: {
         index : this.data.index,
         stock: this.data.stock,

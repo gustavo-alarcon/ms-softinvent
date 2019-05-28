@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DatabaseService } from 'src/app/core/database.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
-import { ConfirmarBorrarDocumentoComponent } from '../confirmar-borrar-documento/confirmar-borrar-documento.component';
+import { ConfirmDeleteDocComponent } from '../confirmar-borrar-documento/confirmar-borrar-documento.component';
 import { ExtenderCorrelativoComponent } from '../extender-correlativo/extender-correlativo.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { ExtenderCorrelativoComponent } from '../extender-correlativo/extender-c
   templateUrl: './editar-documento.component.html',
   styles: []
 })
-export class EditarDocumentoComponent implements OnInit {
+export class EditDocComponent implements OnInit {
 
   editDocumentFormGroup: FormGroup;
   aliasAlreadyExist: boolean = false;
@@ -22,7 +22,7 @@ export class EditarDocumentoComponent implements OnInit {
     public dbs: DatabaseService,
     private fb: FormBuilder,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<EditarDocumentoComponent>,
+    public dialogRef: MatDialogRef<EditDocComponent>,
     public dialog: MatDialog
   ) { }
 
@@ -88,7 +88,7 @@ export class EditarDocumentoComponent implements OnInit {
   }
 
   confirmDelete(): void{
-    var confirmDialogRef = this.dialog.open(ConfirmarBorrarDocumentoComponent, {
+    var confirmDialogRef = this.dialog.open(ConfirmDeleteDocComponent, {
       data: this.data,
       panelClass: 'ms-custom-modalbox'
     });

@@ -15,7 +15,7 @@ export class NoStockComponent implements OnInit {
   ngOnInit() {
   }
   deleteTicket(index): void {
-    this.state.eliminarTicket(index);
+    this.state.deleteTicket(index);
     this.state.calcTotalSalePrice();
   }
 

@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/core/auth.service';
   templateUrl: './crear-producto.component.html',
   styles: []
 })
-export class CrearProductoComponent implements OnInit {
+export class CreateProductComponent implements OnInit {
 
   createProductFormGroup: FormGroup;
   categoryFromList = new FormControl("");
@@ -33,7 +33,7 @@ export class CrearProductoComponent implements OnInit {
     public dbs: DatabaseService,
     public auth: AuthService,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<CrearProductoComponent>
+    public dialogRef: MatDialogRef<CreateProductComponent>
   ) { }
 
   ngOnInit() {

@@ -65,7 +65,7 @@ export class MsTicketStepOneComponent implements OnInit {
   /**
    * @desc  Abre el dialog de detalles del producto
    * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
-   * @return { void } : Sin retornos
+   * @return { void } : Without returns
    */
   detalles(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductDescriptionComponent, {
@@ -79,7 +79,7 @@ export class MsTicketStepOneComponent implements OnInit {
   /**
   * @desc  agrega un nuevo producto 
   * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
-  * @return { void } : Sin retornos
+  * @return { void } : Without returns
   */
   addProduct(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductMovementComponent, {

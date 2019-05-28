@@ -8,7 +8,7 @@ import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
   templateUrl: './crear-almacen.component.html',
   styles: []
 })
-export class CrearAlmacenComponent implements OnInit {
+export class CreateWarehouseComponent implements OnInit {
 
   createWarehouseFormGroup: FormGroup;
   alreadyExist: boolean = false;
@@ -18,7 +18,7 @@ export class CrearAlmacenComponent implements OnInit {
     public dbs: DatabaseService,
     private fb: FormBuilder,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<CrearAlmacenComponent>,
+    public dialogRef: MatDialogRef<CreateWarehouseComponent>,
     public dialog: MatDialog
   ) { }
 

@@ -8,7 +8,7 @@ import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
   templateUrl: './crear-documento.component.html',
   styles: []
 })
-export class CrearDocumentoComponent implements OnInit {
+export class CreateDocComponent implements OnInit {
 
   createDocumentFormGroup: FormGroup;
   aliasAlreadyExist: boolean = false;
@@ -22,7 +22,7 @@ export class CrearDocumentoComponent implements OnInit {
     public dbs: DatabaseService,
     private fb: FormBuilder,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<CrearDocumentoComponent>,
+    public dialogRef: MatDialogRef<CreateDocComponent>,
     public dialog: MatDialog
   ) { }
 

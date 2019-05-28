@@ -79,38 +79,59 @@ export class StateManagementService {
 
   constructor() { }
 
-
-  public agregarProducto(producto) {
+  /*
+  * @desc  add a new product in the current ticket 
+  * @param {!product[]} actual product
+  * @return { void } : Without returns
+  */
+  public addProduct(producto) {
     this.currentState[this.currentStateIndex].cart.push(producto);
     this.stateManagement.next(this.currentState);
   }
-
-  public eliminarProducto(producto) {
+  /*
+  * @desc  delete a product in the current ticket 
+  * @param {!product[]} actual product
+  * @return { void } : Without returns
+  */
+  public deleteProduct(producto) {
     this.currentState[this.currentStateIndex].cart.splice(this.currentState[this.currentStateIndex].cart.indexOf(producto), 1);
     this.stateManagement.next(this.currentState);
-
   }
-
-  public agregarTicket(ticket) {
+  /*
+  * @desc  add a new ticket after the last ticket
+  * @return { void } : Without returns
+  */
+  public addTicket() {
+    let productList: Array<ProductCart> = [];
+    let ticket: Ticket = { state: false, cart: productList };
     this.currentState.push(ticket);
+    this.currentStateIndex = this.currentState.length - 1;
     this.stateManagement.next(this.currentState);
-    this.ChangeTicket()
+    this.changeTicket()
   }
-
-  public eliminarTicket(index) {
-    if(this.currentState.length>1){
-    this.currentState.splice(index, 1);
-    this.stateManagement.next(this.currentState);
-    this.ChangeTicket()
-    
+  /*
+  * @desc  delete the current ticket 
+  * @param {!Number[]} index: actual index of the ticket
+  * @return { void } : Without returns
+  */
+  public deleteTicket(index) {
+    if (this.currentState.length) {
+      this.currentState.splice(index, 1);
+      this.currentStateIndex = this.currentState.length - 1;
+      this.stateManagement.next(this.currentState);
+      this.changeTicket()
+    }
+    else {
+      this.currentState[this.currentStateIndex].cart.splice(0, this.currentState[0].cart.length);
+      this.stateManagement.next(this.currentState);
+      this.currentState.splice(index, 1);
+      this.stateManagement.next(this.currentState);
+    }
   }
-  else{
-    this.currentState[this.currentStateIndex].cart.splice(0,this.currentState[0].cart.length);
-    this.stateManagement.next(this.currentState);
-    this.currentState.splice(index, 1);
-    this.stateManagement.next(this.currentState);
-  }
-}
+  /*
+  * @desc  add the price of all the products in the cart
+  * @return { void } : Without returns
+  */
   public calcTotalSalePrice() {
     let _total = 0;
     let _discount = 0;
@@ -124,34 +145,31 @@ export class StateManagementService {
       this.currentState[this.currentStateIndex].totalWithDiscount = _total;
     }
   }
-
-  public editarProducto(newProduct): void {
-
-    console.log(newProduct);
-    console.log(newProduct.index)
-    console.log(this.currentState[this.currentStateIndex].cart);
-
-    // for (var _i = 0; _i < this.currentState[this.currentStateIndex].cart.length; _i++) {
-    //   if (this.currentState[this.currentStateIndex].cart[_i].index == newProduct.index) {
-    //     newProduct==this.currentState[this.currentStateIndex].cart[_i]
-    //     this.stateManagement.next(this.currentState);
-    //   }
-    // };
-
+  /*
+  * @desc  replace the product with the new product in the current ticket 
+  * @param {!newProduct[]}
+  * @return { void } : Without returns
+  */
+  public editProduct(newProduct): void {
     this.currentState[this.currentStateIndex].cart.forEach((product, index) => {
-      if(product.index === newProduct.index){
+      if (product.index === newProduct.index) {
         this.currentState[this.currentStateIndex].cart[index] = newProduct;
         this.stateManagement.next(this.currentState);
       }
     });
   }
-
-  public ChangeTicket(): void{
-    this.currentState.forEach((current,index) => {
-      current.state=false;
+  /*
+  * @desc  change the states of the tickets, push false in all the tickets and push true in the current ticket
+  * @return { void } : Without returns
+  */
+  public changeTicket(): void {
+    this.currentState.forEach(current => {
+      current.state = false;
     });
-    this.currentState[this.currentStateIndex].state=true;
-    this.stateManagement.next(this.currentState);
+    if (this.currentState.length) {
+      this.currentState[this.currentStateIndex].state = true;
+      this.stateManagement.next(this.currentState);
+    }
   }
 
 }

@@ -6,7 +6,7 @@ import { MAT_BOTTOM_SHEET_DATA } from '@angular/material';
   templateUrl: './info-tercero.component.html',
   styles: []
 })
-export class InfoTerceroComponent implements OnInit {
+export class InfoPartyComponent implements OnInit {
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any

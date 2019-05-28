@@ -13,7 +13,7 @@ import { ProductCart, Promo, Discount, Ticket } from 'src/app/core/ms-types';
   templateUrl: './ms-ventas-step-one.component.html',
   styles: []
 })
-export class MsVentasStepOneComponent implements OnInit {
+export class MsSalesStepOneComponent implements OnInit {
 
   /**
    * VARIABLES EDU
@@ -41,7 +41,7 @@ export class MsVentasStepOneComponent implements OnInit {
   ) {
     this.productList = [];
     this.ticket = { state: false, cart: this.productList };
-    this.state.agregarTicket(this.ticket);
+    this.state.addTicket();
   }
 
   ngOnInit() {
@@ -69,7 +69,7 @@ export class MsVentasStepOneComponent implements OnInit {
   /**
    * @desc  Abre el dialog de detalles del producto
    * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
-   * @return { void } : Sin retornos
+   * @return { void } : Without returns
    */
   detalles(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductDescriptionComponent, {
@@ -83,7 +83,7 @@ export class MsVentasStepOneComponent implements OnInit {
   /**
   * @desc  agrega un nuevo producto 
   * @param {!string[]} product  : Lista de los campos del producto seleccionado en la tabla
-  * @return { void } : Sin retornos
+  * @return { void } : Without returns
   */
   addProduct(product): void {
     const dialogRef = this.dialog.open(MsTicketDialogProductMovementComponent, {

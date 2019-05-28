@@ -3,8 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { ProductCart, Promo, Discount,Serie } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
-import { ConfirmacionProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
-import { ProductosComponent } from 'src/app/productos/productos.component';
+import { ConfirmProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
+import { ProductComponent } from 'src/app/productos/productos.component';
 import { database } from 'firebase';
 
 export interface DialogData {
@@ -81,7 +81,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
  
   confirmacionProduct(): void {
     this.i++;
-    var confirmDialogRef = this.dialog.open(ConfirmacionProductComponent, {
+    var confirmDialogRef = this.dialog.open(ConfirmProductComponent, {
       data: {
         index: this.i,
         stock: parseInt(this.data.stock),
