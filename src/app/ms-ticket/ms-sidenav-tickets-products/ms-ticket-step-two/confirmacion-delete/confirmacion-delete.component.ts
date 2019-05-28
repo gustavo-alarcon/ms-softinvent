@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { StateManagementService } from 'src/app/core/state-management.service';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ProductCart } from 'src/app/core/ms-types';
 
 @Component({
   selector: 'app-confirmacion-delete',
@@ -12,6 +13,7 @@ export class ConfirmDeleteComponent implements OnInit {
   constructor(
     private state: StateManagementService,
     public dialogRef: MatDialogRef<ConfirmDeleteComponent>,
+    @Inject (MAT_DIALOG_DATA) public data: ProductCart
   ) { }
 
   ngOnInit() {
@@ -21,8 +23,9 @@ export class ConfirmDeleteComponent implements OnInit {
   * @param {!product[]} actual product
   * @return { void } : Without returns
   */
-  deleteProduct(product): void {
-    this.state.deleteProduct(product);
+  deleteProductYes(): void {
+    console.log('index', this.data.index)
+    this.state.deleteProduct(this.data.index);
     this.state.calcTotalSalePrice();
     this.dialogRef.close(true);
   }

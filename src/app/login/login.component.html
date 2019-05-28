@@ -6,7 +6,7 @@
       </div>
       <div class="w3-center w3-padding ms-color-b-bg" style="border-radius: 0px 0px 10px 10px">
         <br>
-        <form (ngSubmit)="onSubmit()" [formGroup]="loginFormGroup" autocomplete="off">
+        <form [formGroup]="loginFormGroup" autocomplete="off">
           <mat-progress-bar mode="indeterminate" *ngIf="auth.authLoader"></mat-progress-bar>
           <br>
           <p> </p>

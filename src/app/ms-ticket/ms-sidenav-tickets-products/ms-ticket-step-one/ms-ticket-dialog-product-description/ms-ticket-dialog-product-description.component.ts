@@ -12,6 +12,8 @@ export interface DialogData {
 
 export class MsTicketDialogProductDescriptionComponent implements OnInit {
 
+  imageProd = null;
+  
   constructor(
     public dialogRef: MatDialogRef<MsTicketDialogProductDescriptionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData

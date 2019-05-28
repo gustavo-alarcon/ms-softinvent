@@ -202,7 +202,8 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     NoStockComponent,
     ConfirmDeleteComponent,
     ConfirmDeleteTicketComponent,
-    EditStockComponent
+    EditStockComponent,
+    MsSidenavNotificationsComponent
   ],
   imports: [
     BrowserModule,

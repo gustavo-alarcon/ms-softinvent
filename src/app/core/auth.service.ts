@@ -22,7 +22,20 @@ import { MatSnackBar } from '@angular/material';
 export class AuthService {
 
   user: Observable<User>;
-  userInvent: User;
+  userInvent: User = {
+    name: '',
+    lastname: '',
+    displayName: '',
+    uid: '',
+    email: '',
+    db: '',
+    company: '',
+    accountType: 999,
+    accountState: 999,
+    regDate: 0,
+    permits: ''
+  };
+
   authLoader: boolean = false;
   now = new Date();
 
@@ -113,6 +126,7 @@ export class AuthService {
   }
 
   emailLogin(email: string, password: string) {
+    console.log(email, password);
     this.authLoader = true;
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(credential => {

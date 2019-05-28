@@ -17,7 +17,7 @@ export class MainComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleSideBar(shouldOpen: boolean) {
+  toggleSideBar() {
     this.sideBarIsOpened = !this.sideBarIsOpened;
   }
 }

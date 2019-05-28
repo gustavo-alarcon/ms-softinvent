@@ -40,9 +40,9 @@ export class MsSalesStepTwoComponent implements OnInit {
   currentTicket: Ticket;
 
   constructor(
-    private sidenav: SidenavService,
+    public sidenav: SidenavService,
     public dbs: DatabaseService,
-    private state: StateManagementService,
+    public state: StateManagementService,
     private dialog: MatDialog
   ) { }
 

@@ -24,8 +24,8 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   subscriptions: Array<Subscription> = [];
 
   constructor(
-    private sidenav: SidenavService,
-    private state: StateManagementService,
+    public sidenav: SidenavService,
+    public state: StateManagementService,
     private snackbar: MatSnackBar,
     private mat: MattabService,
     private dialog: MatDialog
@@ -37,7 +37,6 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
       this.state.currentState = res;
       this.currentTicket =
         this.state.currentState[this.state.currentStateIndex];
-      console.log('Obs:', this.currentTicket);
     })
 
     this.subscriptions.push(ticketsSubs);
@@ -87,8 +86,9 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   * @param {!producto[]} actual product
   * @return { void } : Without returns
   */
-  ConfirmDeleteTicket(product): void {
-    this.dialog.open(ConfirmDeleteTicketComponent, {
+  ConfirmDeleteTicket(i: number): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteTicketComponent, {
+      data: i,
       panelClass: 'ms-custom-dialogbox'
     }).afterClosed().subscribe(res => {
       if(res){

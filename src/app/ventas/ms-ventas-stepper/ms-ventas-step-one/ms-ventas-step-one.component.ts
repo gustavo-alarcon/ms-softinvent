@@ -34,8 +34,8 @@ export class MsSalesStepOneComponent implements OnInit {
   ticket: Ticket;
   productList: Array<ProductCart>;
   constructor(
-    private sidenav: SidenavService,
-    private state: StateManagementService,
+    public sidenav: SidenavService,
+    public state: StateManagementService,
     public dbs: DatabaseService,
     private dialog: MatDialog
   ) {
