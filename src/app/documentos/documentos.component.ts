@@ -10,7 +10,7 @@ import { EditDocComponent } from './editar-documento/editar-documento.component'
   templateUrl: './documentos.component.html',
   styles: []
 })
-export class DocumentosComponent implements OnInit {
+export class DocsComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredDocuments: Array<any> = [];

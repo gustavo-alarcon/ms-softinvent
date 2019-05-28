@@ -5,11 +5,11 @@ import { AuthGuard } from "../core/auth.guard";
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { LoginComponent } from '../login/login.component';
 import { MainComponent } from '../main/main.component';
-import { AlmacenesComponent } from '../almacenes/almacenes.component';
-import { TercerosComponent } from '../terceros/terceros.component';
-import { DocumentosComponent } from '../documentos/documentos.component';
+import { WarehousesComponent } from '../almacenes/almacenes.component';
+import { PartiesComponent } from '../terceros/terceros.component';
+import { DocsComponent } from '../documentos/documentos.component';
 import { ProductComponent } from '../productos/productos.component';
-import { RegistrarComponent } from '../registrar/registrar.component';
+import { RegisterComponent } from '../registrar/registrar.component';
 import { StockComponent } from '../stock/stock.component';
 import { KardexComponent } from '../kardex/kardex.component';
 import { HistorialComponent } from '../historial/historial.component';
@@ -74,19 +74,19 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'almacenes', component: AlmacenesComponent
+        path: 'almacenes', component: WarehousesComponent
       },
       {
-        path: 'terceros', component: TercerosComponent
+        path: 'terceros', component: PartiesComponent
       },
       {
-        path: 'documentos', component: DocumentosComponent
+        path: 'documentos', component: DocsComponent
       },
       {
         path: 'productos', component: ProductComponent
       },
       {
-        path: 'registrar', component: RegistrarComponent
+        path: 'registrar', component: RegisterComponent
       },
       {
         path: 'venta', component:MsSalesComponent ,

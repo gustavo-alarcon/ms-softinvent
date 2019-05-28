@@ -13,7 +13,7 @@ import { InfoWarehouseComponent } from './info-almacen/info-almacen.component';
   templateUrl: './almacenes.component.html',
   styles: []
 })
-export class AlmacenesComponent implements OnInit {
+export class WarehousesComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredWarehouses: Array<any> = [];

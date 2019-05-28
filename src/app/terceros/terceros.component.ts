@@ -11,7 +11,7 @@ import { InfoPartyComponent } from './info-tercero/info-tercero.component';
   templateUrl: './terceros.component.html',
   styles: []
 })
-export class TercerosComponent implements OnInit {
+export class PartiesComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredParties: Array<any> = [];

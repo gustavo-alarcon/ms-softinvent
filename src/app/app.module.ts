@@ -19,19 +19,19 @@ import { SidenavService } from './core/sidenav.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 
-import { AlmacenesComponent } from './almacenes/almacenes.component';
+import { WarehousesComponent } from './almacenes/almacenes.component';
 import { CreateWarehouseComponent } from './almacenes/crear-almacen/crear-almacen.component';
 import { EditWarehouseComponent } from './almacenes/editar-almacen/editar-almacen.component';
 import { InfoWarehouseComponent } from './almacenes/info-almacen/info-almacen.component';
 import { ConfirmDeleteWarehouseComponent } from './almacenes/confirmar-borrar-almacen/confirmar-borrar-almacen.component';
 
-import { TercerosComponent } from './terceros/terceros.component';
+import { PartiesComponent } from './terceros/terceros.component';
 import { CreatePartyComponent } from './terceros/crear-tercero/crear-tercero.component';
 import { EditPartyComponent } from './terceros/editar-tercero/editar-tercero.component';
 import { InfoPartyComponent } from './terceros/info-tercero/info-tercero.component';
 import { ConfirmDeletePartyComponent } from './terceros/confirmar-borrar-tercero/confirmar-borrar-tercero.component';
 
-import { DocumentosComponent } from './documentos/documentos.component';
+import { DocsComponent } from './documentos/documentos.component';
 import { CreateDocComponent } from './documentos/crear-documento/crear-documento.component';
 import { EditDocComponent } from './documentos/editar-documento/editar-documento.component';
 import { ConfirmDeleteDocComponent } from './documentos/confirmar-borrar-documento/confirmar-borrar-documento.component';
@@ -41,7 +41,7 @@ import { CreateProductComponent } from './productos/crear-producto/crear-product
 import { EditProductComponent } from './productos/editar-producto/editar-producto.component';
 import { ConfirmDeleteProductComponent } from './productos/confirmar-borrar-producto/confirmar-borrar-producto.component';
 
-import { RegistrarComponent } from './registrar/registrar.component';
+import { RegisterComponent } from './registrar/registrar.component';
 import { ConfirmClearRegisterComponent } from './registrar/confirmar-limpiar-registrar/confirmar-limpiar-registrar.component';
 import { ConfirmSaveRegisterComponent } from './registrar/confirmar-grabar-registrar/confirmar-grabar-registrar.component';
 
@@ -137,11 +137,11 @@ import { ConfirmDeleteTicketComponent } from './ms-ticket/ms-sidenav-tickets-pro
     WelcomeComponent,
     LoginComponent,
     MainComponent,
-    AlmacenesComponent,
-    TercerosComponent,
-    DocumentosComponent,
+    WarehousesComponent,
+    PartiesComponent,
+    DocsComponent,
     ProductComponent,
-    RegistrarComponent,
+    RegisterComponent,
     KardexComponent,
     StockComponent,
     HistorialComponent,

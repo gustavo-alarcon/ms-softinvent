@@ -15,7 +15,7 @@ import { invoke } from 'q';
   templateUrl: './registrar.component.html',
   styles: []
 })
-export class RegistrarComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   documentDate = new FormControl(new Date());
