@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { NoStockComponent } from '../no-stock/no-stock.component';
 import { GenerateTicketComponent } from '../generar-ticket/generar-ticket.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Ticket, ProductCart } from 'src/app/core/ms-types';
+import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-stock',
@@ -10,13 +13,32 @@ import { MatDialog } from '@angular/material';
   styles: []
 })
 export class EditStockComponent implements OnInit {
+  currentTicket: Ticket;
+  subscriptions: Array<Subscription> = [];
+  cantidad = new FormControl();
+  cant: number
 
   constructor(
     private state: StateManagementService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public dialogRef: MatDialogRef<EditStockComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: ProductCart,
   ) { }
 
   ngOnInit() {
+    let ticketsSubs = this.state.ticketsStateManagement.subscribe(res => {
+      this.state.currentState = res;
+      this.currentTicket =
+        this.state.currentState[this.state.currentStateIndex];
+    })
+
+    this.subscriptions.push(ticketsSubs);
+    
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => {
+      sub.unsubscribe();
+    })
   }
   /*
   *@desc generates a new ticket if the stock of produc is less than the quantity, else show a dialog
@@ -41,6 +63,20 @@ export class EditStockComponent implements OnInit {
           });
         }
         else {
+          let newProduct: ProductCart;
+          newProduct = {
+            index: this.data.index,
+            stock: this.data.stock,
+            name: this.data.name,
+            discount: this.data.discount,
+            quantity: this.data.quantity,
+            warehouse: this.data.warehouse,
+            discountType: "discount",
+            salePrice: this.data.salePrice,
+            sale: this.data.sale
+          };
+          this.state.editProduct(newProduct)
+          this.dialogRef.close(true);
           console.log("generar ticket")
           const dialogRef = this.dialog.open(GenerateTicketComponent, {
             panelClass: 'ms-custom-dialogbox'
