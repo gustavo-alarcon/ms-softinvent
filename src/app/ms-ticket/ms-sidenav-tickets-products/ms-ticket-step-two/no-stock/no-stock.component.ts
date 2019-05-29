@@ -13,14 +13,14 @@ export class NoStockComponent implements OnInit {
   constructor(
     private state: StateManagementService,
     private dialog: MatDialog,
-    @Inject (MAT_DIALOG_DATA) public data: any
+    @Inject (MAT_DIALOG_DATA) public index: number
   ) { }
 
   ngOnInit() {
   }
 
   deleteTicket(): void {
-    this.state.deleteTicket(this.data.index);
+    this.state.deleteTicket(this.index);
     this.state.calcTotalSalePrice();
   }
   
