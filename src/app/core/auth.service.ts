@@ -22,7 +22,21 @@ import { MatSnackBar } from '@angular/material';
 export class AuthService {
 
   user: Observable<User>;
-  userInvent: User;
+
+  userInvent: User = {
+    name: '',
+    lastname: '',
+    displayName: '',
+    uid: '',
+    email: '',
+    db: '',
+    company: '',
+    accountType: 999,
+    accountState: 999,
+    regDate: 0,
+    permits: ''
+  };
+
   authLoader: boolean = false;
   now = new Date();
 
@@ -44,17 +58,12 @@ export class AuthService {
   permitsDocument: AngularFirestoreDocument<Permits>;
   permits: Permits;
 
-  public dataPermits = new BehaviorSubject<Permits>({ id: '', name: '', createBy: '', regDate: 0});
+  public dataPermits = new BehaviorSubject<Permits>({ id: '', name: '', createBy: '', regDate: 0 });
   currentDataPermits = this.dataPermits.asObservable();
 
   // TOKENS
   tokensCollection: AngularFirestoreCollection<any>;
   tokens: Array<Object> = [];
-
-
-  // ************************************************************************* //
-
-
 
   public dataTokens = new BehaviorSubject<any[]>([]);
   currentDataTokens = this.dataTokens.asObservable();
@@ -117,27 +126,6 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(credential => {
         if (credential) {
-          this.user = this.afs.doc<User>(`users/${credential.user.uid}`).valueChanges();
-
-          // Retrive permits
-          this.permitsDocument =
-            this.afs
-              .collection<Permits>(`db/${this.userInvent.db}/configurations/accounts/permits`)
-              .doc<Permits>(this.userInvent.permits);
-          this.permitsDocument
-            .valueChanges()
-            .subscribe(res => {
-              this.permits = res;
-              this.dataPermits.next(res);
-            });
-
-          // Retrive accounts associated with the company
-          this.usersCollection = this.afs.collection<User>(`users`, ref => ref.where('company', '==', this.userInvent.company));
-          this.usersCollection.valueChanges().subscribe(res => {
-            this.users = res;
-            this.dataUsers.next(res);
-          });
-
           this.authLoader = false;
           this.router.navigateByUrl('/main');
         }
@@ -208,8 +196,8 @@ export class AuthService {
   }
 
   private handleError(error) {
-
     let message = '';
+    console.log(error);
 
     switch (error.code) {
       case 'auth/invalid-email':
