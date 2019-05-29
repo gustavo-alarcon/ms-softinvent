@@ -6,6 +6,9 @@ import { StateManagementService } from 'src/app/core/state-management.service';
 import { ConfirmacionProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
 import { ProductosComponent } from 'src/app/productos/productos.component';
 import { database } from 'firebase';
+import { Observable, of } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export interface DialogData {
   name: string;
@@ -27,6 +30,10 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   cantidad = new FormControl()
   descuento = new FormControl()
   promocion = new FormControl()
+  serieList = new FormControl()
+  filteredSeries: Observable<Serie[]>;
+  selection = new SelectionModel<Serie>(true, []);
+
   porcentajeDescuento = new FormControl() // valor actual del campo "promocion"
   nDescuento: number = 0; // precio en soles del descuento
   pDescuento: number = 0;// porcentaje del descuento
@@ -60,6 +67,8 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
     this.cantidad.valueChanges.subscribe(result => {
       this.cant = this.cantidad.value
+      this.selection.clear();
+
       if (this.cantidad.value) {
         this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
         this.pInicial = result * parseFloat(this.data.sale);
@@ -68,25 +77,20 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       else {
         this.total = 0;
       }
+      for (var _i = 0; _i < this.series.length; _i++) {
+        this.series[_i].estado = true;
 
-      // for (var _i = 0; _i < this.series.length; _i++) {
+      }
+      for (var _i = 0; _i < this.cantidad.value; _i++) {
+        this.selection.select( this.series[_i]);
+        
+        this.series[_i].estado = false;
 
-      //   this.series[_i].seleccionado = false;
+      }
 
-
-      // }
-      // for (var _i = 0; _i < this.cantidad.value; _i++) {
-
-      //   this.series[_i].seleccionado = true;
-
-      // }
-
-      // this.cantMax = this.cantidad.value;
+      this.cantMax = this.cantidad.value;
       console.log(this.series);
-
-
     });
-
     this.descuento.valueChanges.subscribe(result => {
       this.total = ((parseFloat(this.data.sale) - result) * this.cant);
       this.pDescuento = parseFloat(((100 * result) / parseInt(this.data.sale)).toFixed(2));
@@ -97,7 +101,15 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
       this.total = parseFloat(this.total.toFixed(2));
     });
-
+    this.filteredSeries = this.serieList.valueChanges
+      .pipe(
+        startWith(''),
+        map(serie => serie ? this._filterSeries(serie.toString()) : this.series.slice())
+      );
+  }
+  private _filterSeries(value: string): Serie[] {
+    const filterValue = value;
+    return this.series.filter(serie => serie.numero.toString().indexOf(filterValue) === 0);
   }
   /*Cuando hace click fuera del dialog*/
   onNoClick(): void {
@@ -129,6 +141,8 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       this.cant = this.cant - 1
       this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
       this.pInicial = this.cant * parseFloat(this.data.sale);
+      this.cantidad.setValue( this.cant)
+
     }
   }
   Aumentar(): void {
@@ -136,6 +150,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       this.cant = this.cant + 1
       this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
       this.pInicial = this.cant * parseFloat(this.data.sale);
+      this.cantidad.setValue( this.cant)
     }
   }
   DisminuirS(): void {
@@ -184,38 +199,58 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   }
   cantMax: number = 0;
 
-  onCheckbox(i): void {
-    if (this.series[i].estado == false) {
-      if (this.series[i].seleccionado == false) {
-        this.series[i].seleccionado = true;
+  // onCheckbox(i): void {
+  //   if (this.series[i].estado == false) {
+  //     if (this.series[i].seleccionado == false) {
+  //       this.series[i].seleccionado = true;
+  //       this.cantMax++;
+  //       this.series = [...this.series];
+  //     }
+  //     else {
+  //       this.series[i].seleccionado = false;
+  //       this.cantMax--;
+  //       this.series = [...this.series];
+
+
+  //     }
+
+  //     if (this.cantMax >= this.cantidadMaxima) {
+  //       this.series[i].seleccionado = true;
+  //       this.series.forEach((serie, index) => {
+  //         if (serie.seleccionado == false)
+  //           serie.estado = true;
+  //       });
+  //     }
+  //     else {
+  //       this.series.forEach((serie, index) => {
+  //         serie.estado = false;
+  //       });
+  //     }
+  //     console.log(this.series);
+  //     console.log("checked " + this.cantMax + "Cantidad " + this.cantidadMaxima);
+  //   }
+  // }
+  
+  changeValue( i ) : void {
+
+      if (this.selection.isSelected(i) == false) {
         this.cantMax++;
-        this.series = [...this.series];
       }
       else {
-        this.series[i].seleccionado = false;
         this.cantMax--;
-        this.series = [...this.series];
-
-
       }
-
+      this.selection.toggle(i);  
       if (this.cantMax >= this.cantidadMaxima) {
-        this.series[i].seleccionado = true;
-        this.series.forEach((serie, index) => {
-          if (serie.seleccionado == false)
+        this.series.forEach((serie, indice) => {
+          if(this.selection.isSelected(serie) == false){
             serie.estado = true;
+          }
         });
       }
       else {
-        this.series.forEach((serie, index) => {
+        this.series.forEach((serie, i) => {
           serie.estado = false;
         });
       }
-      console.log(this.series);
-
-      console.log("checked " + this.cantMax + "Cantidad " + this.cantidadMaxima);
-    }
-
-
   }
 }
