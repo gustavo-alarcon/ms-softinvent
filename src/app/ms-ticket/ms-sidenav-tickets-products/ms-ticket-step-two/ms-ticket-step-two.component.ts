@@ -10,8 +10,8 @@ import { startWith, map } from 'rxjs/operators';
 import { EditTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
 import { Ticket, ProductCart } from 'src/app/core/ms-types';
 import { GenerateTicketComponent } from './generar-ticket/generar-ticket.component';
-import { NoStockComponent } from './no-stock/no-stock.component';
 import { ConfirmDeleteComponent } from './confirmacion-delete/confirmacion-delete.component';
+import { EditStockComponent } from './edit-stock/edit-stock.component';
 
 @Component({
   selector: 'app-ms-ticket-step-two',
@@ -149,8 +149,8 @@ export class MsTicketStepTwoComponent implements OnInit {
           }
         });
         if (flag) {
-          console.log("avisos")
-          const dialogRef = this.dialog.open(NoStockComponent, {
+          console.log("fuera de stock")
+          const dialogRef = this.dialog.open(EditStockComponent, {
             panelClass: 'ms-custom-dialogbox'
           });
         }

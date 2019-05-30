@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { StateManagementService } from 'src/app/core/state-management.service';
-import { NoStockComponent } from '../no-stock/no-stock.component';
 import { GenerateTicketComponent } from '../generar-ticket/generar-ticket.component';
 import { MatDialog, MatTableDataSource, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Ticket, ProductCart } from 'src/app/core/ms-types';
@@ -58,7 +57,7 @@ export class EditStockComponent implements OnInit {
         });
         if (flag) {
           console.log("avisos")
-          const dialogRef = this.dialog.open(NoStockComponent, {
+          const dialogRef = this.dialog.open(EditStockComponent, {
             panelClass: 'ms-custom-dialogbox'
           });
         }

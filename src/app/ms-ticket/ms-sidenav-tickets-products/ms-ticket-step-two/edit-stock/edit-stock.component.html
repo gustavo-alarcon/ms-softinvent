@@ -18,7 +18,7 @@
         <td class="mat-small w3-center">{{product.stock}}</td>
         <td class="mat-small w3-center"> <input matInput placeholder="Cantidad" type="number" value={{product.quantity}} min="0" max="{{product.stock}}"
           [formControl]="cantidad"></td>
-        <td class="mat-small w3-center"> <button mat-icon-button style="padding: 0px" (click)=ConfirmDeleteProduct(product);>
+        <td class="mat-small w3-center" style="padding: 0px"> <button mat-icon-button style="padding: 0px" (click)=ConfirmDeleteProduct(product);>
             <mat-icon>delete</mat-icon>
           </button></td>
       </tr>
@@ -26,8 +26,11 @@
   </table>
 </div>
 
-  <button mat-raised-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">CANCELAR</button>
+<mat-toolbar style="background:none">
+  <span class="ms-fill"></span>
+  <button mat-stroked-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">CANCELAR</button>
   <button mat-raised-button mat-dialog-close class="ms-color-b-1" style="margin:0.2em 0.2em"
     (click)="GenerateTicket()">GUARDAR</button>
+</mat-toolbar>
 
 </div>

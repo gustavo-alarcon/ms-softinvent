@@ -94,8 +94,12 @@ export class StateManagementService {
   * @return { void } : Without returns
   */
   public deleteProduct(index: number) {
-    this.currentState[this.currentStateIndex].cart.splice(index, 1);
-    this.stateManagement.next(this.currentState);
+    this.currentState[this.currentStateIndex].cart.forEach((product, i) => {
+      if (product.index == index) {
+        this.currentState[this.currentStateIndex].cart.splice(i, 1);
+        this.stateManagement.next(this.currentState);
+      }
+    });
   }
   /*
   * @desc  add a new ticket after the last ticket

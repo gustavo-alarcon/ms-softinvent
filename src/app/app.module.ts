@@ -126,7 +126,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { NoStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/no-stock/no-stock.component';
 import { ConfirmDeleteComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-delete/confirmacion-delete.component';
 import { ConfirmDeleteTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/confirmacion-delete-ticket/confirmacion-delete-ticket.component';
 import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/edit-stock/edit-stock.component';
@@ -199,7 +198,6 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     MsSalesComponent,
     MsSalesProductSearchComponent,
     GenerateTicketComponent,
-    NoStockComponent,
     ConfirmDeleteComponent,
     ConfirmDeleteTicketComponent,
     EditStockComponent,
@@ -276,7 +274,6 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     ConfirmProductComponent,
     ConfirmEditComponent,
     GenerateTicketComponent,
-    NoStockComponent,
     ConfirmDeleteComponent,
     ConfirmDeleteTicketComponent,
     EditStockComponent
