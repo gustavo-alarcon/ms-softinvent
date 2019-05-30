@@ -22,9 +22,10 @@ export interface DialogData {
 })
 export class MsTicketDialogProductMovementComponent implements OnInit {
   imageProd = null
-  quantityFC = new FormControl()
-  discountFC = new FormControl()
-  serieList = new FormControl()
+  quantityFC = new FormControl();
+  discountFC = new FormControl();
+  serieList = new FormControl();
+  promocion = new FormControl();
   filteredSeries: Observable<Serie[]>;
   selection = new SelectionModel<Serie>(true, []);
   discountPercentageFC = new FormControl() // valor actual del campo "promocion"

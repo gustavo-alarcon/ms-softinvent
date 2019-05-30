@@ -20,8 +20,7 @@
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Inicial" disabled value={{initPrice}}
-                class="form-control">
+              <input matInput placeholder="Precio Inicial" disabled value={{initPrice}} class="form-control">
             </mat-form-field>
           </div>
           <div class="w3-container w3-third">
@@ -69,12 +68,10 @@
               <input matInput placeholder="Seleccione un Nro de Serie" [formControl]="serieList"
                 [matAutocomplete]="auto" autocomplete="off">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.numero">
-                  <mat-checkbox class="example-margin" [disabled]=serie.estado
-                  [checked]="selection.isSelected(serie) "
-                    (click)="$event.stopPropagation();"
-                    (change)="changeValue(serie)">
-                    {{serie.numero}}
+                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.serieNumber">
+                  <mat-checkbox class="example-margin" [disabled]=serie.state [checked]="selection.isSelected(serie) "
+                    (click)="$event.stopPropagation();" (change)="changeValue(serie)">
+                    {{serie.serieNumber}}
                   </mat-checkbox>
                 </mat-option>
               </mat-autocomplete>
@@ -105,8 +102,8 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="w3-block" [ngClass]="{'ms-color-action-3': enableAddProd}" [disabled]="!enableAddProd"
-      (click)="confirmacionProduct()">Agregar al carrito
+    <button mat-raised-button class="w3-block" [ngClass]="{'ms-color-action-3': enableAddProd}"
+      [disabled]="!enableAddProd" (click)="confirmacionProduct()">Agregar al carrito
       ({{total | currency : 'S/.'}})</button>
   </div>
 </div>
@@ -179,12 +176,14 @@
         </div>
       </div>
       <div class="w3-margin w3-center">
-        <button icon-button class="w3-button w3-circle" style="background:#9B59B6" (click)="DecreaseQuantity()">-</button>
+        <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+          (click)="DecreaseQuantity()">-</button>
         <mat-form-field class="w3-block" style="width:30%">
           <input matInput class="w3-center" type="number" value={{initQuantity}} min="0" max="{{data.stock}}"
             [formControl]="quantityFC">
         </mat-form-field>
-        <button icon-button class="w3-button w3-circle" style="background:#9B59B6" (click)="IncreaseQuantity()">+</button>
+        <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+          (click)="IncreaseQuantity()">+</button>
       </div>
       <div class="w3-margin">
         <mat-accordion>
@@ -193,19 +192,17 @@
               <mat-panel-title>
                 Nro de serie
               </mat-panel-title>
-              
+
             </mat-expansion-panel-header>
-<mat-form-field style="width:100%" color="accent">
+            <mat-form-field style="width:100%" color="accent">
               <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
               <input matInput placeholder="Seleccione un Nro de Serie" [formControl]="serieList"
                 [matAutocomplete]="auto" autocomplete="off">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.numero">
-                  <mat-checkbox class="example-margin" [disabled]=serie.estado
-                  [checked]="selection.isSelected(serie) "
-                    (click)="$event.stopPropagation();"
-                    (change)="changeValue(serie)">
-                    {{serie.numero}}
+                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.serieNumber">
+                  <mat-checkbox class="example-margin" [disabled]=serie.state [checked]="selection.isSelected(serie) "
+                    (click)="$event.stopPropagation();" (change)="changeValue(serie)">
+                    {{serie.serieNumber}}
                   </mat-checkbox>
                 </mat-option>
               </mat-autocomplete>
@@ -291,8 +288,8 @@
     </div>
   </div>
   <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
-    <button mat-raised-button class="w3-block " [ngClass]="{'ms-color-action-3': enableAddProd}" [disabled]="!enableAddProd"
-      (click)="confirmacionProduct()">Agregar al carrito
+    <button mat-raised-button class="w3-block " [ngClass]="{'ms-color-action-3': enableAddProd}"
+      [disabled]="!enableAddProd" (click)="confirmacionProduct()">Agregar al carrito
       ({{  total | currency : 'S/.' }}
       )</button>
   </div>
