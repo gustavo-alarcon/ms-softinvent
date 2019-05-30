@@ -181,7 +181,6 @@ export interface Contact {
   phone?: string
 }
 export interface Serie {
-  numero: number,
-  seleccionado : boolean;
-  estado: boolean
+  serieNumber: number,
+  state: boolean
 }
