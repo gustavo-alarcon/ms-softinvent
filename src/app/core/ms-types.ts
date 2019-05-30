@@ -182,6 +182,6 @@ export interface Contact {
 }
 export interface Serie {
   numero: number,
-  seleccionado : string;
+  seleccionado : boolean;
   estado: boolean
 }
