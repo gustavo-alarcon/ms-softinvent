@@ -68,10 +68,10 @@
               <input matInput placeholder="Seleccione un Nro de Serie" [formControl]="serieList"
                 [matAutocomplete]="auto" autocomplete="off">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.serieNumber">
-                  <mat-checkbox class="example-margin" [disabled]=serie.state [checked]="selection.isSelected(serie) "
+                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
+                  <mat-checkbox class="example-margin" [disabled]=serie.activated [checked]="selection.isSelected(serie) "
                     (click)="$event.stopPropagation();" (change)="changeValue(serie)">
-                    {{serie.serieNumber}}
+                    {{serie.number}}
                   </mat-checkbox>
                 </mat-option>
               </mat-autocomplete>
@@ -199,10 +199,10 @@
               <input matInput placeholder="Seleccione un Nro de Serie" [formControl]="serieList"
                 [matAutocomplete]="auto" autocomplete="off">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.serieNumber">
-                  <mat-checkbox class="example-margin" [disabled]=serie.state [checked]="selection.isSelected(serie) "
+                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
+                  <mat-checkbox class="example-margin" [disabled]=serie.activated [checked]="selection.isSelected(serie) "
                     (click)="$event.stopPropagation();" (change)="changeValue(serie)">
-                    {{serie.serieNumber}}
+                    {{serie.number}}
                   </mat-checkbox>
                 </mat-option>
               </mat-autocomplete>

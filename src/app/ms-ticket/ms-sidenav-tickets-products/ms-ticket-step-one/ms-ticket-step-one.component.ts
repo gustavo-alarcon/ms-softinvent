@@ -7,6 +7,7 @@ import { MsTicketDialogProductMovementComponent } from './ms-ticket-dialog-produ
 import { FormControl } from '@angular/forms';
 import { SidenavService } from 'src/app/core/sidenav.service';
 import { ProductCart, Promo, Discount, Ticket } from 'src/app/core/ms-types';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ms-ticket-step-one',
@@ -60,6 +61,7 @@ export class MsTicketStepOneComponent implements OnInit {
       option['name'].toLowerCase().includes(ref) ||
       option['stock'].toString().includes(ref) ||
       option['sale'].toString().includes(ref));
+
     this.dataSource.data = this.filteredProducts;
   }
   /**
@@ -71,7 +73,7 @@ export class MsTicketStepOneComponent implements OnInit {
     const dialogRef = this.dialog.open(MsTicketDialogProductDescriptionComponent, {
       data: { imagePath: this.imagePath, description: product.name },
       panelClass: 'ms-custom-dialogbox'
-    }); 
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
@@ -82,20 +84,36 @@ export class MsTicketStepOneComponent implements OnInit {
   * @return { void } : Without returns
   */
   addProduct(product): void {
-    const dialogRef = this.dialog.open(MsTicketDialogProductMovementComponent, {
-      data: {
-        name: product.name,
-        sale: product.sale,
-        stock: product.stock,
-        category: product.category,
-        warehouse: product.warehouse,
-      },
-      panelClass: 'ms-custom-dialogbox'
+    this.dbs.getSerialNumbers(product.id)
+      .pipe(
+        map(res => {
+          //ADDING ACTIVATES TO RESULT
+          res.forEach((serial, index) => {
+            serial.activated = false;
+          })
+          return res;
+        })
+      ).subscribe(res => {
 
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+        const dialogRef = this.dialog.open(MsTicketDialogProductMovementComponent, {
+          data: {
+            name: product.name,
+            sale: product.sale,
+            stock: product.stock,
+            category: product.category,
+            warehouse: product.warehouse,
+            serialList: product.serialList,
+            serialNumbers: res
+          },
+          panelClass: 'ms-custom-dialogbox'
+
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+      })
+
+
   }
 
 }

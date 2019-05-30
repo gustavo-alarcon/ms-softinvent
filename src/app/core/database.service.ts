@@ -4,6 +4,7 @@ import { Observable, of, BehaviorSubject } from "rxjs";
 import { AuthService } from "./auth.service";
 import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
+import { serialNumber } from './ms-types';
 
 
 @Injectable({
@@ -78,6 +79,15 @@ export class DatabaseService {
 
   public dataWarehouses = new BehaviorSubject<any[]>([]);
   currentDataWarehouses = this.dataWarehouses.asObservable();
+
+  /*---------------- SERIAL COLLECTIONS DATA --------------------- */
+
+  // WAREHOUSES
+  serialCollection: AngularFirestoreCollection<serialNumber>;
+  serialNumbers: Array<serialNumber> = [];
+
+  public dataSerial = new BehaviorSubject<serialNumber>({id: '' , number :0, state :'',regDate : 0,createdBy : ''});
+  currentDataSerial = this.dataSerial.asObservable();
 
 
   /*---------------- PARTIES DATA --------------------- */
@@ -233,6 +243,32 @@ export class DatabaseService {
     });
 
   }
+  /*---------------- SERIALNUMBERS --------------------- */
+  // getSerialNumbers(id_product): void {
+  //   this.serialCollection = this.afs.collection(`db/${this.auth.userInvent.db}/products/`+id_product+'/serialNumber', ref => ref.orderBy('regDate', 'desc'));
+  //   this.serialCollection.valueChanges()
+  //     .pipe(
+  //       map(res => {
+  //         //ADDING ACTIVATES TO RESULT
+  //         res.forEach((serial, index) => {
+  //           serial['activated'] = false;
+  //         })
+  //         return res;
+  //       })
+  //     )
+  //     .subscribe(res => {
+  //       this.serialNumbers = res;
+  //       this.dataSerial.next(res);
+  //       console.log(res);
+  //     });
+      
+  // }
+  getSerialNumbers(id_product): Observable<serialNumber[]> {
+    this.serialCollection = this.afs.collection<serialNumber>(`db/test/products/`+id_product+'/serialNumber', ref => ref.orderBy('regDate', 'desc'));
+    return this.serialCollection.valueChanges();
+  }
+
+
 
   /*---------------- WAREHOUSES --------------------- */
 

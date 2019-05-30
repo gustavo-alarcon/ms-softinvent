@@ -125,7 +125,7 @@ export interface ProductCart {
   discount?: Discount,
   warehouse: string,
   salePrice: number,
-  sale: number
+  sale: number,
 }
 
 export interface Ticket {
@@ -180,7 +180,14 @@ export interface Contact {
   name: string,
   phone?: string
 }
-export interface Serie {
-  serieNumber: number,
-  state: boolean
+
+export interface serialNumber {
+  id : string;
+  number: number,
+  state: string,
+  regDate: number,
+  createdBy: string,
+  activated? : boolean
+
 }
+

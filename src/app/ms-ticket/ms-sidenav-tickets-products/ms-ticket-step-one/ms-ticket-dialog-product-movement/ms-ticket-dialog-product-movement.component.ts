@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { ProductCart, Promo, Discount, Serie } from 'src/app/core/ms-types';
+import { ProductCart, Promo, Discount, serialNumber } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { ConfirmProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
 import { Observable, of } from 'rxjs';
@@ -15,6 +15,8 @@ export interface DialogData {
   category: string;
   quantity: number;
   salePrice: number;
+  serialNumbers : Array<serialNumber>;
+  
 }
 @Component({
   selector: 'app-ms-ticket-dialog-product-movement',
@@ -26,8 +28,8 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   discountFC = new FormControl();
   serieList = new FormControl();
   promocion = new FormControl();
-  filteredSeries: Observable<Serie[]>;
-  selection = new SelectionModel<Serie>(true, []);
+  filteredSeries: Observable<serialNumber[]>;
+  selection = new SelectionModel<serialNumber>(true, []);
   discountPercentageFC = new FormControl() // valor actual del campo "promocion"
   discountNumber: number = 0; // precio en soles del descuento
   discountPercentage: number = 0;// porcentaje del descuento
@@ -38,11 +40,6 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   quantity: number = 0;
   isPromo: boolean = false;
   isDiscount: boolean = false;
-  series: Serie[] = [
-    { serieNumber: 1,  state: false },
-    { serieNumber: 2,  state: false },
-    { serieNumber: 3,  state: false },
-    { serieNumber: 4,  state: false }];
   max: number = 0;
   newProduct: ProductCart;
   promo: Promo;
@@ -58,6 +55,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("datos"  ,  this.data.serialNumbers[0]);
     // para cuando se modifica en tiempo real la cantidad 
     this.quantityFC.valueChanges.subscribe(result => {
       this.initQuantity = result;
@@ -65,21 +63,20 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
         this.total = result * (parseFloat(this.data.sale) - this.discountNumber);
         this.initPrice = result * parseFloat(this.data.sale);
         this.quantity = result;
-        this.enableAddProd =!(result >this.data.stock);
-       // this.enableAddProd = !!result;
+        this.enableAddProd = !(result > this.data.stock);
+        // this.enableAddProd = !!result;
       }
       else {
         this.total = 0;
       }
-      for (var _i = 0; _i < this.series.length; _i++) {
-        this.series[_i].state = true;
+      for (var _i = 0; _i < this.data.serialNumbers.length; _i++) {
+        this.data.serialNumbers[_i].activated = true;
       }
       for (var _i = 0; _i < this.quantityFC.value; _i++) {
-        this.selection.select(this.series[_i]);
-        this.series[_i].state = false;
+        this.selection.select(this.data.serialNumbers[_i]);
+        this.data.serialNumbers[_i].activated = false;
       }
       this.maxQuantityTemp = this.quantityFC.value;
-      console.log(this.series);
     });
     // para cuando se modifica en tiempo real el campo Descuento (en soles)
     this.discountFC.valueChanges.subscribe(result => {
@@ -97,13 +94,13 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     this.filteredSeries = this.serieList.valueChanges
       .pipe(
         startWith(''),
-        map(serie => serie ? this._filterSeries(serie.toString()) : this.series.slice())
+        map(serie => serie ? this._filterSeries(serie.toString()) : this.data.serialNumbers.slice())
       );
   }
   // 
-  private _filterSeries(value: string): Serie[] {
+  private _filterSeries(value: string): serialNumber[] {
     const filterValue = value;
-    return this.series.filter(serie => serie.serieNumber.toString().indexOf(filterValue) === 0);
+    return this.data.serialNumbers.filter(serie => serie.number.toString().indexOf(filterValue) === 0);
   }
   /*Cuando hace click fuera del dialog*/
   onNoClick(): void {
@@ -225,15 +222,15 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     }
     this.selection.toggle(i);
     if (this.maxQuantityTemp >= this.quantity) {
-      this.series.forEach((serie, indice) => {
+      this.data.serialNumbers.forEach((serie, indice) => {
         if (this.selection.isSelected(serie) == false) {
-          serie.state = true;
+          serie.activated = true;
         }
       });
     }
     else {
-      this.series.forEach((serie, i) => {
-        serie.state = false;
+      this.data.serialNumbers.forEach((serie, i) => {
+        serie.activated = false;
       });
     }
   }
