@@ -15,7 +15,7 @@
     <div>
       <div style="padding:4px">
         <button mat-raised-button class="w3-round ms-color-action-3" style=" text-align: center; width: 100%;"
-          (click)=addTicket(state.currentState.length)>
+          (click)=addTicket()>
           <mat-icon style="vertical-align: middle">
             add_circle</mat-icon>
           Nueva Venta
@@ -25,13 +25,13 @@
       <ng-container *ngIf="this.state.currentState.length; else emptyTicketList">
         <mat-toolbar class="w3-block mat-subheader-2" style="background: none"
           *ngFor="let ticket of state.currentState; let i = index"
-          (click)="changeCurrentTicket(i);sidenav.sidenavTicketList()"
+          (click)="changeCurrentTicket(i)"
           [ngClass]="{'ms-color-b-selected':state.currentStateIndex === i}">
           <span>
             <mat-icon class="ms-color-icons" style="vertical-align:middle">receipt</mat-icon> #{{ i + 1 | number: '2.'}}
           </span>
           <span class="ms-fill"></span>
-          <button mat-icon-button color="accent" (click)="deleteTicket(i)">
+          <button mat-icon-button color="accent" (click)="ConfirmDeleteTicket(i)">
             <mat-icon>delete</mat-icon>
           </button>
         </mat-toolbar>
@@ -87,7 +87,7 @@
                   class="w3-block"><strong>{{product.salePrice + product.discount.amount | currency : 'S/.'}}</strong></span>
                 <span class="w3-block"><i>{{product.discount.amount | currency : 'S/.'}}</i></span>
               </td>
-              <td class="mat-small"> <button mat-icon-button style="padding: 0px" (click)=deleteProduct(product);>
+              <td class="mat-small"> <button mat-icon-button style="padding: 0px" (click)=ConfirmDeleteProduct(product);>
                   <mat-icon>delete</mat-icon>
                 </button></td>
             </tr>

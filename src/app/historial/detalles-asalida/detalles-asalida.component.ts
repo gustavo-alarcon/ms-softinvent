@@ -6,7 +6,7 @@ import { MatTableDataSource, MatPaginator, MatSort, MAT_DIALOG_DATA } from '@ang
   templateUrl: './detalles-asalida.component.html',
   styles: []
 })
-export class DetallesAsalidaComponent implements OnInit {
+export class DetailsForExitComponent implements OnInit {
 
   displayedColumns: string[] = ['index', 'quantity', 'productName'];
   dataSource = new MatTableDataSource();

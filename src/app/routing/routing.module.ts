@@ -5,11 +5,11 @@ import { AuthGuard } from "../core/auth.guard";
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { LoginComponent } from '../login/login.component';
 import { MainComponent } from '../main/main.component';
-import { AlmacenesComponent } from '../almacenes/almacenes.component';
-import { TercerosComponent } from '../terceros/terceros.component';
-import { DocumentosComponent } from '../documentos/documentos.component';
-import { ProductosComponent } from '../productos/productos.component';
-import { RegistrarComponent } from '../registrar/registrar.component';
+import { WarehousesComponent } from '../almacenes/almacenes.component';
+import { PartiesComponent } from '../terceros/terceros.component';
+import { DocsComponent } from '../documentos/documentos.component';
+import { ProductComponent } from '../productos/productos.component';
+import { RegisterComponent } from '../registrar/registrar.component';
 import { StockComponent } from '../stock/stock.component';
 import { KardexComponent } from '../kardex/kardex.component';
 import { HistorialComponent } from '../historial/historial.component';
@@ -23,10 +23,10 @@ import { MsUsersComponent } from '../main/ms-config/ms-config-accounts/ms-sidena
 import { MsPermitsComponent } from '../main/ms-config/ms-config-accounts/ms-sidenav-config-accounts/ms-permits/ms-permits.component';
 import { MsConfigAdminComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-admin/ms-config-admin.component';
 import { MsConfigStaffComponent } from '../main/ms-config/ms-config-notifications/ms-sidenav-config-notifications/ms-config-staff/ms-config-staff.component';
-import { MsVentasComponent } from '../ventas/ms-ventas.component';
-import { MsVentasStepOneComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-step-one.component'
-import { MsVentasStepTwoComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-two/ms-ventas-step-two.component'
-import { MsVentasStepThreeComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-three/ms-ventas-step-three.component'
+import { MsSalesComponent } from '../ventas/ms-ventas.component';
+import { MsSalesStepOneComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-one/ms-ventas-step-one.component'
+import { MsSalesStepTwoComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-two/ms-ventas-step-two.component'
+import { MsSalesStepThreeComponent } from '../ventas/ms-ventas-stepper/ms-ventas-step-three/ms-ventas-step-three.component'
 
 
 
@@ -74,34 +74,34 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'almacenes', component: AlmacenesComponent
+        path: 'almacenes', component: WarehousesComponent
       },
       {
-        path: 'terceros', component: TercerosComponent
+        path: 'terceros', component: PartiesComponent
       },
       {
-        path: 'documentos', component: DocumentosComponent
+        path: 'documentos', component: DocsComponent
       },
       {
-        path: 'productos', component: ProductosComponent
+        path: 'productos', component: ProductComponent
       },
       {
-        path: 'registrar', component: RegistrarComponent
+        path: 'registrar', component: RegisterComponent
       },
       {
-        path: 'venta', component:MsVentasComponent ,
+        path: 'venta', component:MsSalesComponent ,
         children: [
           {
             path: '', component: MsTicketStepOneComponent
           },
           {
-            path: 'step-one', component: MsVentasStepOneComponent
+            path: 'step-one', component: MsSalesStepOneComponent
           },
           {
-            path: 'step-two', component: MsVentasStepTwoComponent
+            path: 'step-two', component: MsSalesStepTwoComponent
           },
           {
-            path: 'step-three', component: MsVentasStepThreeComponent
+            path: 'step-three', component: MsSalesStepThreeComponent
           }
         ]
       },

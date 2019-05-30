@@ -6,7 +6,7 @@ import { MatTableDataSource, MatPaginator, MatSort, MAT_DIALOG_DATA } from '@ang
   templateUrl: './detalles-transferencia.component.html',
   styles: []
 })
-export class DetallesTransferenciaComponent implements OnInit {
+export class TransferDetailsComponent implements OnInit {
 
   displayedColumns: string[] = ['index', 'quantity', 'productName'];
   dataSource = new MatTableDataSource();

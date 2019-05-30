@@ -5,9 +5,9 @@ import { AuthService } from '../core/auth.service';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { CrearTerceroComponent } from '../terceros/crear-tercero/crear-tercero.component';
-import { ConfirmarLimpiarRegistrarComponent } from './confirmar-limpiar-registrar/confirmar-limpiar-registrar.component';
-import { ConfirmarGrabarRegistrarComponent } from './confirmar-grabar-registrar/confirmar-grabar-registrar.component';
+import { CreatePartyComponent } from '../terceros/crear-tercero/crear-tercero.component';
+import { ConfirmClearRegisterComponent } from './confirmar-limpiar-registrar/confirmar-limpiar-registrar.component';
+import { ConfirmSaveRegisterComponent } from './confirmar-grabar-registrar/confirmar-grabar-registrar.component';
 import { invoke } from 'q';
 
 @Component({
@@ -15,7 +15,7 @@ import { invoke } from 'q';
   templateUrl: './registrar.component.html',
   styles: []
 })
-export class RegistrarComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   documentDate = new FormControl(new Date());
@@ -334,7 +334,7 @@ export class RegistrarComponent implements OnInit {
   }
 
   createParty(): void{
-    this.dialog.open(CrearTerceroComponent, {
+    this.dialog.open(CreatePartyComponent, {
       panelClass: "ms-custom-dialogbox"
     });
   }
@@ -380,7 +380,7 @@ export class RegistrarComponent implements OnInit {
   confirmClean(): void {
 
     if(this.dbs.documentToSet['productList'].length > 0) {
-      this.dialog.open(ConfirmarLimpiarRegistrarComponent, {
+      this.dialog.open(ConfirmClearRegisterComponent, {
         panelClass: 'ms-custom-dialogbox'
       });
     }else{
@@ -394,7 +394,7 @@ export class RegistrarComponent implements OnInit {
   confirmSave(): void {
     if(this.selectedDocument && this.selectedParty && this.selectedProduct && this.dbs.documentToSet['productList'].length > 0){
       this.dbs.documentToSet['totalImport'] = this.total;
-      this.dialog.open(ConfirmarGrabarRegistrarComponent, {
+      this.dialog.open(ConfirmSaveRegisterComponent, {
         data: [this.selectedDocument, this.selectedParty, this.observations, this.selectedWarehouseDest, this.selectedStaff, this.selectedWarehouseOrigin['name']],
         panelClass: 'ms-custom-dialogbox'
       });

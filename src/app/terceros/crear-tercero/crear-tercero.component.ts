@@ -8,7 +8,7 @@ import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
   templateUrl: './crear-tercero.component.html',
   styles: []
 })
-export class CrearTerceroComponent implements OnInit {
+export class CreatePartyComponent implements OnInit {
 
   createPartyFormGroup: FormGroup;
   alreadyExist: boolean = false;
@@ -18,7 +18,7 @@ export class CrearTerceroComponent implements OnInit {
     public dbs: DatabaseService,
     private fb: FormBuilder,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<CrearTerceroComponent>,
+    public dialogRef: MatDialogRef<CreatePartyComponent>,
     public dialog: MatDialog
   ) { }
 

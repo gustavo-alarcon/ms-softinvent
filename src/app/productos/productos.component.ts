@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../core/database.service';
 import { MatDialog, MatBottomSheet, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { CrearProductoComponent } from './crear-producto/crear-producto.component';
-import { EditarProductoComponent } from './editar-producto/editar-producto.component';
+import { CreateProductComponent } from './crear-producto/crear-producto.component';
+import { EditProductComponent } from './editar-producto/editar-producto.component';
 
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
   styles: []
 })
-export class ProductosComponent implements OnInit {
+export class ProductComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
@@ -53,13 +53,13 @@ export class ProductosComponent implements OnInit {
   }
 
   createProduct(): void {
-    const dialogRef = this.dialog.open(CrearProductoComponent,{
+    const dialogRef = this.dialog.open(CreateProductComponent,{
       panelClass: 'ms-custom-dialogbox'
     });
   }
 
   editProduct(product): void {
-    this.dialog.open(EditarProductoComponent, {
+    this.dialog.open(EditProductComponent, {
       data: product,
       panelClass: 'ms-custom-dialogbox'
     })

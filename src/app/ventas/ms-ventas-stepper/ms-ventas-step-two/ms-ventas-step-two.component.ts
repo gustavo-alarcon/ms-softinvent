@@ -4,10 +4,10 @@ import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/m
 import { DatabaseService } from 'src/app/core/database.service';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { SidenavService } from 'src/app/core/sidenav.service';
-import { CrearTerceroComponent } from 'src/app/terceros/crear-tercero/crear-tercero.component';
+import { CreatePartyComponent } from 'src/app/terceros/crear-tercero/crear-tercero.component';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { EditarTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
+import { EditTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
 import { Ticket } from 'src/app/core/ms-types';
 
 @Component({
@@ -15,7 +15,7 @@ import { Ticket } from 'src/app/core/ms-types';
   templateUrl: './ms-ventas-step-two.component.html',
   styles: []
 })
-export class MsVentasStepTwoComponent implements OnInit {
+export class MsSalesStepTwoComponent implements OnInit {
   filteredParties: Observable<any>;
   /**
    * VARIABLES GABY
@@ -40,17 +40,17 @@ export class MsVentasStepTwoComponent implements OnInit {
   currentTicket: Ticket;
 
   constructor(
-    private sidenav: SidenavService,
+    public sidenav: SidenavService,
     public dbs: DatabaseService,
-    private state: StateManagementService,
+    public state: StateManagementService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
 
     /*
-     * @desc Función para filtrado de terceros
-     * @param ref docNum: Valor referencial para realizar la búsqueda del tercero
+     * @desc third-party filtering
+     * @param ref docNum: Referential value to perform the search of the third party
      */
     this.filteredParties = this.partyFromList.valueChanges
       .pipe(
@@ -59,44 +59,44 @@ export class MsVentasStepTwoComponent implements OnInit {
         map(docNum => docNum ? this.dbs.parties.filter(option => option['docNum'].toLowerCase().includes(docNum)) : this.dbs.parties)
       );
     /*
-     * @desc Pone a disposicion los datos del cart del currentState
+     * @desc Make available the currentState cart data
      */
     let temp = this.state.ticketsStateManagement.subscribe(res => {
       this.state.currentState = res;
       this.dataSource.data = this.state.currentState[this.state.currentStateIndex].cart;
     })
     /*
-     * @desc Pie de tabla que enumera las paginas
+     * @desc Table foot that lists the pages
      */
     this.dataSource.paginator = this.paginator;
     /*
-     * @desc Boton para ordenar los datos de la tabla
+     * @desc Button to sort the data in the table
      */
     this.dataSource.sort = this.sort;
 
   }
-  /* creatyParty() abre el dialog de agregar tercero
-   * @product{ string [] } : Lista de los campos del tercero
-   * void : no retorna nada
+  /* creatyParty() open the add third dialog
+   * @product{ string [] } : List of third-party fields
+   * void : Without returns
    */
   createParty(): void {
-    const dialogRef = this.dialog.open(CrearTerceroComponent, {
+    const dialogRef = this.dialog.open(CreatePartyComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
-  /* showPartySelected() abre la variable party
-   * @product{ string [] } : array de party
-   * void : retorna el nombre si el docNum coincide
+  /* showPartySelected() open the party variable 
+   * @product{ string [] } : array of party
+   * void : returns the name if the docNum matches
    */
   showPartySelected(party): string | undefined {
     return party ? party['name'] : undefined;
   }
-  /* editProduct() abre el dialog de agregar un producto NOTA: falta mostrar los campos llenos
-   * @product{ string [] } : Lista de los campos del producto seleccionado en la tabla
-   * void : no retorna nada 
+  /* editProduct() open the dialog to add a product NOTE: missing full fields
+   * @product{ string [] } : List of the fields of the product selected in the table
+   * void : Without returns
    */
   editProduct(product): void {
-    const dialogRef = this.dialog.open(EditarTicketComponent, {
+    const dialogRef = this.dialog.open(EditTicketComponent, {
       data: {
         name: product.name,
         sale: product.sale,
@@ -116,12 +116,12 @@ export class MsVentasStepTwoComponent implements OnInit {
     });
   }
   /*
-  * @desc  elimina a un producto del carrito
-  * @param {!producto[]} product producto actual
-  * @return { void } : Sin retornos
+  * @desc  delete the product in the cart
+  * @param {!product[]} actual product
+  * @return { void } : Without returns
   */
   deleteProduct(product): void {
-    this.state.eliminarProducto(product);
+    this.state.deleteProduct(product);
   }
 
 }

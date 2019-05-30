@@ -2,16 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../core/database.service';
 import { MatBottomSheet, MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { CrearTerceroComponent } from './crear-tercero/crear-tercero.component';
-import { EditarTerceroComponent } from './editar-tercero/editar-tercero.component';
-import { InfoTerceroComponent } from './info-tercero/info-tercero.component';
+import { CreatePartyComponent } from './crear-tercero/crear-tercero.component';
+import { EditPartyComponent } from './editar-tercero/editar-tercero.component';
+import { InfoPartyComponent } from './info-tercero/info-tercero.component';
 
 @Component({
   selector: 'app-terceros',
   templateUrl: './terceros.component.html',
   styles: []
 })
-export class TercerosComponent implements OnInit {
+export class PartiesComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredParties: Array<any> = [];
@@ -56,20 +56,20 @@ export class TercerosComponent implements OnInit {
   }
 
   createParty(): void {
-    const dialogRef = this.dialog.open(CrearTerceroComponent,{
+    const dialogRef = this.dialog.open(CreatePartyComponent,{
       panelClass: 'ms-custom-dialogbox'
     });
   }
 
   editParty(party): void {
-    this.dialog.open(EditarTerceroComponent, {
+    this.dialog.open(EditPartyComponent, {
       data: party,
       panelClass: 'ms-custom-dialogbox'
     })
   }
 
   showInfo(party){
-    this.bottomSheet.open(InfoTerceroComponent,{
+    this.bottomSheet.open(InfoPartyComponent,{
       data: party
     })
   }

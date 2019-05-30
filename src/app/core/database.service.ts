@@ -339,7 +339,6 @@ export class DatabaseService {
       .subscribe(res => {
         this.partiesStaff = res;
         this.dataPartiesStaff.next(res);
-        console.log(res)
       });
   }
 

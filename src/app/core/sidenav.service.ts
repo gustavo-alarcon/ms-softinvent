@@ -8,7 +8,7 @@ export class SidenavService {
 
   public lastLinkAccounts: string = 'list';
   public lastLinkNotification: string = 'administrator';
-  public sidenavNotificationsToggle: boolean = false;
+  public sidenavNotificationToggle: boolean = false;
 
   public sidenavTicketListToggle: boolean = false;
   public sidenavProductListToggle: boolean = false;
@@ -18,7 +18,7 @@ export class SidenavService {
   // return boolean because use it to activate the sidenav
   sidenavAll(): boolean {
     this.sidenavAccountsToggle = !this.sidenavAccountsToggle;
-    this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
+    this.sidenavNotificationToggle = !this.sidenavNotificationToggle;
     return (true);
   }
   /** Toggle to Sidenav Accounts */
@@ -28,8 +28,8 @@ export class SidenavService {
   }
   /** Toggle to Sidenav Notifications */
   sidenavNotificaciones(): boolean {
-    this.sidenavNotificationsToggle = !this.sidenavNotificationsToggle;
-    return (this.sidenavNotificationsToggle);
+    this.sidenavNotificationToggle = !this.sidenavNotificationToggle;
+    return (this.sidenavNotificationToggle);
   }
   /** Save Account route */
   saveLinkAccount(route) {

@@ -3,8 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { ProductCart, Promo, Discount, Serie } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
-import { ConfirmacionProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
-import { ProductosComponent } from 'src/app/productos/productos.component';
+import { ConfirmProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
+import { ProductComponent } from 'src/app/productos/productos.component';
 import { database } from 'firebase';
 import { Observable, of } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -16,6 +16,9 @@ export interface DialogData {
   stock: string;
   warehouse: string;
   category: string;
+  quantity: number;
+  salePrice: number;
+
 }
 @Component({
   selector: 'app-ms-ticket-dialog-product-movement',
@@ -27,6 +30,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   * Descuento
   * Promocion
   */
+  imageProd = null
   cantidad = new FormControl()
   descuento = new FormControl()
   promocion = new FormControl()
@@ -48,14 +52,20 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     { numero: 2, seleccionado: false, estado: false },
     { numero: 3, seleccionado: false, estado: false },
     { numero: 4, seleccionado: false, estado: false }];
+
   cantidadMaxima: number = 0;
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
   i: number = this.carrito.currentState[this.carrito.currentStateIndex].cart.length + 1; // indice del producto
+
   sMarcados: number = 0;
   aumento: boolean = false;
   disminuye: boolean = false;
+  
+  PriceInicial: number = 0;
+  enableAddProd = false;
+  
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<MsTicketDialogProductMovementComponent>,
@@ -66,13 +76,15 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   ngOnInit() {
     // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
     this.cantidad.valueChanges.subscribe(result => {
-      this.cant = this.cantidad.value
-      this.selection.clear();
-
-      if (this.cantidad.value) {
+      this.cant = result;
+      if (result) {
         this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
         this.pInicial = result * parseFloat(this.data.sale);
-        this.cantidadMaxima = this.cantidad.value;
+        this.cantidadMaxima = result;
+
+        // this.enableAddProd = !(result > this.data.stock);
+
+        this.enableAddProd = !!result;
       }
       else {
         this.total = 0;
@@ -118,7 +130,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
 
   confirmacionProduct(): void {
     this.i++;
-    var confirmDialogRef = this.dialog.open(ConfirmacionProductComponent, {
+    var confirmDialogRef = this.dialog.open(ConfirmProductComponent, {
       data: {
         index: this.i,
         stock: parseInt(this.data.stock),
@@ -142,7 +154,6 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
       this.pInicial = this.cant * parseFloat(this.data.sale);
       this.cantidad.setValue( this.cant)
-
     }
   }
   Aumentar(): void {
@@ -150,7 +161,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
       this.cant = this.cant + 1
       this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
       this.pInicial = this.cant * parseFloat(this.data.sale);
-      this.cantidad.setValue( this.cant)
+      this.cantidad.setValue( this.cant);
     }
   }
   DisminuirS(): void {
@@ -198,41 +209,8 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     }
   }
   cantMax: number = 0;
-
-  // onCheckbox(i): void {
-  //   if (this.series[i].estado == false) {
-  //     if (this.series[i].seleccionado == false) {
-  //       this.series[i].seleccionado = true;
-  //       this.cantMax++;
-  //       this.series = [...this.series];
-  //     }
-  //     else {
-  //       this.series[i].seleccionado = false;
-  //       this.cantMax--;
-  //       this.series = [...this.series];
-
-
-  //     }
-
-  //     if (this.cantMax >= this.cantidadMaxima) {
-  //       this.series[i].seleccionado = true;
-  //       this.series.forEach((serie, index) => {
-  //         if (serie.seleccionado == false)
-  //           serie.estado = true;
-  //       });
-  //     }
-  //     else {
-  //       this.series.forEach((serie, index) => {
-  //         serie.estado = false;
-  //       });
-  //     }
-  //     console.log(this.series);
-  //     console.log("checked " + this.cantMax + "Cantidad " + this.cantidadMaxima);
-  //   }
-  // }
   
   changeValue( i ) : void {
-
       if (this.selection.isSelected(i) == false) {
         this.cantMax++;
       }
