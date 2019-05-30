@@ -65,7 +65,8 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
         this.total = result * (parseFloat(this.data.sale) - this.discountNumber);
         this.initPrice = result * parseFloat(this.data.sale);
         this.quantity = result;
-        this.enableAddProd = !!result;
+        this.enableAddProd =!(result >this.data.stock);
+       // this.enableAddProd = !!result;
       }
       else {
         this.total = 0;

@@ -88,7 +88,7 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="w3-block ms-color-action-3" (click)="confirmacionProduct()">Guardar cambios 
+    <button mat-raised-button [ngClass} = "{'ms-color-action-3' : enableAddProd }" disable ="!enableAddProd" class="w3-block" (click)="confirmacionProduct()">Guardar cambios 
       ({{total || data.salePrice| currency : 'S/.'}})</button>
   </div>
 </div>
