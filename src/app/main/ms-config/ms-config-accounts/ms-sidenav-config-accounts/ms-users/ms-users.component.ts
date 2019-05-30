@@ -14,4 +14,8 @@ export class MsUsersComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  filterData(event): void {
+    
+  }
 }

@@ -8,7 +8,7 @@ import { SidenavService } from 'src/app/core/sidenav.service';
 
 export class MsSidenavConfigNotificationsComponent implements OnInit {
   constructor(public sidenav: SidenavService) {
-    sidenav.sidenavNotificationsToggle = true;
+    sidenav.sidenavNotificationToggle = true;
   }
   ngOnInit() {
   }

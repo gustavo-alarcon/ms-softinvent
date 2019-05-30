@@ -17,6 +17,6 @@ export class GenerateTicketComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('Staff Code:',this.auth.userInvent.code)
+    console.log('Staff Code:',this.auth.userInvent)
   }
 }

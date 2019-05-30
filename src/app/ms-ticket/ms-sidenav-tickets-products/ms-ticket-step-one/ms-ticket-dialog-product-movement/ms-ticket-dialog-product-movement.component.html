@@ -20,7 +20,7 @@
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Inicial" disabled value={{data.sale*data.quantity||pInicial}}
+              <input matInput placeholder="Precio Inicial" disabled value={{pInicial}}
                 class="form-control">
             </mat-form-field>
           </div>
@@ -103,7 +103,7 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="w3-block" [ngClass]="{'ms-color-action-3': !cant==0}" [disabled]="cant==0"
+    <button mat-raised-button class="w3-block" [ngClass]="{'ms-color-action-3': enableAddProd}" [disabled]="!enableAddProd"
       (click)="confirmacionProduct()">Agregar al carrito
       ({{total | currency : 'S/.'}})</button>
   </div>
@@ -113,7 +113,7 @@
   <div mat-dialog-content style="background-color:#394e65">
     <div style="border-radius: 20px;">
       <div class="ms-card-image" style="margin:10px">
-        <img [src]="imagePath || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+        <img [src]="imageProd || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
           alt="Photo of a Shiba Inu" style="width:100%;border-radius: 10px;">
       </div>
       <div class="w3-row">
@@ -186,7 +186,7 @@
       </div>
       <div class="w3-margin">
         <mat-accordion>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Nro de serie
@@ -239,7 +239,7 @@
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Aplicar Descuento
@@ -283,7 +283,7 @@
     </div>
   </div>
   <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
-    <button mat-raised-button class="w3-block " [ngClass]="{'ms-color-action-3': !cant==0}" [disabled]="cant==0"
+    <button mat-raised-button class="w3-block " [ngClass]="{'ms-color-action-3': enableAddProd}" [disabled]="!enableAddProd"
       (click)="confirmacionProduct()">Agregar al carrito
       ({{  total | currency : 'S/.' }}
       )</button>

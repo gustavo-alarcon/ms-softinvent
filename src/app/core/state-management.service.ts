@@ -93,8 +93,8 @@ export class StateManagementService {
   * @param {!product[]} actual product
   * @return { void } : Without returns
   */
-  public deleteProduct(producto) {
-    this.currentState[this.currentStateIndex].cart.splice(this.currentState[this.currentStateIndex].cart.indexOf(producto), 1);
+  public deleteProduct(index: number) {
+    this.currentState[this.currentStateIndex].cart.splice(index, 1);
     this.stateManagement.next(this.currentState);
   }
   /*
@@ -114,7 +114,8 @@ export class StateManagementService {
   * @param {!Number[]} index: actual index of the ticket
   * @return { void } : Without returns
   */
-  public deleteTicket(index) {
+  public deleteTicket(index: number) {
+    console.log("A versh ... ", index);
     if (this.currentState.length) {
       this.currentState.splice(index, 1);
       this.currentStateIndex = this.currentState.length - 1;

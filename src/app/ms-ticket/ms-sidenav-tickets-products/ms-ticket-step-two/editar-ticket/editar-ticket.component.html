@@ -19,7 +19,7 @@
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Inicial" disabled value={{pInicial||data.sale*data.quantity}} class="form-control">
+              <input matInput placeholder="Precio Inicial" disabled value={{pInicial}} class="form-control">
             </mat-form-field>
           </div>
           <div class="w3-container w3-third">
@@ -97,7 +97,7 @@
   <div mat-dialog-content style="background-color:#394e65">
     <div style="border-radius: 20px;">
       <div class="ms-card-image" style="margin:10px">
-        <img [src]="imagePath || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+        <img [src]="imageProd || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
           alt="Photo of a Shiba Inu" style="width:100%;border-radius: 10px;">
       </div>
       <div class="w3-row">
@@ -204,7 +204,7 @@
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Aplicar Descuento

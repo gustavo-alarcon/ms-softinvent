@@ -8,7 +8,7 @@ import { CreatePartyComponent } from 'src/app/terceros/crear-tercero/crear-terce
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { EditTicketComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/editar-ticket/editar-ticket.component';
-import { Ticket } from 'src/app/core/ms-types';
+import { Ticket, ProductCart } from 'src/app/core/ms-types';
 import { GenerateTicketComponent } from './generar-ticket/generar-ticket.component';
 import { NoStockComponent } from './no-stock/no-stock.component';
 import { ConfirmDeleteComponent } from './confirmacion-delete/confirmacion-delete.component';
@@ -44,9 +44,9 @@ export class MsTicketStepTwoComponent implements OnInit {
   currentTicket: Ticket;
 
   constructor(
-    private sidenav: SidenavService,
+    public sidenav: SidenavService,
     public dbs: DatabaseService,
-    private state: StateManagementService,
+    public state: StateManagementService,
     private dialog: MatDialog
   ) { }
 
@@ -126,8 +126,9 @@ export class MsTicketStepTwoComponent implements OnInit {
   * @param {!product[]} actual product
   * @return { void } : Without returns
   */
-  ConfirmDeleteProduct(product): void {
+  ConfirmDeleteProduct(product: ProductCart): void {
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      data: product,
       panelClass: 'ms-custom-dialogbox'
     });
   }
@@ -136,7 +137,7 @@ export class MsTicketStepTwoComponent implements OnInit {
   *return {void} : Without returns
   */
   GenerateTicket(): void {
-    /** @const @private {flag} this variable indicates the state of the condition */
+    /*@const @private {flag} this variable indicates the state of the condition*/
     let flag: boolean = false;
     if (this.state.currentState[this.state.currentStateIndex].cart) {
       if (this.state.currentState[this.state.currentStateIndex].cart.length > 0) {
