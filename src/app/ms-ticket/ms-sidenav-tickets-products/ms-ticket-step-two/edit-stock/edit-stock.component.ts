@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { GenerateTicketComponent } from '../generar-ticket/generar-ticket.component';
-import { MatDialog, MatTableDataSource, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Ticket, ProductCart } from 'src/app/core/ms-types';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -16,8 +16,7 @@ export class EditStockComponent implements OnInit {
   currentTicket: Ticket;
   subscriptions: Array<Subscription> = [];
   cantidad = new FormControl();
-  cant: number
-
+  
   constructor(
     private state: StateManagementService,
     private dialog: MatDialog,
@@ -31,9 +30,7 @@ export class EditStockComponent implements OnInit {
       this.currentTicket =
         this.state.currentState[this.state.currentStateIndex];
     })
-
     this.subscriptions.push(ticketsSubs);
-
   }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
@@ -51,18 +48,24 @@ export class EditStockComponent implements OnInit {
       panelClass: 'ms-custom-dialogbox'
     });
   }
+  /*
+  * @desc increases the quantity of the product in 1
+  * @param {!product[]} actual product
+  * @return { void } : Without returns
+  */
   Disminuir(product): void {
     if (product.quantity > 0) {
       product.quantity = product.quantity - 1
-      // this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
-      // this.pInicial = this.cant * parseFloat(this.data.sale);
     }
   }
+   /*
+  * @desc decreases the quantity of the product in 1
+  * @param {!product[]} actual product
+  * @return { void } : Without returns
+  */
   Aumentar(product): void {
     if (product.quantity < product.stock) {
       product.quantity = product.quantity + 1
-      // this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
-      // this.pInicial = this.cant * parseFloat(this.data.sale);
     }
   }
   /*
@@ -88,21 +91,6 @@ export class EditStockComponent implements OnInit {
           });
         }
         else {
-          let newProduct: ProductCart;
-          newProduct = {
-            index: this.data.index,
-            stock: this.data.stock,
-            name: this.data.name,
-            discount: this.data.discount,
-            quantity: this.data.quantity,
-            warehouse: this.data.warehouse,
-            discountType: "discount",
-            salePrice: this.data.salePrice,
-            sale: this.data.sale
-            
-          };
-          this.state.editProduct(newProduct)
-          this.dialogRef.close(true);
           console.log("generar ticket")
           const dialogRef = this.dialog.open(GenerateTicketComponent, {
             panelClass: 'ms-custom-dialogbox'
