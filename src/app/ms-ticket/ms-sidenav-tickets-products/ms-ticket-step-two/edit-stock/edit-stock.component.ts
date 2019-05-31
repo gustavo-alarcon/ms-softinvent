@@ -45,8 +45,9 @@ export class EditStockComponent implements OnInit {
   * @param {!product[]} actual product
   * @return { void } : Without returns
   */
-  ConfirmDeleteProduct(product): void {
+  ConfirmDeleteProduct(product: ProductCart): void {
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      data: product,
       panelClass: 'ms-custom-dialogbox'
     });
   }

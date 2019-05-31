@@ -29,7 +29,7 @@
             <button *ngIf="product.quantity > product.stock" mat-icon-button style="padding: 0px" (click)=ConfirmDeleteProduct(product)>
               <mat-icon>delete</mat-icon>
             </button>
-            <button *ngIf="product.stock >= product.quantity" mat-icon-button disabled style="padding: 0px">
+            <button *ngIf="product.stock >= product.quantity" mat-icon-button disabled style="padding: 0px" (click)=ConfirmDeleteProduct(product)>
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -74,7 +74,7 @@
           <button *ngIf="product.quantity > product.stock" mat-icon-button style="padding: 0px" (click)=ConfirmDeleteProduct(product)>
             <mat-icon>delete</mat-icon>
           </button>
-          <button *ngIf="product.stock >= product.quantity" mat-icon-button disabled style="padding: 0px">
+          <button *ngIf="product.stock >= product.quantity" mat-icon-button disabled style="padding: 0px" (click)=ConfirmDeleteProduct(product)>
             <mat-icon>delete</mat-icon>
           </button>
         </td>

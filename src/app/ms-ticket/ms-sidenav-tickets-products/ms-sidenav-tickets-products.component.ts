@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Ticket, Product, ProductCart } from '../../core/ms-types';
-import { Router } from '@angular/router';
+import { Ticket, ProductCart } from '../../core/ms-types';
 import { SidenavService } from 'src/app/core/sidenav.service';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { MattabService } from 'src/app/core/mattab.service';
-import { DataSource } from '@angular/cdk/table';
 import { Subscription } from 'rxjs';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { state } from '@angular/animations';
 import { ConfirmDeleteComponent } from './ms-ticket-step-two/confirmacion-delete/confirmacion-delete.component';
 import { ConfirmDeleteTicketComponent } from './confirmacion-delete-ticket/confirmacion-delete-ticket.component';
 
@@ -76,8 +73,9 @@ export class MsSidenavTicketsProductsComponent implements OnInit {
   * @param {!product[]} actual product
   * @return { void } : Without returns
   */
-  ConfirmDeleteProduct(product): void {
+  ConfirmDeleteProduct(product: ProductCart): void {
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      data: product,
       panelClass: 'ms-custom-dialogbox'
     });
   }
