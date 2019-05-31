@@ -68,9 +68,9 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     this.quantityFC.valueChanges.subscribe(result => {
       this.initQuantity = result;
       if (result) {
-        this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
-        this.pInicial = result * parseFloat(this.data.sale);
-        this.cantidadMaxima = result;
+        this.total = result * (parseFloat(this.data.sale) - this.discountNumber);
+        this.initPrice = result * parseFloat(this.data.sale);
+        this.maxQuantityTemp = result;
         this.enableAddProd = !(result > this.data.stock);
       }
       else {
