@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { StateManagementService } from 'src/app/core/state-management.service';
-import { NoStockComponent } from '../no-stock/no-stock.component';
 import { GenerateTicketComponent } from '../generar-ticket/generar-ticket.component';
 import { MatDialog, MatTableDataSource, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Ticket, ProductCart } from 'src/app/core/ms-types';
 import { Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { ConfirmDeleteComponent } from '../confirmacion-delete/confirmacion-delete.component';
 
 @Component({
   selector: 'app-edit-stock',
@@ -33,12 +33,36 @@ export class EditStockComponent implements OnInit {
     })
 
     this.subscriptions.push(ticketsSubs);
-    
+
   }
   ngOnDestroy() {
     this.subscriptions.forEach(sub => {
       sub.unsubscribe();
     })
+  }
+  /*
+  * @desc open ConfirmDeleteComponent dialog
+  * @param {!product[]} actual product
+  * @return { void } : Without returns
+  */
+  ConfirmDeleteProduct(product): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      panelClass: 'ms-custom-dialogbox'
+    });
+  }
+  Disminuir(product): void {
+    if (product.quantity > 0) {
+      product.quantity = product.quantity - 1
+      // this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
+      // this.pInicial = this.cant * parseFloat(this.data.sale);
+    }
+  }
+  Aumentar(product): void {
+    if (product.quantity < product.stock) {
+      product.quantity = product.quantity + 1
+      // this.total = this.cant * (parseFloat(this.data.sale) - this.nDescuento);
+      // this.pInicial = this.cant * parseFloat(this.data.sale);
+    }
   }
   /*
   *@desc generates a new ticket if the stock of produc is less than the quantity, else show a dialog
@@ -58,7 +82,7 @@ export class EditStockComponent implements OnInit {
         });
         if (flag) {
           console.log("avisos")
-          const dialogRef = this.dialog.open(NoStockComponent, {
+          const dialogRef = this.dialog.open(EditStockComponent, {
             panelClass: 'ms-custom-dialogbox'
           });
         }

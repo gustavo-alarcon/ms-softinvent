@@ -1,33 +1,89 @@
-<div class="w3-container w3-center">
-  <h4 class="ms-font-karla" style="font-size:1.3em"><strong>Ups... parece que hay un producto fuera de stock</strong>
-  </h4>
-
+<h4 class="ms-font-karla" style="font-size:1.3em; padding: 0px">
+  <mat-icon class="ms-color-icons mat-icon material-icons w3-margin-right" stylematprefix role="img" aria-hidden="true">
+    notification_important</mat-icon>
+  <strong>Ups... parece que hay un producto fuera de stock</strong>
+</h4>
+<br>
+<!-- VERSION WEB -->
+<div class="w3-hide-small">
   <div class="w3-padding">
+    <table class="w3-table">
+      <tr>
+        <th class="mat-small"></th>
+        <th class="mat-small"></th>
+        <th class="mat-small">Stock actual</th>
+        <th class="mat-small">Cantidad en carrito</th>
+        <th class="mat-small">Acciones</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let product of currentTicket.cart; let i = index">
+          <td class="mat-small">
+            <mat-icon *ngIf="product.quantity > product.stock" color="warn">error</mat-icon>
+            <mat-icon *ngIf="product.stock >= product.quantity" class="ms-color-icons-success">check_circle</mat-icon>
+          </td>
+          <td class="mat-small">{{product.name}}</td>
+          <td class="mat-small w3-center">{{product.stock}}</td>
+          <td class="mat-small w3-center"> <input matInput placeholder="Cantidad" type="number"
+              value={{product.quantity}} min="0" max="{{product.stock}}" [formControl]="cantidad"></td>
+          <td class="mat-small w3-center" style="padding: 0px">
+            <button *ngIf="product.quantity > product.stock" mat-icon-button style="padding: 0px" (click)=ConfirmDeleteProduct(product)>
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button *ngIf="product.stock >= product.quantity" mat-icon-button disabled style="padding: 0px">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <mat-toolbar style="background:none">
+    <span class="ms-fill"></span>
+    <button mat-stroked-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">CANCELAR</button>
+    <button mat-raised-button mat-dialog-close class="ms-color-b-1" style="margin:0.2em 0.2em"
+      (click)="GenerateTicket()">GUARDAR</button>
+  </mat-toolbar>
+
+</div>
+
+<!-- VERSION MOBIL -->
+<div class="w3-hide-large w3-hide-medium">
+  <span class="ms-fill"></span>
+  <mat-divider></mat-divider>
+  <br>
+
   <table class="w3-table">
-    <tr>
-      <th class="mat-small"></th>
-      <th class="mat-small"></th>
-      <th class="mat-small">Stock actual</th>
-      <th class="mat-small">Cantidad en carrito</th>
-      <th class="mat-small">Acciones</th>
-    </tr>
     <tbody>
       <tr *ngFor="let product of currentTicket.cart; let i = index">
-        <td class="mat-small"></td>
-        <td class="mat-small w3-center">{{product.name}}</td>
-        <td class="mat-small w3-center">{{product.stock}}</td>
-        <td class="mat-small w3-center"> <input matInput placeholder="Cantidad" type="number" value={{product.quantity}} min="0" max="{{product.stock}}"
-          [formControl]="cantidad"></td>
-        <td class="mat-small w3-center"> <button mat-icon-button style="padding: 0px" (click)=ConfirmDeleteProduct(product);>
+        <td class="mat-small" style="padding: 0px">
+          <mat-icon *ngIf="product.quantity > product.stock" color="warn">error</mat-icon>
+          <mat-icon *ngIf="product.stock >= product.quantity" class="ms-color-icons-success">check_circle</mat-icon>
+        </td>
+        <td class="mat-small" style="padding-left: 6px">{{product.name}}</td>
+        <td class="mat-small w3-center" style="padding: 0px; width:190px">
+          <button icon-button class="w3-button w3-circle" style="background:#9B59B6" (click)="Disminuir(product)">-</button>
+          <mat-form-field class="w3-block" style="width:45px">
+            <input matInput class="w3-center" type="number" value={{product.quantity}} min="0" max="{{product.stock}}"
+              [formControl]="cantidad">
+            <mat-hint>stock {{product.stock}}</mat-hint>
+          </mat-form-field>
+          <button icon-button class="w3-button w3-circle" style="background:#9B59B6" (click)="Aumentar(product)">+</button>
+        </td>
+        <td class="mat-small w3-center" style="padding: 0px">
+          <button *ngIf="product.quantity > product.stock" mat-icon-button style="padding: 0px" (click)=ConfirmDeleteProduct(product)>
             <mat-icon>delete</mat-icon>
-          </button></td>
+          </button>
+          <button *ngIf="product.stock >= product.quantity" mat-icon-button disabled style="padding: 0px">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-</div>
+  <br>
 
-  <button mat-raised-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">CANCELAR</button>
-  <button mat-raised-button mat-dialog-close class="ms-color-b-1" style="margin:0.2em 0.2em"
+  <button mat-raised-button mat-dialog-close class="ms-color-b-1" style="width:100%"
     (click)="GenerateTicket()">GUARDAR</button>
-
+  <button mat-stroked-button mat-dialog-close class="w3-margin-top" color="warn" style="width:100%">CANCELAR</button>
 </div>

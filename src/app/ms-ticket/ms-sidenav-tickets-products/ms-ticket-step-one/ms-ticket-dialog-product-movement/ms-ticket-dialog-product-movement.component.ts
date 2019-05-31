@@ -44,7 +44,15 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
-  i: number = this.carrito.currentState[this.carrito.currentStateIndex].cart.length + 1; // indice del producto
+  
+  i: number = this.carrito.currentState[this.carrito.currentStateIndex].cart.length; // indice del producto
+
+  sMarcados: number = 0;
+  aumento: boolean = false;
+  disminuye: boolean = false;
+  
+  PriceInicial: number = 0;
+
   enableAddProd = false;
 
   constructor(
@@ -60,11 +68,10 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     this.quantityFC.valueChanges.subscribe(result => {
       this.initQuantity = result;
       if (result) {
-        this.total = result * (parseFloat(this.data.sale) - this.discountNumber);
-        this.initPrice = result * parseFloat(this.data.sale);
-        this.quantity = result;
+        this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
+        this.pInicial = result * parseFloat(this.data.sale);
+        this.cantidadMaxima = result;
         this.enableAddProd = !(result > this.data.stock);
-        // this.enableAddProd = !!result;
       }
       else {
         this.total = 0;
@@ -107,7 +114,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
     this.dialogRef.close();
   }
   confirmacionProduct(): void {
-    this.i++;
+    
     var confirmDialogRef = this.dialog.open(ConfirmProductComponent, {
       data: {
         index: this.i,
@@ -121,8 +128,10 @@ export class MsTicketDialogProductMovementComponent implements OnInit {
         sale: parseFloat(this.data.sale),
         movement: this.dialogRef
       },
+      
       panelClass: 'ms-custom-dialogbox'
     });
+this.i++;
   }
   /**
    * @desc  Disminuye la cantidad de productos
