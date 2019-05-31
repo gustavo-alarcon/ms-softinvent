@@ -9,11 +9,10 @@ import { RoutingModule } from './routing/routing.module';
 // PIPES
 import { CorrelativePipe } from './pipes/correlative.pipe';
 
-// SERVICES
-import { AuthService } from './core/auth.service';
+// MODULES
 import { environment } from 'src/environments/environment';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { SidenavService } from './core/sidenav.service';
+import { CoreModule } from './core/core.module';
 
 // COMPONENTS
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -130,7 +129,6 @@ import { ConfirmDeleteComponent } from './ms-ticket/ms-sidenav-tickets-products/
 import { ConfirmDeleteTicketComponent } from './ms-ticket/ms-sidenav-tickets-products/confirmacion-delete-ticket/confirmacion-delete-ticket.component';
 import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/edit-stock/edit-stock.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -241,8 +239,8 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     MatRadioModule,
     MatCardModule,
     MatExpansionModule,
-    MatCardModule
-    
+    MatCardModule,
+    CoreModule
 
   ],
   entryComponents: [
@@ -278,10 +276,7 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     ConfirmDeleteTicketComponent,
     EditStockComponent
   ],
-  providers: [
-    AuthService,
-    SidenavService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
