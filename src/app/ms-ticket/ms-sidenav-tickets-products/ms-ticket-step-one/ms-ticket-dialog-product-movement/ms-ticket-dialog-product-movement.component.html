@@ -12,16 +12,15 @@
         <div class="w3-row">
           <div class="w3-container w3-third ">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Cantidad" type="number" value={{cant}} min="0" max="{{data.stock}}"
-                [formControl]="cantidad">
+              <input matInput placeholder="Cantidad" type="number" value={{initQuantity}} min="0" max="{{data.stock}}"
+                [formControl]="quantityFC">
 
               <mat-hint>P/u S/. {{data.sale}}</mat-hint>
             </mat-form-field>
           </div>
           <div class="w3-container w3-third">
             <mat-form-field class="w3-block">
-              <input matInput placeholder="Precio Inicial" disabled value={{pInicial}}
-                class="form-control">
+              <input matInput placeholder="Precio Inicial" disabled value={{initPrice}} class="form-control">
             </mat-form-field>
           </div>
           <div class="w3-container w3-third">
@@ -42,8 +41,8 @@
                 <div class="w3-third w3-container w3-block " style="padding:0px">
                   <mat-form-field class="w3-block">
                     <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
-                    <input matInput placeholder="Soles" placeholder="Soles" [formControl]="descuento"
-                      class="form-control" value="{{ nDescuento}}" type="number" min="0">
+                    <input matInput placeholder="Soles" placeholder="Soles" [formControl]="discountFC"
+                      class="form-control" value="{{ discountNumber}}" type="number" min="0">
                   </mat-form-field>
                 </div>
                 <div class="w3-third w3-container w3-block"
@@ -54,8 +53,8 @@
                   <mat-form-field class="w3-block">
                     <span matPrefix class="ms-color-icons w3-margin-right" style="font-size: 20px;
                     font-weight: 900;">%</span>
-                    <input matInput placeholder="Porcentaje" [formControl]="porcentajeDescuento" class="form-control"
-                      value="{{ pDescuento}}" type="number" min="0" max="100">
+                    <input matInput placeholder="Porcentaje" [formControl]="discountPercentageFC" class="form-control"
+                      value="{{ discountPercentage}}" type="number" min="0" max="100">
                   </mat-form-field>
                 </div>
               </div>
@@ -69,12 +68,10 @@
               <input matInput placeholder="Seleccione un Nro de Serie" [formControl]="serieList"
                 [matAutocomplete]="auto" autocomplete="off">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.numero">
-                  <mat-checkbox class="example-margin" [disabled]=serie.estado
-                  [checked]="selection.isSelected(serie) "
-                    (click)="$event.stopPropagation();"
-                    (change)="changeValue(serie)">
-                    {{serie.numero}}
+                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
+                  <mat-checkbox class="example-margin" [disabled]=serie.activated [checked]="selection.isSelected(serie) "
+                    (click)="$event.stopPropagation();" (change)="changeValue(serie)">
+                    {{serie.number}}
                   </mat-checkbox>
                 </mat-option>
               </mat-autocomplete>
@@ -105,8 +102,8 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="w3-block" [ngClass]="{'ms-color-action-3': enableAddProd}" [disabled]="!enableAddProd"
-      (click)="confirmacionProduct()">Agregar al carrito
+    <button mat-raised-button class="w3-block" [ngClass]="{'ms-color-action-3': enableAddProd}"
+      [disabled]="!enableAddProd" (click)="confirmacionProduct()">Agregar al carrito
       ({{total | currency : 'S/.'}})</button>
   </div>
 </div>
@@ -179,14 +176,14 @@
         </div>
       </div>
       <div class="w3-margin w3-center">
-        <button icon-button class="w3-button w3-circle" style="background:#9B59B6" (click)="Disminuir()">-</button>
+        <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+          (click)="DecreaseQuantity()">-</button>
         <mat-form-field class="w3-block" style="width:30%">
-          <input matInput class="w3-center" type="number" value={{cant}} min="0" max="{{data.stock}}"
-            [formControl]="cantidad">
-
-            
+          <input matInput class="w3-center" type="number" value={{initQuantity}} min="0" max="{{data.stock}}"
+            [formControl]="quantityFC">
         </mat-form-field>
-        <button icon-button class="w3-button w3-circle" style="background:#9B59B6" (click)="Aumentar()">+</button>
+        <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+          (click)="IncreaseQuantity()">+</button>
       </div>
       <div class="w3-margin">
         <mat-accordion>
@@ -195,19 +192,17 @@
               <mat-panel-title>
                 Nro de serie
               </mat-panel-title>
-              
+
             </mat-expansion-panel-header>
-<mat-form-field style="width:100%" color="accent">
+            <mat-form-field style="width:100%" color="accent">
               <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
               <input matInput placeholder="Seleccione un Nro de Serie" [formControl]="serieList"
                 [matAutocomplete]="auto" autocomplete="off">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.numero">
-                  <mat-checkbox class="example-margin" [disabled]=serie.estado
-                  [checked]="selection.isSelected(serie) "
-                    (click)="$event.stopPropagation();"
-                    (change)="changeValue(serie)">
-                    {{serie.numero}}
+                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
+                  <mat-checkbox class="example-margin" [disabled]=serie.activated [checked]="selection.isSelected(serie) "
+                    (click)="$event.stopPropagation();" (change)="changeValue(serie)">
+                    {{serie.number}}
                   </mat-checkbox>
                 </mat-option>
               </mat-autocomplete>
@@ -259,15 +254,15 @@
 
               <div class="w3-margin w3-center" style="padding: 0px">
                 <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
-                  (click)="DisminuirS()">-</button>
+                  (click)="DecreaseDiscountNumber()">-</button>
                 <mat-form-field class="w3-block" style="width:45%">
                   <span matPrefix class="ms-color-icons" style="margin-right:3px;margin-left:3px; font-size:15px;
                     font-weight:900"> S/</span>
-                  <input matInput style="width:83%" [formControl]="descuento" class="form-control"
-                    value="{{ nDescuento}}" min=0 type="number">
+                  <input matInput style="width:83%" [formControl]="discountFC" class="form-control"
+                    value="{{ discountNumber}}" min=0 type="number">
                 </mat-form-field>
                 <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
-                  (click)="AumentarS()">+</button>
+                  (click)="IncreaseDiscountNumber()">+</button>
               </div>
 
               <div class="w3-margin w3-center" style="padding: 0px">
@@ -276,15 +271,15 @@
 
               <div class="w3-margin w3-center" style="padding: 0px">
                 <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
-                  (click)="DisminuirP()">-</button>
+                  (click)="DecreaseDiscountPercentage()">-</button>
                 <mat-form-field class="w3-block" style="width:45%">
                   <span matPrefix class="ms-color-icons" style="margin-right:3px;margin-left:3px; font-size:18px;
                   font-weight:900"> %</span>
-                  <input matInput style="width:80%" [formControl]="porcentajeDescuento" class="form-control"
-                    value="{{  pDescuento }}" min=0 max=100 type="number">
+                  <input matInput style="width:80%" [formControl]="discountPercentageFC" class="form-control"
+                    value="{{  discountPercentage }}" min=0 max=100 type="number">
                 </mat-form-field>
                 <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
-                  (click)="AumentarP()">+</button>
+                  (click)="IncreaseDiscountPercentage()">+</button>
               </div>
             </div>
           </mat-expansion-panel>
@@ -293,8 +288,8 @@
     </div>
   </div>
   <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
-    <button mat-raised-button class="w3-block " [ngClass]="{'ms-color-action-3': enableAddProd}" [disabled]="!enableAddProd"
-      (click)="confirmacionProduct()">Agregar al carrito
+    <button mat-raised-button class="w3-block " [ngClass]="{'ms-color-action-3': enableAddProd}"
+      [disabled]="!enableAddProd" (click)="confirmacionProduct()">Agregar al carrito
       ({{  total | currency : 'S/.' }}
       )</button>
   </div>

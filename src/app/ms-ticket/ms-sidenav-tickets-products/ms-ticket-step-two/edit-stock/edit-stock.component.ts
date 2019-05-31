@@ -98,6 +98,7 @@ export class EditStockComponent implements OnInit {
             discountType: "discount",
             salePrice: this.data.salePrice,
             sale: this.data.sale
+            
           };
           this.state.editProduct(newProduct)
           this.dialogRef.close(true);

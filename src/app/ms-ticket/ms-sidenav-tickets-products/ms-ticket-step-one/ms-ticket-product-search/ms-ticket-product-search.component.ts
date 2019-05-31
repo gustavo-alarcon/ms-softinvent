@@ -36,7 +36,7 @@ export class MsTicketProductSearchComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  
+
   /*realiza la busqueda de elementos con cada campo de la tabla */
   filterData(ref: string) {
     ref = ref.toLowerCase();
