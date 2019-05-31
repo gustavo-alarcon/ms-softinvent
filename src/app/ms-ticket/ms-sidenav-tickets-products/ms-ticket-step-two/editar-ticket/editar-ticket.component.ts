@@ -46,6 +46,7 @@ export class EditTicketComponent implements OnInit {
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
+  enableAddProd : boolean = false; 
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<EditTicketComponent>,
@@ -59,6 +60,8 @@ export class EditTicketComponent implements OnInit {
       if (this.cantidad.value != '') {
         this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
         this.pInicial = result * parseFloat(this.data.sale);
+        this.enableAddProd =!(result >this.data.stock);
+
       }
       else {
         this.total = 0;
