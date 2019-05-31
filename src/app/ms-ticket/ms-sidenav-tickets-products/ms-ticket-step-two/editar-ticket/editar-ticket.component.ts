@@ -25,28 +25,23 @@ export interface DialogData {
   styles: []
 })
 export class EditTicketComponent implements OnInit {
-  /**Valor actual de las siguiente variables :
-  * Cantidad
-  * Descuento
-  * Promocion
-  */
   imageProd = null
-  cantidad = new FormControl()
-  descuento = new FormControl()
+  quantityFC = new FormControl();
+  discountFC = new FormControl();
+  serieList = new FormControl();
   promocion = new FormControl()
-  porcentajeDescuento = new FormControl() // valor actual del campo "promocion"
-  nDescuento: number = this.data.discount.amount / this.data.quantity; // prcio en soles del descuento
-  pDescuento: number = this.data.discount.percentage;// porcentaje del descuento
-  pInicial: number = parseFloat(this.data.sale) * this.data.quantity; // precio inicial sin descuentos
-  cant: number = this.data.quantity; // cantidad inicial
+  discountPercentageFC = new FormControl() // valor actual del campo "promocion"
+  discountNumber: number = this.data.discount.amount / this.data.quantity; // prcio en soles del descuento
+  discountPercentage: number = this.data.discount.percentage;// porcentaje del descuento
+  initPrice: number = parseFloat(this.data.sale) * this.data.quantity; // precio inicial sin descuentos
+  initQuantity: number = this.data.quantity; // cantidad inicial
   total: number = parseFloat(this.data.salePrice);//precio total con descuentos y cantidades
-  isPromo: boolean = false;
-  isDiscount: boolean = false;
+  maxQuantityTemp: number = 0; // cantida maxima temporal conforme se marcan los numeros de serie
   listaPromos: string[] = ['Dia de la madre', "cierra puerta"];
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
-  enableAddProd : boolean = false; 
+  enableAddProd: boolean = false;
   constructor(
     private dialog: MatDialog,
     public dialogRef: MatDialogRef<EditTicketComponent>,
@@ -55,45 +50,50 @@ export class EditTicketComponent implements OnInit {
   ) { }
   ngOnInit() {
     // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
-    this.cantidad.valueChanges.subscribe(result => {
-      this.cant = this.cantidad.value;
-      if (this.cantidad.value != '') {
-        this.total = result * (parseFloat(this.data.sale) - this.nDescuento);
-        this.pInicial = result * parseFloat(this.data.sale);
-        this.enableAddProd =!(result >this.data.stock);
-
+    this.quantityFC.valueChanges.subscribe(result => {
+      this.initQuantity = this.quantityFC.value;
+      if (this.quantityFC.value != '') {
+        this.total = result * (parseFloat(this.data.sale) - this.discountNumber);
+        this.initPrice = result * parseFloat(this.data.sale);
+        this.enableAddProd = !(result > this.data.stock);
       }
       else {
         this.total = 0;
       }
     });
-    this.descuento.valueChanges.subscribe(result => {
-      this.total = ((parseFloat(this.data.sale) - result) * this.cant);
-      this.pDescuento = parseFloat(((100 * result) / parseInt(this.data.sale)).toFixed(2));
-      this.nDescuento = this.descuento.value;
+    this.discountFC.valueChanges.subscribe(result => {
+      this.total = ((parseFloat(this.data.sale) - result) * this.initQuantity);
+      this.discountPercentage = parseFloat(((100 * result) / parseInt(this.data.sale)).toFixed(2));
+      this.discountNumber = this.discountFC.value;
     });
-    this.porcentajeDescuento.valueChanges.subscribe(result => {
-      this.nDescuento = (parseInt(this.data.sale) * result) / 100;
-      this.total = ((parseFloat(this.data.sale) - this.nDescuento) * this.cant);
+    this.discountPercentageFC.valueChanges.subscribe(result => {
+      this.discountNumber = (parseInt(this.data.sale) * result) / 100;
+      this.total = ((parseFloat(this.data.sale) - this.discountNumber) * this.initQuantity);
       this.total = parseFloat(this.total.toFixed(2));
     });
-
   }
-  /*Cuando hace click fuera del dialog*/
+  /**
+    * @desc  Cuando se hace click fuera de dialog
+    * @return { void } : Without returns
+    */
   onNoClick(): void {
     this.dialogRef.close();
   }
+  /**
+   * @desc  Abre el dialog si desea confirmar producto
+   * @return { void } : Without returns
+   */
   confirmacionProduct(): void {
     var confirmDialogRef = this.dialog.open(ConfirmEditComponent, {
       data: {
         index: this.data.index,
         stock: this.data.stock,
         name: this.data.name,
-        discount: { amount: this.nDescuento * this.cant, percentage: this.pDescuento },
-        quantity: this.cant,
+        discount: { amount: this.discountNumber * this.initQuantity, percentage: this.discountPercentage },
+        quantity: this.initQuantity,
         warehouse: this.data.warehouse,
         discountType: "discount",
-        salePrice: (parseFloat(this.data.sale) - this.nDescuento) * this.cant,
+        salePrice: (parseFloat(this.data.sale) - this.discountNumber) * this.initQuantity,
         sale: parseFloat(this.data.sale),
         editar: this.dialogRef
       },
