@@ -23,7 +23,13 @@ export class StateManagementService {
           discount: { amount: 100, percentage: 10 },
           salePrice: 1200.00,
           warehouse: "TDA 410",
-          sale: 1300.00
+          sale: 1300.00,
+          serialNumbers : [{  id : "ncncf",
+            number: 12,
+            state: "sfgdsfgdsg",
+            regDate: 0,
+            createdBy: "Eduardo Mollinedo: ",
+            activated : false }]
         },
         {
           index: 1,
@@ -34,7 +40,13 @@ export class StateManagementService {
           discount: { amount: 100, percentage: 10 },
           salePrice: 400.00,
           warehouse: "Fortaleza",
-          sale: 500.00
+          sale: 500.00,
+          serialNumbers : [{  id : "ncncf",
+            number: 12,
+            state: "sfgdsfgdsg",
+            regDate: 0,
+            createdBy: "Eduardo Mollinedo: ",
+            activated : false }]
         }
       ], customer: 'Milagros, Palomino'
       , totalDiscount: 200,
@@ -53,7 +65,13 @@ export class StateManagementService {
           discount: { amount: 100, percentage: 10 },
           salePrice: 1300.00,
           warehouse: "TDA 410",
-          sale: 2800.00
+          sale: 2800.00,
+          serialNumbers : [{  id : "ncncf",
+            number: 12,
+            state: "sfgdsfgdsg",
+            regDate: 0,
+            createdBy: "Eduardo Mollinedo: ",
+            activated : false }]
         },
         {
           index: 1,
@@ -64,7 +82,13 @@ export class StateManagementService {
           discount: { amount: 100, percentage: 10 },
           salePrice: 600.00,
           warehouse: "Fortaleza",
-          sale: 7000.00
+          sale: 7000.00,
+          serialNumbers : [{  id : "ncncf",
+            number: 12,
+            state: "sfgdsfgdsg",
+            regDate: 0,
+            createdBy: "Eduardo Mollinedo: ",
+            activated : false }]
         },
       ]
       , customer: 'Gabriela, Nuñez'

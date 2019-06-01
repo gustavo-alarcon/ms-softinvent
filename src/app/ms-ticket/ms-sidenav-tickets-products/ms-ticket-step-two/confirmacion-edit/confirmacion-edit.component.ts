@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { EditTicketComponent } from '../editar-ticket/editar-ticket.component';
-import { ProductCart, Discount } from 'src/app/core/ms-types';
+import { ProductCart, Discount, serialNumber } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
 
 export interface DialogData {
@@ -14,7 +14,9 @@ export interface DialogData {
   discountType: string;
   salePrice: string;
   sale: number;
+  serialNumbers : Array<serialNumber>;
   editar : MatDialogRef<EditTicketComponent>;
+  
 }
 
 @Component({
@@ -47,7 +49,8 @@ export class ConfirmEditComponent implements OnInit {
       warehouse: this.data.warehouse,
       discountType: "discount",
       salePrice: parseFloat(this.data.salePrice),
-      sale: this.data.sale
+      sale: this.data.sale,
+      serialNumbers : this.data.serialNumbers,
     };
     this.state.editProduct(newProduct)
     this.dialogRef.close(true);
@@ -56,5 +59,4 @@ export class ConfirmEditComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

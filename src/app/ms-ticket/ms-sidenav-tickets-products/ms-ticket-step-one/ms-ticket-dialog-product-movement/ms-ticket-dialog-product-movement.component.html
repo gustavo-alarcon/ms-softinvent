@@ -65,36 +65,21 @@
           <div class="w3-padding-48">
             <mat-form-field style="width:100%" color="accent">
               <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
-              <input matInput placeholder="Seleccione un Nro de Serie" [formControl]="serieList"
-                [matAutocomplete]="auto" autocomplete="off">
-              <mat-autocomplete #auto="matAutocomplete">
+              <input matInput placeholder="Seleccione un Nro de Serie" (keyup.enter)="onEnterClick()"
+                [formControl]="serieList" [matAutocomplete]="autoWeb" autocomplete="off">
+              <mat-autocomplete #autoWeb="matAutocomplete">
+                <mat-option *ngIf="isEmpty">
+                  No existe el número
+                </mat-option>
                 <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
-                  <mat-checkbox class="example-margin" [disabled]=serie.activated [checked]="selection.isSelected(serie) "
-                    (click)="$event.stopPropagation();" (change)="changeValue(serie)">
+                  <mat-checkbox class="example-margin" [disabled]=serie.activated
+                    [checked]="selection.isSelected(serie) " (click)="$event.stopPropagation();"
+                    (change)="changeValue(serie)">
                     {{serie.number}}
                   </mat-checkbox>
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
-            <!-- <mat-radio-button value="2">Promocion</mat-radio-button>
-              <div class="w3-row">
-                <div class="w3-third w3-container" style="padding:0px">
-                  <mat-form-field class="w3-block">
-                    <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
-                    <input matInput placeholder="Soles" type="number" min="0">
-                  </mat-form-field>
-                </div>
-                <div class="w3-third w3-container"
-                  style="padding:0px;align-items: center;display: flex; justify-content: center">
-                  <h2>=</h2>
-                </div>
-                <div class="w3-third w3-container" style="padding:0px">
-                  <mat-form-field class="w3-block">
-                    <span matPrefix class="ms-color-icons w3-margin-right" style="font-size: 20px;
-                    font-weight: 900;">%</span>
-                    <input matInput placeholder="Porcentaje" type="number" min="0" max="100">
-                  </mat-form-field>
-                </div>-->
           </div>
         </div>
 
@@ -196,12 +181,16 @@
             </mat-expansion-panel-header>
             <mat-form-field style="width:100%" color="accent">
               <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
-              <input matInput placeholder="Seleccione un Nro de Serie" [formControl]="serieList"
-                [matAutocomplete]="auto" autocomplete="off">
-              <mat-autocomplete #auto="matAutocomplete">
+              <input matInput placeholder="Seleccione un Nro de Serie" (keyup.enter)="onEnterClick()"
+                [formControl]="serieList" [matAutocomplete]="autoMobile" autocomplete="off">
+              <mat-autocomplete #autoMobile="matAutocomplete">
+                <mat-option *ngIf="isEmpty">
+                  No existe el número
+                </mat-option>
                 <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
-                  <mat-checkbox class="example-margin" [disabled]=serie.activated [checked]="selection.isSelected(serie) "
-                    (click)="$event.stopPropagation();" (change)="changeValue(serie)">
+                  <mat-checkbox class="example-margin" [disabled]=serie.activated
+                    [checked]="selection.isSelected(serie)" (click)="$event.stopPropagation();"
+                    (change)="changeValue(serie)">
                     {{serie.number}}
                   </mat-checkbox>
                 </mat-option>

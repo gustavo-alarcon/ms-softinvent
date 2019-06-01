@@ -101,6 +101,7 @@ export class MsTicketStepTwoComponent implements OnInit {
    * void : no retorna nada 
    */
   editProduct(product): void {
+    console.log(product);
     const dialogRef = this.dialog.open(EditTicketComponent, {
       data: {
         index: product.index,
@@ -114,6 +115,7 @@ export class MsTicketStepTwoComponent implements OnInit {
         quantity: product.quantity,
         discountType: product.discountType,
         discount: product.discount,
+        serialNumbers : product.serialNumbers,
       },
       panelClass: 'ms-custom-dialogbox'
 

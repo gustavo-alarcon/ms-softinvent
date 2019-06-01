@@ -97,7 +97,8 @@ export class EditStockComponent implements OnInit {
             warehouse: this.data.warehouse,
             discountType: "discount",
             salePrice: this.data.salePrice,
-            sale: this.data.sale
+            sale: this.data.sale,
+            serialNumbers : this.data.serialNumbers,
             
           };
           this.state.editProduct(newProduct)

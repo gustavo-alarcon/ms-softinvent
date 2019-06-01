@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ProductCart, Discount } from 'src/app/core/ms-types';
+import { ProductCart, Discount, serialNumber } from 'src/app/core/ms-types';
 import { StateManagementService } from 'src/app/core/state-management.service';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { MsTicketDialogProductMovementComponent } from '../ms-ticket-dialog-product-movement/ms-ticket-dialog-product-movement.component';
@@ -13,6 +13,7 @@ export interface DialogData {
   discountType: string;
   salePrice: string;
   sale: number;
+  serial : serialNumber[];
   movement : MatDialogRef<MsTicketDialogProductMovementComponent>;
 }
 
@@ -45,7 +46,8 @@ export class ConfirmProductComponent implements OnInit {
       warehouse: this.data.warehouse,
       discountType: "discount",
       salePrice: parseFloat(this.data.salePrice),
-      sale: this.data.sale
+      sale: this.data.sale,
+      serialNumbers : this.data.serial,
     };
     this.carrito.addProduct(newProduct)
     this.onNoClick();
