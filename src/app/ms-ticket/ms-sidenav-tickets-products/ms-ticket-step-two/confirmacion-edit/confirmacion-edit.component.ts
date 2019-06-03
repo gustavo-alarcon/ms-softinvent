@@ -16,7 +16,7 @@ export interface DialogData {
   sale: number;
   serialNumbers : Array<serialNumber>;
   editar : MatDialogRef<EditTicketComponent>;
-  
+  maxDiscount : number
 }
 
 @Component({
@@ -51,6 +51,7 @@ export class ConfirmEditComponent implements OnInit {
       salePrice: parseFloat(this.data.salePrice),
       sale: this.data.sale,
       serialNumbers : this.data.serialNumbers,
+      maxDiscount : this.data.maxDiscount,
     };
     this.state.editProduct(newProduct)
     this.dialogRef.close(true);

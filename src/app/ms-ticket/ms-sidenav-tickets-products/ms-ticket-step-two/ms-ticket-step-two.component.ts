@@ -116,6 +116,7 @@ export class MsTicketStepTwoComponent implements OnInit {
         discountType: product.discountType,
         discount: product.discount,
         serialNumbers : product.serialNumbers,
+        maxDiscount : product.maxDiscount,
       },
       panelClass: 'ms-custom-dialogbox'
 

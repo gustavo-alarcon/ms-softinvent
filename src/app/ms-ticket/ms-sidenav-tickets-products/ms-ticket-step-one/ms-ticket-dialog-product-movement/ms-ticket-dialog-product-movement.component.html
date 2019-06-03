@@ -1,11 +1,16 @@
-<div class="w3-center"
-  style="vertical-align: middle; float: right; margin-left: auto; margin-right: auto; background:#2A3B4D">
-  <button mat-icon-button style="background:#2A3B4D; border:none" (click)=onNoClick()>
-    <mat-icon class="w3-text-white">clear</mat-icon>
-  </button>
-</div>
 <div class="w3-hide-small">
-  <h1 mat-dialog-title>{{data.name}} | Stock : {{data.stock}}</h1>
+
+  <div mat-dialog-title>
+    <mat-toolbar style="width:100% ; background-color : nome" class="ms-color-b-2">
+      <span>
+        {{data.name}} | Stock : {{data.stock}}
+      </span>
+      <span class="ms-fill"></span>
+      <button mat-icon-button color="accent" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
   <div mat-dialog-content>
     <div>
       <mat-card>
@@ -42,7 +47,8 @@
                   <mat-form-field class="w3-block">
                     <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
                     <input matInput placeholder="Soles" placeholder="Soles" [formControl]="discountFC"
-                      class="form-control" value="{{ discountNumber}}" type="number" min="0">
+                      class="form-control" value="{{ discountNumber}}" type="number" min="0" max={{maxDiscount}}>
+                    <mat-hint> {{maxDiscount | currency : 'S/.'}}</mat-hint>
                   </mat-form-field>
                 </div>
                 <div class="w3-third w3-container w3-block"
@@ -54,7 +60,9 @@
                     <span matPrefix class="ms-color-icons w3-margin-right" style="font-size: 20px;
                     font-weight: 900;">%</span>
                     <input matInput placeholder="Porcentaje" [formControl]="discountPercentageFC" class="form-control"
-                      value="{{ discountPercentage}}" type="number" min="0" max="100">
+                      value="{{ discountPercentage}}" type="number" min="0" max={{data.maxDiscount}}>
+                    <mat-hint>{{data.maxDiscount}} % </mat-hint>
+
                   </mat-form-field>
                 </div>
               </div>
@@ -92,9 +100,22 @@
       ({{total | currency : 'S/.'}})</button>
   </div>
 </div>
-<div class="w3-hide-large w3-hide-medium">
-  <h1 mat-dialog-title>{{data.name}} | Stock {{data.stock}}</h1>
-  <div mat-dialog-content style="background-color:#394e65">
+
+
+<div class="w3-hide-large w3-hide-medium" >
+  <div mat-dialog-title>
+    <mat-toolbar style="width:100%;padding: 0px" class="ms-color-b-2">
+      <span>
+        {{data.name}} | Stock : {{data.stock}}
+      </span>
+      <span class="ms-fill"></span>
+      <button mat-icon-button color="accent" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+
+  <div mat-dialog-content style="background-color:#394e65 ">
     <div style="border-radius: 20px;">
       <div class="ms-card-image" style="margin:10px">
         <img [src]="imageProd || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
@@ -248,7 +269,9 @@
                   <span matPrefix class="ms-color-icons" style="margin-right:3px;margin-left:3px; font-size:15px;
                     font-weight:900"> S/</span>
                   <input matInput style="width:83%" [formControl]="discountFC" class="form-control"
-                    value="{{ discountNumber}}" min=0 type="number">
+                    value="{{ discountNumber}}" min=0 max={{maxDiscount}} type="number">
+                  <mat-hint> {{maxDiscount | currency : 'S/.'}}</mat-hint>
+
                 </mat-form-field>
                 <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
                   (click)="IncreaseDiscountNumber()">+</button>
@@ -265,7 +288,9 @@
                   <span matPrefix class="ms-color-icons" style="margin-right:3px;margin-left:3px; font-size:18px;
                   font-weight:900"> %</span>
                   <input matInput style="width:80%" [formControl]="discountPercentageFC" class="form-control"
-                    value="{{  discountPercentage }}" min=0 max=100 type="number">
+                    value="{{  discountPercentage }}" min=0 max={{data.maxDiscount}} type="number">
+                  <mat-hint>{{data.maxDiscount}} %</mat-hint>
+
                 </mat-form-field>
                 <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
                   (click)="IncreaseDiscountPercentage()">+</button>

@@ -99,6 +99,7 @@ export class EditStockComponent implements OnInit {
             salePrice: this.data.salePrice,
             sale: this.data.sale,
             serialNumbers : this.data.serialNumbers,
+            maxDiscount : this.data.maxDiscount,
             
           };
           this.state.editProduct(newProduct)

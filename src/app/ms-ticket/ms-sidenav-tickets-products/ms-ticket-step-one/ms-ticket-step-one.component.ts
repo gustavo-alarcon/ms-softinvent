@@ -103,7 +103,8 @@ export class MsTicketStepOneComponent implements OnInit {
             category: product.category,
             warehouse: product.warehouse,
             serialList: product.serialList,
-            serialNumbers: res
+            serialNumbers: res,
+            maxDiscount: product.maxDiscount
           },
           panelClass: 'ms-custom-dialogbox'
 

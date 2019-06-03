@@ -1,75 +1,82 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { ProductCart, Promo, Discount, serialNumber } from 'src/app/core/ms-types';
-import { StateManagementService } from 'src/app/core/state-management.service';
-import { ConfirmProductComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-one/confirmacion-product/confirmacion-product.component';
-import { Observable, of, Subscriber, Subscription } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { StateManagementService } from 'src/app/core/state-management.service'
+import { ConfirmEditComponent } from 'src/app/ms-ticket/ms-sidenav-tickets-products/ms-ticket-step-two/confirmacion-edit/confirmacion-edit.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { database } from 'firebase';
+import { Observable, Subscription } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+
 export interface DialogData {
-  name: string;
-  sale: string;
-  stock: string;
-  warehouse: string;
-  category: string;
-  quantity: number;
-  salePrice: number;
-  serialNumbers: Array<serialNumber>;
-  maxDiscount: number;
+  index: number,
+  name: string,
+  sale: string,
+  salePrice: string,
+  stock: number,
+  category: string,
+  warehouse: string,
+  imagePath: string,
+  quantity: number,
+  discountType: string,
+  discount: Discount,
+  total: string,
+  serialNumbers: Array<serialNumber>,
+  maxDiscount : number,
 }
 @Component({
-  selector: 'app-ms-ticket-dialog-product-movement',
-  templateUrl: './ms-ticket-dialog-product-movement.component.html'
+  selector: 'app-editar-ticket',
+  templateUrl: './editar-ticket.component.html',
+  styles: []
 })
-export class MsTicketDialogProductMovementComponent implements OnInit, OnDestroy {
+export class EditTicketComponent implements OnInit {  
   imageProd = null
   quantityFC = new FormControl();
   discountFC = new FormControl();
   serieList = new FormControl();
-  promocion = new FormControl();
-  filteredSeries: Observable<serialNumber[]>;
-  selection = new SelectionModel<serialNumber>(true, []);
+  promocion = new FormControl()
   discountPercentageFC = new FormControl() // valor actual del campo "promocion"
-  discountNumber: number = 0; // precio en soles del descuento
-  discountPercentage: number = 0;// porcentaje del descuento
-  initPrice: number = 0; // precio inicial sin descuentos
-  initQuantity: number = 0; // cantidad inicial
-  total: number = 0; //precio total con descuentos y cantidades
-  maxQuantityTemp: number = 0; // cantida maxima temporal conforme se marcan los numeros de serie
-  quantity: number = 0;
-  isPromo: boolean = false;
-  isEmpty: boolean = false;
-  isDiscount: boolean = false;
-  max: number = 0;
-  maxDiscount : number = this.data.maxDiscount * parseInt(this.data.sale) / 100;
+  discountNumber: number = this.data.discount.amount / this.data.quantity; // prcio en soles del descuento
+  discountPercentage: number = this.data.discount.percentage;// porcentaje del descuento
+  initPrice: number = parseFloat(this.data.sale) * this.data.quantity; // precio inicial sin descuentos
+  initQuantity: number = this.data.quantity; // cantidad inicial
+  total: number = parseFloat(this.data.salePrice);//precio total con descuentos y cantidades
+  maxQuantityTemp: number = this.data.quantity; // cantida maxima temporal conforme se marcan los numeros de serie
+  listaPromos: string[] = ['Dia de la madre', "cierra puerta"];
+  filteredSeries: Observable<serialNumber[]>;
+  firstFilteredSerie: serialNumber = this.data.serialNumbers[0];
+  selection = new SelectionModel<serialNumber>(true, []);
+  quantity: number = this.data.quantity;
   newProduct: ProductCart;
   promo: Promo;
   discount: Discount;
-  i: number = this.carrito.currentState[this.carrito.currentStateIndex].cart.length + 1; // indice del producto
-  enableAddProd = false;
-  firstFilteredSerie: serialNumber = this.data.serialNumbers[0];
-
+  enableAddProd: boolean = false;
+  isEmpty: boolean = false;
   suscribe: Array<Subscription> = [];
+  maxDiscount : number = this.data.maxDiscount * parseInt(this.data.sale) / 100;
   constructor(
     private dialog: MatDialog,
-    public dialogRef: MatDialogRef<MsTicketDialogProductMovementComponent>,
+    public dialogRef: MatDialogRef<EditTicketComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public carrito: StateManagementService
   ) { }
 
   ngOnInit() {
-    // para cuando se modifica en tiempo real la cantidad 
+    console.log("descuento ", this.data.maxDiscount)
+    for (var _i = 0; _i < this.data.serialNumbers.length; _i++) {
+      if (this.data.serialNumbers[_i].activated == false) {
+        this.selection.select(this.data.serialNumbers[_i]);
+      }
+    }
+    // para modificar en tiempo real el precio total ( cantidad * precio - (descuento | promocion))
     this.quantityFC.valueChanges.subscribe(result => {
-      this.initQuantity = result;
       this.selection.clear();
-      if (result) {
+      this.quantity = this.quantityFC.value;
+      this.initQuantity = this.quantityFC.value;
+      if (this.quantityFC.value != '') {
         this.total = result * (parseFloat(this.data.sale) - this.discountNumber);
         this.initPrice = result * parseFloat(this.data.sale);
-        this.quantity = result;
         this.enableAddProd = !(result > this.data.stock);
-        // this.enableAddProd = !!result;
       }
       else {
         this.total = 0;
@@ -83,13 +90,11 @@ export class MsTicketDialogProductMovementComponent implements OnInit, OnDestroy
       }
       this.maxQuantityTemp = this.quantityFC.value;
     });
-    // para cuando se modifica en tiempo real el campo Descuento (en soles)
     this.discountFC.valueChanges.subscribe(result => {
       this.total = ((parseFloat(this.data.sale) - result) * this.initQuantity);
       this.discountPercentage = parseFloat(((100 * result) / parseInt(this.data.sale)).toFixed(2));
       this.discountNumber = this.discountFC.value;
     });
-    // para cuando se modifica en tiempo real el campo Descuento (en porcentaje)
     this.discountPercentageFC.valueChanges.subscribe(result => {
       this.discountNumber = (parseInt(this.data.sale) * result) / 100;
       this.total = ((parseFloat(this.data.sale) - this.discountNumber) * this.initQuantity);
@@ -106,27 +111,32 @@ export class MsTicketDialogProductMovementComponent implements OnInit, OnDestroy
     });
     this.suscribe.push(snSubs);
   }
-
-  ngOnDestroy() {
-    this.suscribe.forEach(res => res.unsubscribe);
-  }
-
+  /**
+    * @desc Filtra los numeros de serie segun se escriba 
+    * @return { serialNumber[] } : retorna una lista de numeros de serie 
+    */
   private _filterSeries(value: string): serialNumber[] {
     const filterValue = value;
     this.firstFilteredSerie = (this.data.serialNumbers.filter(serie => serie.number.toString().indexOf(filterValue) === 0))[0];
     this.isEmpty = !this.data.serialNumbers.filter(serie => serie.number.toString().indexOf(filterValue) === 0).length;
     return this.data.serialNumbers.filter(serie => serie.number.toString().indexOf(filterValue) === 0);
   }
-  /*Cuando hace click fuera del dialog*/
+  /**
+    * @desc  Cuando se hace click fuera de dialog
+    * @return { void } : Without returns
+    */
   onNoClick(): void {
     this.dialogRef.close();
   }
+  /**
+   * @desc  Abre el dialog si desea confirmar producto
+   * @return { void } : Without returns
+   */
   confirmacionProduct(): void {
-    this.i++;
-    var confirmDialogRef = this.dialog.open(ConfirmProductComponent, {
+    var confirmDialogRef = this.dialog.open(ConfirmEditComponent, {
       data: {
-        index: this.i,
-        stock: parseInt(this.data.stock),
+        index: this.data.index,
+        stock: this.data.stock,
         name: this.data.name,
         discount: { amount: this.discountNumber * this.initQuantity, percentage: this.discountPercentage },
         quantity: this.initQuantity,
@@ -134,12 +144,63 @@ export class MsTicketDialogProductMovementComponent implements OnInit, OnDestroy
         discountType: "discount",
         salePrice: (parseFloat(this.data.sale) - this.discountNumber) * this.initQuantity,
         sale: parseFloat(this.data.sale),
-        serial: this.data.serialNumbers,
-        movement: this.dialogRef,
-        maxDiscount : this.data.maxDiscount
+        editar: this.dialogRef,
+        serialNumbers: this.data.serialNumbers,
+        maxDiscount : this.data.maxDiscount,
       },
       panelClass: 'ms-custom-dialogbox'
-    });
+
+    }).afterClosed().subscribe(res => {
+      if (res) { this.dialogRef.close() }
+    })
+  }
+  /**
+    * @desc  Entra cuando se da el evento de cambio de state del checkbox, calcula el numero maximo de nro de series
+    * @param {serie} i  : Indice de la serie actual
+    * @return { void } : Without returns
+    */
+  changeValue(i): void {
+    if (this.selection.isSelected(i) == false) {
+      this.maxQuantityTemp++;
+    }
+    else {
+      this.maxQuantityTemp--;
+    }
+    this.selection.toggle(i);
+    if (this.maxQuantityTemp >= this.quantity) {
+      this.data.serialNumbers.forEach((serie, indice) => {
+        if (this.selection.isSelected(serie) == false) {
+          serie.activated = true;
+        }
+      });
+    }
+    else {
+      this.data.serialNumbers.forEach((serie, i) => {
+        serie.activated = false;
+      });
+    }
+  }
+  /**
+      * @desc  Entra cuando se da el evento de Click en el enter, selecciona el primer indice
+      * @return { void } : Without returns
+      */
+  onEnterClick(): void {
+    if (this.firstFilteredSerie) {
+      if (this.firstFilteredSerie.activated == false) {
+        if (this.selection.isSelected(this.firstFilteredSerie) == false) {
+          this.selection.select(this.firstFilteredSerie);
+          this.maxQuantityTemp++;
+        }
+        this.serieList.setValue('');
+        if (this.maxQuantityTemp >= this.quantity) {
+          this.data.serialNumbers.forEach((serie, indice) => {
+            if (this.selection.isSelected(serie) == false) {
+              serie.activated = true;
+            }
+          });
+        }
+      }
+    }
   }
   /**
    * @desc  Disminuye la cantidad de productos
@@ -158,7 +219,7 @@ export class MsTicketDialogProductMovementComponent implements OnInit, OnDestroy
    * @return { void } : Without returns
    */
   IncreaseQuantity(): void {
-    if (this.initQuantity < parseFloat(this.data.stock)) {
+    if (this.initQuantity <this.data.stock) {
       this.initQuantity = this.initQuantity + 1
       this.total = this.initQuantity * (parseFloat(this.data.sale) - this.discountNumber);
       this.initPrice = this.initQuantity * parseFloat(this.data.sale);
@@ -225,52 +286,4 @@ export class MsTicketDialogProductMovementComponent implements OnInit, OnDestroy
       this.total = parseFloat(this.total.toFixed(2));
     }
   }
-  /**
-    * @desc  Entra cuando se da el evento de cambio de state del checkbox, calcula el numero maximo de nro de series
-    * @param {serie} i  : Indice de la serie actual
-    * @return { void } : Without returns
-    */
-  changeValue(i): void {
-    if (this.selection.isSelected(i) == false) {
-      this.maxQuantityTemp++;
-    }
-    else {
-      this.maxQuantityTemp--;
-    }
-    this.selection.toggle(i);
-    if (this.maxQuantityTemp >= this.quantity) {
-      this.data.serialNumbers.forEach((serie, indice) => {
-        if (this.selection.isSelected(serie) == false) {
-          serie.activated = true;
-        }
-      });
-    }
-    else {
-      this.data.serialNumbers.forEach((serie, i) => {
-        serie.activated = false;
-      });
-    }
-  }
-  /**
-      * @desc  Entra cuando se da el evento de Click en el enter, selecciona el primer indice
-      * @return { void } : Without returns
-      */
-  onEnterClick(): void {
-    if (this.firstFilteredSerie) {
-      if (this.selection.isSelected(this.firstFilteredSerie) == false) {
-        this.selection.select(this.firstFilteredSerie);
-        this.maxQuantityTemp++;
-      }
-      this.serieList.setValue('');
-      if (this.maxQuantityTemp >= this.quantity) {
-        this.data.serialNumbers.forEach((serie, indice) => {
-          if (this.selection.isSelected(serie) == false) {
-            serie.activated = true;
-          }
-        });
-      }
-    }
-  }
-
 }
-

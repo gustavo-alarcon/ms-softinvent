@@ -14,6 +14,7 @@ export interface DialogData {
   salePrice: string;
   sale: number;
   serial : serialNumber[];
+  maxDiscount : number,
   movement : MatDialogRef<MsTicketDialogProductMovementComponent>;
 }
 
@@ -48,6 +49,7 @@ export class ConfirmProductComponent implements OnInit {
       salePrice: parseFloat(this.data.salePrice),
       sale: this.data.sale,
       serialNumbers : this.data.serial,
+      maxDiscount : this. data.maxDiscount,
     };
     this.carrito.addProduct(newProduct)
     this.onNoClick();
