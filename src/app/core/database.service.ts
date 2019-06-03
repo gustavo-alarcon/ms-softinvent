@@ -431,7 +431,6 @@ export class DatabaseService {
     return this.bookCollection;
   }
 
-
   /*
   setDocumentToUser(document): void {
 
