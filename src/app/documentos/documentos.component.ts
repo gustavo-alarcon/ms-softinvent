@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../core/database.service';
-import { MatDialog, MatBottomSheet, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog, MatBottomSheet, MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { CreateDocComponent } from './crear-documento/crear-documento.component';
 import { EditDocComponent } from './editar-documento/editar-documento.component';
+import { ConfirmDeleteDocComponent } from './confirmar-borrar-documento/confirmar-borrar-documento.component';
 
 @Component({
   selector: 'app-documentos',
@@ -15,7 +16,7 @@ export class DocsComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredDocuments: Array<any> = [];
 
-  displayedColumns: string[] = ['index', 'alias', 'name', 'partyType', 'nature', 'serie', 'correlativeRange', 'Editar'];
+  displayedColumns: string[] = ['index', 'alias', 'name', 'partyType', 'nature', 'serie', 'correlativeRange', 'actions'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -24,7 +25,7 @@ export class DocsComponent implements OnInit {
   constructor(
     public dbs: DatabaseService,
     private dialog: MatDialog,
-    private bottomSheet: MatBottomSheet
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -62,7 +63,26 @@ export class DocsComponent implements OnInit {
     this.dialog.open(EditDocComponent, {
       data: document,
       panelClass: 'ms-custom-dialogbox'
-    })
+    });
+  }
+
+  deleteDocument(document): void{
+    const confirmDialogRef = this.dialog.open(ConfirmDeleteDocComponent, {
+      data: document,
+      panelClass: 'ms-custom-dialogbox'
+    });
+
+    confirmDialogRef.afterClosed().subscribe( res => {
+      if (res === true){
+         this.snackbar.open('Listo! ... documento borrado', 'Cerrar', {
+          duration: 6000
+        });
+      } else {
+        this.snackbar.open('Ufff! ... menos mal te preguntamos', 'Cerrar', {
+          duration: 6000
+        });
+      }
+    });
   }
 
 }
