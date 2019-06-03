@@ -113,12 +113,7 @@ export class DatabaseService {
   public dataPartiesProviders = new BehaviorSubject<any[]>([]);
   currentDataPartiesProviders = this.dataPartiesProviders.asObservable();
 
-  // PARTIES - STAFF
-  partiesStaffCollection: AngularFirestoreCollection<any>;
-  partiesStaff: Array<Object> = [];
 
-  public dataPartiesStaff = new BehaviorSubject<any[]>([]);
-  currentDataPartiesStaff = this.dataPartiesStaff.asObservable();
 
   /*---------------- DOCUMENTS DATA --------------------- */
 
@@ -194,7 +189,6 @@ export class DatabaseService {
     this.getConfig();
     this.getWarehouses();
     this.getParties();
-    this.getPartiesStaff();
     this.getPartiesCustomers();
     this.getPartiesProviders();
     this.getDocuments();
@@ -376,23 +370,7 @@ export class DatabaseService {
       });
   }
 
-  getPartiesStaff(): void {
-    this.partiesStaffCollection = this.afs.collection(`db/${this.auth.userInvent.db}/parties`, ref => ref.where('type', '==', 'Personal'));
-    this.partiesStaffCollection.valueChanges()
-      .pipe(
-        map(res => {
-          //ADDING INDEX TO RESULT
-          res.forEach((partiesStaff, index) => {
-            partiesStaff['index'] = index + 1;
-          })
-          return res;
-        })
-      )
-      .subscribe(res => {
-        this.partiesStaff = res;
-        this.dataPartiesStaff.next(res);
-      });
-  }
+  
 
   deleteParty(id): void {
     this.partiesCollection.doc(id).delete().then(() => {

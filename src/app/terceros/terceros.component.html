@@ -10,7 +10,6 @@
             <button mat-raised-button class="ms-color-action-3" style="margin:0em 0.2em 1em 0.2em" (click)="createParty()"><mat-icon>add_circle</mat-icon> Crear</button>
             <button mat-button class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em" disabled><mat-icon>supervised_user_circle</mat-icon> {{dbs.partiesCustomers.length | number: '2.0'}} Clientes</button>
             <button mat-button class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em" disabled><mat-icon>extension</mat-icon> {{dbs.partiesProviders.length | number: '2.0'}} Proveedores</button>
-            <button mat-button class="ms-color-disabled" style="margin:0em 1.4em 1em 0.2em" disabled><mat-icon>assignment_ind</mat-icon> {{dbs.partiesStaff.length | number: '2.0'}} Personal</button>
             <span style="margin-right:1em">
                 <mat-form-field autocomplete="off" color="accent">
                     <mat-icon matPrefix style="margin-right:0.5em">filter_list</mat-icon>

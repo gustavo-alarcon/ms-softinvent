@@ -140,12 +140,7 @@ export class RegisterComponent implements OnInit {
         map(value => this._filterWarehousesDest(value))
       );
 
-    this.filteredStaffOptions = this.staffFromList.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filterStaff(value))
-      );
-
+    
   }
 
   private _filterDocuments(value): any {
@@ -173,11 +168,7 @@ export class RegisterComponent implements OnInit {
     return this.dbs.warehouses.filter(option => option['name'].toLowerCase().includes(filterValue));
   }
 
-  private _filterStaff(value): any {
-    const filterValue = (typeof value === 'object')? value['name'].toLowerCase() : value.toLowerCase();
-    return this.dbs.partiesStaff.filter(option => option['name'].toLowerCase().includes(filterValue));
-  }
-
+  
   filterPartiesData(ref: string) {
     ref = ref.toLowerCase();
     this.filteredParties = this.dbs.parties.filter(option => option['type'].toLowerCase().includes(ref));
