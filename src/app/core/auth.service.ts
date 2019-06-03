@@ -19,10 +19,11 @@ import { MatSnackBar } from '@angular/material';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   user: Observable<User>;
-  
+
   userInvent: User = {
     name: '',
     lastname: '',
@@ -72,18 +73,6 @@ export class AuthService {
     private afs: AngularFirestore,
     private router: Router,
     public snackbar: MatSnackBar) {
-
-    // this.user = this.afAuth.authState
-    //   .pipe(
-    //     switchMap(user => {
-    //       if (user) {
-    //         console.log('returning user observable');
-    //         return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-    //       } else {
-    //         return of(null);
-    //       }
-    //     })
-    //   );
 
     this.user = this.afAuth.authState
       .pipe(
@@ -198,7 +187,6 @@ export class AuthService {
 
   private handleError(error) {
     let message = '';
-    console.log(error);
 
     switch (error.code) {
       case 'auth/invalid-email':
