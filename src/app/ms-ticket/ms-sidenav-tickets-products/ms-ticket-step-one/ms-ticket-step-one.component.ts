@@ -21,7 +21,7 @@ export class MsTicketStepOneComponent implements OnInit {
    */
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
-  displayedColumns: string[] = ['name', 'stock', 'sale', 'warehouse', 'Detalles', 'Agregar'];
+  displayedColumns: string[] = ['name', 'stock', 'sale','discount', 'warehouse', 'Detalles', 'Agregar'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -60,7 +60,8 @@ export class MsTicketStepOneComponent implements OnInit {
       option['warehouse'].toLowerCase().includes(ref) ||
       option['name'].toLowerCase().includes(ref) ||
       option['stock'].toString().includes(ref) ||
-      option['sale'].toString().includes(ref));
+      option['sale'].toString().includes(ref) ||
+      option['discount'].toString().includes(ref));
 
     this.dataSource.data = this.filteredProducts;
   }
