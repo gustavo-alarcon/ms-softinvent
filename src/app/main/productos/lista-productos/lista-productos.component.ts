@@ -16,7 +16,11 @@ export class ListaProductosComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
 
+<<<<<<< refs/remotes/origin/develop:src/app/main/productos/lista-productos/lista-productos.component.ts
   displayedColumns: string[] = ['index', 'category', 'warehouse', 'code', 'name', 'unit', 'stock', 'currency', 'purchase', 'sale', 'actions'];
+=======
+  displayedColumns: string[] = ['index', 'category', 'warehouse', 'code', 'name', 'unit', 'stock',  'currency', 'purchase', 'sale','maxDiscount', 'Editar'];
+>>>>>>> Mejora : Boton de acciones para reemplazar edit y eliminar:src/app/productos/productos.component.ts
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -48,7 +52,8 @@ export class ListaProductosComponent implements OnInit {
       option['unit'].toLowerCase().includes(ref) ||
       option['stock'].toString().includes(ref) ||
       option['purchase'].toString().includes(ref) ||
-      option['sale'].toString().includes(ref));
+      option['sale'].toString().includes(ref) ||
+      option['maxDiscount'].toString().includes(ref));
     this.dataSource.data = this.filteredProducts;
   }
 

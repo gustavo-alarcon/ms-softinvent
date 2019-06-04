@@ -75,23 +75,6 @@ export class EditPartyComponent implements OnInit {
     })
   }
 
-  confirmDelete(): void{
-    var confirmDialogRef = this.dialog.open(ConfirmDeletePartyComponent, {
-      data: this.data,
-      panelClass: 'ms-custom-modalbox'
-    });
-
-    confirmDialogRef.afterClosed().subscribe( res => {
-      if(res === true){
-        this.dialogRef.close();
-      }else{
-        this.snackbar.open('Ufff! ... menos mal te preguntamos', 'Cerrar', {
-          duration: 6000
-        })
-      }
-    })
-  }
-
   checkIfExist(docNum): void {
     this.alreadyExist = false;
 

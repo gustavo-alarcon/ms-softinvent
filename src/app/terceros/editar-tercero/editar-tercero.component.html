@@ -116,11 +116,12 @@
         </form>
     </mat-dialog-content>
 
-    <mat-dialog-actions>
-        <button mat-raised-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
-        <button mat-raised-button form="editPartyForm" class="ms-color-b-1" style="margin:0.2em 0.2em"
-            [disabled]="alreadyExist || !editPartyFormGroup.valid">Guardar</button>
-        <button mat-stroked-button color="warn" style="margin:0.2em 0.2em" (click)="confirmDelete()">Eliminar
-            tercero</button>
-    </mat-dialog-actions>
+    <div style=" display: flex;justify-content:flex-end; align-items:right;">
+        <mat-dialog-actions>
+            <button mat-stroked-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
+            <button mat-raised-button form="editPartyForm" style="margin:0.2em 0.2em"
+                [ngClass]="{'ms-color-b-1': !alreadyExist}"
+                [disabled]="alreadyExist || !editPartyFormGroup.valid">Guardar</button>
+        </mat-dialog-actions>
+    </div>
 </div>

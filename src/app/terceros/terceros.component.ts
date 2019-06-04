@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../core/database.service';
-import { MatBottomSheet, MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatBottomSheet, MatDialog, MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { CreatePartyComponent } from './crear-tercero/crear-tercero.component';
 import { EditPartyComponent } from './editar-tercero/editar-tercero.component';
 import { InfoPartyComponent } from './info-tercero/info-tercero.component';
+import { ConfirmDeletePartyComponent } from './confirmar-borrar-tercero/confirmar-borrar-tercero.component';
 
 @Component({
   selector: 'app-terceros',
@@ -16,7 +17,9 @@ export class PartiesComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredParties: Array<any> = [];
 
-  displayedColumns: string[] = ['index', 'type', 'docType', 'docNum', 'name', 'Editar'];
+  displayedColumns: string[] = ['index', 'type', 'docType', 'docNum', 'name', 'actions'];
+  displayedColumnsMobile: string[] = ['index', 'type', 'docNum', 'name', 'actions'];
+
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -25,6 +28,7 @@ export class PartiesComponent implements OnInit {
   constructor(
     public dbs: DatabaseService,
     private dialog: MatDialog,
+    public snackbar: MatSnackBar,
     private bottomSheet: MatBottomSheet
   ) { }
 
@@ -71,6 +75,21 @@ export class PartiesComponent implements OnInit {
   showInfo(party){
     this.bottomSheet.open(InfoPartyComponent,{
       data: party
+    })
+  }
+  confirmDelete(party): void{
+    var confirmDialogRef = this.dialog.open(ConfirmDeletePartyComponent, {
+      data: party,
+      panelClass: 'ms-custom-modalbox'
+    });
+
+    confirmDialogRef.afterClosed().subscribe( res => {
+      if(res === true){
+      }else{
+        this.snackbar.open('Ufff! ... menos mal te preguntamos', 'Cerrar', {
+          duration: 6000
+        })
+      }
     })
   }
 
