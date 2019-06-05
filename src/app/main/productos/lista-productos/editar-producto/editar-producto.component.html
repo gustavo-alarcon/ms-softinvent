@@ -157,10 +157,9 @@
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
-    <button mat-raised-button form="editProductForm" class="ms-color-b-1" style="margin:0.2em 0.2em"
+    <span class="ms-fill"></span>
+    <button mat-stroked-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
+    <button mat-raised-button form="editProductForm" [ngClass]="{'ms-color-b-1': (!productAlreadyExist && editProductFormGroup.valid)}" style="margin:0.2em 0.2em"
       [disabled]="productAlreadyExist || !editProductFormGroup.valid">Guardar</button>
-    <button mat-stroked-button color="warn" style="margin:0.2em 0.2em" (click)="confirmDelete()">Eliminar
-      producto</button>
   </mat-dialog-actions>
 </div>

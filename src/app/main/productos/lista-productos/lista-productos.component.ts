@@ -68,7 +68,7 @@ export class ListaProductosComponent implements OnInit {
   deleteProduct(product): void {
     const confirmDialogRef = this.dialog.open(ConfirmDeleteProductComponent, {
       data: product,
-      panelClass: 'ms-custom-modalbox'
+      panelClass: 'ms-custom-dialogbox'
     });
 
     confirmDialogRef.afterClosed().subscribe(res => {

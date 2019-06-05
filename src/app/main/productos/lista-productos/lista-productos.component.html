@@ -110,7 +110,7 @@
           <td mat-cell *matCellDef="let product">
             <mat-menu #productsMenu="matMenu">
               <button mat-menu-item (click)="editProduct(product)">Editar</button>
-              <button mat-menu-item (click)="deletProduct(product)">Borrar</button>
+              <button mat-menu-item (click)="deleteProduct(product)">Borrar</button>
             </mat-menu>
             <button mat-icon-button [matMenuTriggerFor]="productsMenu">
               <mat-icon>more_vert</mat-icon>
