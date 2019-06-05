@@ -1,3 +1,4 @@
+import { ProductosModule } from './main/productos/productos.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -34,11 +35,6 @@ import { DocsComponent } from './documentos/documentos.component';
 import { CreateDocComponent } from './documentos/crear-documento/crear-documento.component';
 import { EditDocComponent } from './documentos/editar-documento/editar-documento.component';
 import { ConfirmDeleteDocComponent } from './documentos/confirmar-borrar-documento/confirmar-borrar-documento.component';
-
-import { ProductComponent } from './productos/productos.component';
-import { CreateProductComponent } from './productos/crear-producto/crear-producto.component';
-import { EditProductComponent } from './productos/editar-producto/editar-producto.component';
-import { ConfirmDeleteProductComponent } from './productos/confirmar-borrar-producto/confirmar-borrar-producto.component';
 
 import { RegisterComponent } from './registrar/registrar.component';
 import { ConfirmClearRegisterComponent } from './registrar/confirmar-limpiar-registrar/confirmar-limpiar-registrar.component';
@@ -138,7 +134,6 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     WarehousesComponent,
     PartiesComponent,
     DocsComponent,
-    ProductComponent,
     RegisterComponent,
     KardexComponent,
     StockComponent,
@@ -154,9 +149,6 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     CreateDocComponent,
     EditDocComponent,
     ConfirmDeleteDocComponent,
-    CreateProductComponent,
-    EditProductComponent,
-    ConfirmDeleteProductComponent,
     ConfirmClearRegisterComponent,
     ConfirmSaveRegisterComponent,
     CorrelativePipe,
@@ -240,7 +232,8 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     MatCardModule,
     MatExpansionModule,
     MatCardModule,
-    CoreModule
+    CoreModule,
+    ProductosModule
 
   ],
   entryComponents: [
@@ -255,9 +248,6 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     CreateDocComponent,
     EditDocComponent,
     ConfirmDeleteDocComponent,
-    CreateProductComponent,
-    EditProductComponent,
-    ConfirmDeleteProductComponent,
     ConfirmClearRegisterComponent,
     ConfirmSaveRegisterComponent,
     ConfirmCancelComponent,

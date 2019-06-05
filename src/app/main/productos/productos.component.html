@@ -1,0 +1,30 @@
+<div class="w3-section w3-margin-left w3-margin-right animated fadeInUp delay-2">
+  <div class="w3-row">
+    <div class="w3-col s0 m1 l1">
+      <p></p>
+    </div>
+    <div class="w3-col s12 m10 l10" style="min-height:87.5vh">
+      <mat-toolbar style="background: none">
+        <mat-icon style="vertical-align:middle; margin-right:8px" class="ms-color-icons">
+          shopping_basket</mat-icon>
+        <h2 class="ms-font-rubik">
+          Productos
+        </h2>
+      </mat-toolbar>
+
+      <nav mat-tab-nav-bar>
+        <a mat-tab-link *ngFor="let link of links" (click)=" activeLink = link;" [routerLink]="link['route']"
+          routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+          {{link['name']}}
+        </a>
+      </nav>
+      <router-outlet></router-outlet>
+
+
+
+    </div>
+    <div class="w3-col s0 m1 l1">
+      <p></p>
+    </div>
+  </div>
+</div>
