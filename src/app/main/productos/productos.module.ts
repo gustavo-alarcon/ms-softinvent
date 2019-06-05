@@ -8,6 +8,7 @@ import { MatIconModule,
           MatToolbarModule} from '@angular/material';
 import { ListaProductosModule } from './lista-productos/lista-productos.module';
 import { ListaPaquetesModule } from './lista-paquetes/lista-paquetes.module';
+import { PromocionesModule } from './promociones/promociones.module';
 import { ProductComponent } from './productos.component';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ProductComponent } from './productos.component';
     ProductosRoutingModule,
     ListaProductosModule,
     ListaPaquetesModule,
+    PromocionesModule,
     MatIconModule,
     MatDividerModule,
     MatTabsModule,

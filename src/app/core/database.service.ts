@@ -149,7 +149,7 @@ export class DatabaseService {
   public dataDocumentToSet = new BehaviorSubject<any>([]);
   currentDataDocumentToSet = this.dataDocumentToSet.asObservable();
 
-  /*---------------- RPODUCTS DATA --------------------- */
+  /*---------------- PRODUCTS DATA --------------------- */
 
   // PRODUCTS
   productsCollection: AngularFirestoreCollection<any>;
@@ -157,6 +157,20 @@ export class DatabaseService {
 
   public dataProducts = new BehaviorSubject<any[]>([]);
   currentDataProducts = this.dataProducts.asObservable();
+  
+  // PACKAGES
+  packagesCollection: AngularFirestoreCollection<any>;
+  packages: Array<Object> = [];
+
+  public dataPackages = new BehaviorSubject<any[]>([]);
+  currentDataPackages = this.dataPackages.asObservable();
+
+  // PROMOTIONS
+  promotionsCollection: AngularFirestoreCollection<any>;
+  promotions: Array<Object> = [];
+
+  public dataPromotions = new BehaviorSubject<any[]>([]);
+  currentDataPromotions = this.dataPromotions.asObservable();
 
   /*---------------- HISTORY DATA --------------------- */
 
@@ -168,8 +182,8 @@ export class DatabaseService {
   currentDataHistory = this.dataHistory.asObservable();
 
 
-  setDocLoading: boolean = false;
-  documentAssigned: boolean = false;
+  setDocLoading = false;
+  documentAssigned = false;
 
   constructor(
     private afs: AngularFirestore,
@@ -185,6 +199,8 @@ export class DatabaseService {
     this.getPartiesProviders();
     this.getDocuments();
     this.getProducts();
+    this.getPackages();
+    this.getPromotions();
 
     this.dataDocumentToSet.next(this.documentToSet);
 
@@ -644,6 +660,42 @@ export class DatabaseService {
         });
         console.log(err);
       })
+  }
+
+  getPackages(): void {
+    this.packagesCollection = this.afs.collection(`db/${this.auth.userInvent.db}/packages`, ref => ref.orderBy('regDate', 'desc'));
+    this.packagesCollection.valueChanges()
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((packages, index) => {
+            packages['index'] = index + 1;
+          });
+          return res;
+        })
+      )
+      .subscribe(res => {
+        this.packages = res;
+        this.dataPackages.next(res);
+      });
+  }
+
+  getPromotions(): void {
+    this.promotionsCollection = this.afs.collection(`db/${this.auth.userInvent.db}/promotions`, ref => ref.orderBy('regDate', 'desc'));
+    this.promotionsCollection.valueChanges()
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((promotions, index) => {
+            promotions['index'] = index + 1;
+          });
+          return res;
+        })
+      )
+      .subscribe(res => {
+        this.promotions = res;
+        this.dataPromotions.next(res);
+      });
   }
 
   /*---------------- REGISTRY --------------------- */
