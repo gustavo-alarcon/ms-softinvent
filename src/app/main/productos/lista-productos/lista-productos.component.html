@@ -37,119 +37,178 @@
         </div>
       </ng-scrollbar>
 
+      <div class="w3-hide-small">
+        <div class="mat-elevation-z8">
+          <div class="ms-color-b-1" style="max-height:58vh; overflow:auto">
+            <table mat-table [dataSource]="dataSource" matSort style="width:100%">
 
-      <div class="mat-elevation-z8">
-        <div class="ms-color-b-1" style="max-height:58vh; overflow:auto">
-          <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="index" sticky>
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header">N°</th>
+                <td mat-cell *matCellDef="let product; let i = index">
+                  {{product.index}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="index" sticky>
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header">N°</th>
-              <td mat-cell *matCellDef="let product; let i = index">
-                {{product.index}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por categoría"
+                  matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Categoría
+                </th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.category}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="category">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por categoría"
-                matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Categoría</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.category}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="warehouse">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por almacén"
+                  matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Almacén</th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.warehouse}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="warehouse">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por almacén"
-                matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Almacén</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.warehouse}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="code">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por código"
+                  matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Código</th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.code}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="code">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por código"
-                matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Código</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.code}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por nombre"
+                  matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Nombre</th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.name}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por nombre"
-                matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Nombre</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.name}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="unit">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header"
+                  matTooltip="Ordenar tabla por unidad de medida" matTooltipPosition="above"
+                  [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>U. Medida</th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.unit}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="unit">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header"
-                matTooltip="Ordenar tabla por unidad de medida" matTooltipPosition="above"
-                [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>U. Medida</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.unit}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="stock">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por stock"
+                  matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Stock</th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.stock | number : '.2'}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="stock">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por stock"
-                matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Stock</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.stock | number : '.2'}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="currency">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header"
+                  matTooltip="Ordenar tabla por tipo de moneda" matTooltipPosition="above"
+                  [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Moneda</th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.currency}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="currency">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header"
-                matTooltip="Ordenar tabla por tipo de moneda" matTooltipPosition="above"
-                [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Moneda</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.currency}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="purchase">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header"
+                  matTooltip="Ordenar tabla por precio de compra" matTooltipPosition="above"
+                  [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Compra</th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.purchase | number: '.2'}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="purchase">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header"
-                matTooltip="Ordenar tabla por precio de compra" matTooltipPosition="above"
-                [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Compra</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.purchase | number: '.2'}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="sale">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header"
+                  matTooltip="Ordenar tabla por precio de venta" matTooltipPosition="above"
+                  [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Venta</th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.sale | number: '.2'}}
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="sale">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header"
-                matTooltip="Ordenar tabla por precio de venta" matTooltipPosition="above"
-                [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Venta</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.sale | number: '.2'}}
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="maxDiscount">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por descuento"
+                  matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Descuento
+                </th>
+                <td mat-cell *matCellDef="let product">
+                  {{product.maxDiscount}}%
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="maxDiscount">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header"
-                matTooltip="Ordenar tabla por descuento" matTooltipPosition="above"
-                [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Descuento</th>
-              <td mat-cell *matCellDef="let product">
-                {{product.maxDiscount}}%
-              </td>
-            </ng-container>
+              <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="Editar">
+                <th mat-header-cell *matHeaderCellDef class="ms-table-header">Editar</th>
+                <td mat-cell *matCellDef="let product">
+                  <button mat-icon-button class="ms-edit-action" (click)="editProduct(product)"
+                    matTooltip="Editar producto" matTooltipPosition="below"
+                    [matTooltipDisabled]="!disableTooltips.value">
+                    <mat-icon class="w3-text-white">edit</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
 
-            <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="Editar">
-              <th mat-header-cell *matHeaderCellDef class="ms-table-header">Editar</th>
-              <td mat-cell *matCellDef="let product">
-                <button mat-icon-button class="ms-edit-action" (click)="editProduct(product)"
-                  matTooltip="Editar producto" matTooltipPosition="below" [matTooltipDisabled]="!disableTooltips.value">
-                  <mat-icon class="w3-text-white">edit</mat-icon>
-                </button>
-              </td>
-            </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-          </table>
+            </table>
+          </div>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div>
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+
+      <div class="w3-hide-large w3-hide-medium w3-margin-top " style="width: 100%">
+        <div style="
+          display: grid;
+          grid-gap:20px;
+          grid-template-columns: auto auto;">
+          <ng-container *ngFor="let prod of filteredProducts; let i = index">
+
+            <div class="w3-white" style="border-radius: 5px;;padding: 0px" >
+              <div class="w3-center w3-red" style="vertical-align: middle;border-top-left-radius: 5px;border-bottom-right-radius: 10px;position:absolute; float: left; height:25px; width:25px;color: rgb(255,93,101) ;margin-left: auto;
+                margin-right: auto;">
+                {{prod['stock']}}
+              </div>
+              <div class="ms-card-image">
+                <img [src]="imagePath || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+                  alt="Photo of a Shiba Inu"
+                  style="width:100%;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+              </div>
+              <div class="w3-row" style="align-items: center;display: flex">
+                <div class="w3-half w3-container" style="width:50%;padding: 0px">
+                  <b>
+                    <p style="margin:3px">{{prod['name']}}</p>
+                  </b>
+                </div>
+                <div class="w3-half w3-container" style="width:50% ;padding: 0px">
+                  <p style="margin:3px; align-content: center;font-size: small"> S/.{{prod['sale']}}00.00</p>
+                </div>
+              </div>
+              <div class="w3-row" style="margin-top: 10px;align-items: center;display: flex">
+                <div class="w3-half w3-container" style="width:20% ;align-self: auto;">
+                  <mat-icon class="ms-color-icons">category</mat-icon>
+                </div>
+                <div class="w3-half w3-container" style="width:80%">
+                  <p style="margin:0px;font-size: small">{{prod['category']}}</p>
+                </div>
+              </div>
+              <div class="w3-row" style="align-items: center;display: flex">
+                <div class="w3-half w3-container" style="width:20%">
+                  <mat-icon class="ms-color-icons">place</mat-icon>
+                </div>
+                <div class="w3-half w3-container" style="width:80%">
+                  <p style="margin:0px;font-size: small;">{{prod['warehouse']}}</p>
+                </div>
+              </div>
+              <div class="w3-row" style="align-items: center;display: flex">
+                <div class="w3-half w3-container" style="width:20% ;align-self: auto;">
+                  <mat-icon class="ms-color-icons">money_off</mat-icon>
+                </div>
+                <div class="w3-half w3-container" style="width:80%">
+                  <p style="margin:0px;font-size: small">{{prod['maxDiscount']}}%</p>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </div>
 >>>>>>> Mejora : Boton de acciones para reemplazar edit y eliminar:src/app/productos/productos.component.html
 
