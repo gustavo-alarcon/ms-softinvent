@@ -11,7 +11,8 @@ export class ProductComponent implements OnInit {
 
   links: Array<Link> = [
     { name: 'Productos', icon: 'shopping_basket', route: 'product-list' },
-    { name: 'Paquetes', icon: 'assignment', route: 'package-list' }
+    { name: 'Paquetes', icon: 'assignment', route: 'package-list' },
+    { name: 'Promociones', icon: 'card_giftcard', route: 'promos' }
   ];
   activeLink: Link = this.links[0];
   constructor(public router: Router) { }
@@ -24,6 +25,10 @@ export class ProductComponent implements OnInit {
 
       case '/product/package-list':
         this.activeLink = this.links[1];
+        break;
+
+      case '/product/promos':
+        this.activeLink = this.links[2];
         break;
 
       default:

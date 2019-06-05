@@ -14,7 +14,11 @@ const routes: Routes = [
       {
         path: 'package-list',
         loadChildren: () => import('src/app/main/productos/lista-paquetes/lista-paquetes.module').then(mod => mod.ListaPaquetesModule)
-      }
+      },
+      {
+        path: 'promos',
+        loadChildren: () => import('src/app/main/productos/promociones/promociones.module').then(mod => mod.PromocionesModule)
+      },
     ]
   }
 ];
