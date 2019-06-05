@@ -8,10 +8,6 @@ const routes: Routes = [
     component: ProductComponent,
     children: [
       {
-        path: '',
-        loadChildren: () => import('src/app/main/productos/lista-productos/lista-productos.module').then(mod => mod.ListaProductosModule)
-      },
-      {
         path: 'product-list',
         loadChildren: () => import('src/app/main/productos/lista-productos/lista-productos.module').then(mod => mod.ListaProductosModule)
       },
