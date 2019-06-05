@@ -8,7 +8,6 @@ import { MainComponent } from '../main/main.component';
 import { WarehousesComponent } from '../almacenes/almacenes.component';
 import { PartiesComponent } from '../terceros/terceros.component';
 import { DocsComponent } from '../documentos/documentos.component';
-import { ProductComponent } from '../productos/productos.component';
 import { RegisterComponent } from '../registrar/registrar.component';
 import { StockComponent } from '../stock/stock.component';
 import { KardexComponent } from '../kardex/kardex.component';
@@ -83,7 +82,8 @@ const routes: Routes = [
         path: 'documentos', component: DocsComponent
       },
       {
-        path: 'productos', component: ProductComponent
+        path: 'productos',
+        loadChildren: () => import('src/app/main/productos/productos.module').then(mod => mod.ProductosModule)
       },
       {
         path: 'registrar', component: RegisterComponent

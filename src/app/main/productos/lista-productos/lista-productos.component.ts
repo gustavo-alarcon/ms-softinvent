@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DatabaseService } from '../core/database.service';
-import { MatDialog, MatBottomSheet, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { FormControl } from '@angular/forms';
-import { CreateProductComponent } from './crear-producto/crear-producto.component';
 import { EditProductComponent } from './editar-producto/editar-producto.component';
+import { CreateProductComponent } from './crear-producto/crear-producto.component';
+import { DatabaseService } from 'src/app/core/database.service';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatBottomSheet } from '@angular/material';
+import { FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-productos',
-  templateUrl: './productos.component.html',
+  selector: 'app-lista-productos',
+  templateUrl: './lista-productos.component.html',
   styles: []
 })
-export class ProductComponent implements OnInit {
+export class ListaProductosComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
@@ -28,7 +28,6 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.dbs.currentDataProducts.subscribe( products => {
       this.filteredProducts = products;
       this.dataSource.data = this.filteredProducts;
@@ -40,7 +39,7 @@ export class ProductComponent implements OnInit {
 
   filterData(ref: string) {
     ref = ref.toLowerCase();
-    this.filteredProducts = this.dbs.products.filter(option => 
+    this.filteredProducts = this.dbs.products.filter(option =>
       option['category'].toLowerCase().includes(ref) ||
       option['warehouse'].toLowerCase().includes(ref) ||
       option['code'].toLowerCase().includes(ref) ||
@@ -53,7 +52,7 @@ export class ProductComponent implements OnInit {
   }
 
   createProduct(): void {
-    const dialogRef = this.dialog.open(CreateProductComponent,{
+    const dialogRef = this.dialog.open(CreateProductComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
@@ -62,7 +61,7 @@ export class ProductComponent implements OnInit {
     this.dialog.open(EditProductComponent, {
       data: product,
       panelClass: 'ms-custom-dialogbox'
-    })
+    });
   }
 
 }
