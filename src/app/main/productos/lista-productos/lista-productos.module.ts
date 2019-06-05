@@ -17,7 +17,8 @@ import {  MatIconModule,
           MatTooltipModule,
           MatDividerModule,
           MatSelectModule,
-          MatDialogModule} from '@angular/material';
+          MatDialogModule,
+          MatMenuModule} from '@angular/material';
 import { ConfirmDeleteProductComponent } from './confirmar-borrar-producto/confirmar-borrar-producto.component';
 import { CreateProductComponent } from './crear-producto/crear-producto.component';
 import { EditProductComponent } from './editar-producto/editar-producto.component';
@@ -47,7 +48,8 @@ import { EditProductComponent } from './editar-producto/editar-producto.componen
     MatSortModule,
     MatSelectModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   entryComponents: [
     ConfirmDeleteProductComponent,

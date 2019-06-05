@@ -16,19 +16,19 @@ import { ConfirmDeleteProductComponent } from '../confirmar-borrar-producto/conf
 export class EditProductComponent implements OnInit {
 
   editProductFormGroup: FormGroup;
-  categoryFromList = new FormControl("");
-  warehouseFromList = new FormControl("");
-  unitFromList = new FormControl("");
-  categoryField = "";
-  warehouseField = "";
-  unitField = "";
+  categoryFromList = new FormControl('');
+  warehouseFromList = new FormControl('');
+  unitFromList = new FormControl('');
+  categoryField = '';
+  warehouseField = '';
+  unitField = '';
   filteredCategoryOptions: Observable<any>;
   filteredWarehouseOptions: Observable<any>;
   filteredUnitOptions: Observable<any>;
-  nameAlreadyExist: boolean = false;
-  codeAlreadyExist: boolean = false;
-  productAlreadyExist: boolean = false;
-  loading: boolean = false;
+  nameAlreadyExist = false;
+  codeAlreadyExist = false;
+  productAlreadyExist = false;
+  loading = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -102,13 +102,13 @@ export class EditProductComponent implements OnInit {
   setCategoryField(category): void {
     this.editProductFormGroup.patchValue({
       category: category
-    })
+    });
   }
 
   setWarehouseField(warehouse, name, code): void {
     this.editProductFormGroup.patchValue({
       warehouse: warehouse
-    })
+    });
 
     this.checkIfProductExist(warehouse, name, code);
   }
@@ -116,7 +116,7 @@ export class EditProductComponent implements OnInit {
   setUnitField(unit): void {
     this.editProductFormGroup.patchValue({
       unit: unit
-    })
+    });
   }
 
   onSubmit(): void {
@@ -125,8 +125,8 @@ export class EditProductComponent implements OnInit {
 
     this.editProductFormGroup.patchValue({
       stock: this.editProductFormGroup.get('initialStock').value
-    })
-    
+    });
+
     this.dbs.productsCollection.doc(this.data.id).update({
       category: this.editProductFormGroup.value.category.trim(),
       warehouse: this.editProductFormGroup.value.warehouse.trim(),
@@ -144,28 +144,27 @@ export class EditProductComponent implements OnInit {
       userName: this.editProductFormGroup.value.userName,
       userId: this.editProductFormGroup.value.userId
     })
-    .then( ref => {
+    .then(ref => {
       this.loading = false;
       this.dialogRef.close();
-    })
-    
-    
+    });
+
     this.dbs.checkIfCategoryExist(this.editProductFormGroup.value.category).subscribe( exist => {
       if(!exist){
         this.dbs.categoryTypesDocument.set({
           categoryTypes:[this.editProductFormGroup.value.category]
-        },{merge:true})
+        }, {merge: true})
         .catch(err => {
           console.log(err);
-        })
+        });
       }
-    })
+    });
   }
 
   checkIfNameExist(name): void {
     this.nameAlreadyExist = false;
 
-    var filteredProductNames = this.dbs.products.filter(option => option['name'].toString() === name);
+    const filteredProductNames = this.dbs.products.filter(option => option['name'].toString() === name);
 
     if(filteredProductNames.length > 0){
       this.nameAlreadyExist = true;
@@ -175,7 +174,7 @@ export class EditProductComponent implements OnInit {
   checkIfCodeExist(code): void {
     this.codeAlreadyExist = false;
 
-    var filteredProductCodes = this.dbs.products.filter(option => option['code'].toString() === code);
+    const filteredProductCodes = this.dbs.products.filter(option => option['code'].toString() === code);
 
     if(filteredProductCodes.length > 0){
       this.codeAlreadyExist = true;
@@ -185,34 +184,17 @@ export class EditProductComponent implements OnInit {
   checkIfProductExist(warehouse, name, code): void {
     this.productAlreadyExist = false;
 
-    var filteredProducts = this.dbs.products.filter(option => 
+    const filteredProducts = this.dbs.products.filter(option => 
       option['name'].toString() === name &&
       option['code'].toString() === code &&
       option['warehouse'].toString() === warehouse);
 
-    if(filteredProducts.length > 0){
+    if (filteredProducts.length > 0){
       this.productAlreadyExist = true;
-      this.snackbar.open(`Este producto ya existe en ${warehouse}` , "Cerrar", {
+      this.snackbar.open(`Este producto ya existe en ${warehouse}` , 'Cerrar', {
         duration: 4000
-      })
+      });
     }
-  }
-
-  confirmDelete(): void{
-    var confirmDialogRef = this.dialog.open(ConfirmDeleteProductComponent, {
-      data: this.data,
-      panelClass: 'ms-custom-modalbox'
-    });
-
-    confirmDialogRef.afterClosed().subscribe( res => {
-      if(res === true){
-        this.dialogRef.close();
-      }else{
-        this.snackbar.open('Ufff! ... menos mal te preguntamos', 'Cerrar', {
-          duration: 6000
-        })
-      }
-    })
   }
 
   onNoClick(): void {

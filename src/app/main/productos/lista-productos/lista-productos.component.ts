@@ -1,9 +1,10 @@
 import { EditProductComponent } from './editar-producto/editar-producto.component';
 import { CreateProductComponent } from './crear-producto/crear-producto.component';
 import { DatabaseService } from 'src/app/core/database.service';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatBottomSheet } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmDeleteProductComponent } from './confirmar-borrar-producto/confirmar-borrar-producto.component';
 
 @Component({
   selector: 'app-lista-productos',
@@ -15,7 +16,7 @@ export class ListaProductosComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
 
-  displayedColumns: string[] = ['index', 'category', 'warehouse', 'code', 'name', 'unit', 'stock',  'currency', 'purchase', 'sale', 'Editar'];
+  displayedColumns: string[] = ['index', 'category', 'warehouse', 'code', 'name', 'unit', 'stock', 'currency', 'purchase', 'sale', 'actions'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -24,11 +25,11 @@ export class ListaProductosComponent implements OnInit {
   constructor(
     public dbs: DatabaseService,
     private dialog: MatDialog,
-    private bottomSheet: MatBottomSheet
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
-    this.dbs.currentDataProducts.subscribe( products => {
+    this.dbs.currentDataProducts.subscribe(products => {
       this.filteredProducts = products;
       this.dataSource.data = this.filteredProducts;
     });
@@ -62,6 +63,25 @@ export class ListaProductosComponent implements OnInit {
       data: product,
       panelClass: 'ms-custom-dialogbox'
     });
+  }
+
+  deleteProduct(product): void {
+    const confirmDialogRef = this.dialog.open(ConfirmDeleteProductComponent, {
+      data: product,
+      panelClass: 'ms-custom-modalbox'
+    });
+
+    confirmDialogRef.afterClosed().subscribe(res => {
+      if (res === true) {
+        this.snackbar.open('Listo! ... producto borrado', 'Cerrar', {
+          duration: 6000
+        });
+      } else {
+        this.snackbar.open('Ufff! ... menos mal te preguntamos', 'Cerrar', {
+          duration: 6000
+        })
+      }
+    })
   }
 
 }

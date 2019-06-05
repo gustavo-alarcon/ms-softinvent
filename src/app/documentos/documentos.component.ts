@@ -30,7 +30,7 @@ export class DocsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dbs.currentDataDocuments.subscribe( document => {
+    this.dbs.currentDataDocuments.subscribe(document => {
       this.filteredDocuments = document;
       this.dataSource.data = this.filteredDocuments;
     });
@@ -42,7 +42,7 @@ export class DocsComponent implements OnInit {
 
   filterData(ref: string) {
     ref = ref.toLowerCase();
-    this.filteredDocuments = this.dbs.documents.filter(option => 
+    this.filteredDocuments = this.dbs.documents.filter(option =>
       option['alias'].toLowerCase().includes(ref) ||
       option['name'].toLowerCase().includes(ref) ||
       option['partyType'].toLowerCase().includes(ref) ||
@@ -54,7 +54,7 @@ export class DocsComponent implements OnInit {
   }
 
   createDocument(): void {
-    const dialogRef = this.dialog.open(CreateDocComponent,{
+    const dialogRef = this.dialog.open(CreateDocComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
@@ -66,15 +66,15 @@ export class DocsComponent implements OnInit {
     });
   }
 
-  deleteDocument(document): void{
+  deleteDocument(document): void {
     const confirmDialogRef = this.dialog.open(ConfirmDeleteDocComponent, {
       data: document,
       panelClass: 'ms-custom-dialogbox'
     });
 
-    confirmDialogRef.afterClosed().subscribe( res => {
-      if (res === true){
-         this.snackbar.open('Listo! ... documento borrado', 'Cerrar', {
+    confirmDialogRef.afterClosed().subscribe(res => {
+      if (res === true) {
+        this.snackbar.open('Listo! ... documento borrado', 'Cerrar', {
           duration: 6000
         });
       } else {
