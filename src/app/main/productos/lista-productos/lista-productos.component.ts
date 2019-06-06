@@ -16,7 +16,8 @@ export class ListaProductosComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
 
-  displayedColumns: string[] = ['index', 'category', 'warehouse', 'code', 'name', 'unit', 'stock', 'currency', 'purchase', 'sale', 'actions'];
+  displayedColumns: string[] = ['index', 'code', 'name', 'category', 'unit', 'stock', 'warehouse', 'currency', 'purchase', 'sale','maxDiscount', 'actions'];
+
 
   dataSource = new MatTableDataSource();
 
