@@ -87,7 +87,7 @@ export class ListaPaquetesComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredPackage: Array<any> = [];
 
-  displayedColumnsPackage: string[] = ['index', 'code', 'name', 'category','sale'];
+  displayedColumnsPackage: string[] = ['index', 'code', 'name', 'category','unit','sale','quantity'];
   dataSourcePackage = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -181,7 +181,7 @@ export class ListaPaquetesComponent implements OnInit {
    * @desc Function to edit a promotion
    * @param promo reference to the promotion to be edited
    */
-  editPromo(promo: Package): void {
+  editPackage(promo: Package): void {
 
   }
 
@@ -189,7 +189,7 @@ export class ListaPaquetesComponent implements OnInit {
    * @desc Function to delete a promotion
    * @param promo reference to the promotion to be deleted
    */
-  deletePromo(promo: Package): void {
+  deletePackage(promo: Package): void {
 
   }
 

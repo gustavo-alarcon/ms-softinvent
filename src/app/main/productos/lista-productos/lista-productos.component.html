@@ -5,20 +5,19 @@
       <mat-icon>add_circle</mat-icon> Crear
     </button>
     <button mat-button class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em" disabled>
-      <mat-icon>shopping_basket</mat-icon> {{dbs.products.length | number: '2.0'}} Productos
+      <mat-icon>local_offert</mat-icon> {{dbs.products.length | number: '2.0'}} Productos
     </button>
+    <span style="margin-right:1em">
+      <mat-form-field autocomplete="off" color="accent">
+        <mat-label>Filtrar</mat-label>
+        <mat-icon matPrefix style="margin-right:0.5em; vertical-align:text-bottom">filter_list</mat-icon>
+        <input matInput type="text" placeholder="Escriba ..." (input)="filterData($event.target.value)"
+          autocomplete="off">
+      </mat-form-field>
+    </span>
     <mat-checkbox [formControl]="disableTooltips" class="w3-small">
       Mensajes de ayuda
     </mat-checkbox>
-
-    <mat-form-field autocomplete="off" class="w3-block w3-margin-top" color="accent" appearance="outline">
-      <mat-icon matPrefix style="margin-right:0.5em">filter_list</mat-icon>
-      <mat-label>Buscar producto</mat-label>
-      <input matInput type="text" placeholder="Escribe ..."
-        class="mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored"
-        (input)="filterData($event.target.value)" autocomplete="off">
-    </mat-form-field>
-    <mat-divider></mat-divider>
   </div>
   <br>
   <div style="margin-bottom:1em">
@@ -113,7 +112,7 @@
             <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por precio de venta"
               matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Descuento</th>
             <td mat-cell *matCellDef="let product">
-              {{product.maxDiscount}} % 
+              {{product.maxDiscount}} %
             </td>
           </ng-container>
 
