@@ -105,7 +105,6 @@ export interface Promo {
   name: string;
   percentage: number;
   amount: number;
-  products: Array<PromoProduct>;
   startDate: number;
   endingDate: number;
   active: boolean;

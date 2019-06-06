@@ -121,17 +121,17 @@ export class PromocionesComponent implements OnInit {
   getPromoProducts(promo: Promo): void {
     const promoProductsSubs =
       this.dbs.getPromoProducts(promo.id)
-      .pipe(
-        map(products => {
-          products.forEach((element, index) => {
-            element['index'] = index;
-          });
-          return products;
-        })
-      )
-      .subscribe(products => {
-        this.dataSourcePromo.data = products;
-      });
+        .pipe(
+          map(products => {
+            products.forEach((element, index) => {
+              element['index'] = index;
+            });
+            return products;
+          })
+        )
+        .subscribe(products => {
+          this.dataSourcePromo.data = products;
+        });
     this.subscriptions.push(promoProductsSubs);
   }
 
@@ -141,11 +141,12 @@ export class PromocionesComponent implements OnInit {
    */
   togglePanelPromo(index): void {
     this.isOpenPromo.forEach((element, i) => {
-      if (i !== index) {
-        element = false;
+      if (i === index) {
+        this.isOpenPromo[i] = !element;
+      } else {
+        this.isOpenPromo[i] = false;
       }
     });
-    this.isOpenPromo[index] = !this.isOpenPromo[index];
   }
 
   /**

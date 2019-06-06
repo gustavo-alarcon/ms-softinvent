@@ -19,12 +19,9 @@
       Mensajes de ayuda
     </mat-checkbox>
   </div>
-  <br>
-  <div style="margin-bottom:1em">
-  </div>
 
   <div *ngFor="let promo of filteredPromotions; let i = index">
-    <mat-toolbar mat-ripple class="ms-table-header ms-font-roboto mat-elevation-z4" style="justify-content:space-around; font-size:14px"
+    <mat-toolbar mat-ripple class="ms-table-header ms-font-roboto mat-elevation-z4 w3-margin-top" style="justify-content:space-around; font-size:14px"
       (click)="togglePanelPromo(i);getPromoProducts(promo)">
 
       <span style="background:rgba(255,255,255,0.1);padding:0px 8px;border-radius:5px">{{i+1 | number : '2.'}}</span>
