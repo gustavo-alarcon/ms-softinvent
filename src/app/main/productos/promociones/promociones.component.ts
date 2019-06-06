@@ -65,6 +65,20 @@ import { Promo } from 'src/app/core/ms-types';
       transition('closedTableMobile => openTableMobile', [
         animate('0.5s ease-in')
       ])
+    ]),
+    trigger('openCloseArrow', [
+      state('openArrow', style({
+        transform: 'rotate(0deg)'
+      })),
+      state('closedArrow', style({
+        transform: 'rotate(180deg)'
+      })),
+      transition('openArrow => closedArrow', [
+        animate('1s ease-in')
+      ]),
+      transition('closedArrow => openArrow', [
+        animate('0.5s ease-in')
+      ])
     ])
   ]
 })
