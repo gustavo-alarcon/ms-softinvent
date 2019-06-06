@@ -101,13 +101,23 @@ export interface Product {
 }
 
 export interface Promo {
-  id: string,
-  name: string,
-  percentage: number,
-  amount: number,
-  productId: string,
-  startDate: number,
-  endingDate: number
+  id: string;
+  name: string;
+  percentage: number;
+  amount: number;
+  products: Array<PromoProduct>;
+  startDate: number;
+  endingDate: number;
+  active: boolean;
+}
+
+export interface PromoProduct {
+  id: string;
+  productId: string;
+  code: string;
+  name: string;
+  category: string;
+  regDate: number;
 }
 
 export interface Discount {
@@ -184,12 +194,12 @@ export interface Contact {
 }
 
 export interface serialNumber {
-  id : string;
-  number: number,
-  state: string,
-  regDate: number,
-  createdBy: string,
-  activated? : boolean
+  id: string;
+  number: number;
+  state: string;
+  regDate: number;
+  createdBy: string;
+  activated?: boolean;
 
 }
 

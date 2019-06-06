@@ -9,8 +9,14 @@ import {  MatIconModule,
           MatButtonModule,
           MatDividerModule,
           MatCheckboxModule,
-          MatTooltipModule} from '@angular/material';
+          MatTooltipModule,
+          MatMenuModule,
+          MatTableModule,
+          MatSortModule,
+          MatToolbarModule,
+          MatRippleModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [PromocionesComponent],
@@ -19,13 +25,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PromocionesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgScrollbarModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDividerModule,
-    MatTooltipModule
+    MatToolbarModule,
+    MatTooltipModule,
+    MatMenuModule,
+    MatTableModule,
+    MatSortModule,
+    MatRippleModule
   ]
 })
 export class PromocionesModule { }

@@ -1,3 +1,12 @@
+.ms-color-bt {
+  background:rgba(0,0,0,0.1) !important;
+}
+
+.ms-color-wt {
+  background:rgba(255,255,255,0.1) !important;
+}
+
+
 .ms-color-b-bg{
     background: #34495e !important;
 }
@@ -115,8 +124,7 @@
 }
 
 .ms-table-header{
-    background: #333333;
-    font-weight: bold;
+    background: #333333 !important;
 }
 
 .ms-font-1{
@@ -139,16 +147,20 @@
 }
 
 .ms-font-rubik{
-    font-family: 'Rubik', sans-serif;
-    font-size:24px;
+    font-family: 'Rubik', sans-serif !important;
+    font-size: 24px !important;
 }
 
 .ms-font-poppins {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
 }
 
 .ms-font-karla {
-    font-family: 'Karla', sans-serif;
+    font-family: 'Karla', sans-serif !important;
+}
+
+.ms-font-roboto {
+  font-family: 'Roboto', sans-serif !important;
 }
 
 .ms-custom-dialogbox > mat-dialog-container {
@@ -169,7 +181,7 @@
 }
 
 .ms-login-left {
-    background-image: linear-gradient(180deg, rgba(52, 73, 94, 1), rgba(46, 204, 113, 0.2)), url('../images/welcome-left.jpg');
+    background-image: linear-gradient(180deg, rgba(52, 73, 94, 1), rgba(46, 204, 113, 0.2)), url('./assets/images/welcome-left.jpg');
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;

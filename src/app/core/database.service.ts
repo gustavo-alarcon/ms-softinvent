@@ -1,3 +1,4 @@
+import { Promo, PromoProduct } from 'src/app/core/ms-types';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from "@angular/fire/firestore";
 import { Observable, of, BehaviorSubject } from "rxjs";
@@ -161,11 +162,18 @@ export class DatabaseService {
   currentDataPackages = this.dataPackages.asObservable();
 
   // PROMOTIONS
-  promotionsCollection: AngularFirestoreCollection<any>;
-  promotions: Array<Object> = [];
+  promotionsCollection: AngularFirestoreCollection<Promo>;
+  promotions: Array<Promo> = [];
 
-  public dataPromotions = new BehaviorSubject<any[]>([]);
+  public dataPromotions = new BehaviorSubject<Promo[]>([]);
   currentDataPromotions = this.dataPromotions.asObservable();
+
+  // PROMOTION PRODUCTS
+  promotionProductsCollection: AngularFirestoreCollection<PromoProduct>;
+  promotionProducts: Array<PromoProduct> = [];
+
+  public dataPromotionProducts = new BehaviorSubject<PromoProduct[]>([]);
+  currentDataPromotionProducts = this.dataPromotionProducts.asObservable();
 
   /*---------------- HISTORY DATA --------------------- */
 
@@ -659,11 +667,12 @@ export class DatabaseService {
   }
 
   getPromotions(): void {
-    this.promotionsCollection = this.afs.collection(`db/${this.auth.userInvent.db}/promotions`, ref => ref.orderBy('regDate', 'desc'));
+    this.promotionsCollection =
+      this.afs.collection<Promo>(`db/${this.auth.userInvent.db}/promotions`, ref => ref.orderBy('regDate', 'desc'));
     this.promotionsCollection.valueChanges()
       .pipe(
         map(res => {
-          //ADDING INDEX TO RESULT
+          // ADDING INDEX TO RESULT
           res.forEach((promotions, index) => {
             promotions['index'] = index + 1;
           });
@@ -674,6 +683,10 @@ export class DatabaseService {
         this.promotions = res;
         this.dataPromotions.next(res);
       });
+  }
+
+  getPromoProducts(id_promo): Observable<PromoProduct[]> {
+    return this.afs.collection<PromoProduct>(`db/${this.auth.userInvent.db}/promotions/${id_promo}/products`, ref => ref.orderBy('regDate', 'desc')).valueChanges();
   }
 
   /*---------------- REGISTRY --------------------- */

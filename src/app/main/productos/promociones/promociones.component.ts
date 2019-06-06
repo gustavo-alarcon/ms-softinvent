@@ -1,17 +1,86 @@
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
+import { tap, map } from 'rxjs/operators';
+import { MatDialog, MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DatabaseService } from 'src/app/core/database.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Subscription } from 'rxjs';
+import { Promo } from 'src/app/core/ms-types';
 
 @Component({
   selector: 'app-promociones',
   templateUrl: './promociones.component.html',
-  styles: []
+  animations: [
+    trigger('openClosePanelMobile', [
+      state('openPanelMobile', style({
+        height: '170px',
+        opacity: 0.8,
+        borderRadius: '10px 10px 0px 0px',
+        marginBottom: '0em'
+      })),
+      state('closedPanelMobile', style({
+        height: '170px',
+        opacity: 1,
+        borderRadius: '10px 10px 10px 10px',
+        marginBottom: '1em'
+      })),
+      transition('openPanelMobile => closedPanelMobile', [
+        animate('1s ease-in')
+      ]),
+      transition('closedPanelMobile => openPanelMobile', [
+        animate('0.5s ease-out')
+      ])
+    ]),
+    trigger('openCloseTable', [
+      state('openTable', style({
+        maxHeight: '4000px',
+        opacity: 1
+      })),
+      state('closedTable', style({
+        height: '0px',
+        opacity: 0
+      })),
+      transition('openTable => closedTable', [
+        animate('1s ease-in')
+      ]),
+      transition('closedTable => openTable', [
+        animate('0.5s ease-in')
+      ])
+    ]),
+    trigger('openCloseTableMobile', [
+      state('openTableMobile', style({
+        maxHeight: '10000px',
+        opacity: 1,
+        marginBottom: '1em'
+      })),
+      state('closedTableMobile', style({
+        height: '0px',
+        opacity: 0,
+        marginBottom: '0em',
+        display: 'none'
+      })),
+      transition('openTableMobile => closedTableMobile', [
+        animate('1s ease-in')
+      ]),
+      transition('closedTableMobile => openTableMobile', [
+        animate('0.5s ease-in')
+      ])
+    ])
+  ]
 })
 export class PromocionesComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredPromotions: Array<any> = [];
+
+  displayedColumnsPromo: string[] = ['index', 'code', 'name', 'category'];
+  dataSourcePromo = new MatTableDataSource();
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  isOpenPromo: Array<boolean> = [];
+
+  subscriptions: Array<Subscription> = [];
 
   constructor(
     public dbs: DatabaseService,
@@ -20,26 +89,93 @@ export class PromocionesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dbs.currentDataPromotions.subscribe(promotions => {
-      this.filteredPromotions = promotions;
-    });
+    const promoSubs = this.dbs.currentDataPromotions
+      .pipe(
+        tap(promos => {
+          promos.forEach(promo => {
+            this.isOpenPromo.push(false);
+          });
+        })
+      )
+      .subscribe(promotions => {
+        this.filteredPromotions = promotions;
+      });
+
+    this.subscriptions.push(promoSubs);
   }
 
+  /**
+   * @desc Function to filter promotion list based in coincidence
+   * @param ref {string} reference to the promotion searched
+   */
   filterData(ref: string) {
     ref = ref.toLowerCase();
     this.filteredPromotions = this.dbs.promotions.filter(option =>
-      option['category'].toLowerCase().includes(ref) ||
-      option['warehouse'].toLowerCase().includes(ref) ||
-      option['code'].toLowerCase().includes(ref) ||
-      option['name'].toLowerCase().includes(ref) ||
-      option['unit'].toLowerCase().includes(ref) ||
-      option['stock'].toString().includes(ref) ||
-      option['purchase'].toString().includes(ref) ||
-      option['sale'].toString().includes(ref));
+      option.name.toLowerCase().includes(ref));
   }
 
-  createPromo(): void{
-    
+  /**
+   * @desc Getting the products of a promo
+   * @param promo {!Promo} value passed when panel is opened
+   */
+  getPromoProducts(promo: Promo): void {
+    const promoProductsSubs =
+      this.dbs.getPromoProducts(promo.id)
+      .pipe(
+        map(products => {
+          products.forEach((element, index) => {
+            element['index'] = index;
+          });
+          return products;
+        })
+      )
+      .subscribe(products => {
+        this.dataSourcePromo.data = products;
+      });
+    this.subscriptions.push(promoProductsSubs);
+  }
+
+  /**
+   * @desc Function to open just one panel at time.
+   * @param index index of the item be toggled
+   */
+  togglePanelPromo(index): void {
+    this.isOpenPromo.forEach((element, i) => {
+      if (i !== index) {
+        element = false;
+      }
+    });
+    this.isOpenPromo[index] = !this.isOpenPromo[index];
+  }
+
+  /**
+   * @desc Function to create a new promotion
+   */
+  createPromo(): void {
+
+  }
+
+  /**
+   * @desc Function to toggle the active state of a promotion
+   */
+  toggleActive(promo: Promo): void {
+
+  }
+
+  /**
+   * @desc Function to edit a promotion
+   * @param promo reference to the promotion to be edited
+   */
+  editPromo(promo: Promo): void {
+
+  }
+
+  /**
+   * @desc Function to delete a promotion
+   * @param promo reference to the promotion to be deleted
+   */
+  deletePromo(promo: Promo): void {
+
   }
 
 }
