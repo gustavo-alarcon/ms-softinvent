@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { DatabaseService } from 'src/app/core/database.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subscription } from 'rxjs';
-import { Promo } from 'src/app/core/ms-types';
+import { Package } from 'src/app/core/ms-types';
 
 @Component({
   selector: 'app-lista-paquetes',
@@ -85,10 +85,10 @@ import { Promo } from 'src/app/core/ms-types';
 export class ListaPaquetesComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
-  filteredPromotions: Array<any> = [];
+  filteredPackage: Array<any> = [];
 
-  displayedColumnsPromo: string[] = ['index', 'code', 'name', 'category'];
-  dataSourcePromo = new MatTableDataSource();
+  displayedColumnsPackage: string[] = ['index', 'code', 'name', 'category','sale'];
+  dataSourcePackage = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -103,7 +103,7 @@ export class ListaPaquetesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const promoSubs = this.dbs.currentDataPromotions
+    const promoSubs = this.dbs.currentDataPackages
       .pipe(
         tap(promos => {
           promos.forEach(promo => {
@@ -112,7 +112,7 @@ export class ListaPaquetesComponent implements OnInit {
         })
       )
       .subscribe(promotions => {
-        this.filteredPromotions = promotions;
+        this.filteredPackage = promotions;
       });
 
     this.subscriptions.push(promoSubs);
@@ -124,7 +124,7 @@ export class ListaPaquetesComponent implements OnInit {
    */
   filterData(ref: string) {
     ref = ref.toLowerCase();
-    this.filteredPromotions = this.dbs.promotions.filter(option =>
+    this.filteredPackage = this.dbs.promotions.filter(option =>
       option.name.toLowerCase().includes(ref));
   }
 
@@ -132,9 +132,9 @@ export class ListaPaquetesComponent implements OnInit {
    * @desc Getting the products of a promo
    * @param promo {!Promo} value passed when panel is opened
    */
-  getPromoProducts(promo: Promo): void {
-    const promoProductsSubs =
-      this.dbs.getPromoProducts(promo.id)
+  getPackageProducts(packages: Package): void {
+    const packageProductsSubs =
+      this.dbs.getPackagesProducts(packages.id)
         .pipe(
           map(products => {
             products.forEach((element, index) => {
@@ -144,16 +144,16 @@ export class ListaPaquetesComponent implements OnInit {
           })
         )
         .subscribe(products => {
-          this.dataSourcePromo.data = products;
+          this.dataSourcePackage.data = products;
         });
-    this.subscriptions.push(promoProductsSubs);
+    this.subscriptions.push(packageProductsSubs);
   }
 
   /**
    * @desc Function to open just one panel at time.
    * @param index index of the item be toggled
    */
-  togglePanelPromo(index): void {
+  togglePanelPackage(index): void {
     this.isOpenPromo.forEach((element, i) => {
       if (i === index) {
         this.isOpenPromo[i] = !element;
@@ -173,7 +173,7 @@ export class ListaPaquetesComponent implements OnInit {
   /**
    * @desc Function to toggle the active state of a promotion
    */
-  toggleActive(promo: Promo): void {
+  toggleActive(promo: Package): void {
 
   }
 
@@ -181,7 +181,7 @@ export class ListaPaquetesComponent implements OnInit {
    * @desc Function to edit a promotion
    * @param promo reference to the promotion to be edited
    */
-  editPromo(promo: Promo): void {
+  editPromo(promo: Package): void {
 
   }
 
@@ -189,7 +189,7 @@ export class ListaPaquetesComponent implements OnInit {
    * @desc Function to delete a promotion
    * @param promo reference to the promotion to be deleted
    */
-  deletePromo(promo: Promo): void {
+  deletePromo(promo: Package): void {
 
   }
 

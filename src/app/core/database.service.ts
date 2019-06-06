@@ -649,7 +649,7 @@ export class DatabaseService {
   }
 
   getPackages(): void {
-    this.packagesCollection = this.afs.collection(`db/${this.auth.userInvent.db}/packages`, ref => ref.orderBy('regDate', 'desc'));
+    this.packagesCollection = this.afs.collection(`db/${this.auth.userInvent.db}/package`, ref => ref.orderBy('regDate', 'desc'));
     this.packagesCollection.valueChanges()
       .pipe(
         map(res => {
@@ -665,7 +665,10 @@ export class DatabaseService {
         this.dataPackages.next(res);
       });
   }
-
+  getPackagesProducts(id_package): Observable<PromoProduct[]> {
+    console.log(`db/${this.auth.userInvent.db}/package/${id_package}/products`)
+    return this.afs.collection<PromoProduct>(`db/${this.auth.userInvent.db}/package/${id_package}/products`, ref => ref.orderBy('name', 'desc')).valueChanges();
+  }
   getPromotions(): void {
     this.promotionsCollection =
       this.afs.collection<Promo>(`db/${this.auth.userInvent.db}/promotions`, ref => ref.orderBy('regDate', 'desc'));

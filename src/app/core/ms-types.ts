@@ -202,3 +202,18 @@ export interface serialNumber {
 
 }
 
+export interface Package {
+  id: string;
+  name: string;
+  sale: number;
+  active: boolean;
+  regDate: number;
+}
+
+export interface PackageProduct {
+  id: string;
+  sale: number;
+  name: string;
+  category: string;
+  code: number;
+}
