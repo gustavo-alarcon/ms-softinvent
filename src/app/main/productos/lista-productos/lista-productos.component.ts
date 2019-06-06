@@ -3,8 +3,8 @@ import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatSnackBar } fro
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDeleteProductComponent } from './confirmar-borrar-producto/confirmar-borrar-producto.component';
-import { CrearProductoComponent } from './crear-producto/crear-producto.component';
-import { EditarProductoComponent } from './editar-producto/editar-producto.component';
+import { CreateProductComponent } from './crear-producto/crear-producto.component';
+import { EditProductComponent } from './editar-producto/editar-producto.component';
 
 @Component({
   selector: 'app-lista-productos',
@@ -55,13 +55,13 @@ export class ListaProductosComponent implements OnInit {
   }
 
   createProduct(): void {
-    const dialogRef = this.dialog.open(CrearProductoComponent, {
+    const dialogRef = this.dialog.open(CreateProductComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
 
   editProduct(product): void {
-    this.dialog.open(EditarProductoComponent, {
+    this.dialog.open(EditProductComponent, {
       data: product,
       panelClass: 'ms-custom-dialogbox'
     });
