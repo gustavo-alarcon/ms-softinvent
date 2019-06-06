@@ -1,10 +1,10 @@
-import { EditProductComponent } from './editar-producto/editar-producto.component';
-import { CreateProductComponent } from './crear-producto/crear-producto.component';
 import { DatabaseService } from 'src/app/core/database.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConfirmDeleteProductComponent } from './confirmar-borrar-producto/confirmar-borrar-producto.component';
+import { CrearProductoComponent } from './crear-producto/crear-producto.component';
+import { EditarProductoComponent } from './editar-producto/editar-producto.component';
 
 @Component({
   selector: 'app-lista-productos',
@@ -16,11 +16,8 @@ export class ListaProductosComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredProducts: Array<any> = [];
 
-<<<<<<< refs/remotes/origin/develop:src/app/main/productos/lista-productos/lista-productos.component.ts
   displayedColumns: string[] = ['index', 'category', 'warehouse', 'code', 'name', 'unit', 'stock', 'currency', 'purchase', 'sale', 'actions'];
-=======
-  displayedColumns: string[] = ['index', 'category', 'warehouse', 'code', 'name', 'unit', 'stock',  'currency', 'purchase', 'sale','maxDiscount', 'Editar'];
->>>>>>> Mejora : Boton de acciones para reemplazar edit y eliminar:src/app/productos/productos.component.ts
+
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -58,13 +55,13 @@ export class ListaProductosComponent implements OnInit {
   }
 
   createProduct(): void {
-    const dialogRef = this.dialog.open(CreateProductComponent, {
+    const dialogRef = this.dialog.open(CrearProductoComponent, {
       panelClass: 'ms-custom-dialogbox'
     });
   }
 
   editProduct(product): void {
-    this.dialog.open(EditProductComponent, {
+    this.dialog.open(EditarProductoComponent, {
       data: product,
       panelClass: 'ms-custom-dialogbox'
     });

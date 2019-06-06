@@ -257,6 +257,7 @@ ng-scrollbar {
   --scroll-view-margin: 0;
   --scroll-view-color: transparent;
 }
-.mat-sort-header-container {
+
+/* .mat-sort-header-container {
     justify-content: center !important;
-}
+} */

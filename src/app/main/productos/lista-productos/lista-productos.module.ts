@@ -20,15 +20,16 @@ import {  MatIconModule,
           MatDialogModule,
           MatMenuModule} from '@angular/material';
 import { ConfirmDeleteProductComponent } from './confirmar-borrar-producto/confirmar-borrar-producto.component';
-import { CreateProductComponent } from './crear-producto/crear-producto.component';
-import { EditProductComponent } from './editar-producto/editar-producto.component';
+import { CrearProductoComponent } from './crear-producto/crear-producto.component';
+import { EditarProductoComponent } from './editar-producto/editar-producto.component';
+
 
 @NgModule({
   declarations: [
     ListaProductosComponent,
     ConfirmDeleteProductComponent,
-    CreateProductComponent,
-    EditProductComponent
+    CrearProductoComponent,
+    EditarProductoComponent
   ],
   imports: [
     CommonModule,
@@ -53,8 +54,8 @@ import { EditProductComponent } from './editar-producto/editar-producto.componen
   ],
   entryComponents: [
     ConfirmDeleteProductComponent,
-    CreateProductComponent,
-    EditProductComponent
+    CrearProductoComponent,
+    EditarProductoComponent
   ]
 })
 export class ListaProductosModule { }
