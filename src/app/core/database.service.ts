@@ -5,7 +5,7 @@ import { Observable, of, BehaviorSubject } from "rxjs";
 import { AuthService } from "./auth.service";
 import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
-import { serialNumber } from './ms-types';
+import { serialNumber, Product } from './ms-types';
 
 
 @Injectable({
@@ -44,10 +44,10 @@ export class DatabaseService {
   currentDataDocumentCorreLength = this.dataDocumentConfig.asObservable();
 
   // CONFIG - CATEGORY TYPES
-  categoryTypesDocument: AngularFirestoreDocument<any>;
+  categoryTypesCollection: AngularFirestoreCollection<any>;
   categoryTypes: Array<any>;
 
-  public dataCategoryTypes = new BehaviorSubject<any>([]);
+  public dataCategoryTypes = new BehaviorSubject<any[]>([]);
   currentDataCategoryTypes = this.dataCategoryTypes.asObservable();
 
   // CONFIG - CURRENCY TYPES
@@ -149,7 +149,7 @@ export class DatabaseService {
 
   // PRODUCTS
   productsCollection: AngularFirestoreCollection<any>;
-  products: Array<Object> = [];
+  products: Array<any> = [];
 
   public dataProducts = new BehaviorSubject<any[]>([]);
   currentDataProducts = this.dataProducts.asObservable();
@@ -236,8 +236,8 @@ export class DatabaseService {
       this.dataDocumentConfig.next(res);
     });
 
-    this.categoryTypesDocument = this.afs.doc(`db/${this.auth.userInvent.db}/inventConfig/categoryTypes`);
-    this.categoryTypesDocument.valueChanges().subscribe(res => {
+    this.categoryTypesCollection = this.afs.collection(`db/${this.auth.userInvent.db}/inventConfig/products/categories`);
+    this.categoryTypesCollection.valueChanges().subscribe(res => {
       this.categoryTypes = res;
       this.dataCategoryTypes.next(res);
     });
@@ -604,19 +604,19 @@ export class DatabaseService {
       });
   }
 
-  checkIfCategoryExist(_category): Observable<boolean> {
-    return this.categoryTypesDocument.valueChanges()
+  checkIfCategoryExist(ref): Observable<boolean> {
+    return this.categoryTypesCollection.valueChanges()
       .pipe(
         map(categories => {
           let exist = false;
-          categories['categoryTypes'].forEach(category => {
-            if (category === _category) {
+          categories.forEach(category => {
+            if (category['name'] === ref) {
               exist = true;
             }
           })
           return exist;
         })
-      )
+      );
   }
 
   checkIfUnitExist(_unit): Observable<boolean> {

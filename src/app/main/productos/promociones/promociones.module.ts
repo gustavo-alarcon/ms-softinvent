@@ -17,7 +17,9 @@ import {  MatIconModule,
           MatRippleModule,
           MatDialogModule,
           MatSelectModule,
-          MatSlideToggleModule} from '@angular/material';
+          MatSlideToggleModule,
+          MatPaginatorModule,
+          MatAutocompleteModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { CrearPromocionComponent } from './crear-promocion/crear-promocion.component';
@@ -42,11 +44,13 @@ import { CrearPromocionComponent } from './crear-promocion/crear-promocion.compo
     MatTooltipModule,
     MatMenuModule,
     MatTableModule,
+    MatPaginatorModule,
     MatSortModule,
     MatRippleModule,
     MatDialogModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatAutocompleteModule
   ],
   entryComponents: [
     CrearPromocionComponent

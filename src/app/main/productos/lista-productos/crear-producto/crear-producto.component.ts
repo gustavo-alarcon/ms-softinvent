@@ -150,16 +150,20 @@ export class CreateProductComponent implements OnInit {
     this.dbs.checkIfCategoryExist(this.createProductFormGroup.value.category).subscribe(exist => {
       if (!exist) {
 
-        this.dbs.categoryTypes['categoryTypes'].push(this.createProductFormGroup.value.category);
+        const data = {
+          id: '',
+          name: this.createProductFormGroup.value.category,
+          regDate: Date.now()
+        }
 
-        this.dbs.categoryTypesDocument.get().forEach(categoryArray => {
-          categoryArray.ref.set({
-            categoryTypes: this.dbs.categoryTypes['categoryTypes']
-          });
-        })
-          .catch(err => {
-            console.log(err);
-          });
+        this.dbs.categoryTypesCollection
+          .add(data)
+            .then(ref => {
+              ref.update({id: ref.id});
+            })
+            .catch(err => {
+              console.log(err);
+            });
       }
     });
 

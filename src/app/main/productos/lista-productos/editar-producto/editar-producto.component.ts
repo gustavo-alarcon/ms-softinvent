@@ -150,14 +150,24 @@ export class EditProductComponent implements OnInit {
         this.dialogRef.close();
       });
 
-    this.dbs.checkIfCategoryExist(this.editProductFormGroup.value.category).subscribe(exist => {
+    this.dbs.checkIfCategoryExist(this.editProductFormGroup.value.category)
+    .subscribe(exist => {
       if (!exist) {
-        this.dbs.categoryTypesDocument.set({
-          categoryTypes: [this.editProductFormGroup.value.category]
-        }, { merge: true })
-          .catch(err => {
-            console.log(err);
-          });
+        const data = {
+          id: '',
+          name: this.editProductFormGroup.value.category,
+          regDate: Date.now()
+        }
+
+        this.dbs.categoryTypesCollection
+          .add(data)
+            .then(ref => {
+              ref.update({id: ref.id});
+            })
+            .catch(err => {
+              console.log(err);
+            });
+
       }
     });
   }
