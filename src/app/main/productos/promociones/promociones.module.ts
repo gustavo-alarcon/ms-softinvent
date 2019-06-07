@@ -14,12 +14,18 @@ import {  MatIconModule,
           MatTableModule,
           MatSortModule,
           MatToolbarModule,
-          MatRippleModule} from '@angular/material';
+          MatRippleModule,
+          MatDialogModule,
+          MatSelectModule,
+          MatSlideToggleModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { CrearPromocionComponent } from './crear-promocion/crear-promocion.component';
 
 @NgModule({
-  declarations: [PromocionesComponent],
+  declarations: [
+    PromocionesComponent,
+    CrearPromocionComponent],
   imports: [
     CommonModule,
     PromocionesRoutingModule,
@@ -37,7 +43,13 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     MatMenuModule,
     MatTableModule,
     MatSortModule,
-    MatRippleModule
+    MatRippleModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatSlideToggleModule
+  ],
+  entryComponents: [
+    CrearPromocionComponent
   ]
 })
 export class PromocionesModule { }

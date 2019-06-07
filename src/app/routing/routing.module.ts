@@ -86,6 +86,10 @@ const routes: Routes = [
         loadChildren: () => import('src/app/main/productos/productos.module').then(mod => mod.ProductosModule)
       },
       {
+        path: 'logistica',
+        loadChildren: () => import('src/app/main/logistica/logistica.module').then(mod => mod.LogisticaModule)
+      },
+      {
         path: 'registrar', component: RegisterComponent
       },
       {

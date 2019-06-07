@@ -6,6 +6,7 @@ import { DatabaseService } from 'src/app/core/database.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { Promo } from 'src/app/core/ms-types';
+import { CrearPromocionComponent } from './crear-promocion/crear-promocion.component';
 
 @Component({
   selector: 'app-promociones',
@@ -167,7 +168,9 @@ export class PromocionesComponent implements OnInit {
    * @desc Function to create a new promotion
    */
   createPromo(): void {
-
+    this.dialog.open(CrearPromocionComponent, {
+      panelClass: ['ms-custom-dialogbox']
+    });
   }
 
   /**

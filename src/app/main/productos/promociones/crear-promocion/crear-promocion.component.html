@@ -1,0 +1,66 @@
+<mat-toolbar style="background:none; height:auto; align-items:center">
+  <mat-icon class="ms-color-icons w3-margin-right" style="vertical-align:middle">card_giftcard</mat-icon>
+  <span class="ms-font-rubik">Crear promoción</span>
+</mat-toolbar>
+<mat-divider class="w3-margin-top"></mat-divider>
+<mat-dialog-content>
+  <form [formGroup]="promotionFormGroup" class="w3-margin-top">
+    <mat-form-field color="accent" class="w3-margin-right">
+      <mat-label>Nombre</mat-label>
+      <mat-icon matPrefix class="ms-color-icons w3-margin-right">card_giftcard</mat-icon>
+      <input matInput type="text" placeholder="Escriba ..." formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field color="accent" class="w3-margin-right">
+      <mat-label>Tipo de promoción</mat-label>
+      <mat-icon matPrefix class="ms-color-icons w3-margin-right">style</mat-icon>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types | async" [value]="type.value">
+          {{type.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+
+    <ng-container *ngIf="promotionFormGroup.value['type'] === 1">
+      <mat-form-field class="w3-margin-right">
+        <mat-label>Descuento</mat-label>
+        <span matPrefix class="w3-bold ms-color-icons w3-margin-right" style="font-size:24px">%</span>
+        <input matInput type="number" formControlName="discount">
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngIf="promotionFormGroup.value['type'] === 2">
+      <mat-form-field class="w3-margin-right" style="width:50px">
+        <mat-label>n</mat-label>
+        <input matInput type="number" formControlName="firstNumber">
+      </mat-form-field>
+      <span class="ms-color-icons w3-large w3-bold w3-margin-right">x</span>
+      <mat-form-field class="w3-margin-right" style="width:50px">
+        <mat-label>n</mat-label>
+        <input matInput type="number" formControlName="secondNumber">
+      </mat-form-field>
+    </ng-container>
+
+
+    <mat-checkbox formControlName="active"> Activo</mat-checkbox>
+
+  </form>
+
+  <div class="ms-color-bt w3-round w3-padding">
+    <mat-slide-toggle class="w3-margin-right" [formControl]="toggleNameCodeFormControl"></mat-slide-toggle>
+
+    <mat-form-field class="w3-margin-right w3-block">
+      <mat-label>{{toggleNameCodeFormControl.value ? 'Producto/Paquete' : 'Categoría'}}</mat-label>
+      <mat-icon matPrefix class="ms-color-icons">filter_list</mat-icon>
+      <input matInput type="text" [formControl]="filterProdcutFormControl" placeholder="Escriba...">
+    </mat-form-field>
+  </div>
+
+</mat-dialog-content>
+<mat-divider></mat-divider>
+<mat-dialog-actions class="w3-margin-top w3margin-bottom">
+  <span class="ms-fill"></span>
+  <button mat-stroked-button class="w3-margin-right" mat-dialog-close color="warn">Cancelar</button>
+  <button mat-raised-button class="w3-margin-right" [ngClass]="{'ms-color-b-1': promotionFormGroup.valid}" [disabled]="!promotionFormGroup.valid">Crear</button>
+</mat-dialog-actions>
