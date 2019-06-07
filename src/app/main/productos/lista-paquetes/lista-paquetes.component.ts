@@ -6,6 +6,7 @@ import { DatabaseService } from 'src/app/core/database.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import { Package } from 'src/app/core/ms-types';
+import { PackageDetailsComponent } from './package-details/package_details.component';
 
 @Component({
   selector: 'app-lista-paquetes',
@@ -86,7 +87,8 @@ export class ListaPaquetesComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredPackage: Array<any> = [];
-
+  filteredProducts: Array<any> = [];
+  allFilteredProducts :Array<Array<any>> = [];
   displayedColumnsPackage: string[] = ['index', 'code', 'name', 'category','unit','sale','quantity'];
   dataSourcePackage = new MatTableDataSource();
 
@@ -106,16 +108,18 @@ export class ListaPaquetesComponent implements OnInit {
     const promoSubs = this.dbs.currentDataPackages
       .pipe(
         tap(promos => {
-          promos.forEach(promo => {
+          promos.forEach(pack => {
             this.isOpenPromo.push(false);
+            this.getPackageProducts(pack);
           });
         })
       )
-      .subscribe(promotions => {
-        this.filteredPackage = promotions;
+      .subscribe(packages => {
+        this.filteredPackage = packages;
       });
 
     this.subscriptions.push(promoSubs);
+
   }
 
   /**
@@ -140,6 +144,7 @@ export class ListaPaquetesComponent implements OnInit {
             products.forEach((element, index) => {
               element['index'] = index;
             });
+            this.allFilteredProducts.push(products);
             return products;
           })
         )
@@ -190,7 +195,20 @@ export class ListaPaquetesComponent implements OnInit {
    * @param promo reference to the promotion to be deleted
    */
   deletePackage(promo: Package): void {
-
+    console.log(this.allFilteredProducts);
   }
 
+ /**
+   * @desc Function to delete a promotion
+   * @param promo reference to the promotion to be deleted
+   */
+  moreProducts(pack: Package): void {
+    const dialogRef = this.dialog.open(PackageDetailsComponent, {
+      data: { paquete: pack},
+      panelClass: 'ms-custom-dialogbox'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }

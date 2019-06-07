@@ -11,7 +11,7 @@
                 </h2>
             </div>
             <mat-divider></mat-divider>
-            
+
             <div style="margin-right: 20px">
                 <table cellspacing="0" style=" width: 100%; padding-top: 30px;">
                     <tr>
@@ -56,20 +56,18 @@
                         </button>
                     </div>
                 </div> -->
+                <span style="margin-right:1em">
+                    <mat-form-field autocomplete="off" color="accent">
+                        <mat-label>Filtrar</mat-label>
+                        <mat-icon matPrefix style="margin-right:0.5em; vertical-align:text-bottom">filter_list
+                        </mat-icon>
+                        <input matInput type="text" placeholder="Escriba ..." (input)="filterData($event.target.value)"
+                            autocomplete="off">
+                    </mat-form-field>
+                </span>
                 <mat-checkbox [formControl]="disableTooltips" class="w3-small">
                     Mensajes de ayuda
                 </mat-checkbox>
-                <div>
-                    <mat-form-field autocomplete="off" class="w3-block w3-margin-top" color="accent"
-                        appearance="outline">
-                        <mat-icon matPrefix style="margin-right:0.5em">filter_list</mat-icon>
-                        <mat-label>Buscar tercero</mat-label>
-                        <input matInput type="text" placeholder="Filtrar tabla ..."
-                            class="mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored"
-                            (input)="filterData($event.target.value)" autocomplete="off">
-                    </mat-form-field>
-                    <mat-divider></mat-divider>
-                </div>
 
             </div>
             <br>
