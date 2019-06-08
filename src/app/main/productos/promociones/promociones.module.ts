@@ -25,12 +25,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { CrearPromocionComponent } from './crear-promocion/crear-promocion.component';
 import { EditarPromocionComponent } from './editar-promocion/editar-promocion.component';
+import { ConfirmarEditarPromocionComponent } from './confirmar-editar-promocion/confirmar-editar-promocion.component';
 
 @NgModule({
   declarations: [
     PromocionesComponent,
     CrearPromocionComponent,
-    EditarPromocionComponent],
+    EditarPromocionComponent,
+    ConfirmarEditarPromocionComponent],
   imports: [
     CommonModule,
     PromocionesRoutingModule,
@@ -58,7 +60,8 @@ import { EditarPromocionComponent } from './editar-promocion/editar-promocion.co
   ],
   entryComponents: [
     CrearPromocionComponent,
-    EditarPromocionComponent
+    EditarPromocionComponent,
+    ConfirmarEditarPromocionComponent
   ]
 })
 export class PromocionesModule { }

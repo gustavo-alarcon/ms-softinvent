@@ -1,11 +1,12 @@
 import { CrearPromocionComponent } from './../crear-promocion/crear-promocion.component';
 import { DatabaseService } from 'src/app/core/database.service';
-import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, Inject, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { Product, Package, PromoProduct } from 'src/app/core/ms-types';
 import { startWith, map, debounceTime, mergeMap } from 'rxjs/operators';
+import { ConfirmarEditarPromocionComponent } from '../confirmar-editar-promocion/confirmar-editar-promocion.component';
 
 @Component({
   selector: 'app-editar-promocion',
@@ -42,6 +43,7 @@ export class EditarPromocionComponent implements OnInit, OnDestroy {
 
   mergedProductsAndPackages: Array<Product | Package> = [];
   promotionList: Array<PromoProduct> = [];
+  referenceProducts: Array<PromoProduct> = [];
 
   filteredItemList: Observable<any>;
   filteredCategoryList: Observable<any>;
@@ -52,7 +54,8 @@ export class EditarPromocionComponent implements OnInit, OnDestroy {
     public dbs: DatabaseService,
     private fb: FormBuilder,
     private snackbar: MatSnackBar,
-    private dialogRef: MatDialogRef<CrearPromocionComponent>,
+    private dialogRef: MatDialogRef<EditarPromocionComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -72,6 +75,7 @@ export class EditarPromocionComponent implements OnInit, OnDestroy {
         )
         .subscribe(products => {
           this.promotionList = products;
+          this.referenceProducts = products;
           this.dataSource.data = this.promotionList;
           this.loadingItems = false;
         });
@@ -219,6 +223,21 @@ export class EditarPromocionComponent implements OnInit, OnDestroy {
         };
       });
     this.dataSource.data = this.promotionList;
+  }
+
+  save(): void {
+    this.dialog.open(ConfirmarEditarPromocionComponent, {
+      data: {
+        promo: this.promotionFormGroup.value,
+        promoProducts: this.promotionList,
+        referenceProducts: this.referenceProducts
+      },
+      panelClass: ['ms-custom-dialogbox']
+    }).afterClosed().subscribe(res => {
+      if (res) {
+        this.dialogRef.close(true);
+      }
+    })
   }
 
 }

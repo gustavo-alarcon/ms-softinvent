@@ -1,0 +1,13 @@
+<mat-toolbar style="align-items:center">
+  <mat-icon class="ms-color-icons w3-margin-right">edit</mat-icon>
+  <h2 class="ms-font-rubik mat-title">Editar promoción</h2>
+</mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<mat-dialog-content class="w3-padding-large">
+  <p class="mat-subtitle">¿Está seguro de editar la promoción <strong>{{data['promo']['name']}}</strong>?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span class="ms-fill"></span>
+  <button mat-stroked-button color="warn" mat-dialog-close></button>
+  <button mat-raised-button class="ms-color-b-1" (click)="save()"></button>
+</mat-dialog-actions>

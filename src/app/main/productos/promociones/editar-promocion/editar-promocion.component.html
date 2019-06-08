@@ -1,6 +1,6 @@
 <mat-toolbar style="background:none; height:auto; align-items:center">
-  <mat-icon class="ms-color-icons w3-margin-right" style="vertical-align:middle">card_giftcard</mat-icon>
-  <span class="ms-font-rubik">Crear promoción</span>
+  <mat-icon class="ms-color-icons w3-margin-right" style="vertical-align:middle">edit</mat-icon>
+  <span class="ms-font-rubik">Editar promoción</span>
 </mat-toolbar>
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <mat-divider class="w3-margin-top"></mat-divider>
@@ -147,5 +147,5 @@
   <span class="ms-fill"></span>
   <button mat-stroked-button class="w3-margin-right" mat-dialog-close color="warn">Cancelar</button>
   <button mat-raised-button class="w3-margin-right" [ngClass]="{'ms-color-b-1': promotionFormGroup.valid}"
-    [disabled]="!promotionFormGroup.valid" (click)="save()">Crear</button>
+    [disabled]="!promotionFormGroup.valid" (click)="save()">Guardar</button>
 </mat-dialog-actions>
