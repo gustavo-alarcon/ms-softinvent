@@ -5,8 +5,9 @@ import { FormControl } from '@angular/forms';
 import { DatabaseService } from 'src/app/core/database.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subscription } from 'rxjs';
-import { Promo } from 'src/app/core/ms-types';
+import { Promo, PromoProduct } from 'src/app/core/ms-types';
 import { CrearPromocionComponent } from './crear-promocion/crear-promocion.component';
+import { EditarPromocionComponent } from './editar-promocion/editar-promocion.component';
 
 @Component({
   selector: 'app-promociones',
@@ -93,6 +94,8 @@ export class PromocionesComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
+  promoProducts: Array<PromoProduct> = [];
+
   isOpenPromo: Array<boolean> = [];
 
   subscriptions: Array<Subscription> = [];
@@ -146,6 +149,7 @@ export class PromocionesComponent implements OnInit {
         )
         .subscribe(products => {
           this.dataSourcePromo.data = products;
+          this.promoProducts = products;
         });
     this.subscriptions.push(promoProductsSubs);
   }
@@ -177,15 +181,33 @@ export class PromocionesComponent implements OnInit {
    * @desc Function to toggle the active state of a promotion
    */
   toggleActive(promo: Promo): void {
-
+    this.dbs.promotionsCollection
+      .doc(promo.id).
+      update({active: !promo.active})
+        .then(() => {
+          this.snackbar.open('Listo!', 'Cerrar', {
+            duration: 6000
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          this.snackbar.open(err, 'Cerrar', {
+            duration: 6000
+          });
+        });
   }
 
   /**
    * @desc Function to edit a promotion
    * @param promo reference to the promotion to be edited
    */
-  editPromo(promo: Promo): void {
-
+  editPromo(promo: Promo) {
+    this.dialog.open(EditarPromocionComponent, {
+      data: {
+        promo: promo
+      },
+      panelClass: ['ms-custom-dialogbox']
+    });
   }
 
   /**

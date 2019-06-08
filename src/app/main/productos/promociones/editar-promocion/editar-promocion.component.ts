@@ -1,21 +1,21 @@
-import { Package } from 'src/app/core/ms-types';
-import { Product, PromoProduct } from './../../../../core/ms-types';
-import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialogRef } from '@angular/material';
-import { Validators, FormControl } from '@angular/forms';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { of, Observable, Subscription } from 'rxjs';
+import { CrearPromocionComponent } from './../crear-promocion/crear-promocion.component';
 import { DatabaseService } from 'src/app/core/database.service';
-import { startWith, map, mergeMap, debounceTime } from 'rxjs/operators';
+import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, Inject, OnDestroy } from '@angular/core';
+import { Observable, of, Subscription } from 'rxjs';
+import { Product, Package, PromoProduct } from 'src/app/core/ms-types';
+import { startWith, map, debounceTime, mergeMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-crear-promocion',
-  templateUrl: './crear-promocion.component.html',
+  selector: 'app-editar-promocion',
+  templateUrl: './editar-promocion.component.html',
   styles: []
 })
-export class CrearPromocionComponent implements OnInit, OnDestroy {
+export class EditarPromocionComponent implements OnInit, OnDestroy {
 
   loading = false;
+  loadingItems = false;
 
   types: Observable<any> = of([
     { name: 'Descuento', value: 1, disabled: false },
@@ -46,17 +46,39 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
   filteredItemList: Observable<any>;
   filteredCategoryList: Observable<any>;
 
-  subscription: Array<Subscription> = [];
+  subscriptions: Array<Subscription> = [];
 
   constructor(
     public dbs: DatabaseService,
     private fb: FormBuilder,
     private snackbar: MatSnackBar,
-    private dialogRef: MatDialogRef<CrearPromocionComponent>
+    private dialogRef: MatDialogRef<CrearPromocionComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit() {
     this.createForm();
+
+    this.loadingItems = true;
+    const promoProductsSubs =
+      this.dbs.getPromoProducts(this.data['promo']['id'])
+        .pipe(
+          map(products => {
+            products.forEach((element, index) => {
+              element['index'] = index;
+            });
+            return products;
+          })
+        )
+        .subscribe(products => {
+          this.promotionList = products;
+          this.dataSource.data = this.promotionList;
+          this.loadingItems = false;
+        });
+
+    this.subscriptions.push(promoProductsSubs);
+
+
 
     const discountSubs = this.promotionFormGroup.get('discount').valueChanges
       .pipe(
@@ -70,7 +92,7 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.subscription.push(discountSubs);
+    this.subscriptions.push(discountSubs);
 
     const mergeSubs = this.dbs.currentDataProducts
       .pipe(
@@ -89,7 +111,7 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
         this.mergedProductsAndPackages = merge;
       });
 
-    this.subscription.push(mergeSubs);
+    this.subscriptions.push(mergeSubs);
 
     this.filteredItemList =
       this.filterItemFormControl
@@ -129,17 +151,17 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.forEach(sub => sub.unsubscribe());
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   createForm(): void {
     this.promotionFormGroup = this.fb.group({
-      name: [null, [Validators.required]],
-      type: [null, [Validators.required]],
-      discount: [null],
-      firstNumber: [null],
-      secondNumber: [null],
-      active: [true, [Validators.required]]
+      name: [this.data['promo']['name'], [Validators.required]],
+      type: [this.data['promo']['type'], [Validators.required]],
+      discount: [this.data['promo']['discount'] ? this.data['promo']['discount'] : null],
+      firstNumber: [this.data['promo']['firstNumber'] ? this.data['promo']['firstNumber'] : null],
+      secondNumber: [this.data['promo']['secondNumber'] ? this.data['promo']['secondNumber'] : null],
+      active: [this.data['promo']['active'], [Validators.required]]
     });
   }
 
@@ -197,41 +219,6 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
         };
       });
     this.dataSource.data = this.promotionList;
-  }
-
-  save(): void {
-    this.loading = true;
-    this.dbs.promotionsCollection
-      .add(this.promotionFormGroup.value)
-      .then(ref => {
-        ref.update({ id: ref.id, regDate: Date.now()});
-        this.promotionList.forEach(item => {
-          this.dbs.promotionsCollection
-            .doc(ref.id)
-            .collection('products')
-            .add(item)
-            .then(ref => {
-              ref.update({ id: ref.id });
-            })
-            .catch(err => {
-              console.log(err);
-              this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-                duration: 6000
-              });
-            });
-        });
-        this.loading = false;
-        this.snackbar.open('Listo!', 'Cerrar', {
-          duration: 6000
-        });
-        this.dialogRef.close(true);
-      })
-      .catch(err => {
-        console.log(err);
-        this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-          duration: 6000
-        });
-      });
   }
 
 }

@@ -24,11 +24,13 @@ import {  MatIconModule,
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { CrearPromocionComponent } from './crear-promocion/crear-promocion.component';
+import { EditarPromocionComponent } from './editar-promocion/editar-promocion.component';
 
 @NgModule({
   declarations: [
     PromocionesComponent,
-    CrearPromocionComponent],
+    CrearPromocionComponent,
+    EditarPromocionComponent],
   imports: [
     CommonModule,
     PromocionesRoutingModule,
@@ -55,7 +57,8 @@ import { CrearPromocionComponent } from './crear-promocion/crear-promocion.compo
     MatProgressBarModule
   ],
   entryComponents: [
-    CrearPromocionComponent
+    CrearPromocionComponent,
+    EditarPromocionComponent
   ]
 })
 export class PromocionesModule { }
