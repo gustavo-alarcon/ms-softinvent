@@ -84,7 +84,7 @@ export interface Staff {
 export interface Product {
   alertStock: number,
   category: string,
-  code: number,
+  code: string,
   currency: string,
   id: string,
   initialStock: number,
@@ -103,16 +103,18 @@ export interface Product {
 export interface Promo {
   id: string;
   name: string;
-  percentage: number;
-  amount: number;
-  startDate: number;
-  endingDate: number;
+  type: number;
+  discount?: number;
+  firstNumber?: number;
+  secondNumber?: number;
+  startDate?: number;
+  endingDate?: number;
   active: boolean;
 }
 
 export interface PromoProduct {
   id: string;
-  productId: string;
+  itemId: string;
   code: string;
   name: string;
   category: string;
@@ -136,7 +138,7 @@ export interface ProductCart {
   salePrice: number,
   sale: number,
   serialNumbers: Array<serialNumber>,
-  maxDiscount : number,
+  maxDiscount: number,
 }
 
 export interface Ticket {
@@ -204,7 +206,9 @@ export interface serialNumber {
 
 export interface Package {
   id: string;
+  code: string;
   name: string;
+  category: string;
   sale: number;
   active: boolean;
   regDate: number;
@@ -215,5 +219,5 @@ export interface PackageProduct {
   sale: number;
   name: string;
   category: string;
-  code: number;
+  code: string;
 }
