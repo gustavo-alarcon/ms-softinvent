@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 export class LogisticaComponent implements OnInit {
 
   links: Array<Link> = [
-    { name: 'recepción', icon: '', route: 'reception-list' },
-    { name: 'traslados', icon: '', route: 'transfer-list' }
+    { name: 'Recepción', icon: '', route: 'reception-list' },
+    { name: 'Traslados', icon: '', route: 'transfer-list' }
   ];
   activeLink: Link = this.links[0];
 
