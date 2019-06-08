@@ -3,17 +3,17 @@ import { Product, PromoProduct } from './../../../../core/ms-types';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialogRef } from '@angular/material';
 import { Validators, FormControl } from '@angular/forms';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { of, Observable, Subscription } from 'rxjs';
 import { DatabaseService } from 'src/app/core/database.service';
-import { startWith, map, mergeMap } from 'rxjs/operators';
+import { startWith, map, mergeMap, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-crear-promocion',
   templateUrl: './crear-promocion.component.html',
   styles: []
 })
-export class CrearPromocionComponent implements OnInit {
+export class CrearPromocionComponent implements OnInit, OnDestroy {
 
   loading = false;
 
@@ -58,7 +58,21 @@ export class CrearPromocionComponent implements OnInit {
   ngOnInit() {
     this.createForm();
 
-    this.dbs.currentDataProducts
+    let discountSubs = this.promotionFormGroup.get('discount').valueChanges
+      .pipe(
+        debounceTime(1000)
+      )
+      .subscribe(res => {
+        if (res > 100) {
+          this.promotionFormGroup.get('discount').setValue(100);
+        } else if (res < 0) {
+          this.promotionFormGroup.get('discount').setValue(0);
+        }
+      });
+
+    this.subscription.push(discountSubs);
+
+    let mergeSubs = this.dbs.currentDataProducts
       .pipe(
         mergeMap(products => {
           let merge: Array<any> = [];
@@ -74,6 +88,8 @@ export class CrearPromocionComponent implements OnInit {
       .subscribe(merge => {
         this.mergedProductsAndPackages = merge;
       });
+
+    this.subscription.push(mergeSubs);
 
     this.filteredItemList =
       this.filterItemFormControl
@@ -110,6 +126,10 @@ export class CrearPromocionComponent implements OnInit {
           map(value => typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase()),
           map(name => name ? this.dbs.categoryTypes.filter(option => option['name'].toLowerCase().includes(name)) : this.dbs.categoryTypes)
         );
+  }
+
+  ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   createForm(): void {

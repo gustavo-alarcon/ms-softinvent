@@ -30,7 +30,7 @@
           <mat-form-field color="accent" class="w3-margin-right">
             <mat-label>Descuento</mat-label>
             <span matPrefix class="w3-bold ms-color-icons w3-margin-right" style="font-size:24px">%</span>
-            <input matInput type="number" max=100 formControlName="discount">
+            <input matInput type="number" min=0 max=100 formControlName="discount">
           </mat-form-field>
         </ng-container>
 
