@@ -20,7 +20,7 @@
             <p class="ms-font-karla">Producto</p>
 
             <mat-form-field style="width:100%" color="accent">
-              <mat-icon matPrefix class="ms-color-icons w3-margin-right">category</mat-icon>
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">local_offer</mat-icon>
               <input matInput #productName type="text" placeholder="Nombre (*)" formControlName="name"
                 (input)="checkIfNameExist($event.target.value)">
               <mat-error *ngIf="!createProductFormGroup.valid">
@@ -45,7 +45,7 @@
 
             <mat-form-field class="w3-block" autocomplete="off" color="accent">
               <span matPrefix class="ms-color-icons w3-margin-right">
-                <mat-icon>style</mat-icon>
+                <mat-icon>category</mat-icon>
               </span>
               <input matInput placeholder="Categoría (*)" [formControl]="categoryFromList" formControlName="category"
                 (input)="setCategoryField($event.target.value)" [matAutocomplete]="autoCategory" autocomplete="off">
@@ -84,7 +84,7 @@
 
             <div class="w3-padding w3-round-large ms-color-b-bg">
               <mat-form-field style="width:100%" color="accent">
-                <mat-icon matPrefix class="ms-color-icons w3-margin-right">widgets</mat-icon>
+                <mat-icon matPrefix class="ms-color-icons w3-margin-right">exposure</mat-icon>
                 <input matInput type="number" placeholder="Stock inicial (*)" formControlName="initialStock">
                 <mat-error *ngIf="!createProductFormGroup.valid">
                   Campo <strong>requerido*</strong>
