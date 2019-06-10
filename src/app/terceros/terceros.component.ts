@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { DatabaseService } from '../core/database.service';
 import { MatBottomSheet, MatDialog, MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { FormControl } from '@angular/forms';
@@ -21,9 +21,10 @@ export class PartiesComponent implements OnInit {
   displayedColumnsMobile: string[] = ['index', 'type', 'docNum', 'name', 'actions'];
 
   dataSource = new MatTableDataSource();
+  dataSourceMobile = new MatTableDataSource();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
+  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
   constructor(
     public dbs: DatabaseService,
@@ -37,13 +38,17 @@ export class PartiesComponent implements OnInit {
     this.dbs.currentDataParties.subscribe( parties => {
       this.filteredParties = parties;
       this.dataSource.data = this.filteredParties;
+      this.dataSourceMobile.data = this.filteredParties;
+
     });
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
   }
-
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator.toArray()[0];
+    this.dataSource.sort = this.sort.toArray()[0];
+    this.dataSourceMobile.paginator = this.paginator.toArray()[1];
+    this.dataSourceMobile.sort = this.sort.toArray()[1];
+  }
   filterData(ref: string) {
     ref = ref.toLowerCase();
     this.filteredParties = this.dbs.parties.filter(option => 
@@ -57,6 +62,7 @@ export class PartiesComponent implements OnInit {
       option['contact']['email'].toString().includes(ref) ||
       option['contact']['phone'].toString().includes(ref));
     this.dataSource.data = this.filteredParties;
+    this.dataSourceMobile.data = this.filteredParties;
   }
 
   createParty(): void {
