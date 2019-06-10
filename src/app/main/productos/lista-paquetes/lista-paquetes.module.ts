@@ -22,11 +22,13 @@ import {
   MatDialogModule,
   MatMenuModule
 } from '@angular/material';
-import { PackageDetailsComponent } from './package-details/package_details.component';
+import { PackageDetailsComponent} from './package-details/package_details.component';
+ import { CrearPaqueteComponent } from './crear-paquete/crear-paquete.component'
 @NgModule({
   declarations: [
     ListaPaquetesComponent,
-    PackageDetailsComponent
+    PackageDetailsComponent,
+    CrearPaqueteComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { PackageDetailsComponent } from './package-details/package_details.compo
     MatToolbarModule,
   ],
   entryComponents: [
-    PackageDetailsComponent
+    PackageDetailsComponent,
+    CrearPaqueteComponent
   ]
 })
 export class ListaPaquetesModule { }

@@ -7,6 +7,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Subscription } from 'rxjs';
 import { Package } from 'src/app/core/ms-types';
 import { PackageDetailsComponent } from './package-details/package_details.component';
+import { CrearPaqueteComponent } from './crear-paquete/crear-paquete.component';
 
 @Component({
   selector: 'app-lista-paquetes',
@@ -88,8 +89,8 @@ export class ListaPaquetesComponent implements OnInit {
   disableTooltips = new FormControl(true);
   filteredPackage: Array<any> = [];
   filteredProducts: Array<any> = [];
-  allFilteredProducts :Array<Array<any>> = [];
-  displayedColumnsPackage: string[] = ['index', 'code', 'name', 'category','unit','sale','quantity'];
+  allFilteredProducts: Array<Array<any>> = [];
+  displayedColumnsPackage: string[] = ['index', 'code', 'name', 'category', 'unit', 'sale', 'quantity'];
   dataSourcePackage = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -171,7 +172,13 @@ export class ListaPaquetesComponent implements OnInit {
   /**
    * @desc Function to create a new promotion
    */
-  createPromo(): void {
+  createPackage(): void {
+    const dialogRef = this.dialog.open(CrearPaqueteComponent, {
+      panelClass: 'ms-custom-dialogbox'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
 
   }
 
@@ -198,13 +205,13 @@ export class ListaPaquetesComponent implements OnInit {
     console.log(this.allFilteredProducts);
   }
 
- /**
-   * @desc Function to delete a promotion
-   * @param promo reference to the promotion to be deleted
-   */
+  /**
+    * @desc Function to delete a promotion
+    * @param promo reference to the promotion to be deleted
+    */
   moreProducts(pack: Package): void {
     const dialogRef = this.dialog.open(PackageDetailsComponent, {
-      data: { paquete: pack},
+      data: { paquete: pack },
       panelClass: 'ms-custom-dialogbox'
     });
     dialogRef.afterClosed().subscribe(result => {

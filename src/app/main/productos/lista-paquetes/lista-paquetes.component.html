@@ -1,15 +1,13 @@
 <div class="w3-section w3-margin-left w3-margin-right animated fadeInUp delay-2">
 
   <div>
-    <button mat-raised-button class="ms-color-action-3" style="margin:0em 0.2em 1em 0.2em" (click)="createPromo()">
+    <button mat-raised-button class="ms-color-action-3" style="margin:0em 0.2em 1em 0.2em" (click)="createPackage()">
       <mat-icon>add_circle</mat-icon> Crear
     </button>
     <button mat-button class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em" disabled>
-      <mat-icon>card_giftcard</mat-icon> {{dbs.packages.length | number: '2.0'}} Paquetes
+      <mat-icon>widgets</mat-icon> {{dbs.packages.length | number: '2.0'}} Paquetes
     </button>
-    <mat-checkbox [formControl]="disableTooltips" class="w3-small">
-      Mensajes de ayuda
-    </mat-checkbox>
+    
     <span style="margin-right:1em">
       <mat-form-field autocomplete="off" color="accent">
         <mat-label>Filtrar</mat-label>
@@ -18,6 +16,9 @@
           autocomplete="off">
       </mat-form-field>
     </span>
+    <mat-checkbox [formControl]="disableTooltips" class="w3-small">
+        Mensajes de ayuda
+      </mat-checkbox>
   </div>
 
   <div class="w3-hide-small">
@@ -159,24 +160,21 @@
                   </div>
                 </ng-container>
               </div>
-                <div class="w3-row" style="margin-top: 2px;align-items:center;display: flex; padding: 0px;">
-                  <div class="w3-third  w3-container" style="width:10%;padding: 0px; margin: 0px;">
-                    <mat-icon class="ms-color-icons"
-                      style="padding: 0px; font-size: 12px;align-items: center;display: flex">store</mat-icon>
-                  </div>
-                  <div class="w3-third  w3-container" style="width:65%; padding: 0px; margin: 0px">
-                    <p style="margin:0px;font-size:0.8em;padding: 0px"> {{package['warehouse']}}</p>
-                  </div>
-                  <div class="w3-third  w3-container" style="width:25%; padding: 0px; margin: 0px">
-                    <mat-menu #documentsMenu="matMenu">
-                      <button mat-menu-item (click)="moreProducts(package)">Ver mas</button>
-                      <button mat-menu-item (click)="editPackage(package)">Editar</button>
-                      <button mat-menu-item (click)="deletePackage(package)">Borrar</button>
-                    </mat-menu>
-                    <button mat-icon-button [matMenuTriggerFor]="documentsMenu" style=" padding: 0px;margin: 0px">
-                      <mat-icon class="ms-color-icons" style="padding: 0px">more_vert</mat-icon>
-                    </button>
-                  </div>
+              <div class="w3-row" style="margin-top: 2px;align-items:center;display: flex; padding: 0px;">
+                <div class="w3-third  w3-container" style="width:10%;padding: 0px; margin: 0px;">
+                </div>
+                <div class="w3-third  w3-container" style="width:65%; padding: 0px; margin: 0px">
+                </div>
+                <div class="w3-third  w3-container" style="width:25%; padding: 0px; margin: 0px">
+                  <mat-menu #documentsMenu="matMenu">
+                    <button mat-menu-item (click)="moreProducts(package)">Ver mas</button>
+                    <button mat-menu-item (click)="editPackage(package)">Editar</button>
+                    <button mat-menu-item (click)="deletePackage(package)">Borrar</button>
+                  </mat-menu>
+                  <button mat-icon-button [matMenuTriggerFor]="documentsMenu" style=" padding: 0px;margin: 0px">
+                    <mat-icon class="ms-color-icons" style="padding: 0px">more_vert</mat-icon>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

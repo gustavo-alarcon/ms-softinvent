@@ -1,9 +1,83 @@
 <mat-toolbar style="width:100% ; background-color : nome" class="ms-color-b-2">
-  <span>
-    {{data.name}} | Stock : {{data.stock}}
-  </span>
+  <h1 class="ms-font-rubik">
+    <mat-icon style="vertical-align:middle" class="ms-color-icons">delete</mat-icon> Crear PAquete
+  </h1>
   <span class="ms-fill"></span>
   <button mat-icon-button color="accent" (click)="onNoClick()">
     <mat-icon>cancel</mat-icon>
   </button>
+  <mat-divider></mat-divider>
+
 </mat-toolbar>
+
+
+
+
+
+
+
+<div class="w3-row">
+  <div class="w3-third w3-container ">
+    <mat-form-field style="width:100%" color="accent">
+      <mat-icon matPrefix class="ms-color-icons w3-margin-right">category</mat-icon>
+      <input matInput #productName type="text" placeholder="Nombre del paquete" formControlName="name">
+      <mat-error *ngIf="!createPackageFormGroup.valid">
+        Campo <strong>requerido*</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <div class="w3-third w3-container">
+    <mat-form-field style="width:100%" color="accent">
+      <mat-icon matPrefix class="ms-color-icons w3-margin-right">money</mat-icon>
+      <input matInput #productCode type="text" placeholder="Codigo del paquete" formControlName="code">
+      <mat-error *ngIf="!createPackageFormGroup.valid">
+        Campo <strong>requerido*</strong>
+      </mat-error>
+     
+    </mat-form-field>
+  </div>
+  <div class="w3-third w3-container">
+    <mat-form-field style="width:100%" color="accent">
+      <mat-icon matPrefix class="ms-color-icons w3-margin-right">money</mat-icon>
+      <input matInput #productCode type="text" placeholder="Precio del paquete" formControlName="sale">
+      <mat-error *ngIf="!createPackageFormGroup.valid">
+        Campo <strong>requerido*</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+</div>
+
+<div class="w3-row ms-color-b-bg" style="margin-top: 18px">
+  <div class="w3-third w3-container ">
+      <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
+          <input matInput placeholder="Producto" 
+            [formControl]="packageList" [matAutocomplete]="autoWeb" autocomplete="off">
+          <mat-autocomplete #autoWeb="matAutocomplete">
+            <mat-option *ngIf="isEmpty">
+              No existe el número
+            </mat-option>
+            <mat-option *ngFor="let pack of filteredPackages | async" [value]="pack.name">
+              {{pack.code || pack.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+  </div>
+  <div class="w3-third w3-container">
+      <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">money</mat-icon>
+          <input matInput #productCode type="number" placeholder="Cantdiad" formControlName="quantity">
+          <mat-error *ngIf="!createPackageFormGroup.valid">
+            Campo <strong>requerido*</strong>
+          </mat-error>
+        </mat-form-field>
+  </div>
+  <div class="w3-third w3-container">
+      <button mat-raised-button class="ms-color-action-3" style="margin:0em 0.2em 1em 0.2em" (click)="addIteme()">
+          <mat-icon>add_circle</mat-icon> Agregar
+        </button>
+  </div>
+</div>
