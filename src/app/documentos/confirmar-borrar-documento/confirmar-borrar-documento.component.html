@@ -1,8 +1,10 @@
-<h1 class="ms-font-rubik">
-  <mat-icon style="vertical-align:middle" class="ms-color-icons">delete</mat-icon> Borrar documento
-</h1>
-<mat-dialog-content>
-  <h4 class="ms-font-karla" style="font-size:1.3em">¿Realmente desea borrar <strong>{{data['name']}}?</strong></h4>
+<mat-toolbar style="align-items:center; background:none; padding:0px">
+  <mat-icon class="ms-color-icons">delete</mat-icon>
+  <span class="mat-tile ms-font-rubik">Borrar documento</span>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<mat-dialog-content class="w3-padding-large">
+  <span class="mat-subheading-2">¿Realmente desea borrar el documento <strong>{{data['name']}}?</strong></span>
 </mat-dialog-content>
 <mat-dialog-actions>
   <span class="ms-fill"></span>
