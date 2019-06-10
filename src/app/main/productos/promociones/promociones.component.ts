@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Promo, PromoProduct } from 'src/app/core/ms-types';
 import { CrearPromocionComponent } from './crear-promocion/crear-promocion.component';
 import { EditarPromocionComponent } from './editar-promocion/editar-promocion.component';
+import { ConfirmarBorrarPromocionComponent } from './confirmar-borrar-promocion/confirmar-borrar-promocion.component';
 
 @Component({
   selector: 'app-promociones',
@@ -215,7 +216,12 @@ export class PromocionesComponent implements OnInit {
    * @param promo reference to the promotion to be deleted
    */
   deletePromo(promo: Promo): void {
-
+    this.dialog.open(ConfirmarBorrarPromocionComponent, {
+      data: {
+        promo: promo
+      },
+      panelClass: ['ms-custom-dialogbox']
+    });
   }
 
 }

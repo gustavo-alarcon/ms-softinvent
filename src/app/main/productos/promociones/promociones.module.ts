@@ -26,13 +26,15 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { CrearPromocionComponent } from './crear-promocion/crear-promocion.component';
 import { EditarPromocionComponent } from './editar-promocion/editar-promocion.component';
 import { ConfirmarEditarPromocionComponent } from './confirmar-editar-promocion/confirmar-editar-promocion.component';
+import { ConfirmarBorrarPromocionComponent } from './confirmar-borrar-promocion/confirmar-borrar-promocion.component';
 
 @NgModule({
   declarations: [
     PromocionesComponent,
     CrearPromocionComponent,
     EditarPromocionComponent,
-    ConfirmarEditarPromocionComponent],
+    ConfirmarEditarPromocionComponent,
+    ConfirmarBorrarPromocionComponent],
   imports: [
     CommonModule,
     PromocionesRoutingModule,
@@ -61,7 +63,8 @@ import { ConfirmarEditarPromocionComponent } from './confirmar-editar-promocion/
   entryComponents: [
     CrearPromocionComponent,
     EditarPromocionComponent,
-    ConfirmarEditarPromocionComponent
+    ConfirmarEditarPromocionComponent,
+    ConfirmarBorrarPromocionComponent
   ]
 })
 export class PromocionesModule { }
