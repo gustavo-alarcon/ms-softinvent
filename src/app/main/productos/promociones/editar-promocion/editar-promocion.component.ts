@@ -75,7 +75,7 @@ export class EditarPromocionComponent implements OnInit, OnDestroy {
         )
         .subscribe(products => {
           this.promotionList = products;
-          this.referenceProducts = products;
+          this.referenceProducts = [...products];
           this.dataSource.data = this.promotionList;
           this.loadingItems = false;
         });
@@ -229,6 +229,7 @@ export class EditarPromocionComponent implements OnInit, OnDestroy {
     this.dialog.open(ConfirmarEditarPromocionComponent, {
       data: {
         promo: this.promotionFormGroup.value,
+        promoId: this.data['promo']['id'],
         promoProducts: this.promotionList,
         referenceProducts: this.referenceProducts
       },

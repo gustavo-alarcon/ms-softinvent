@@ -22,48 +22,60 @@ export class ConfirmarEditarPromocionComponent implements OnInit {
   ngOnInit() {
   }
 
+  editItemsList(editedList: PromoProduct[], referenceList: PromoProduct[]): void {
+
+    // looking for added items
+    const mapRef = referenceList.map(ref => ref.itemId);
+
+    editedList.forEach(item => {
+      const coincidence = mapRef.indexOf(item.itemId);
+      if (coincidence < 0) {
+        this.dbs.promotionsCollection
+          .doc(this.data['promoId'])
+          .collection('products')
+          .add(item)
+          .then(ref => {
+            ref.set({ id: ref.id }, { merge: true });
+          })
+          .catch(err => {
+            console.log(err);
+            this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
+              duration: 6000
+            });
+          });
+      }
+    });
+
+    // looking for removed items
+    const mapEdited = editedList.map(ref => ref.itemId);
+
+    referenceList.forEach(item => {
+      const coincidence = mapEdited.indexOf(item.itemId);
+      if (coincidence < 0) {
+        this.dbs.promotionsCollection
+          .doc(this.data['promoId'])
+          .collection('products')
+          .doc(item.id)
+          .delete();
+      }
+    });
+
+    this.loading = false;
+    this.snackbar.open('Listo!', 'Cerrar', {
+      duration: 6000
+    });
+    this.dialogRef.close(true);
+
+  }
+
   save(): void {
     this.loading = true;
     this.dbs.promotionsCollection
-      .doc(this.data['promo']['id'])
+      .doc(this.data['promoId'])
       .set(this.data['promo'], { merge: true })
       .then(() => {
-        this.data['promoProducts'].forEach(item => {
-          const coincidence = this.data['referenceProducts'].filter(reference => reference['id'] === item['id']);
-          if (coincidence.length) {
-            this.dbs.promotionsCollection
-              .doc(this.data['promo']['id'])
-              .collection('products')
-              .doc(item['id'])
-              .set(item, { merge: true })
-              .catch(err => {
-                console.log(err);
-                this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-                  duration: 6000
-                });
-              });
-          } else {
-            this.dbs.promotionsCollection
-              .doc(this.data['promo']['id'])
-              .collection('products')
-              .add(item)
-              .then(ref => {
-                ref.update({ id: ref.id });
-              })
-              .catch(err => {
-                console.log(err);
-                this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-                  duration: 6000
-                });
-              });
-          }
+        this.editItemsList(this.data['promoProducts'], this.data['referenceProducts']);
 
-        });
-        this.loading = false;
-        this.snackbar.open('Listo!', 'Cerrar', {
-          duration: 6000
-        });
-        this.dialogRef.close(true);
       })
       .catch(err => {
         console.log(err);
