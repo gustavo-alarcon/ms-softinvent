@@ -220,4 +220,6 @@ export interface PackageProduct {
   name: string;
   category: string;
   code: string;
+  quantity? : number;
+  unit? : string;
 }
