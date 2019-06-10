@@ -1,6 +1,6 @@
 <mat-toolbar style="width:100% ; background-color : nome" class="ms-color-b-2">
   <h1 class="ms-font-rubik">
-    <mat-icon style="vertical-align:middle" class="ms-color-icons">delete</mat-icon> Crear Paquete
+    <mat-icon style="vertical-align:middle" class="ms-color-icons">widgets</mat-icon> Crear Paquete
   </h1>
   <span class="ms-fill"></span>
   <button mat-icon-button color="accent" (click)="onNoClick()">
@@ -20,7 +20,7 @@
   <div class="w3-row">
     <div class="w3-third w3-container ">
       <mat-form-field style="width:100%" color="accent">
-        <mat-icon matPrefix class="ms-color-icons w3-margin-right">category</mat-icon>
+        <mat-icon matPrefix class="ms-color-icons w3-margin-right">widgets</mat-icon>
         <input matInput #productName type="text" placeholder="Nombre del paquete" formControlName="name">
         <mat-error *ngIf="!createPackageFormGroup.valid">
           Campo <strong>requerido*</strong>
@@ -41,7 +41,7 @@
     </div>
     <div class="w3-third w3-container">
       <mat-form-field style="width:100%" color="accent">
-        <mat-icon matPrefix class="ms-color-icons w3-margin-right">money</mat-icon>
+        <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
         <input matInput #productCode type="text" placeholder="Precio del paquete" formControlName="sale">
         <mat-error *ngIf="!createPackageFormGroup.valid">
           Campo <strong>requerido*</strong>
@@ -55,7 +55,7 @@
 <div class="w3-row ms-color-b-bg" style="margin-top: 18px">
   <div class="w3-third w3-container ">
     <mat-form-field style="width:100%" color="accent">
-      <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
+      <mat-icon matPrefix class="ms-color-icons w3-margin-right">filter_list</mat-icon>
       <input matInput placeholder="Producto" [formControl]="productListFC" [matAutocomplete]="autoWeb"
         autocomplete="off">
       <mat-autocomplete #autoWeb="matAutocomplete">
@@ -67,7 +67,7 @@
   </div>
   <div class="w3-third w3-container">
     <mat-form-field style="width:100%" color="accent">
-      <mat-icon matPrefix class="ms-color-icons w3-margin-right">money</mat-icon>
+      <mat-icon matPrefix class="ms-color-icons w3-margin-right">exposure</mat-icon>
       <input matInput #productCode type="number" placeholder="Cantidad" [formControl]="quantityFC">
       <mat-error *ngIf="!createPackageFormGroup.valid">
         Campo <strong>requerido*</strong>
@@ -131,6 +131,19 @@
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
+
+
+<div class="imagen"  >
+    <label for="file-input">
+        <button mat-raised-button class="ms-color-action-3" style="margin:0em 0.2em 1em 0.2em"   (click)="fileInput.click()">
+            <mat-icon>add_photo_alternate</mat-icon> Agregar Imagen
+          </button>
+    </label>
+    <input #fileInput (change)="openExplorer($event)" type="file" accept="image/*" 
+    style=" display: none"
+    
+    />
+  </div>
 <div style=" display: flex;justify-content:flex-end; align-items:right;">
   <mat-dialog-actions>
     <button mat-stroked-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>

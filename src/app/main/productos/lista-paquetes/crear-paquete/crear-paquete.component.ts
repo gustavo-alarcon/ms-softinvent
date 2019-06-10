@@ -23,6 +23,10 @@ export class CrearPaqueteComponent implements OnInit {
   productList: Array<PackageProduct> = [];
   displayedColumns: string[] = ['index', 'name', 'category', 'quantity', 'actions'];
   prod: Product;
+  quantityItems : number = 0;
+  selectedFile :File;
+  imageSrc : string | ArrayBuffer;
+
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<CrearPaqueteComponent>,
@@ -83,6 +87,10 @@ export class CrearPaqueteComponent implements OnInit {
         );
 
   }
+   /*Cuando hace click fuera del dialog*/
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
   addItem(): void {
     if (this.prod) {
       this.productList.push(
@@ -96,6 +104,7 @@ export class CrearPaqueteComponent implements OnInit {
           unit: this.prod.unit,
         }
       );
+      this.quantityItems =this.quantityItems +this.quantityFC.value;
       this.dataSource.data = this.productList;
       this.quantityFC.setValue('');
       this.productListFC.setValue('');
@@ -117,7 +126,7 @@ export class CrearPaqueteComponent implements OnInit {
     this.dbs.packagesCollection
       .add(this.createPackageFormGroup.value)
       .then(ref => {
-        ref.update({ id: ref.id, regDate: Date.now(), currency: "PEN" });
+        ref.update({ id: ref.id, regDate: Date.now(), currency: "PEN" , items : this.quantityItems});
         this.productList.forEach(item => {
           this.dbs.packagesCollection
             .doc(ref.id)
@@ -145,5 +154,14 @@ export class CrearPaqueteComponent implements OnInit {
         });
       });
   }
+  openExplorer(event):void {
+    this.selectedFile = event.target.files[0];
 
+    if(event.target.files && event.target.files[0]){
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
+      reader.readAsDataURL(file);
+    }
+  }
 }
