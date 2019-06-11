@@ -23,12 +23,16 @@ import {
   MatMenuModule
 } from '@angular/material';
 import { PackageDetailsComponent} from './package-details/package_details.component';
- import { CrearPaqueteComponent } from './crear-paquete/crear-paquete.component'
+ import { CrearPaqueteComponent } from './crear-paquete/crear-paquete.component';
+import { EditarPaqueteComponent } from './editar-paquete/editar-paquete.component';
+import { ConfirmarBorrarPaqueteComponent } from './confirmar-borrar-paquete/confirmar-borrar-paquete.component'
 @NgModule({
   declarations: [
     ListaPaquetesComponent,
     PackageDetailsComponent,
-    CrearPaqueteComponent
+    CrearPaqueteComponent,
+    EditarPaqueteComponent,
+    ConfirmarBorrarPaqueteComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +58,9 @@ import { PackageDetailsComponent} from './package-details/package_details.compon
   ],
   entryComponents: [
     PackageDetailsComponent,
-    CrearPaqueteComponent
+    CrearPaqueteComponent,
+    EditarPaqueteComponent,
+    ConfirmarBorrarPaqueteComponent
   ]
 })
 export class ListaPaquetesModule { }

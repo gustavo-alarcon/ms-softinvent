@@ -1,24 +1,30 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef, MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, mergeMap, finalize } from 'rxjs/operators';
 import { Product, Package, PackageProduct } from 'src/app/core/ms-types';
 import { AngularFireStorage } from '@angular/fire/storage';
-
+import { inject } from '@angular/core/testing';
+export interface DialogData {
+  paquete: Package,
+  products : Array<PackageProduct>,
+}
 @Component({
-  selector: 'app-crear-paquete',
-  templateUrl: './crear-paquete.component.html',
-  styles: []
+  selector: 'app-editar-paquete',
+  templateUrl: './editar-paquete.component.html'
 })
-export class CrearPaqueteComponent implements OnInit {
-  loading = false;
-  uploadPercent: Observable<number>;
+export class EditarPaqueteComponent implements OnInit {
+
   createPackageFormGroup: FormGroup;
   filteredProducts: Observable<any>;
   productListFC = new FormControl(null);
   quantityFC = new FormControl(null);
+  nameFC = new FormControl(null);
+  saleFC = new FormControl(null);
+  codeFC = new FormControl(null);
+
   mergedProductsAndPackages: Array<Product | Package> = [];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -26,19 +32,27 @@ export class CrearPaqueteComponent implements OnInit {
   productList: Array<PackageProduct> = [];
   displayedColumns: string[] = ['index', 'name', 'category', 'quantity', 'actions'];
   prod: Product;
-  quantityItems: number = 0;
+  quantityItems: number = this.pack.products.length;
   selectedFile: File;
   imageSrc: string | ArrayBuffer;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) private pack : DialogData,
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<CrearPaqueteComponent>,
+    public dialogRef: MatDialogRef<EditarPaqueteComponent>,
     public dbs: DatabaseService,
     private snackbar: MatSnackBar,
-    private storage: AngularFireStorage,
+
   ) { }
+ 
 
   ngOnInit() {
+    console.log(this.pack);
+    this.nameFC.setValue(this.pack.paquete.name);
+    this.saleFC.setValue(this.pack.paquete.sale);
+    this.codeFC.setValue(this.pack.paquete.code);
+    this.productList = this.pack.products;
+    this.dataSource.data = this.pack.products;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
@@ -89,9 +103,7 @@ export class CrearPaqueteComponent implements OnInit {
             return _list;
           })
         );
-
   }
-  /*Cuando hace click fuera del dialog*/
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -114,7 +126,6 @@ export class CrearPaqueteComponent implements OnInit {
       this.productListFC.setValue('');
     }
   }
-
   deleteItem(index: number): void {
     this.quantityItems = this.quantityItems - this.productList[index].quantity;
     this.productList.splice(index, 1);
@@ -125,106 +136,6 @@ export class CrearPaqueteComponent implements OnInit {
   }
   onEnterClick(prod): void {
     this.prod = prod;
-
-  }
-  save(): void {
-    this.loading = true;
-    let now = Date.now();
-    let path;
-    if (this.selectedFile) {
-      const filePath = `/packagePictures/` + now + `${this.selectedFile.name}`;
-      const fileRef = this.storage.ref(filePath);
-      const task = this.storage.upload(filePath, this.selectedFile);
-      this.uploadPercent = task.percentageChanges();
-      task.snapshotChanges().pipe(
-        finalize(() => {
-          fileRef.getDownloadURL().subscribe(res => {
-            if (res) {
-              console.log("ruta" + res);
-              this.dbs.packagesCollection
-                .add(this.createPackageFormGroup.value)
-                .then(ref => {
-                  ref.update({
-                    id: ref.id,
-                    regDate: Date.now(),
-                    currency: "PEN",
-                    items: this.quantityItems,
-                    img: res
-                  });
-                  this.productList.forEach(item => {
-                    this.dbs.packagesCollection
-                      .doc(ref.id)
-                      .collection('products')
-                      .add(item)
-                      .then(ref => {
-                        ref.update({ id: ref.id });
-                      })
-                      .catch(err => {
-                        console.log(err);
-                        this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-                          duration: 6000
-                        });
-                      });
-                  });
-                  this.snackbar.open('Listo!', 'Cerrar', {
-                    duration: 6000
-                    
-                  });
-                  this.loading = false;
-                  this.dialogRef.close(true);
-                })
-                .catch(err => {
-                  console.log(err);
-                  this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-                    duration: 6000
-                  });
-                });
-              console.log(path)
-
-            }
-          })
-        })
-      ).subscribe()
-    }
-    else{
-      this.dbs.packagesCollection
-      .add(this.createPackageFormGroup.value)
-      .then(ref => {
-        ref.update({
-          id: ref.id,
-          regDate: Date.now(),
-          currency: "PEN",
-          items: this.quantityItems,
-          img: ''
-        });
-        this.productList.forEach(item => {
-          this.dbs.packagesCollection
-            .doc(ref.id)
-            .collection('products')
-            .add(item)
-            .then(ref => {
-              ref.update({ id: ref.id });
-            })
-            .catch(err => {
-              console.log(err);
-              this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-                duration: 6000
-              });
-            });
-        });
-        this.snackbar.open('Listo!', 'Cerrar', {
-          duration: 6000
-        });
-        this.loading = false;
-        this.dialogRef.close(true);
-      })
-      .catch(err => {
-        console.log(err);
-        this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-          duration: 6000
-        });
-      });
-    }
   }
   openExplorer(event): void {
     this.selectedFile = event.target.files[0];

@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { Package } from 'src/app/core/ms-types';
 import { PackageDetailsComponent } from './package-details/package_details.component';
 import { CrearPaqueteComponent } from './crear-paquete/crear-paquete.component';
+import { EditarPaqueteComponent } from './editar-paquete/editar-paquete.component';
+import { ConfirmarBorrarPaqueteComponent } from './confirmar-borrar-paquete/confirmar-borrar-paquete.component';
 
 @Component({
   selector: 'app-lista-paquetes',
@@ -92,7 +94,7 @@ export class ListaPaquetesComponent implements OnInit {
   allFilteredProducts: Array<Array<any>> = [];
   displayedColumnsPackage: string[] = ['index', 'code', 'name', 'category', 'unit', 'sale', 'quantity'];
   dataSourcePackage = new MatTableDataSource();
-
+  imageSrc : string | ArrayBuffer;
   @ViewChild(MatSort) sort: MatSort;
 
   isOpenPromo: Array<boolean> = [];
@@ -106,23 +108,24 @@ export class ListaPaquetesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const promoSubs = this.dbs.currentDataPackages
-      .pipe(
-        tap(promos => {
-          promos.forEach(pack => {
-            this.isOpenPromo.push(false);
-            this.getPackageProducts(pack);
-          });
-        })
-      )
-      .subscribe(packages => {
-        this.filteredPackage = packages;
-      });
-
-    this.subscriptions.push(promoSubs);
-
+    this.uploadProducts()
   }
+  uploadProducts() : void{
+    const promoSubs = this.dbs.currentDataPackages
+    .pipe(
+      tap(promos => {
+        promos.forEach(pack => {
+          this.isOpenPromo.push(false);
+          this.getPackageProducts(pack);
+        });
+      })
+    )
+    .subscribe(packages => {
+      this.filteredPackage = packages;
+    });
 
+  this.subscriptions.push(promoSubs);
+  }
   /**
    * @desc Function to filter promotion list based in coincidence
    * @param ref {string} reference to the promotion searched
@@ -170,7 +173,7 @@ export class ListaPaquetesComponent implements OnInit {
   }
 
   /**
-   * @desc Function to create a new promotion
+   * @desc Function to create a new Package
    */
   createPackage(): void {
     const dialogRef = this.dialog.open(CrearPaqueteComponent, {
@@ -179,35 +182,48 @@ export class ListaPaquetesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-
+    this.uploadProducts();
   }
 
+
+
   /**
-   * @desc Function to toggle the active state of a promotion
+   * @desc Function to edit a Package
+   * @param promo reference to the Package to be edited
    */
-  toggleActive(promo: Package): void {
+  editPackage(pack: Package , index): void {
+    const dialogRef = this.dialog.open(EditarPaqueteComponent, {
+      data: { 
+        paquete: pack ,
+        products : this.allFilteredProducts[index]
 
+      },
+      panelClass: 'ms-custom-dialogbox'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   /**
-   * @desc Function to edit a promotion
-   * @param promo reference to the promotion to be edited
+   * @desc Function to delete a Package
+   * @param promo reference to the Package to be deleted
    */
-  editPackage(promo: Package): void {
-
+  deletePackage(pack: Package): void {
+    const dialogRef = this.dialog.open(ConfirmarBorrarPaqueteComponent, {
+      data: { 
+        paquete: pack ,
+      },
+      panelClass: 'ms-custom-dialogbox'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   /**
-   * @desc Function to delete a promotion
-   * @param promo reference to the promotion to be deleted
-   */
-  deletePackage(promo: Package): void {
-    console.log(this.allFilteredProducts);
-  }
-
-  /**
-    * @desc Function to delete a promotion
-    * @param promo reference to the promotion to be deleted
+    * @desc Function to view a Package product
+    * @param pack reference to the Package to be visualizated
     */
   moreProducts(pack: Package): void {
     const dialogRef = this.dialog.open(PackageDetailsComponent, {

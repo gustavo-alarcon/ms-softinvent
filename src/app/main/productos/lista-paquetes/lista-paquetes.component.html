@@ -35,7 +35,7 @@
         <span>{{package.currency}} </span>
         <span>S/.{{package.sale}} </span>
         <mat-menu #packageMenu="matMenu">
-          <button mat-menu-item (click)="editPackage(package)">Editar</button>
+          <button mat-menu-item (click)="editPackage(package , i)">Editar</button>
           <button mat-menu-item (click)="deletePackage(package)">Borrar</button>
         </mat-menu>
         <button mat-icon-button [matMenuTriggerFor]="packageMenu" (click)="$event.stopPropagation()">
@@ -112,14 +112,15 @@
 
   <div class="w3-hide-large w3-hide-medium w3-margin-top " style="width: 100%">
     <div style="padding-block: 3px;position: absolute">
-      <ng-container *ngFor="let package of filteredPackage; let i = index" style="padding-block-end: 30px">
+      <ng-container *ngFor="let  package  of filteredPackage; let i = index" style="padding-block-end: 30px">
 
         <div class="w3-white" style="border-radius: 5px;;margin-block-end: 8px;height: 160px;">
           <div class="w3-row">
             <div class="w3-half w3-container" style="width: 40%">
 
               <img
-                [src]="imagePath || 'https://static1.squarespace.com/static/5a85bd83f09ca42da62d4fa4/t/5b1ec58d562fa77b3a50c26f/1533656072845/Hydroponic+system+-+The+AEVA.jpg'"
+                [src]="package['img']
+                 || 'https://static1.squarespace.com/static/5a85bd83f09ca42da62d4fa4/t/5b1ec58d562fa77b3a50c26f/1533656072845/Hydroponic+system+-+The+AEVA.jpg'"
                 alt="Photo of a Shiba Inu" style="width:100%;border-top-left-radius: 5px;">
 
             </div>
@@ -164,7 +165,7 @@
                 <div class="w3-third  w3-container" style="width:25%; padding: 0px; margin: 0px">
                   <mat-menu #documentsMenu="matMenu">
                     <button mat-menu-item (click)="moreProducts(package)">Ver mas</button>
-                    <button mat-menu-item (click)="editPackage(package)">Editar</button>
+                    <button mat-menu-item (click)="editPackage(package , i)">Editar</button>
                     <button mat-menu-item (click)="deletePackage(package)">Borrar</button>
                   </mat-menu>
                   <button mat-icon-button [matMenuTriggerFor]="documentsMenu" style=" padding: 0px;margin: 0px">

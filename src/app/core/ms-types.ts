@@ -212,6 +212,7 @@ export interface Package {
   sale: number;
   active: boolean;
   regDate: number;
+  img: string;
 }
 
 export interface PackageProduct {
