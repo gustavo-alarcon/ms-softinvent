@@ -61,7 +61,8 @@ export class EditarPromocionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createForm();
-
+    this.dataSource.paginator = this.paginator;
+    
     this.loadingItems = true;
     const promoProductsSubs =
       this.dbs.getPromoProducts(this.data['promo']['id'])

@@ -57,6 +57,7 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createForm();
+    this.dataSource.paginator = this.paginator;
 
     const discountSubs = this.promotionFormGroup.get('discount').valueChanges
       .pipe(

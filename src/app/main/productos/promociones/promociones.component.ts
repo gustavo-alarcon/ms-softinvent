@@ -1,6 +1,6 @@
 import { tap, map } from 'rxjs/operators';
-import { MatDialog, MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DatabaseService } from 'src/app/core/database.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -85,7 +85,7 @@ import { ConfirmarBorrarPromocionComponent } from './confirmar-borrar-promocion/
     ])
   ]
 })
-export class PromocionesComponent implements OnInit {
+export class PromocionesComponent implements OnInit, AfterViewInit {
 
   disableTooltips = new FormControl(true);
   filteredPromotions: Array<any> = [];
@@ -93,11 +93,14 @@ export class PromocionesComponent implements OnInit {
   displayedColumnsPromo: string[] = ['index', 'code', 'name', 'category'];
   dataSourcePromo = new MatTableDataSource();
 
+  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
   @ViewChild(MatSort) sort: MatSort;
 
   promoProducts: Array<PromoProduct> = [];
 
   isOpenPromo: Array<boolean> = [];
+  dataSourceList: Array<any> = [];
+  loadingList: Array<boolean> = [];
 
   subscriptions: Array<Subscription> = [];
 
@@ -108,11 +111,17 @@ export class PromocionesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     const promoSubs = this.dbs.currentDataPromotions
       .pipe(
         tap(promos => {
+          this.isOpenPromo = [];
+          this.dataSourceList = [];
+          this.loadingList = [];
           promos.forEach(promo => {
             this.isOpenPromo.push(false);
+            this.loadingList.push(false);
+            this.dataSourceList.push(new MatTableDataSource);
           });
         })
       )
@@ -121,6 +130,13 @@ export class PromocionesComponent implements OnInit {
       });
 
     this.subscriptions.push(promoSubs);
+  }
+
+  ngAfterViewInit() {
+
+    // this.dataSourceList.forEach((element, index) => {
+    //   element.paginator = this.paginator.toArray()[index];
+    // });
   }
 
   /**
@@ -137,7 +153,12 @@ export class PromocionesComponent implements OnInit {
    * @desc Getting the products of a promo
    * @param promo {!Promo} value passed when panel is opened
    */
-  getPromoProducts(promo: Promo): void {
+  getPromoProducts(promo: Promo, idx: number): void {
+    this.dataSourceList[idx].paginator = this.paginator.toArray()[idx];
+    if (!!this.dataSourceList[idx].data.length) { return; }
+
+    this.loadingList[idx] = true;
+
     const promoProductsSubs =
       this.dbs.getPromoProducts(promo.id)
         .pipe(
@@ -149,8 +170,8 @@ export class PromocionesComponent implements OnInit {
           })
         )
         .subscribe(products => {
-          this.dataSourcePromo.data = products;
-          this.promoProducts = products;
+          this.dataSourceList[idx].data = products;
+          this.loadingList[idx] = false;
         });
     this.subscriptions.push(promoProductsSubs);
   }
@@ -184,18 +205,18 @@ export class PromocionesComponent implements OnInit {
   toggleActive(promo: Promo): void {
     this.dbs.promotionsCollection
       .doc(promo.id).
-      update({active: !promo.active})
-        .then(() => {
-          this.snackbar.open('Listo!', 'Cerrar', {
-            duration: 6000
-          });
-        })
-        .catch(err => {
-          console.log(err);
-          this.snackbar.open(err, 'Cerrar', {
-            duration: 6000
-          });
+      update({ active: !promo.active })
+      .then(() => {
+        this.snackbar.open('Listo!', 'Cerrar', {
+          duration: 6000
         });
+      })
+      .catch(err => {
+        console.log(err);
+        this.snackbar.open(err, 'Cerrar', {
+          duration: 6000
+        });
+      });
   }
 
   /**
