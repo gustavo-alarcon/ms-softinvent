@@ -62,28 +62,37 @@
     style="display:flex; align-items:center">
     <mat-slide-toggle class="w3-margin-right" [formControl]="toggleNameCategoryFormControl"></mat-slide-toggle>
 
-    <mat-form-field class="w3-margin-right" color="accent" style="min-width:100px; flex-grow:1" *ngIf="toggleNameCategoryFormControl.value">
+    <mat-form-field class="w3-margin-right" color="accent" style="min-width:100px; flex-grow:1"
+      *ngIf="toggleNameCategoryFormControl.value">
       <mat-label>Producto/Paquete</mat-label>
       <mat-icon matPrefix class="ms-color-icons">filter_list</mat-icon>
       <input matInput type="text" [formControl]="filterItemFormControl" [matAutocomplete]="autoFilterProduct"
         placeholder="Escriba...">
       <mat-autocomplete #autoFilterProduct="matAutocomplete" [displayWith]="showSelectedItem">
         <mat-option *ngFor="let item of filteredItemList | async" [value]="item" (click)="addItem(item)">
-          {{item['code'] + ' - ' + item['name']}}
+          {{item.code + ' - ' + item.name}}
         </mat-option>
       </mat-autocomplete>
+      <mat-hint>
+        *El producto se agregará al ser seleccionado
+      </mat-hint>
     </mat-form-field>
 
-    <mat-form-field class="w3-margin-right" color="accent" style="min-width:100px; flex-grow:1" *ngIf="!toggleNameCategoryFormControl.value">
+    <mat-form-field class="w3-margin-right" color="accent" style="min-width:100px; flex-grow:1"
+      *ngIf="!toggleNameCategoryFormControl.value">
       <mat-label>Categoría</mat-label>
       <mat-icon matPrefix class="ms-color-icons">filter_list</mat-icon>
       <input matInput type="text" [formControl]="filterCategoryFormControl" [matAutocomplete]="autoFilterCategory"
         placeholder="Escriba...">
       <mat-autocomplete #autoFilterCategory="matAutocomplete" [displayWith]="showSelectedCategory">
-        <mat-option *ngFor="let category of filteredCategoryList | async" [value]="category" (click)="addCategory(category)">
+        <mat-option *ngFor="let category of filteredCategoryList | async" [value]="category"
+          (click)="addCategory(category)">
           {{category.name}}
         </mat-option>
       </mat-autocomplete>
+      <mat-hint>
+        *El producto se agregará al ser seleccionado
+      </mat-hint>
     </mat-form-field>
   </div>
 

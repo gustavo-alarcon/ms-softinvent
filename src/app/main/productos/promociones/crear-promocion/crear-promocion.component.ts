@@ -152,17 +152,47 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
   }
 
   addItem(item: Product | Package): void {
-    this.promotionList.push(
-      {
-        id: '',
-        itemId: item.id,
-        code: item.code,
-        name: item.name,
-        category: item.category,
-        regDate: Date.now()
-      }
-    );
-    this.dataSource.data = this.promotionList;
+    const itemIds = this.promotionList.map(ref => ref.itemId);
+    const coincidence = itemIds.indexOf(item.id);
+
+    if (coincidence < 0) {
+      this.promotionList.unshift(
+        {
+          id: '',
+          itemId: item.id,
+          code: item.code,
+          name: item.name,
+          category: item.category,
+          regDate: Date.now()
+        }
+      );
+      this.dataSource.data = this.promotionList;
+      this.filterItemFormControl.setValue(
+        {
+          id: '',
+          itemId: '',
+          code: '',
+          name: '',
+          category: '',
+          regDate: 0
+        }
+      );
+    } else {
+      this.snackbar.open(`${item.name} ya fue seleccionado`, 'Cerrar', {
+        duration: 6000
+      });
+      this.filterItemFormControl.setValue(
+        {
+          id: '',
+          itemId: '',
+          code: '',
+          name: '',
+          category: '',
+          regDate: 0
+        }
+      );
+    }
+
   }
 
   deleteItem(index: number): void {
@@ -197,6 +227,13 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
         };
       });
     this.dataSource.data = this.promotionList;
+    this.filterCategoryFormControl.setValue(
+      {
+        id: '',
+        name: '',
+        regDate: 0
+      }
+    );
   }
 
   save(): void {
@@ -204,7 +241,7 @@ export class CrearPromocionComponent implements OnInit, OnDestroy {
     this.dbs.promotionsCollection
       .add(this.promotionFormGroup.value)
       .then(ref => {
-        ref.update({ id: ref.id, regDate: Date.now()});
+        ref.update({ id: ref.id, regDate: Date.now() });
         this.promotionList.forEach(item => {
           this.dbs.promotionsCollection
             .doc(ref.id)
