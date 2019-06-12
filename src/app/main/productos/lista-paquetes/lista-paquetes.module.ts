@@ -25,14 +25,16 @@ import {
 import { PackageDetailsComponent} from './package-details/package_details.component';
  import { CrearPaqueteComponent } from './crear-paquete/crear-paquete.component';
 import { EditarPaqueteComponent } from './editar-paquete/editar-paquete.component';
-import { ConfirmarBorrarPaqueteComponent } from './confirmar-borrar-paquete/confirmar-borrar-paquete.component'
+import { ConfirmarBorrarPaqueteComponent } from './confirmar-borrar-paquete/confirmar-borrar-paquete.component';
+import { ConfirmarEditarPaqueteComponent } from './confirmar-editar-paquete/confirmar-editar-paquete.component'
 @NgModule({
   declarations: [
     ListaPaquetesComponent,
     PackageDetailsComponent,
     CrearPaqueteComponent,
     EditarPaqueteComponent,
-    ConfirmarBorrarPaqueteComponent
+    ConfirmarBorrarPaqueteComponent,
+    ConfirmarEditarPaqueteComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { ConfirmarBorrarPaqueteComponent } from './confirmar-borrar-paquete/conf
     PackageDetailsComponent,
     CrearPaqueteComponent,
     EditarPaqueteComponent,
-    ConfirmarBorrarPaqueteComponent
+    ConfirmarBorrarPaqueteComponent,
+    ConfirmarEditarPaqueteComponent
   ]
 })
 export class ListaPaquetesModule { }

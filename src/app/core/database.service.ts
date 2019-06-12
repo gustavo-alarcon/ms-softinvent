@@ -1,4 +1,4 @@
-import { Promo, PromoProduct } from 'src/app/core/ms-types';
+import { Promo, PromoProduct, PackageProduct } from 'src/app/core/ms-types';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from "@angular/fire/firestore";
 import { Observable, of, BehaviorSubject } from "rxjs";
@@ -665,9 +665,9 @@ export class DatabaseService {
         this.dataPackages.next(res);
       });
   }
-  getPackagesProducts(id_package): Observable<PromoProduct[]> {
+  getPackagesProducts(id_package): Observable<PackageProduct[]> {
     console.log(`db/${this.auth.userInvent.db}/package/${id_package}/products`)
-    return this.afs.collection<PromoProduct>(`db/${this.auth.userInvent.db}/package/${id_package}/products`, ref => ref.orderBy('name', 'desc')).valueChanges();
+    return this.afs.collection<PackageProduct>(`db/${this.auth.userInvent.db}/package/${id_package}/products`, ref => ref.orderBy('name', 'desc')).valueChanges();
   }
   getPromotions(): void {
     this.promotionsCollection =

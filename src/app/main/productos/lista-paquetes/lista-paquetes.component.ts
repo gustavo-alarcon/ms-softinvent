@@ -195,7 +195,8 @@ export class ListaPaquetesComponent implements OnInit {
     const dialogRef = this.dialog.open(EditarPaqueteComponent, {
       data: { 
         paquete: pack ,
-        products : this.allFilteredProducts[index]
+        products : this.allFilteredProducts[index],
+
 
       },
       panelClass: 'ms-custom-dialogbox'

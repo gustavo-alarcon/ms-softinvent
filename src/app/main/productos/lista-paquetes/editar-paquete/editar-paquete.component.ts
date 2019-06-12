@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map, mergeMap, finalize } from 'rxjs/operators';
 import { Product, Package, PackageProduct } from 'src/app/core/ms-types';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { inject } from '@angular/core/testing';
+import { ConfirmarEditarPaqueteComponent } from '../confirmar-editar-paquete/confirmar-editar-paquete.component';
 export interface DialogData {
   paquete: Package,
   products : Array<PackageProduct>,
@@ -34,15 +34,14 @@ export class EditarPaqueteComponent implements OnInit {
   prod: Product;
   quantityItems: number = this.pack.products.length;
   selectedFile: File;
-  imageSrc: string | ArrayBuffer;
-
+  imageSrc: string | ArrayBuffer = this.pack.paquete.img;
   constructor(
     @Inject(MAT_DIALOG_DATA) private pack : DialogData,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditarPaqueteComponent>,
     public dbs: DatabaseService,
     private snackbar: MatSnackBar,
-
+    private dialog: MatDialog
   ) { }
  
 
@@ -147,5 +146,26 @@ export class EditarPaqueteComponent implements OnInit {
       reader.readAsDataURL(file);
     }
 
+  }
+  confirmEdit(pack):void{
+    let newPack : Package = {  
+      id: '',
+      code: this.codeFC.value,
+      name: this.nameFC.value,
+      category: '',
+      sale: this.saleFC.value,
+      regDate: 0,
+      img:''}
+    const dialogRef = this.dialog.open(ConfirmarEditarPaqueteComponent, {
+      data: { productList: this.productList,
+              currentPack : this.pack.paquete,
+              newPack: newPack,
+              imgFile : this.selectedFile
+              },
+      panelClass: 'ms-custom-dialogbox'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { this.dialogRef.close() }
+    });
   }
 }

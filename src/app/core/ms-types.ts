@@ -210,7 +210,6 @@ export interface Package {
   name: string;
   category: string;
   sale: number;
-  active: boolean;
   regDate: number;
   img: string;
 }
