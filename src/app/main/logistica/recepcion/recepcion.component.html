@@ -11,7 +11,7 @@
       </mat-hint>
     </mat-form-field>
     <button mat-button class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em" disabled>
-      <mat-icon>assignment</mat-icon> 02 Documentos
+      <mat-icon>assignment</mat-icon> {{ dbs.transfers.length | number : '2.'}} Documentos
     </button>
     <span style="margin-right:1em">
       <mat-form-field autocomplete="off" color="accent">
@@ -24,6 +24,94 @@
     <mat-checkbox [formControl]="disableTooltips" class="w3-small">
       Mensajes de ayuda
     </mat-checkbox>
+  </div>
+
+  <div *ngFor="let transfer of filteredTransfers; let i = index">
+    <div mat-ripple class="ms-table-header ms-font-roboto mat-elevation-z4 w3-margin-top"
+      style="font-size:14px; cursor:pointer;" (click)="togglePanelTransfer(i);getTransferProducts(transfer, i)">
+      <div class="w3-row mat-body" style="display:flex; align-items:center; height:70px">
+        <div class="w3-padding w3-col s3">
+          <span class="ms-color-wt"
+            style="padding:8px 8px;border-radius:5px">{{i+1 | number : '2.'}}</span>
+        </div>
+        <div class="w3-padding w3-col s3">
+          <span>{{transfer.regDate | date : 'dd/MM/yyyy'}}</span>
+        </div>
+        <div class="w3-padding w3-col s3">
+          <span>{{transfer.docName}}-{{transfer.docSerie}}-{{transfer.docCorrelative}}</span>
+        </div>
+        <div class="w3-padding w3-col s3">
+          <span [ngClass]="{'ms-color-b-1': transfer.status === 'Enviado', 'ms-color-wt': transfer.status !== 'Enviado'}"
+            style="padding:8px 24px;border-radius:5px">{{transfer.status}}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div [@openCloseTable]="isOpenTransfer[i] ? 'openTable': 'closedTable'" style="overflow-x:auto">
+      <mat-progress-bar mode="indeterminate" *ngIf="loadingList[i]"></mat-progress-bar>
+      <table mat-table [dataSource]="dataSourceList[i]" matSort style="width:100%">
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>N°
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{row.index + 1}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Código
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{row.code}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
+          <td mat-cell *matCellDef="let row">
+            {{row.name}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+          <td mat-cell *matCellDef="let row">
+            {{row.quantity | number : '2.'}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serialList">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Lista</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button (click)="openSerialList(row)"><mat-icon>keyboard_arrow_down</mat-icon></button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="observations">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</th>
+          <td mat-cell *matCellDef="let row">
+            {{row.observations}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsTransfer; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsTransfer;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons *ngIf="transfer.length > 5"></mat-paginator>
+      <mat-toolbar style="background:#424242">
+        <span class="ms-fill"></span>
+        <button mat-stroked-button class="w3-margin-right" color="warn">Rechazar</button>
+        <button mat-raised-button class="ms-color-b-1 w3-margin-right">Guardar</button>
+        <button mat-raised-button class="ms-color-action-3">Finalizar</button>
+      </mat-toolbar>
+    </div>
+
+    <mat-toolbar mat-ripple class="ms-table-header"
+      style="height:20px; justify-content:center; cursor:pointer; border-top:solid 1px #4a4a4a"
+      (click)="togglePanelTransfer(i);getTransferProducts(transfer, i)">
+      <mat-icon [@openCloseArrow]="isOpenTransfer[i] ? 'openArrow' : 'closedArrow'">keyboard_arrow_up</mat-icon>
+    </mat-toolbar>
   </div>
 
 </div>

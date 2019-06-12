@@ -1,6 +1,6 @@
 import { tap, map } from 'rxjs/operators';
 import { MatDialog, MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { Component, OnInit, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DatabaseService } from 'src/app/core/database.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -85,7 +85,7 @@ import { ConfirmarBorrarPromocionComponent } from './confirmar-borrar-promocion/
     ])
   ]
 })
-export class PromocionesComponent implements OnInit, AfterViewInit {
+export class PromocionesComponent implements OnInit {
 
   disableTooltips = new FormControl(true);
   filteredPromotions: Array<any> = [];
@@ -130,13 +130,6 @@ export class PromocionesComponent implements OnInit, AfterViewInit {
       });
 
     this.subscriptions.push(promoSubs);
-  }
-
-  ngAfterViewInit() {
-
-    // this.dataSourceList.forEach((element, index) => {
-    //   element.paginator = this.paginator.toArray()[index];
-    // });
   }
 
   /**

@@ -1,4 +1,4 @@
-import { Promo, PromoProduct, PackageProduct } from 'src/app/core/ms-types';
+import { Promo, PromoProduct, Transfer, TransferProduct } from 'src/app/core/ms-types';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from "@angular/fire/firestore";
 import { Observable, of, BehaviorSubject } from "rxjs";
@@ -175,6 +175,15 @@ export class DatabaseService {
   public dataPromotionProducts = new BehaviorSubject<PromoProduct[]>([]);
   currentDataPromotionProducts = this.dataPromotionProducts.asObservable();
 
+  /*---------------- LOGISTIC ------------------------ */
+
+  // TRANSFERS
+  transfersCollection: AngularFirestoreCollection<Transfer>;
+  transfers: Array<Transfer> = [];
+
+  public dataTransfers = new BehaviorSubject<Transfer[]>([]);
+  currentDataTransfers = this.dataTransfers.asObservable();
+
   /*---------------- HISTORY DATA --------------------- */
 
   // HISTORY
@@ -203,6 +212,7 @@ export class DatabaseService {
     this.getProducts();
     this.getPackages();
     this.getPromotions();
+    this.getTransfers();
 
     this.dataDocumentToSet.next(this.documentToSet);
 
@@ -665,10 +675,11 @@ export class DatabaseService {
         this.dataPackages.next(res);
       });
   }
-  getPackagesProducts(id_package): Observable<PackageProduct[]> {
-    console.log(`db/${this.auth.userInvent.db}/package/${id_package}/products`)
-    return this.afs.collection<PackageProduct>(`db/${this.auth.userInvent.db}/package/${id_package}/products`, ref => ref.orderBy('name', 'desc')).valueChanges();
+
+  getPackagesProducts(id_package): Observable<PromoProduct[]> {
+    return this.afs.collection<PromoProduct>(`db/${this.auth.userInvent.db}/package/${id_package}/products`, ref => ref.orderBy('name', 'desc')).valueChanges();
   }
+
   getPromotions(): void {
     this.promotionsCollection =
       this.afs.collection<Promo>(`db/${this.auth.userInvent.db}/promotions`, ref => ref.orderBy('regDate', 'desc'));
@@ -690,6 +701,21 @@ export class DatabaseService {
 
   getPromoProducts(id_promo): Observable<PromoProduct[]> {
     return this.afs.collection<PromoProduct>(`db/${this.auth.userInvent.db}/promotions/${id_promo}/products`, ref => ref.orderBy('regDate', 'desc')).valueChanges();
+  }
+
+  /*---------------- LOGISTIC --------------------- */
+
+  getTransfers(): void {
+    this.transfersCollection = this.afs.collection(`db/${this.auth.userInvent.db}/transfers`, ref => ref.orderBy('regDate', 'desc'));
+    this.transfersCollection.valueChanges()
+      .subscribe(res => {
+        this.transfers = res;
+        this.dataTransfers.next(res);
+      });
+  }
+
+  getTransferProducts(id_transfer): Observable<TransferProduct[]> {
+    return this.afs.collection<TransferProduct>(`db/${this.auth.userInvent.db}/transfers/${id_transfer}/products`, ref => ref.orderBy('regDate', 'desc')).valueChanges();
   }
 
   /*---------------- REGISTRY --------------------- */

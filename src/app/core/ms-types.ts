@@ -220,6 +220,35 @@ export interface PackageProduct {
   name: string;
   category: string;
   code: string;
-  quantity? : number;
-  unit? : string;
+  quantity?: number;
+  unit?: string;
+}
+
+export interface Transfer {
+  id: string;
+  docName: string;
+  docSerie: string;
+  docCorrelative: number;
+  status: string;
+  productList?: Array<TransferProduct>;
+  regDate: number;
+}
+
+export interface TransferProduct {
+  id: string;
+  index?: number;
+  code: string;
+  name: string;
+  quantity: number;
+  serialList?: Array<ProductSerialNumber>;
+  observations: string;
+  regDate: number;
+}
+
+export interface ProductSerialNumber {
+  id: string;
+  productId: string;
+  serial: number;
+  received: boolean;
+  regDate: number;
 }

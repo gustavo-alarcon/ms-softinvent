@@ -10,7 +10,12 @@ import {  MatIconModule,
           MatNativeDateModule,
           MatButtonModule,
           MatCheckboxModule,
-          MatDividerModule} from '@angular/material';
+          MatDividerModule,
+          MatTableModule,
+          MatPaginatorModule,
+          MatSortModule,
+          MatToolbarModule,
+          MatProgressBarModule} from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -22,6 +27,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     RecepcionRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
@@ -29,8 +35,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatDividerModule
-    
+    MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressBarModule
+
   ]
 })
 export class RecepcionModule { }
