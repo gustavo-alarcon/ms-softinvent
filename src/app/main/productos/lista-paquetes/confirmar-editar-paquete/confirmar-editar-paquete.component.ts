@@ -120,7 +120,6 @@ export class ConfirmarEditarPaqueteComponent implements OnInit {
             products.forEach((element, index) => {
               element['index'] = index;
             });
-            console.log(products)
             this.currentProducts = products;
             return products;
           })
