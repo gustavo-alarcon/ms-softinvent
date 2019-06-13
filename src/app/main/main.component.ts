@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth.service';
 import { MatSnackBar } from '@angular/material';
+import { SidenavService } from 'src/app/core/sidenav.service';
 
 @Component({
   selector: 'app-main',
@@ -9,17 +10,14 @@ import { MatSnackBar } from '@angular/material';
 })
 export class MainComponent implements OnInit {
 
-  opened: boolean = false;
+  sideBarIsOpened = false;
 
-  constructor(
-    public auth: AuthService,
-    public snackbar: MatSnackBar) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  openSidenav(): void {
-    this.opened = !this.opened;
+  toggleSideBar() {
+    this.sideBarIsOpened = !this.sideBarIsOpened;
   }
-
 }

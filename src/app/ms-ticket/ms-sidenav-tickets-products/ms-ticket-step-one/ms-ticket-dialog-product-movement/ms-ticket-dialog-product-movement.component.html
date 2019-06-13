@@ -1,0 +1,310 @@
+<div class="w3-hide-small">
+
+  <div mat-dialog-title>
+    <mat-toolbar style="width:100% ; background-color : nome" class="ms-color-b-2">
+      <span>
+        {{data.name}} | Stock : {{data.stock}}
+      </span>
+      <span class="ms-fill"></span>
+      <button mat-icon-button color="accent" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+  <div mat-dialog-content>
+    <div>
+      <mat-card>
+        <div class="w3-row">
+          <div class="w3-container w3-third ">
+            <mat-form-field class="w3-block">
+              <input matInput placeholder="Cantidad" type="number" value={{initQuantity}} min="0" max="{{data.stock}}"
+                [formControl]="quantityFC">
+
+              <mat-hint>P/u S/. {{data.sale}}</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="w3-container w3-third">
+            <mat-form-field class="w3-block">
+              <input matInput placeholder="Precio Inicial" disabled value={{initPrice}} class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="w3-container w3-third">
+            <mat-form-field class="w3-block">
+              <input matInput placeholder="Precio Final" disabled value={{data.salePrice||total}} class="form-control">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card>
+      <div class="w3-row">
+        <div class="w3-half w3-container ">
+          <div class="w3-padding-48	">
+            <mat-card>
+              <!-- <mat-radio-button value="1" [checked]="true"> -->
+              <p>Descuento</p>
+              <!-- </mat-radio-button> -->
+              <div class="w3-row">
+                <div class="w3-third w3-container w3-block " style="padding:0px">
+                  <mat-form-field class="w3-block">
+                    <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
+                    <input matInput placeholder="Soles" placeholder="Soles" [formControl]="discountFC"
+                      class="form-control" value="{{ discountNumber}}" type="number" min="0" max={{maxDiscount}}>
+                    <mat-hint> {{maxDiscount | currency : 'S/.'}}</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="w3-third w3-container w3-block"
+                  style="padding:0px ;align-items: center;display: flex; justify-content: center;">
+                  <h2>=</h2>
+                </div>
+                <div class="w3-third w3-container w3-block" style="padding:0px">
+                  <mat-form-field class="w3-block">
+                    <span matPrefix class="ms-color-icons w3-margin-right" style="font-size: 20px;
+                    font-weight: 900;">%</span>
+                    <input matInput placeholder="Porcentaje" [formControl]="discountPercentageFC" class="form-control"
+                      value="{{ discountPercentage}}" type="number" min="0" max={{data.maxDiscount}}>
+                    <mat-hint>{{data.maxDiscount}} % </mat-hint>
+
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+        <div class="w3-half w3-container">
+          <div class="w3-padding-48">
+            <mat-form-field style="width:100%" color="accent">
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
+              <input matInput placeholder="Seleccione un Nro de Serie" (keyup.enter)="onEnterClick()"
+                [formControl]="serieList" [matAutocomplete]="autoWeb" autocomplete="off">
+              <mat-autocomplete #autoWeb="matAutocomplete">
+                <mat-option *ngIf="isEmpty">
+                  No existe el número
+                </mat-option>
+                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
+                  <mat-checkbox class="example-margin" [disabled]=serie.activated
+                    [checked]="selection.isSelected(serie) " (click)="$event.stopPropagation();"
+                    (change)="changeValue(serie)">
+                    {{serie.number}}
+                  </mat-checkbox>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button class="w3-block" [ngClass]="{'ms-color-action-3': enableAddProd}"
+      [disabled]="!enableAddProd" (click)="confirmacionProduct()">Agregar al carrito
+      ({{total | currency : 'S/.'}})</button>
+  </div>
+</div>
+
+
+<div class="w3-hide-large w3-hide-medium" >
+  <div mat-dialog-title>
+    <mat-toolbar style="width:100%;padding: 0px" class="ms-color-b-2">
+      <span>
+        {{data.name}} | Stock : {{data.stock}}
+      </span>
+      <span class="ms-fill"></span>
+      <button mat-icon-button color="accent" (click)="onNoClick()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+
+  <div mat-dialog-content style="background-color:#394e65 ">
+    <div style="border-radius: 20px;">
+      <div class="ms-card-image" style="margin:10px">
+        <img [src]="imageProd || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+          alt="Photo of a Shiba Inu" style="width:100%;border-radius: 10px;">
+      </div>
+      <div class="w3-row">
+        <div class="w3-half w3-container" style="width:50% ; margin:0px">
+          <div class="w3-row">
+            <div class="w3-half w3-container" style="width:20% ; margin:0px;padding: 0px;">
+              <mat-icon>monetization_on</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:70% ; margin:0px">
+              <p style="margin:0px">Precio</p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-half w3-container" style="width:50% ">
+          <p style="margin:0px">{{data.sale | currency : 'S/.'}}</p>
+        </div>
+      </div>
+      <div class="w3-row">
+        <div class="w3-half w3-container" style="width:50% ; margin:0px">
+          <div class="w3-row">
+            <div class="w3-half w3-container" style="width:20% ; margin:0px;padding: 0px;">
+              <mat-icon>list_all</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:70% ; margin:0px">
+              <p style="margin:0px">Stock</p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-half w3-container" style="width:50% ">
+          <p style="margin:0px">{{data.stock}}</p>
+        </div>
+      </div>
+      <div class="w3-row">
+        <div class="w3-half w3-container" style="width:50% ; margin:0px">
+          <div class="w3-row">
+            <div class="w3-half w3-container" style="width:20% ; margin:0px;padding: 0px;">
+              <mat-icon>category</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:70% ; margin:0px">
+              <p style="margin:0px">Categoria</p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-half w3-container" style="width:50% ">
+          <p style="margin:0px">{{data.category}}</p>
+        </div>
+      </div>
+      <div class="w3-row">
+        <div class="w3-half w3-container" style="width:50% ; margin:0px">
+          <div class="w3-row">
+            <div class="w3-half w3-container" style="width:20% ; margin:0px;padding: 0px;">
+              <mat-icon>location_on</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:70% ; margin:0px">
+              <p style="margin:0px">Ubicacion</p>
+            </div>
+          </div>
+        </div>
+        <div class="w3-half w3-container" style="width:50% ">
+          <p style="margin:0px">{{data.warehouse}}</p>
+        </div>
+      </div>
+      <div class="w3-margin w3-center">
+        <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+          (click)="DecreaseQuantity()">-</button>
+        <mat-form-field class="w3-block" style="width:30%">
+          <input matInput class="w3-center" type="number" value={{initQuantity}} min="0" max="{{data.stock}}"
+            [formControl]="quantityFC">
+        </mat-form-field>
+        <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+          (click)="IncreaseQuantity()">+</button>
+      </div>
+      <div class="w3-margin">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Nro de serie
+              </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <mat-form-field style="width:100%" color="accent">
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
+              <input matInput placeholder="Seleccione un Nro de Serie" (keyup.enter)="onEnterClick()"
+                [formControl]="serieList" [matAutocomplete]="autoMobile" autocomplete="off">
+              <mat-autocomplete #autoMobile="matAutocomplete">
+                <mat-option *ngIf="isEmpty">
+                  No existe el número
+                </mat-option>
+                <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
+                  <mat-checkbox class="example-margin" [disabled]=serie.activated
+                    [checked]="selection.isSelected(serie)" (click)="$event.stopPropagation();"
+                    (change)="changeValue(serie)">
+                    {{serie.number}}
+                  </mat-checkbox>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </mat-expansion-panel>
+          <mat-expansion-panel class="w3-hide">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Aplicar Promocion
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="w3-row">
+              <mat-form-field color="accent" class="w3-block">
+                <mat-select placeholder="Promociones" style="width: 100%">
+                  <mat-option *ngFor="let type of listaPromos" [value]="type">
+                    {{type}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="w3-row">
+              <div class="w3-third w3-container" style="padding: 0px">
+                <mat-form-field class="w3-block">
+                  <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
+
+                  <input matInput style="width:33%" placeholder="Soles" [formControl]="promocion" class="form-control"
+                    value=0 type="number">
+                </mat-form-field>
+              </div>
+              <div class="w3-third w3-container" style="padding: 0px">
+                <h2 style="width:33%">=</h2>
+              </div>
+              <div class="w3-third w3-container" style="padding: 0px">
+                <mat-form-field class="w3-block">
+                  <span matPrefix class="ms-color-icons w3-margin-right" style="font-size: 20px;
+                  font-weight: 900;">%</span>
+                  <input matInput style="width:33%" placeholder="Porcentaje" type="number">
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Aplicar Descuento
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="w3-row">
+
+              <div class="w3-margin w3-center" style="padding: 0px">
+                <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+                  (click)="DecreaseDiscountNumber()">-</button>
+                <mat-form-field class="w3-block" style="width:45%">
+                  <span matPrefix class="ms-color-icons" style="margin-right:3px;margin-left:3px; font-size:15px;
+                    font-weight:900"> S/</span>
+                  <input matInput style="width:83%" [formControl]="discountFC" class="form-control"
+                    value="{{ discountNumber}}" min=0 max={{maxDiscount}} type="number">
+                  <mat-hint> {{maxDiscount | currency : 'S/.'}}</mat-hint>
+
+                </mat-form-field>
+                <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+                  (click)="IncreaseDiscountNumber()">+</button>
+              </div>
+
+              <div class="w3-margin w3-center" style="padding: 0px">
+                <h2>=</h2>
+              </div>
+
+              <div class="w3-margin w3-center" style="padding: 0px">
+                <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+                  (click)="DecreaseDiscountPercentage()">-</button>
+                <mat-form-field class="w3-block" style="width:45%">
+                  <span matPrefix class="ms-color-icons" style="margin-right:3px;margin-left:3px; font-size:18px;
+                  font-weight:900"> %</span>
+                  <input matInput style="width:80%" [formControl]="discountPercentageFC" class="form-control"
+                    value="{{  discountPercentage }}" min=0 max={{data.maxDiscount}} type="number">
+                  <mat-hint>{{data.maxDiscount}} %</mat-hint>
+
+                </mat-form-field>
+                <button icon-button class="w3-button w3-circle" style="background:#9B59B6"
+                  (click)="IncreaseDiscountPercentage()">+</button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px">
+    <button mat-raised-button class="w3-block " [ngClass]="{'ms-color-action-3': enableAddProd}"
+      [disabled]="!enableAddProd" (click)="confirmacionProduct()">Agregar al carrito
+      ({{  total | currency : 'S/.' }}
+      )</button>
+  </div>
+</div>

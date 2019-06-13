@@ -7,10 +7,10 @@ import { DatabaseService } from 'src/app/core/database.service';
   templateUrl: './confirmar-limpiar-registrar.component.html',
   styles: []
 })
-export class ConfirmarLimpiarRegistrarComponent implements OnInit {
+export class ConfirmClearRegisterComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<ConfirmarLimpiarRegistrarComponent>,
+    public dialogRef: MatDialogRef<ConfirmClearRegisterComponent>,
     public dbs: DatabaseService
   ) { }
 

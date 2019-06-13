@@ -1,0 +1,166 @@
+<div mat-dialog-title>
+  <mat-toolbar style="width:100% ; background-color : nome" class="ms-color-b-2">
+    <h1 class="ms-font-rubik">
+      <mat-icon style="vertical-align:middle" class="ms-color-icons">edit</mat-icon> Editar Paquete
+    </h1>
+    <span class="ms-fill"></span>
+    <button mat-icon-button color="accent" (click)="onNoClick()">
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <mat-divider></mat-divider>
+
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+<div mat-dialog-content>
+
+  <form [formGroup]="createPackageFormGroup">
+
+
+    <div class="w3-row" style=" margin-top:12px">
+      <div class="w3-third w3-container ">
+        <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">widgets</mat-icon>
+          <input matInput #productName type="text" placeholder="Nombre del paquete" formControlName="name" [formControl] = "nameFC">
+          <mat-error *ngIf="!createPackageFormGroup.valid">
+            Campo <strong>requerido*</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div class="w3-third w3-container">
+        <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">money</mat-icon>
+          <input matInput #productCode type="text" placeholder="Codigo del paquete" formControlName="code" [formControl] = "codeFC">
+          <mat-error *ngIf="!createPackageFormGroup.valid">
+            Campo <strong>requerido*</strong>
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="w3-third w3-container">
+        <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
+          <input matInput #productCode type="text" placeholder="Precio del paquete" formControlName="sale" [formControl] = "saleFC" >
+          <mat-error *ngIf="!createPackageFormGroup.valid">
+            Campo <strong>requerido*</strong>
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </form>
+
+  <div class="w3-row ms-color-b-bg" style="margin-top: 18px">
+    <div class="w3-third w3-container ">
+      <mat-form-field style="width:100%" color="accent">
+        <mat-icon matPrefix class="ms-color-icons w3-margin-right">filter_list</mat-icon>
+        <input matInput placeholder="Producto" [formControl]="productListFC" [matAutocomplete]="autoWeb"
+          autocomplete="off">
+        <mat-autocomplete #autoWeb="matAutocomplete">
+          <mat-option *ngFor="let prod of filteredProducts | async" [value]="prod.name" (click)="currentProduct(prod)">
+            {{prod['code'] + ' - ' + prod['name']}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="w3-third w3-container">
+      <mat-form-field style="width:100%" color="accent">
+        <mat-icon matPrefix class="ms-color-icons w3-margin-right">exposure</mat-icon>
+        <input matInput #productCode type="number" placeholder="Cantidad" [formControl]="quantityFC">
+        <mat-error *ngIf="!createPackageFormGroup.valid">
+          Campo <strong>requerido*</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="w3-third w3-container"
+      style="display: flex; justify-content: center; align-items: center;margin-top: 12px">
+      <button mat-raised-button class="ms-color-action-3" style="margin:0em 0.2em 1em 0.2em" (click)="addItem()">
+        <mat-icon>add_circle</mat-icon> Agregar
+      </button>
+    </div>
+  </div>
+  <div class="mat-elevation-z8 w3-margin-bottom" style="margin-top: 24px">
+    <div class="ms-color-b-1" style="max-height:58vh; overflow:auto">
+      <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+
+        <ng-container matColumnDef="index" sticky>
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header">N°</th>
+          <td mat-cell *matCellDef="let item; let i = index">
+            {{i + 1}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header" mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let item">
+            {{item.name}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header" mat-sort-header>Categoría</th>
+          <td mat-cell *matCellDef="let item">
+            {{item.category}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header" mat-sort-header>Cantidad</th>
+          <td mat-cell *matCellDef="let item">
+            {{item.quantity}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header">Acciones</th>
+          <td mat-cell *matCellDef="let item; let i = index">
+            <button mat-icon-button color="warn" (click)="deleteItem(i)">
+              <mat-icon style="vertical-align:middle">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  <div class="w3-hide-small " style="width: 100%">
+    <div class="imagen">
+      <label for="file-input">
+        <button mat-raised-button class="ms-color-action-3" style="margin:0em 0.2em 1em 0.2em"
+          (click)="fileInput.click()">
+          <mat-icon>add_photo_alternate</mat-icon> Agregar Imagen
+        </button>
+      </label>
+      <input #fileInput (change)="openExplorer($event)" type="file" accept="image/*" style=" display: none" />
+    </div>
+  </div>
+  <div class="w3-hide-large w3-hide-medium  " style="width: 100%">
+    <div class="imagen">
+      <label for="file-input">
+        <img style="margin:10px auto; display:block"
+          [src]="imageSrc ||  'https://www.muvi.com/wp-content/uploads/2018/11/no-image.jpg'"
+          (click)="fileInput.click()" width="200px" height="180px" />
+      </label>
+      <input #fileInput (change)="openExplorer($event)" type="file" accept="image/*" style=" display: none" />
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions style="margin-bottom:0px;margin-top: 10px"
+  style=" display: flex;justify-content:flex-end; align-items:right;">
+
+  <button mat-stroked-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
+  <button mat-raised-button form="createPartyForm" style="margin:0.2em 0.2em" (click)="confirmEdit()"
+    [ngClass]="{'ms-color-b-1': !alreadyExist}">Editar</button>
+
+</div>

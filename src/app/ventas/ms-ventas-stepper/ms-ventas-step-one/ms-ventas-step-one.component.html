@@ -1,0 +1,138 @@
+<div class="w3-container" style="padding: 0px">
+  <mat-toolbar style="background:none;">
+    <h2 class="mat-headline">Ticket #{{state.currentStateIndex + 1| number : '2.'}}</h2>
+    <span class="ms-fill"></span>
+    <div class="w3-margin-right">
+      <button mat-button class="w3-hide-medium w3-hide-large ms-color-action-3" matTooltip="Lista de tickets abiertos"
+        (click)="sidenav.sidenavTicketList()">
+        <mat-icon style="color:white" style="vertical-align:middle">receipt</mat-icon>
+      </button>
+      <button mat-button class="w3-hide-small ms-color-action-3" (click)="sidenav.sidenavTicketList()">
+        <mat-icon style="color:white" style="vertical-align:middle">receipt</mat-icon> Tickets
+      </button>
+    </div>
+    <div>
+      <button mat-button class="w3-hide-medium w3-hide-large ms-color-action-3"
+        matTooltip="Lista de carritos de compras" (click)="sidenav.sidenavProductList()">
+        <mat-icon style="color:white" style="vertical-align:middle">shopping_cart</mat-icon>
+      </button>
+      <button mat-button class="w3-hide-small ms-color-action-3" (click)="sidenav.sidenavProductList()">
+        <mat-icon style="color:white" style="vertical-align:middle">shopping_cart</mat-icon> Lista
+      </button>
+    </div>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+
+  <div>
+    <mat-form-field autocomplete="off" class="w3-block " color="accent">
+      <mat-icon matPrefix style="margin-right:0.5em">filter_list</mat-icon>
+      <input matInput type="text" placeholder="Buscar el producto que necesitas..."
+        class="mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored"
+        (input)="filterData($event.target.value)" autocomplete="off">
+    </mat-form-field>
+    <mat-divider></mat-divider>
+  </div>
+  <!-- WEB VERSION LIST PRODUCTS -->
+  <div class="w3-hide-small">
+    <div class="mat-elevation-z8 ms-color-b-1 " style="max-height:58vh; overflow:auto">
+      <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+        <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por nombre"
+            matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Nombre</th>
+          <td mat-cell *matCellDef="let product">
+            {{product.name}}
+          </td>
+        </ng-container>
+        <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="stock">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por stock"
+            matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Stock</th>
+          <td mat-cell *matCellDef="let product">
+            {{product.stock | number : '.2'}}
+          </td>
+        </ng-container>
+        <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="sale">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por precio de venta"
+            matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Venta</th>
+          <td mat-cell *matCellDef="let product">
+            {{product.sale | number: '.2'}}
+          </td>
+        </ng-container>
+        <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="warehouse">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header" matTooltip="Ordenar tabla por almacén"
+            matTooltipPosition="above" [matTooltipDisabled]="!disableTooltips.value" mat-sort-header>Almacén</th>
+          <td mat-cell *matCellDef="let product">
+            {{product.warehouse}}
+          </td>
+        </ng-container>
+        <ng-container class="mat-elevation-z8 w3-border-bottom w3-border-indigo" matColumnDef="Detalles">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header">Detalles</th>
+          <td mat-cell *matCellDef="let product">
+            <button mat-icon-button class="ms-edit-action" (click)="detalles(product)" matTooltip="Detalles producto"
+              matTooltipPosition="below" [matTooltipDisabled]="!disableTooltips.value">
+              <mat-icon class="w3-text-white">visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container class="mat-elevation-z8  " matColumnDef="Agregar">
+          <th mat-header-cell *matHeaderCellDef class="ms-table-header">Agregar</th>
+          <td mat-cell *matCellDef="let product">
+            <button mat-icon-button class="ms-edit-action" (click)="addProduct(product)" matTooltip="Agregar producto"
+              matTooltipPosition="below" [matTooltipDisabled]="!disableTooltips.value">
+              <mat-icon class="w3-text-white">add</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  <!-- MOBILE VERSION LIST PRODUCTS -->
+  <div class="w3-hide-large w3-hide-medium">
+    <div style="
+        display: grid;
+        grid-gap:20px;
+        grid-template-columns: auto auto;">
+      <ng-container *ngFor="let prod of filteredProducts; let i = index">
+
+        <div class="w3-white" style="border-radius: 5px;;padding: 0px" (click)=addProduct(prod)>
+          <div class="w3-center w3-red" style="vertical-align: middle;border-top-left-radius: 5px;border-bottom-right-radius: 10px;position:absolute; float: left; height:25px; width:25px;color: rgb(255,93,101) ;margin-left: auto;
+              margin-right: auto;">
+            {{prod['stock']}}
+          </div>
+          <div class="ms-card-image">
+            <img [src]="imagePath || 'https://material.angular.io/assets/img/examples/shiba2.jpg'"
+              alt="Photo of a Shiba Inu" style="width:100%;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+          </div>
+          <div class="w3-row" style="align-items: center;display: flex">
+            <div class="w3-half w3-container" style="width:50%;padding: 0px">
+              <b>
+                <p style="margin:3px">{{prod['name']}}</p>
+              </b>
+            </div>
+            <div class="w3-half w3-container" style="width:50% ;padding: 0px">
+              <p style="margin:3px; align-content: center;font-size: small"> S/.{{prod['sale']}}00.00</p>
+            </div>
+          </div>
+          <div class="w3-row" style="margin-top: 10px;align-items: center;display: flex">
+            <div class="w3-half w3-container" style="width:20% ;align-self: auto;">
+              <mat-icon class="ms-color-icons">category</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:80%">
+              <p style="margin:0px;font-size: small">{{prod['category']}}</p>
+            </div>
+          </div>
+          <div class="w3-row" style="align-items: center;display: flex">
+            <div class="w3-half w3-container" style="width:20%">
+              <mat-icon class="ms-color-icons">place</mat-icon>
+            </div>
+            <div class="w3-half w3-container" style="width:80%">
+              <p style="margin:0px;font-size: small;">{{prod['warehouse']}}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

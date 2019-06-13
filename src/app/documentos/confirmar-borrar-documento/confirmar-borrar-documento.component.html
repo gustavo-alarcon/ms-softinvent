@@ -1,6 +1,13 @@
-<div class="w3-container w3-center">
-    <h4 class="ms-font-karla" style="font-size:1.3em"><strong>¿Realmente desea borrar este documento?</strong></h4>
-    
-    <button mat-raised-button color="warn" mat-dialog-close style="margin:0.2em 0.2em">NO</button>
-    <button mat-raised-button class="ms-color-b-1" style="margin:0.2em 0.2em" (click)="deleteDocument()">SI</button>
-  </div>
+<mat-toolbar style="align-items:center; background:none; padding:0px">
+  <mat-icon class="ms-color-icons">delete</mat-icon>
+  <span class="mat-tile ms-font-rubik">Borrar documento</span>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<mat-dialog-content class="w3-padding-large">
+  <span class="mat-subheading-2">¿Realmente desea borrar el documento <strong>{{data['name']}}?</strong></span>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span class="ms-fill"></span>
+  <button mat-stroked-button mat-dialog-close style="margin:0.2em 0.2em">No</button>
+  <button mat-raised-button color="warn" style="margin:0.2em 0.2em" (click)="deleteDocument()">Si, borrar</button>
+</mat-dialog-actions>

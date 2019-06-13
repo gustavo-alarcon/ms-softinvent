@@ -2,14 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
 import { DatabaseService } from 'src/app/core/database.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfirmarBorrarTerceroComponent } from '../confirmar-borrar-tercero/confirmar-borrar-tercero.component';
+import { ConfirmDeletePartyComponent } from '../confirmar-borrar-tercero/confirmar-borrar-tercero.component';
 
 @Component({
   selector: 'app-editar-tercero',
   templateUrl: './editar-tercero.component.html',
   styles: []
 })
-export class EditarTerceroComponent implements OnInit {
+export class EditPartyComponent implements OnInit {
 
   editPartyFormGroup: FormGroup;
   alreadyExist: boolean = false;
@@ -21,7 +21,7 @@ export class EditarTerceroComponent implements OnInit {
     public dbs: DatabaseService,
     private fb: FormBuilder,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<EditarTerceroComponent>,
+    public dialogRef: MatDialogRef<EditPartyComponent>,
     public dialog: MatDialog
   ) { }
 
@@ -75,23 +75,6 @@ export class EditarTerceroComponent implements OnInit {
     })
   }
 
-  confirmDelete(): void{
-    var confirmDialogRef = this.dialog.open(ConfirmarBorrarTerceroComponent, {
-      data: this.data,
-      panelClass: 'ms-custom-modalbox'
-    });
-
-    confirmDialogRef.afterClosed().subscribe( res => {
-      if(res === true){
-        this.dialogRef.close();
-      }else{
-        this.snackbar.open('Ufff! ... menos mal te preguntamos', 'Cerrar', {
-          duration: 6000
-        })
-      }
-    })
-  }
-
   checkIfExist(docNum): void {
     this.alreadyExist = false;
 
@@ -103,6 +86,10 @@ export class EditarTerceroComponent implements OnInit {
         duration: 4000
       })
     }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

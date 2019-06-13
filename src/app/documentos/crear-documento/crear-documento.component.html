@@ -1,78 +1,88 @@
+<div class="w3-center"
+    style="vertical-align: middle; float: right; margin-left: auto; margin-right: auto; background:#2A3B4D">
+    <button mat-icon-button style="background:#2A3B4D; border:none" (click)=onNoClick()>
+        <mat-icon class="w3-text-white">clear</mat-icon>
+    </button>
+</div>
 <div>
-  <h1 class="ms-font-rubik"><mat-icon style="vertical-align:middle" class="ms-color-icons">add_circle</mat-icon> Nuevo documento</h1>
-  <mat-divider></mat-divider>
-  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-  <mat-dialog-content>
+    <h1 class="ms-font-rubik">
+        <mat-icon style="vertical-align:middle" class="ms-color-icons">add_circle</mat-icon> Nuevo documento
+    </h1>
+    <mat-divider></mat-divider>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <mat-dialog-content>
 
-    <form (ngSubmit)="onSubmit()" id="createDocumentForm" [formGroup]="createDocumentFormGroup">
-      
-      <div class="w3-row">
-          <div class="w3-half">
-              <div class="w3-margin">
-                  <p class="ms-font-karla">Documento</p>
+        <form (ngSubmit)="onSubmit()" id="createDocumentForm" [formGroup]="createDocumentFormGroup">
 
-                  <mat-form-field style="width:100%" color="accent">
-                    <!-- <p matPrefix class="ms-color-icons w3-margin-right"><strong>#</strong></p> -->
-                    <mat-icon matPrefix class="ms-color-icons w3-margin-right">settings_ethernet</mat-icon>
-                    <input matInput type="text" placeholder="Alias/Abreviatura (*)" formControlName="alias" (input)="checkIfAliasExist($event.target.value)">
-                    <mat-error *ngIf="!createDocumentFormGroup.valid">
-                        Campo <strong>requerido*</strong>
-                    </mat-error>
-                    <mat-hint *ngIf="aliasAlreadyExist">
-                        Este alias ya existe
-                    </mat-hint>
-                  </mat-form-field>
+            <div class="w3-row">
+                <div class="w3-half">
+                    <div class="w3-margin">
+                        <p class="ms-font-karla">Documento</p>
 
-                  <mat-form-field style="width:100%" color="accent">
-                    <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
-                    <input matInput type="text" placeholder="Nombre (*)" formControlName="name" (input)="checkIfNameExist($event.target.value)">
-                    <mat-error *ngIf="!createDocumentFormGroup.valid">
-                        Campo <strong>requerido*</strong>
-                    </mat-error>
-                    <mat-hint *ngIf="nameAlreadyExist">
-                        Este documento ya existe
-                    </mat-hint>
-                  </mat-form-field>
+                        <mat-form-field style="width:100%" color="accent">
+                            <!-- <p matPrefix class="ms-color-icons w3-margin-right"><strong>#</strong></p> -->
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">settings_ethernet</mat-icon>
+                            <input matInput type="text" placeholder="Alias/Abreviatura (*)" formControlName="alias"
+                                (input)="checkIfAliasExist($event.target.value)">
+                            <mat-error *ngIf="!createDocumentFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
+                            <mat-hint *ngIf="aliasAlreadyExist">
+                                Este alias ya existe
+                            </mat-hint>
+                        </mat-form-field>
 
-                  <mat-form-field style="width:100%" color="accent">
-                      <mat-icon matPrefix class="ms-color-icons w3-margin-right">inbox</mat-icon>
-                      <mat-select #natureSelector placeholder="Naturaleza (*)" formControlName="nature">
-                          <mat-option *ngFor="let type of dbs.documentTypes['documentTypes']" [value]="type">
-                          {{type}}
-                          </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="!createDocumentFormGroup.valid">
-                          Campo <strong>requerido*</strong>
-                      </mat-error>
-                  </mat-form-field>
+                        <mat-form-field style="width:100%" color="accent">
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
+                            <input matInput type="text" placeholder="Nombre (*)" formControlName="name"
+                                (input)="checkIfNameExist($event.target.value)">
+                            <mat-error *ngIf="!createDocumentFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
+                            <mat-hint *ngIf="nameAlreadyExist">
+                                Este documento ya existe
+                            </mat-hint>
+                        </mat-form-field>
 
-                  <mat-form-field style="width:100%" color="accent">
-                      <mat-icon matPrefix class="ms-color-icons w3-margin-right">supervisor_account</mat-icon>
-                      <mat-select #partyDocumentType placeholder="Tipo (*)" formControlName="partyType">
-                      <mat-option *ngFor="let type of dbs.partyTypes['partyTypes']" [value]="type">
-                          {{type}}
-                      </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="!createDocumentFormGroup.valid">
-                          Campo <strong>requerido*</strong>
-                      </mat-error>
-                  </mat-form-field>
-                  
-              </div>
-          </div>
-          <div class="w3-half">
-              <div class="w3-margin">
-                <p class="ms-font-karla">Numeración</p>
+                        <mat-form-field style="width:100%" color="accent">
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">inbox</mat-icon>
+                            <mat-select #natureSelector placeholder="Naturaleza (*)" formControlName="nature">
+                                <mat-option *ngFor="let type of dbs.documentTypes['documentTypes']" [value]="type">
+                                    {{type}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="!createDocumentFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
+                        </mat-form-field>
 
-                <mat-form-field style="width:100%" color="accent">
-                    <p matPrefix class="ms-color-icons w3-margin-right"><strong>#</strong></p>
-                    <input matInput type="text" placeholder="N° Serie (*)" formControlName="serie">
-                    <mat-error *ngIf="!createDocumentFormGroup.valid">
-                        Campo <strong>requerido*</strong>
-                    </mat-error>
-                </mat-form-field>
-        
-                <!-- <mat-form-field style="width:100%" color="accent">
+                        <mat-form-field style="width:100%" color="accent">
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">supervisor_account</mat-icon>
+                            <mat-select #partyDocumentType placeholder="Tipo (*)" formControlName="partyType">
+                                <mat-option *ngFor="let type of dbs.partyTypes['partyTypes']" [value]="type">
+                                    {{type}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="!createDocumentFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="w3-half">
+                    <div class="w3-margin">
+                        <p class="ms-font-karla">Numeración</p>
+
+                        <mat-form-field style="width:100%" color="accent">
+                            <p matPrefix class="ms-color-icons w3-margin-right"><strong>#</strong></p>
+                            <input matInput type="text" placeholder="N° Serie (*)" formControlName="serie">
+                            <mat-error *ngIf="!createDocumentFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <!-- <mat-form-field style="width:100%" color="accent">
                 <mat-icon matPrefix class="ms-color-icons w3-margin-right">chevron_left</mat-icon>
                 <input matInput type="text" placeholder="Prefijo" formControlName="prefix">
                 <mat-error *ngIf="!createDocumentFormGroup.valid">
@@ -80,34 +90,37 @@
                 </mat-error>
                 </mat-form-field> -->
 
-                <mat-form-field style="width:100%" color="accent">
-                    <mat-icon matPrefix class="ms-color-icons w3-margin-right">book</mat-icon>
-                    <input matInput type="number" placeholder="N° Correlativo (*)" formControlName="initialCorrelative">
-                    <mat-error *ngIf="!createDocumentFormGroup.valid">
-                        Campo <strong>requerido*</strong>
-                    </mat-error>
-                    <mat-hint *ngIf="createDocumentFormGroup.value.initialCorrelative">
-                        {{ createDocumentFormGroup.value.initialCorrelative| correlative }}
-                    </mat-hint>
-                </mat-form-field>
+                        <mat-form-field style="width:100%" color="accent">
+                            <mat-icon matPrefix class="ms-color-icons w3-margin-right">book</mat-icon>
+                            <input matInput type="number" placeholder="N° Correlativo (*)"
+                                formControlName="initialCorrelative">
+                            <mat-error *ngIf="!createDocumentFormGroup.valid">
+                                Campo <strong>requerido*</strong>
+                            </mat-error>
+                            <mat-hint *ngIf="createDocumentFormGroup.value.initialCorrelative">
+                                {{ createDocumentFormGroup.value.initialCorrelative| correlative }}
+                            </mat-hint>
+                        </mat-form-field>
 
-                <!-- <mat-form-field style="width:100%" color="accent">
+                        <!-- <mat-form-field style="width:100%" color="accent">
                 <mat-icon matPrefix class="ms-color-icons w3-margin-right">chevron_right</mat-icon>
                 <input matInput type="text" placeholder="Sufijo" formControlName="suffix">
                 <mat-error *ngIf="!createDocumentFormGroup.valid">
                     Campo <strong>requerido*</strong>
                 </mat-error>
                 </mat-form-field> -->
-                
-              </div>
-          </div>
-      </div>
 
-    </form>
-  </mat-dialog-content>
+                    </div>
+                </div>
+            </div>
 
-  <mat-dialog-actions>
-      <button mat-raised-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
-      <button mat-raised-button form="createDocumentForm" class="ms-color-b-1" style="margin:0.2em 0.2em" [disabled]="nameAlreadyExist || aliasAlreadyExist || !createDocumentFormGroup.valid">Crear</button>
+        </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+      <span class="ms-fill"></span>
+      <button mat-stroked-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
+      <button mat-raised-button form="createDocumentForm" [ngClass]="{'ms-color-b-1': (!nameAlreadyExist && !aliasAlreadyExist &&createDocumentFormGroup.valid)}" style="margin:0.2em 0.2em"
+          [disabled]="nameAlreadyExist || aliasAlreadyExist || !createDocumentFormGroup.valid">Crear</button>
     </mat-dialog-actions>
 </div>

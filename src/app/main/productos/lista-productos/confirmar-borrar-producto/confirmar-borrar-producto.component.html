@@ -1,0 +1,12 @@
+<h1 class="ms-font-rubik">
+  <mat-icon style="vertical-align:middle" class="ms-color-icons">delete</mat-icon> Borrar producto
+</h1>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <h4 class="ms-font-poppins mat-body">¿Realmente desea borrar <strong>{{data['name']}}?</strong></h4>
+</mat-dialog-content>
+<mat-dialog-actions class="w3-margin-top">
+  <span class="ms-fill"></span>
+  <button mat-stroked-button mat-dialog-close style="margin:0.2em 0.2em">No</button>
+  <button mat-raised-button color="warn" style="margin:0.2em 0.2em" (click)="deleteProduct()">Si, borrar</button>
+</mat-dialog-actions>

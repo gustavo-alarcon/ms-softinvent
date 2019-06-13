@@ -1,0 +1,35 @@
+<div class="w3-section w3-margin-left w3-margin-right animated fadeInUp delay-2">
+  <div class="w3-row">
+    <div class="w3-col s0 m1 l1">
+      <p></p>
+    </div>
+    <div class="w3-col s12 m10 l10" style="min-height:87.5vh">
+      <div>
+        <h2 class="ms-font-rubik" style="margin: 0px">
+          <mat-icon style="vertical-align:middle; font-size: 30px; width:30px; height: 30px" class="ms-color-icons">
+            receipt</mat-icon> Tickets
+        </h2>
+      </div>
+      <div class="w3-margin-top">
+        <nav mat-tab-nav-bar class="w3-hide-large w3-hide-medium w3-block">
+          <a mat-tab-link *ngFor="let link of links" (click)=" activeLink = link "
+            [routerLink]="link['route'] || link['tab.currentTab']" routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive" [matTooltip]="link['name']">
+            <mat-icon style="vertical-align: middle">{{link['icon']}}</mat-icon>
+          </a>
+        </nav>
+        <nav mat-tab-nav-bar class="w3-hide-small">
+          <a mat-tab-link *ngFor="let link of links" (click)=" activeLink = link;" [routerLink]="link['route']"
+            routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+            <mat-icon class="w3-margin-right" style="vertical-align: middle">{{link['icon']}}</mat-icon>
+            {{link['name']}}
+          </a>
+        </nav>
+        <app-ms-sidenav-tickets-products></app-ms-sidenav-tickets-products>
+      </div>
+    </div>
+    <div class="w3-col s0 m1 l1">
+      <p></p>
+    </div>
+  </div>
+</div>

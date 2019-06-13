@@ -1,0 +1,178 @@
+<div class="w3-center"
+  style="vertical-align: middle; float: right; margin-left: auto; margin-right: auto; background:#2A3B4D">
+  <button mat-icon-button style="background:#2A3B4D; border:none" (click)=onNoClick()>
+    <mat-icon class="w3-text-white">clear</mat-icon>
+  </button>
+</div>
+<div>
+  <h1 class="ms-font-rubik">
+    <mat-icon style="vertical-align:middle" class="ms-color-icons">edit</mat-icon> Editar producto
+  </h1>
+  <mat-divider></mat-divider>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+  <mat-dialog-content>
+
+    <form (ngSubmit)="onSubmit()" id="editProductForm" [formGroup]="editProductFormGroup">
+
+      <div class="w3-row">
+        <div class="w3-half">
+          <div class="w3-margin">
+            <p class="ms-font-karla">Producto</p>
+
+            <mat-form-field style="width:100%">
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">category</mat-icon>
+              <input matInput #productName type="text" placeholder="Nombre (*)" formControlName="name"
+                (input)="checkIfNameExist($event.target.value)">
+              <mat-error *ngIf="!editProductFormGroup.valid">
+                Campo <strong>requerido*</strong>
+              </mat-error>
+              <mat-hint *ngIf="nameAlreadyExist">
+                Este nombre ya existe
+              </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field style="width:100%">
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">money</mat-icon>
+              <input matInput #productCode type="text" placeholder="Codigo (*)" formControlName="code"
+                (input)="checkIfCodeExist($event.target.value)">
+              <mat-error *ngIf="!editProductFormGroup.valid">
+                Campo <strong>requerido*</strong>
+              </mat-error>
+              <mat-hint *ngIf="codeAlreadyExist">
+                Este código ya existe
+              </mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="w3-block" autocomplete="off">
+              <span matPrefix class="ms-color-icons w3-margin-right">
+                <mat-icon>style</mat-icon>
+              </span>
+              <input matInput placeholder="Categoría (*)" [formControl]="categoryFromList" formControlName="category"
+                (input)="setCategoryField($event.target.value)" [matAutocomplete]="autoCategory" autocomplete="off">
+              <mat-autocomplete #autoCategory="matAutocomplete"
+                (optionSelected)="setCategoryField($event.option.value)">
+                <mat-option *ngFor="let category of filteredCategoryOptions | async" [value]="category" color="accent">
+                  {{category}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field class="w3-block" autocomplete="off">
+              <span matPrefix class="ms-color-icons w3-margin-right">
+                <mat-icon>store</mat-icon>
+              </span>
+              <input matInput placeholder="Almacén (*)" [formControl]="warehouseFromList" formControlName="warehouse"
+                (input)="setWarehouseField($event.target.value, productName.value, productCode.value);"
+                [matAutocomplete]="autoWarehouse" autocomplete="off">
+              <mat-autocomplete #autoWarehouse="matAutocomplete"
+                (optionSelected)="setWarehouseField($event.option.value, productName.value, productCode.value)">
+                <mat-option *ngFor="let warehouse of filteredWarehouseOptions | async" [value]="warehouse.name"
+                  color="accent">
+                  {{warehouse.name}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-hint *ngIf="productAlreadyExist">
+                El producto ya existe en este almacén
+              </mat-hint>
+            </mat-form-field>
+
+          </div>
+        </div>
+        <div class="w3-half">
+          <div class="w3-margin">
+            <p class="ms-font-karla">Propiedades</p>
+
+            <div class="w3-padding w3-round-large ms-color-b-bg">
+              <mat-form-field style="width:100%">
+                <mat-icon matPrefix class="ms-color-icons w3-margin-right">widgets</mat-icon>
+                <input matInput type="number" placeholder="Stock inicial (*)" formControlName="initialStock">
+                <mat-error *ngIf="!editProductFormGroup.valid">
+                  Campo <strong>requerido*</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field style="width:100%">
+                <mat-icon matPrefix class="ms-color-icons w3-margin-right">warning</mat-icon>
+                <input matInput type="number" placeholder="Emergencia (*)" formControlName="warningStock">
+                <mat-error *ngIf="!editProductFormGroup.valid">
+                  Campo <strong>requerido*</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field style="width:100%">
+                <mat-icon matPrefix class="ms-color-icons w3-margin-right">notification_important</mat-icon>
+                <input matInput type="number" placeholder="Alerta (*)" formControlName="alertStock">
+                <mat-error *ngIf="!editProductFormGroup.valid">
+                  Campo <strong>requerido*</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <mat-form-field class="w3-block" autocomplete="off">
+              <span matPrefix class="ms-color-icons w3-margin-right">
+                <mat-icon>straighten</mat-icon>
+              </span>
+              <input matInput placeholder="Unidad (*)" [formControl]="unitFromList" formControlName="unit"
+                (input)="setUnitField($event.target.value)" [matAutocomplete]="autoUnit" autocomplete="off">
+              <mat-autocomplete #autoUnit="matAutocomplete" (optionSelected)="setUnitField($event.option.value)">
+                <mat-option *ngFor="let unit of filteredUnitOptions | async" [value]="unit" color="accent">
+                  {{unit}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field style="width:100%">
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">account_balance</mat-icon>
+              <mat-select placeholder="Tipo de moneda (*)" formControlName="currency">
+                <mat-option *ngFor="let currency of dbs.currencyTypes['currencyTypes']" [value]="currency">
+                  {{currency}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!editProductFormGroup.valid">
+                Campo <strong>requerido*</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field style="width:100%">
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
+              <input matInput type="number" placeholder="Precio de compra (*)" formControlName="purchase">
+              <mat-error *ngIf="!editProductFormGroup.valid">
+                Campo <strong>requerido*</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field style="width:100%">
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">attach_money</mat-icon>
+              <input matInput type="number" placeholder="Precio de venta (*)" formControlName="sale">
+              <mat-error *ngIf="!editProductFormGroup.valid">
+                Campo <strong>requerido*</strong>
+              </mat-error>
+            </mat-form-field>
+
+            
+            <mat-form-field style="width:100%" color="accent">
+              <mat-icon matPrefix class="ms-color-icons w3-margin-right">
+                <span matPrefix class="ms-color-icons" style="margin-right:3px;margin-left:3px; font-size:18px;
+                font-weight:900"> %</span>
+              </mat-icon>
+              <input matInput type="number" placeholder="Descuento maximo (*)" formControlName="maxDiscount" min="0"
+                step="0.01">
+              <mat-error *ngIf="!editProductFormGroup.valid">
+                Campo <strong>requerido*</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <span class="ms-fill"></span>
+    <button mat-stroked-button mat-dialog-close color="warn" style="margin:0.2em 0.2em">Cancelar</button>
+    <button mat-raised-button form="editProductForm" [ngClass]="{'ms-color-b-1': (!productAlreadyExist && editProductFormGroup.valid)}" style="margin:0.2em 0.2em"
+      [disabled]="productAlreadyExist || !editProductFormGroup.valid">Guardar</button>
+  </mat-dialog-actions>
+</div> 

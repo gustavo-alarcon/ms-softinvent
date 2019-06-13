@@ -1,0 +1,24 @@
+<mat-sidenav-container>
+  <mat-sidenav #sideMenu    mode="over" [(opened)]="sidenav.sidenavAccountsToggle" class="ms-color-b-2">
+    <div>
+      <button mat-button
+        class="w3-block mat-subheader-2"
+        style="padding-top:0.5em; text-align:left"
+        (click)="sidenav.saveLinkAccount('list');sidenav.sidenavAll()" mat-button 
+        routerLink="list">
+        <mat-icon class="ms-color-icons" style="vertical-align:middle; margin-right:0.3em;">list</mat-icon> Lista de usuarios
+      </button>
+      <button mat-button
+        class="w3-block mat-subheader-2"
+        style="padding-top:0.5em; text-align:left"
+        (click)="sidenav.saveLinkAccount('permits');sidenav.sidenavAll()" mat-button 
+        routerLink="permits">
+        <mat-icon class="ms-color-icons" style="vertical-align:middle; margin-right:0.3em;">security</mat-icon> Permisos
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="ms-color-b-bg" style="padding:1em 0em; min-height:75vh">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

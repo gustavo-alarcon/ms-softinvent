@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar, MatDialog, MatBottomSheet } from '@angular/material';
 import { DatabaseService } from '../core/database.service';
-import { ConfirmarAnularComponent } from './confirmar-anular/confirmar-anular.component';
-import { DetallesSalidaComponent } from './detalles-salida/detalles-salida.component';
-import { DetallesTransferenciaComponent } from './detalles-transferencia/detalles-transferencia.component';
-import { DetallesEntradaComponent } from './detalles-entrada/detalles-entrada.component';
-import { DetallesAentradaComponent } from './detalles-aentrada/detalles-aentrada.component';
-import { DetallesAsalidaComponent } from './detalles-asalida/detalles-asalida.component';
+import { ConfirmCancelComponent } from './confirmar-anular/confirmar-anular.component';
+import { ExitDetailsComponent } from './detalles-salida/detalles-salida.component';
+import { TransferDetailsComponent } from './detalles-transferencia/detalles-transferencia.component';
+import { EntryDetailsComponent } from './detalles-entrada/detalles-entrada.component';
+import { DetailsForEntryComponent } from './detalles-aentrada/detalles-aentrada.component';
+import { DetailsForExitComponent } from './detalles-asalida/detalles-asalida.component';
 
 @Component({
   selector: 'app-historial',
@@ -94,7 +94,7 @@ export class HistorialComponent implements OnInit {
   }
 
   cancelDocument(movement): void{
-    this.dialog.open(ConfirmarAnularComponent, {
+    this.dialog.open(ConfirmCancelComponent, {
       data: movement,
       panelClass: 'ms-custom-dialogbox'
     })
@@ -103,35 +103,35 @@ export class HistorialComponent implements OnInit {
   showDetails(document): void {
 
     if(document['documentNature'] === 'SALIDA'){
-      this.dialog.open(DetallesSalidaComponent, {
+      this.dialog.open(ExitDetailsComponent, {
         data: document,
         panelClass: 'ms-custom-dialogbox'
       })
     }
 
     if(document['documentNature'] === 'AJUSTE DE SALIDA'){
-      this.dialog.open(DetallesAsalidaComponent, {
+      this.dialog.open(DetailsForExitComponent, {
         data: document,
         panelClass: 'ms-custom-dialogbox'
       })
     }
 
     if(document['documentNature'] === 'TRANSFERENCIA'){
-      this.dialog.open(DetallesTransferenciaComponent, {
+      this.dialog.open(TransferDetailsComponent, {
         data: document,
         panelClass: 'ms-custom-dialogbox'
       })
     }
 
     if(document['documentNature'] === 'ENTRADA'){
-      this.dialog.open(DetallesEntradaComponent, {
+      this.dialog.open(EntryDetailsComponent, {
         data: document,
         panelClass: 'ms-custom-dialogbox'
       })
     }
 
     if(document['documentNature'] === 'AJUSTE DE ENTRADA'){
-      this.dialog.open(DetallesAentradaComponent, {
+      this.dialog.open(DetailsForEntryComponent, {
         data: document,
         panelClass: 'ms-custom-dialogbox'
       })
