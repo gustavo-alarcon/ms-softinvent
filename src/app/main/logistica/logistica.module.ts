@@ -6,10 +6,9 @@ import { LogisticaComponent } from './logistica.component';
 import { RecepcionModule } from './recepcion/recepcion.module';
 import { TrasladosModule } from './traslados/traslados.module';
 import { MatIconModule, MatToolbarModule, MatTabsModule } from '@angular/material';
-import { CrearTrasladoComponent } from './traslados/crear-traslado/crear-traslado.component';
 
 @NgModule({
-  declarations: [LogisticaComponent, CrearTrasladoComponent],
+  declarations: [LogisticaComponent],
   imports: [
     CommonModule,
     LogisticaRoutingModule,
