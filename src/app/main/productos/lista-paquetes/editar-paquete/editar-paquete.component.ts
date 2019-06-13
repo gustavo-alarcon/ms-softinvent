@@ -17,6 +17,8 @@ export interface DialogData {
 })
 export class EditarPaqueteComponent implements OnInit {
 
+  alreadyExist = false;
+  loading = false;
   createPackageFormGroup: FormGroup;
   filteredProducts: Observable<any>;
   productListFC = new FormControl(null);
@@ -147,8 +149,9 @@ export class EditarPaqueteComponent implements OnInit {
     }
 
   }
-  confirmEdit(pack):void{
-    let newPack : Package = {  
+
+  confirmEdit(): void {
+    const newPack: Package = {
       id: '',
       code: this.codeFC.value,
       name: this.nameFC.value,

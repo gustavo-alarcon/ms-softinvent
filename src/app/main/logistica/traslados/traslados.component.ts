@@ -29,6 +29,11 @@ export class TrasladosComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  filterData(ref: string): void {
+
+  }
+
   setMonthOfView(event, datepicker): void {
     this.monthFormControl = new FormControl({ value: event, disabled: true });
     this.monthIndex = this.monthFormControl.value.getMonth();
@@ -51,6 +56,7 @@ export class TrasladosComponent implements OnInit {
 
     datepicker.close();
   }
+
   createDocument() : void {
     const dialogRef = this.dialog.open(CrearTrasladoComponent, {
       data: { 
@@ -62,4 +68,6 @@ export class TrasladosComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+
 }

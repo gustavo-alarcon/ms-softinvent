@@ -24,6 +24,8 @@ export interface DialogData {
   templateUrl: './ms-ticket-dialog-product-movement.component.html'
 })
 export class MsTicketDialogProductMovementComponent implements OnInit, OnDestroy {
+
+  listaPromos = [];
   imageProd = null
   quantityFC = new FormControl();
   discountFC = new FormControl();

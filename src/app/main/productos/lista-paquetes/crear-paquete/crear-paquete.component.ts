@@ -14,6 +14,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class CrearPaqueteComponent implements OnInit {
   loading = false;
+  alreadyExist = false;
   uploadPercent: Observable<number>;
   createPackageFormGroup: FormGroup;
   filteredProducts: Observable<any>;
