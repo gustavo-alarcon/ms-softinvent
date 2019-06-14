@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatabaseService } from '../core/database.service';
-import { MatBottomSheet, MatTableDataSource, MatSort } from '@angular/material';
+import { MatBottomSheet, MatTableDataSource, MatSort, MatSnackBar } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material';
 import { CreateWarehouseComponent } from './crear-almacen/crear-almacen.component';
 import { EditWarehouseComponent } from './editar-almacen/editar-almacen.component';
 import { InfoWarehouseComponent } from './info-almacen/info-almacen.component';
+import { ConfirmDeleteWarehouseComponent } from './confirmar-borrar-almacen/confirmar-borrar-almacen.component';
 
 @Component({
   selector: 'app-almacenes',
@@ -27,7 +28,8 @@ export class WarehousesComponent implements OnInit {
   constructor(
     public dbs: DatabaseService,
     private dialog: MatDialog,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -59,10 +61,29 @@ export class WarehousesComponent implements OnInit {
     });
   }
 
-  editWarehouse(warehouse): void {
+  editWarehouse(product): void {
     this.dialog.open(EditWarehouseComponent, {
+      data: product,
+      panelClass: 'ms-custom-dialogbox'
+    });
+  }
+
+  deleteWarehouse(warehouse): void {
+    const confirmDialogRef = this.dialog.open(ConfirmDeleteWarehouseComponent, {
       data: warehouse,
       panelClass: 'ms-custom-dialogbox'
+    });
+
+    confirmDialogRef.afterClosed().subscribe(res => {
+      if (res === true) {
+        this.snackbar.open('Listo! ... almacén borrado', 'Cerrar', {
+          duration: 6000
+        });
+      } else {
+        this.snackbar.open('Ufff! ... menos mal te preguntamos', 'Cerrar', {
+          duration: 6000
+        })
+      }
     })
   }
 
