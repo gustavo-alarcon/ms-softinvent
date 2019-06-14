@@ -18,7 +18,7 @@ export class ConfirmDeleteWarehouseComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteWarehouse(): void {
+  delete(): void {
     this.dbs.deleteWarehouse(this.data.id);
     this.dialogRef.close(true);
   }
