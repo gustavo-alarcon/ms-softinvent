@@ -83,11 +83,11 @@ const routes: Routes = [
       },
       {
         path: 'productos',
-        loadChildren: () => import('src/app/main/productos/productos.module').then(mod => mod.ProductosModule)
+        loadChildren: '../main/productos/productos.module#ProductosModule'
       },
       {
         path: 'logistica',
-        loadChildren: () => import('src/app/main/logistica/logistica.module').then(mod => mod.LogisticaModule)
+        loadChildren: '../main/logistica/logistica.module#LogisticaModule'
       },
       {
         path: 'registrar', component: RegisterComponent

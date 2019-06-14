@@ -9,11 +9,11 @@ const routes: Routes = [
     children: [
       {
         path: 'reception-list',
-        loadChildren: () => import('src/app/main/logistica/recepcion/recepcion.module').then(mod => mod.RecepcionModule)
+        loadChildren: './recepcion/recepcion.module#RecepcionModule'
       },
       {
         path: 'transfer-list',
-        loadChildren: () => import('src/app/main/logistica/traslados/traslados.module').then(mod => mod.TrasladosModule)
+        loadChildren: './traslados/traslados.module#TrasladosModule'
       }
     ]
   }

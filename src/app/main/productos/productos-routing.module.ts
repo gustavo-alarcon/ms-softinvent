@@ -9,15 +9,15 @@ const routes: Routes = [
     children: [
       {
         path: 'product-list',
-        loadChildren: () => import('src/app/main/productos/lista-productos/lista-productos.module').then(mod => mod.ListaProductosModule)
+        loadChildren: './lista-productos/lista-productos.module#ListaProductosModule'
       },
       {
         path: 'package-list',
-        loadChildren: () => import('src/app/main/productos/lista-paquetes/lista-paquetes.module').then(mod => mod.ListaPaquetesModule)
+        loadChildren: './lista-paquetes/lista-paquetes.module#ListaPaquetesModule'
       },
       {
         path: 'promos',
-        loadChildren: () => import('src/app/main/productos/promociones/promociones.module').then(mod => mod.PromocionesModule)
+        loadChildren: './promociones/promociones.module#PromocionesModule'
       },
     ]
   }

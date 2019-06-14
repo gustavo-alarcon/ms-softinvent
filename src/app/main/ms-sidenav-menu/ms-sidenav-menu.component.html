@@ -1,5 +1,5 @@
 <mat-sidenav-container style="height:92vh">
-  <mat-sidenav mode="side" #sidenavLarge [(opened)]="openedMenu" class="ms-color-b-2">
+  <mat-sidenav mode="over" #sidenavLarge [(opened)]="openedMenu" class="ms-color-b-2">
     <ng-scrollbar>
       <div class="w3-hide-small">
         <button mat-button class="w3-block" routerLink="dashboard" style="padding-top:0.8em">
@@ -68,7 +68,7 @@
           <mat-icon class="ms-color-icons">supervisor_account</mat-icon> Terceros
         </button><br>
         <button mat-button class="w3-block" routerLink="documentos" style="padding-top:0.5em; text-align:left">
-          <mat-icon class="ms-color-icons">description</mat-icon> Dcoumentos
+          <mat-icon class="ms-color-icons">description</mat-icon> Documentos
         </button><br>
         <button mat-button class="w3-block" routerLink="productos/product-list"
           style="padding-top:0.5em; text-align:left">
