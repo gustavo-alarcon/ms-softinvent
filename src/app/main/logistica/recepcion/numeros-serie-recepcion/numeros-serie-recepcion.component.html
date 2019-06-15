@@ -1,0 +1,21 @@
+<mat-toolbar style="align-items:center; background:none; height:auto; padding: 0px">
+  <mat-icon class="ms-color-icons w3-margin-right">money</mat-icon>
+  <span class="ms-font-rubik">Lista N° Serie</span>
+  <span class="ms-fill"></span>
+  <button mat-icon-button color="accent" mat-dialog-close>
+    <mat-icon>cancel</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<mat-dialog-content class="w3-padding-large">
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+  <ng-container *ngFor="let serie of serialList | async">
+    <mat-checkbox> {{data.product.code}}-{{serie.serial}}</mat-checkbox><br>
+  </ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <span class="ms-fill"></span>
+  <button mat-stroked-button color="warn" class="w3-margin-right" mat-dialog-close>Cancelar</button>
+  <button mat-raised-button class="ms-color-b-1" (click)="save()">Guardar</button>
+</mat-dialog-actions>

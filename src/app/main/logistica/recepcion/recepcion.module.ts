@@ -20,12 +20,14 @@ import {  MatIconModule,
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ConfirmarRechazarRecepcionComponent } from './confirmar-rechazar-recepcion/confirmar-rechazar-recepcion.component';
 import { ConfirmarRestaurarRecepcionComponent } from './confirmar-restaurar-recepcion/confirmar-restaurar-recepcion.component';
+import { NumerosSerieRecepcionComponent } from './numeros-serie-recepcion/numeros-serie-recepcion.component';
 
 @NgModule({
   declarations: [
     RecepcionComponent,
     ConfirmarRechazarRecepcionComponent,
-    ConfirmarRestaurarRecepcionComponent
+    ConfirmarRestaurarRecepcionComponent,
+    NumerosSerieRecepcionComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { ConfirmarRestaurarRecepcionComponent } from './confirmar-restaurar-rece
   ],
   entryComponents: [
     ConfirmarRechazarRecepcionComponent,
-    ConfirmarRestaurarRecepcionComponent
+    ConfirmarRestaurarRecepcionComponent,
+    NumerosSerieRecepcionComponent
   ]
 })
 export class RecepcionModule { }

@@ -5,9 +5,10 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { Transfer } from 'src/app/core/ms-types';
+import { Transfer, TransferProduct } from 'src/app/core/ms-types';
 import { ConfirmarRechazarRecepcionComponent } from './confirmar-rechazar-recepcion/confirmar-rechazar-recepcion.component';
 import { ConfirmarRestaurarRecepcionComponent } from './confirmar-restaurar-recepcion/confirmar-restaurar-recepcion.component';
+import { NumerosSerieRecepcionComponent } from './numeros-serie-recepcion/numeros-serie-recepcion.component';
 
 @Component({
   selector: 'app-recepcion',
@@ -103,7 +104,7 @@ export class RecepcionComponent implements OnInit {
   subscriptions: Array<Subscription> = [];
 
   monthsKey: Array<string> =
-  ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   monthIndex: number;
   currentMonth: string;
   currentYear: number;
@@ -223,6 +224,17 @@ export class RecepcionComponent implements OnInit {
   restoreTransfer(transfer: Transfer): void {
     this.dialog.open(ConfirmarRestaurarRecepcionComponent, {
       data: transfer,
+      panelClass: ['ms-custom-dialogbox']
+    });
+  }
+
+  openSerialList(transfer: Transfer, product: TransferProduct): void {
+    this.dialog.open(NumerosSerieRecepcionComponent, {
+      data:
+      {
+        transfer: transfer,
+        product: product
+      },
       panelClass: ['ms-custom-dialogbox']
     });
   }

@@ -752,6 +752,10 @@ export class DatabaseService {
     return this.afs.collection<TransferProduct>(`db/${this.auth.userInvent.db}/transfers/${id_transfer}/products`, ref => ref.orderBy('regDate', 'desc')).valueChanges();
   }
 
+  getProductSerialList(id_transfer, id_product): Observable<TransferProduct[]> {
+    return this.afs.collection<TransferProduct>(`db/${this.auth.userInvent.db}/transfers/${id_transfer}/products/${id_product}/serialNumbers`, ref => ref.orderBy('regDate', 'desc')).valueChanges();
+  }
+
   /*---------------- REGISTRY --------------------- */
 
   addItem(item): void {
