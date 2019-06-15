@@ -26,7 +26,7 @@ export class MsToolbarComponent implements OnInit {
    * @desc This function just emit an event using the toggle Output to activate the toggle menu
    * @type {void} Nothing is returned
    */
-  toggleSideMenu(): void{
+  toggleSideMenu(): void {
     this.toggle.emit();
   }
 

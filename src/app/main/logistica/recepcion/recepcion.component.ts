@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { DatabaseService } from 'src/app/core/database.service';
 import { FormControl } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { Transfer } from 'src/app/core/ms-types';
+import { ConfirmarRechazarRecepcionComponent } from './confirmar-rechazar-recepcion/confirmar-rechazar-recepcion.component';
 
 @Component({
   selector: 'app-recepcion',
@@ -110,7 +111,8 @@ export class RecepcionComponent implements OnInit {
   monthFormControl = new FormControl({ value: new Date(), disabled: true });
 
   constructor(
-    public dbs: DatabaseService
+    public dbs: DatabaseService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -207,6 +209,13 @@ export class RecepcionComponent implements OnInit {
       } else {
         this.isOpenTransfer[i] = false;
       }
+    });
+  }
+
+  rejectTransfer(transfer: Transfer): void {
+    this.dialog.open(ConfirmarRechazarRecepcionComponent, {
+      data: transfer,
+      panelClass: ['ms-custom-dialogbox']
     });
   }
 

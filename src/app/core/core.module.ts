@@ -5,9 +5,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidenavService } from './sidenav.service';
 import { StateManagementService } from './state-management.service';
+import { CorrelativePipe } from '../pipes/correlative.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule
   ],

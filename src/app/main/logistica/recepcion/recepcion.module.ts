@@ -15,12 +15,16 @@ import {  MatIconModule,
           MatPaginatorModule,
           MatSortModule,
           MatToolbarModule,
-          MatProgressBarModule} from '@angular/material';
+          MatProgressBarModule,
+          MatDialogModule} from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ConfirmarRechazarRecepcionComponent } from './confirmar-rechazar-recepcion/confirmar-rechazar-recepcion.component';
+import { CorrelativePipe } from 'src/app/pipes/correlative.pipe';
 
 @NgModule({
   declarations: [
-    RecepcionComponent
+    RecepcionComponent,
+    ConfirmarRechazarRecepcionComponent
   ],
   imports: [
     CommonModule,
@@ -39,8 +43,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressBarModule
-
+    MatProgressBarModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    ConfirmarRechazarRecepcionComponent
   ]
 })
 export class RecepcionModule { }

@@ -151,7 +151,6 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     ConfirmDeleteDocComponent,
     ConfirmClearRegisterComponent,
     ConfirmSaveRegisterComponent,
-    CorrelativePipe,
     ExtenderCorrelativoComponent,
     ConfirmCancelComponent,
     ExitDetailsComponent,
@@ -191,7 +190,8 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     ConfirmDeleteComponent,
     ConfirmDeleteTicketComponent,
     EditStockComponent,
-    MsSidenavNotificationsComponent
+    MsSidenavNotificationsComponent,
+    CorrelativePipe
   ],
   imports: [
     BrowserModule,
@@ -234,8 +234,6 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     MatCardModule,
     CoreModule,
     ProductosModule,
-    
-
   ],
   entryComponents: [
     CreateWarehouseComponent,

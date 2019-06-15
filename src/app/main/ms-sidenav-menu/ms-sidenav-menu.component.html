@@ -2,7 +2,8 @@
   <mat-sidenav mode="over" #sidenavLarge [(opened)]="openedMenu" class="ms-color-b-2">
     <ng-scrollbar>
       <div class="w3-hide-small">
-        <button mat-button class="w3-block" routerLink="dashboard" style="padding-top:0.8em">
+        <button mat-button class="w3-block" routerLink="dashboard" style="padding-top:0.8em"
+                (click)="sidenavLarge.close()">
           <mat-icon class="ms-color-icons">dashboard</mat-icon>
           <p class="ms-font-3" style="margin: 0px 0px 0px 0px; color:white">Dashboard</p>
         </button><br>

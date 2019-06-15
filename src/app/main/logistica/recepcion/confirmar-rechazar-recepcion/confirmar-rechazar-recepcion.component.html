@@ -1,0 +1,14 @@
+<mat-toolbar style="align-items:center; background:none; height:auto; padding: 0px">
+  <mat-icon class="ms-color-icons w3-margin-right">cancel_circle</mat-icon>
+  <span class="ms-font-rubik">Rechazar transferencia</span>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<mat-dialog-content class="w3-padding-large">
+  <span class="mat-subheading-2">¿Está seguro de rechazar la transferencia según guía <strong>{{data['docName']}} {{data['docSerie']}}-{{data['docCorrelative']}}</strong>?</span>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span class="ms-fill"></span>
+  <button mat-stroked-button class="w3-margin-right" mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="warn" (click)="reject()">Si, rechazar</button>
+</mat-dialog-actions>

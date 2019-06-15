@@ -41,7 +41,8 @@
           <span>{{transfer.docName}}-{{transfer.docSerie}}-{{transfer.docCorrelative}}</span>
         </div>
         <div class="w3-padding w3-col s3">
-          <span [ngClass]="{'ms-color-b-1': transfer.status === 'Enviado', 'ms-color-wt': transfer.status !== 'Enviado'}"
+          <span [ngClass]="{'ms-color-b-1': transfer.status === 'Enviado',
+                            'ms-color-warn': transfer.status === 'Rechazado'}"
             style="padding:8px 24px;border-radius:5px">{{transfer.status}}</span>
         </div>
       </div>
@@ -101,7 +102,7 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons *ngIf="transfer.length > 5"></mat-paginator>
       <mat-toolbar style="background:#424242">
         <span class="ms-fill"></span>
-        <button mat-stroked-button class="w3-margin-right" color="warn">Rechazar</button>
+        <button mat-stroked-button class="w3-margin-right" color="warn" (click)="rejectTransfer(transfer)">Rechazar</button>
         <button mat-raised-button class="ms-color-b-1 w3-margin-right">Guardar</button>
         <button mat-raised-button class="ms-color-action-3">Finalizar</button>
       </mat-toolbar>
