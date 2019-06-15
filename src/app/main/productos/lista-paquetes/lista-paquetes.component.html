@@ -7,7 +7,7 @@
     <button mat-button class="ms-color-disabled" style="margin:0em 0.2em 1em 0.2em" disabled>
       <mat-icon>widgets</mat-icon> {{dbs.packages.length | number: '2.0'}} Paquetes
     </button>
-    
+
     <span style="margin-right:1em">
       <mat-form-field autocomplete="off" color="accent">
         <mat-label>Filtrar</mat-label>
@@ -17,32 +17,52 @@
       </mat-form-field>
     </span>
     <mat-checkbox [formControl]="disableTooltips" class="w3-small">
-        Mensajes de ayuda
-      </mat-checkbox>
+      Mensajes de ayuda
+    </mat-checkbox>
   </div>
 
   <div class="w3-hide-small">
 
 
     <div *ngFor="let package of filteredPackage; let i = index">
-      <mat-toolbar mat-ripple class="ms-table-header ms-font-roboto mat-elevation-z4 w3-margin-top"
-        style="justify-content:space-around; font-size:14px; cursor:pointer"
-        (click)="togglePanelPackage(i);getPackageProducts(package)">
+      <div mat-ripple class="ms-table-header ms-font-roboto mat-elevation-z4 w3-margin-top"
+        style="font-size:14px; cursor:pointer;" (click)="togglePanelPackage(i);getPackageProducts(package)">
+        <div class="w3-row mat-body" style="display:flex; align-items:center; height:70px">
+          <div class="w3-padding w3-col s2">
+              <span style="background:rgba(255,255,255,0.1);padding:0px 8px;border-radius:5px">{{i+1 | number : '2.'}}</span>
+          </div>
 
-        <span style="background:rgba(255,255,255,0.1);padding:0px 8px;border-radius:5px">{{i+1 | number : '2.'}}</span>
-        <span>{{package.code}}</span>
-        <span>{{package.name}}</span>
-        <span>{{package.currency}} </span>
-        <span>S/.{{package.sale}} </span>
+          <div class="w3-padding w3-col s4 w3-hide-small">
+              <span>{{package.code}}</span>
+            </div>
+            <div class="w3-padding w3-col s6 w3-hide-large w3-hide-medium">
+              <span>{{package.code}}</span>
+            </div>
+
+          <div class="w3-padding w3-col s4 w3-hide-small">
+            <span>{{package.name}}</span>
+          </div>
+          <div class="w3-padding w3-col s6 w3-hide-large w3-hide-medium">
+            <span>{{package.name}}</span>
+          </div>
+          <div class="w3-padding w3-col s2">
+            <span>{{package.currency}}</span>
+          </div>
+          <div class="w3-padding w3-col s2">
+              <span>S/. {{package.sale}}</span>
+            </div>
+          
+          <div class="w3-padding w3-col s1">
+            <button mat-icon-button [matMenuTriggerFor]="packageMenu" (click)="$event.stopPropagation()">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+        </div>
         <mat-menu #packageMenu="matMenu">
           <button mat-menu-item (click)="editPackage(package , i)">Editar</button>
           <button mat-menu-item (click)="deletePackage(package)">Borrar</button>
         </mat-menu>
-        <button mat-icon-button [matMenuTriggerFor]="packageMenu" (click)="$event.stopPropagation()">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-
-      </mat-toolbar>
+      </div>
 
       <div [@openCloseTable]="isOpenPromo[i] ? 'openTable': 'closedTable'" style="overflow-x:auto">
         <table mat-table [dataSource]="dataSourcePackage" matSort style="width:100%">
@@ -116,7 +136,8 @@
 
         <div class="w3-white" style="border-radius: 5px;;margin-block-end: 8px;height: 160px;">
           <div class="w3-row">
-            <div class="w3-half w3-container" style="width: 40%">
+            <div class="w3-half w3-container"
+              style="width: 40%;height: 160px;display: flex;align-items: center; justify-content: center">
 
               <img
                 [src]="package['img']

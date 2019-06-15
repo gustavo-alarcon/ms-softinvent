@@ -31,7 +31,11 @@ import { CrearTrasladoComponent } from './crear-traslado/crear-traslado.componen
     MatNativeDateModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatDividerModule
+    MatDividerModule,
+    MatToolbarModule,
+    MatProgressBarModule,
+    MatAutocompleteModule
+
   ], 
   entryComponents : [
     CrearTrasladoComponent

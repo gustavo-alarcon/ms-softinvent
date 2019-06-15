@@ -132,7 +132,7 @@ export class ListaPaquetesComponent implements OnInit {
    */
   filterData(ref: string) {
     ref = ref.toLowerCase();
-    this.filteredPackage = this.dbs.promotions.filter(option =>
+    this.filteredPackage = this.dbs.packages.filter(option =>
       option.name.toLowerCase().includes(ref));
   }
 

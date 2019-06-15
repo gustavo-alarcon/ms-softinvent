@@ -9,7 +9,7 @@ import { inject } from '@angular/core/testing';
 import { ConfirmarEditarPaqueteComponent } from '../confirmar-editar-paquete/confirmar-editar-paquete.component';
 export interface DialogData {
   paquete: Package,
-  products : Array<PackageProduct>,
+  products: Array<PackageProduct>,
 }
 @Component({
   selector: 'app-editar-paquete',
@@ -26,33 +26,36 @@ export class EditarPaqueteComponent implements OnInit {
   nameFC = new FormControl(null);
   saleFC = new FormControl(null);
   codeFC = new FormControl(null);
-
+  quantityItemFC = new FormControl(null);
   mergedProductsAndPackages: Array<Product | Package> = [];
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  productList: Array<PackageProduct> = [];
+  productList: Array<PackageProduct> = this.pack.products;
   displayedColumns: string[] = ['index', 'name', 'category', 'quantity', 'actions'];
   prod: Product;
   quantityItems: number = this.pack.products.length;
   selectedFile: File;
   imageSrc: string | ArrayBuffer = this.pack.paquete.img;
+  currentProd = 0;
   constructor(
-    @Inject(MAT_DIALOG_DATA) private pack : DialogData,
+    @Inject(MAT_DIALOG_DATA) private pack: DialogData,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditarPaqueteComponent>,
     public dbs: DatabaseService,
     private snackbar: MatSnackBar,
     private dialog: MatDialog
   ) { }
- 
+
 
   ngOnInit() {
-    console.log(this.pack);
+    this.quantityItemFC.valueChanges.subscribe(result => {
+      
+      this.productList[this.currentProd].quantity = result;
+    });
     this.nameFC.setValue(this.pack.paquete.name);
     this.saleFC.setValue(this.pack.paquete.sale);
     this.codeFC.setValue(this.pack.paquete.code);
-    this.productList = this.pack.products;
     this.dataSource.data = this.pack.products;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -149,26 +152,30 @@ export class EditarPaqueteComponent implements OnInit {
     }
 
   }
-
-  confirmEdit(): void {
-    const newPack: Package = {
+  confirmEdit(pack): void {
+    let newPack: Package = {
       id: '',
       code: this.codeFC.value,
       name: this.nameFC.value,
       category: '',
       sale: this.saleFC.value,
       regDate: 0,
-      img:''}
+      img: ''
+    }
     const dialogRef = this.dialog.open(ConfirmarEditarPaqueteComponent, {
-      data: { productList: this.productList,
-              currentPack : this.pack.paquete,
-              newPack: newPack,
-              imgFile : this.selectedFile
-              },
+      data: {
+        productList: this.productList,
+        currentPack: this.pack.paquete,
+        newPack: newPack,
+        imgFile: this.selectedFile
+      },
       panelClass: 'ms-custom-dialogbox'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) { this.dialogRef.close() }
     });
+  }
+  currentItem(i): void {
+    this.currentProd = i;
   }
 }

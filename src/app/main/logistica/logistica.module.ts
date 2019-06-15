@@ -5,7 +5,7 @@ import { LogisticaRoutingModule } from './logistica-routing.module';
 import { LogisticaComponent } from './logistica.component';
 import { RecepcionModule } from './recepcion/recepcion.module';
 import { TrasladosModule } from './traslados/traslados.module';
-import { MatIconModule, MatToolbarModule, MatTabsModule } from '@angular/material';
+import { MatIconModule, MatToolbarModule, MatTabsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatAutocompleteModule, MatCheckboxModule, MatTableModule, MatPaginatorModule, MatSortModule, MatTooltipModule, MatDividerModule, MatSelectModule, MatDialogModule, MatMenuModule } from '@angular/material';
 
 @NgModule({
   declarations: [LogisticaComponent],
@@ -16,7 +16,21 @@ import { MatIconModule, MatToolbarModule, MatTabsModule } from '@angular/materia
     TrasladosModule,
     MatToolbarModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatAutocompleteModule,
+    MatCheckboxModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTooltipModule,
+    MatDividerModule,
+    MatSelectModule,
+    MatToolbarModule,
+    MatDialogModule,
+    MatMenuModule
   ]
 })
 export class LogisticaModule { }

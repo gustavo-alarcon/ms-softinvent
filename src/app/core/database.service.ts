@@ -121,6 +121,7 @@ export class DatabaseService {
   // DOCUMENTS
   documentsCollection: AngularFirestoreCollection<any>;
   documents: Array<Object> = [];
+  documentsByType: Array<Object> = [];
 
   public dataDocuments = new BehaviorSubject<any[]>([]);
   currentDataDocuments = this.dataDocuments.asObservable();
@@ -150,13 +151,15 @@ export class DatabaseService {
   // PRODUCTS
   productsCollection: AngularFirestoreCollection<any>;
   products: Array<any> = [];
+  productsByWarehouse: Array<any> = [];
+
 
   public dataProducts = new BehaviorSubject<any[]>([]);
   currentDataProducts = this.dataProducts.asObservable();
   
   // PACKAGES
   packagesCollection: AngularFirestoreCollection<any>;
-  packages: Array<Object> = [];
+  packages: Array<Package> = [];
 
   public dataPackages = new BehaviorSubject<any[]>([]);
   currentDataPackages = this.dataPackages.asObservable();
@@ -423,7 +426,23 @@ export class DatabaseService {
         this.dataDocuments.next(res);
       });
   }
-
+  getDocumentsByType(nature): void {
+    this.documentsCollection = this.afs.collection(`db/${this.auth.userInvent.db}/documents`, ref => ref.where('nature', '==', nature));
+    this.documentsCollection.valueChanges()
+      .pipe(
+        map(res => {
+          //ADDING INDEX TO RESULT
+          res.forEach((documents, index) => {
+            documents['index'] = index + 1;
+          })
+          return res;
+        })
+      )
+      .subscribe(res => {
+        this.documentsByType = res;
+        this.dataDocuments.next(res);
+      });
+  }
   getBookOfDocument(documentId) {
     this.bookCollection = this.afs.collection(`db/${this.auth.userInvent.db}/documents/${documentId}/book`, ref => ref.orderBy('correlative', 'asc'));
     this.bookCollection.valueChanges()
@@ -613,7 +632,21 @@ export class DatabaseService {
         this.dataProducts.next(res);
       });
   }
-
+  getProductsByWarehosue( warehouse): void {
+    this.productsCollection = this.afs.collection(`db/${this.auth.userInvent.db}/products`, ref => ref.where('warehouse', '==', warehouse));
+    this.productsCollection.valueChanges()
+      .pipe(
+        map(res => {
+          res.forEach((product, index) => {
+            product['index'] = index + 1;
+          })
+          return res;
+        })
+      )
+      .subscribe(res => {
+        this.productsByWarehouse = res;
+      });
+  }
   checkIfCategoryExist(ref): Observable<boolean> {
     return this.categoryTypesCollection.valueChanges()
       .pipe(

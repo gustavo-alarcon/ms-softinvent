@@ -30,7 +30,7 @@ export class CrearPaqueteComponent implements OnInit {
   quantityItems: number = 0;
   selectedFile: File;
   imageSrc: string | ArrayBuffer;
-
+  alreadyExist = false;
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<CrearPaqueteComponent>,
@@ -129,50 +129,87 @@ export class CrearPaqueteComponent implements OnInit {
 
   }
   save(): void {
-    this.loading = true;
-    let now = Date.now();
-    let path;
-    if (this.selectedFile) {
-      const filePath = `/packagePictures/` + now + `${this.selectedFile.name}`;
-      const fileRef = this.storage.ref(filePath);
-      const task = this.storage.upload(filePath, this.selectedFile);
-      this.uploadPercent = task.percentageChanges();
-      task.snapshotChanges().pipe(
-        finalize(() => {
-          fileRef.getDownloadURL().subscribe(res => {
-            if (res) {
-              console.log("ruta" + res);
-              this.dbs.packagesCollection
-                .add(this.createPackageFormGroup.value)
-                .then(ref => {
-                  ref.update({
-                    id: ref.id,
-                    regDate: Date.now(),
-                    currency: "PEN",
-                    items: this.quantityItems,
-                    img: res
-                  });
-                  this.productList.forEach(item => {
-                    this.dbs.packagesCollection
-                      .doc(ref.id)
-                      .collection('products')
-                      .add(item)
-                      .then(ref => {
-                        ref.update({ id: ref.id });
-                      })
-                      .catch(err => {
-                        console.log(err);
-                        this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-                          duration: 6000
+    if ( this.productList.length!=0){
+      this.loading = true;
+      let now = Date.now();
+      let path;
+      if (this.selectedFile) {
+        const filePath = `/packagePictures/` + now + `${this.selectedFile.name}`;
+        const fileRef = this.storage.ref(filePath);
+        const task = this.storage.upload(filePath, this.selectedFile);
+        this.uploadPercent = task.percentageChanges();
+        task.snapshotChanges().pipe(
+          finalize(() => {
+            fileRef.getDownloadURL().subscribe(res => {
+              if (res) {
+                console.log("ruta" + res);
+                this.dbs.packagesCollection
+                  .add(this.createPackageFormGroup.value)
+                  .then(ref => {
+                    ref.update({
+                      id: ref.id,
+                      regDate: Date.now(),
+                      currency: "PEN",
+                      items: this.quantityItems,
+                      category: "Paquete",
+                      img: res,
+                      unit: "Unidad"
+                    });
+                    this.productList.forEach(item => {
+                      this.dbs.packagesCollection
+                        .doc(ref.id)
+                        .collection('products')
+                        .add(item)
+                        .then(ref => {
+                          ref.update({ id: ref.id });
+                        })
+                        .catch(err => {
+                          console.log(err);
+                          this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
+                            duration: 6000
+                          });
                         });
-                      });
+                    });
+                    this.snackbar.open('Listo!', 'Cerrar', {
+                      duration: 6000
+  
+                    });
+                    this.loading = false;
+                    this.dialogRef.close(true);
+                  })
+                  .catch(err => {
+                    console.log(err);
+                    this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
+                      duration: 6000
+                    });
                   });
-                  this.snackbar.open('Listo!', 'Cerrar', {
-                    duration: 6000
-                    
-                  });
-                  this.loading = false;
-                  this.dialogRef.close(true);
+                console.log(path)
+  
+              }
+            })
+          })
+        ).subscribe()
+      }
+      else {
+        this.dbs.packagesCollection
+          .add(this.createPackageFormGroup.value)
+          .then(ref => {
+            ref.update({
+              id: ref.id,
+              regDate: Date.now(),
+              currency: "PEN",
+              items: this.quantityItems,
+              img: '',
+              category: "Paquete",
+              unit: "Unidad"
+            });
+            this.productList.forEach(item => {
+              this.dbs.packagesCollection
+                .doc(ref.id)
+                .collection('products')
+                .add(item)
+                .then(ref => {
+                  ref.update({ id: ref.id });
                 })
                 .catch(err => {
                   console.log(err);
@@ -180,53 +217,43 @@ export class CrearPaqueteComponent implements OnInit {
                     duration: 6000
                   });
                 });
-              console.log(path)
-
-            }
+            });
+            this.snackbar.open('Listo!', 'Cerrar', {
+              duration: 6000
+            });
+            this.loading = false;
+            this.dialogRef.close(true);
           })
-        })
-      ).subscribe()
+          .catch(err => {
+            console.log(err);
+            this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
+              duration: 6000
+            });
+          });
+      }
     }
     else{
-      this.dbs.packagesCollection
-      .add(this.createPackageFormGroup.value)
-      .then(ref => {
-        ref.update({
-          id: ref.id,
-          regDate: Date.now(),
-          currency: "PEN",
-          items: this.quantityItems,
-          img: ''
-        });
-        this.productList.forEach(item => {
-          this.dbs.packagesCollection
-            .doc(ref.id)
-            .collection('products')
-            .add(item)
-            .then(ref => {
-              ref.update({ id: ref.id });
-            })
-            .catch(err => {
-              console.log(err);
-              this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-                duration: 6000
-              });
-            });
-        });
-        this.snackbar.open('Listo!', 'Cerrar', {
-          duration: 6000
-        });
-        this.loading = false;
-        this.dialogRef.close(true);
-      })
-      .catch(err => {
-        console.log(err);
-        this.snackbar.open('Ups!...parece que hubo un error', 'Cerrar', {
-          duration: 6000
-        });
+      this.snackbar.open('Ups!...Tienes que agregar items para continuar', 'Cerrar', {
+        duration: 6000
       });
+    }    
+  }
+  checkIfExist(packageCode,packageName): void {
+
+    this.alreadyExist = false;
+
+    var filteredCode = this.dbs.packages.filter(option => option['code'].toString() === packageCode);
+    var filteredName = this.dbs.packages.filter(option => option['name'].toString() === packageName);
+
+    if(filteredCode.length > 0 || filteredName.length > 0){
+      this.alreadyExist = true;
+      this.snackbar.open("Este paquete ya existe", "Cerrar", {
+        duration: 1000
+      })
     }
   }
+
+
   openExplorer(event): void {
     this.selectedFile = event.target.files[0];
 

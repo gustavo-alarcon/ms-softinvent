@@ -1,3 +1,101 @@
-<p>
-  crear-traslado wosdrks!
-</p>
+<div mat-dialog-title>
+  <mat-toolbar style="width:100% ; background-color : nome" class="ms-color-b-2">
+    <h1 class="ms-font-rubik">
+      <mat-icon style="vertical-align:middle" class="ms-color-icons">widgets</mat-icon> Crear traslado
+    </h1>
+    <span class="ms-fill"></span>
+    <button mat-icon-button color="accent" (click)="onNoClick()">
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <mat-divider></mat-divider>
+
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div mat-dialog-content>
+
+    <div class="w3-row">
+      <div class="w3-half w3-container">
+         <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">filter_list</mat-icon>
+          <input matInput placeholder="Documento" [formControl]="DocumentListFC" [matAutocomplete]="autoDoc"
+            autocomplete="off"  >
+           <mat-autocomplete #autoDoc="matAutocomplete">
+            <mat-option *ngFor="let doc of filteredDocuments | async" [value]="doc.name">
+              {{doc['name'] + ' - ' + doc['serie']}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field> 
+        <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">filter_list</mat-icon>
+          <input matInput placeholder="Producto" [formControl]="productListFC" [matAutocomplete]="autoProd"
+            >
+          <mat-autocomplete #autoProd="matAutocomplete">
+            <mat-option *ngFor="let prod of filteredProducts | async" [value]="prod.name"
+              (click)="currentProduct(prod)">
+              {{prod['code'] + ' - ' + prod['name']}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="w3-half w3-container">
+        <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">filter_list</mat-icon>
+          <input matInput placeholder="Ubicacion" [formControl]="WarehouseOriFC" [matAutocomplete]="autoWeb"
+         >  
+          <mat-autocomplete #autoWeb="matAutocomplete">
+            <mat-option *ngFor="let alm of filteredWarehouse | async" [value]="alm.name" (click)="originWarehouse(alm)">
+              {{ alm['name']}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">filter_list</mat-icon>
+          <input matInput placeholder="Destino" [formControl]="WarehouseDestFC" [matAutocomplete]="autoDestino"
+            autocomplete="off" >
+          <mat-autocomplete #autoDestino="matAutocomplete">
+            <mat-option *ngFor="let alm of filteredWarehouse | async" [value]="alm.name" (click)="currentProduct(prod)">
+              {{alm['code'] + ' - ' + alm['name']}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+    <div class="w3-row">
+      <div class="w3-third w3-container w3-green">
+        <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">exposure</mat-icon>
+          <input matInput #productCode type="number" placeholder="Cantidad" [formControl]="quantityFC">
+        </mat-form-field>
+      </div>
+      <div class="w3-third w3-container">
+        <mat-form-field style="width:100%" color="accent">
+          <mat-icon matPrefix class="ms-color-icons w3-margin-right">description</mat-icon>
+          <input matInput placeholder="Seleccione un Nro de Serie" (keyup.enter)="onEnterClick()"
+            [formControl]="serieList" [matAutocomplete]="autoSerie" autocomplete="off">
+          <mat-autocomplete #autoSerie="matAutocomplete">
+            <mat-option *ngIf="isEmpty">
+              No existe el número
+            </mat-option>
+            <mat-option *ngFor="let serie of filteredSeries | async" [value]="serie.number">
+              <mat-checkbox class="example-margin" [disabled]=serie.activated [checked]="selection.isSelected(serie) "
+                (click)="$event.stopPropagation();" (change)="changeValue(serie)">
+                {{serie.number}}
+              </mat-checkbox>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="w3-third w3-container"
+        style="display: flex; justify-content: center; align-items: center;margin-top: 12px">
+        <button mat-raised-button class="ms-color-action-3" style="margin:0em 0.2em 1em 0.2em" (click)="addItem()">
+          <mat-icon>add_circle</mat-icon> Agregar
+        </button>
+      </div>
+    </div> 
+</div>

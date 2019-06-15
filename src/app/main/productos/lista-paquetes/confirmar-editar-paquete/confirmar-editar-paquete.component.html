@@ -1,6 +1,6 @@
 <div mat-dialog-title>
 
-  <mat-toolbar style="align-items:center; background:none; height:auto; padding: 0px;padding-block-end: 12px">
+  <mat-toolbar style="align-items:center; background:none; height:auto; padding: 0px;padding-block-end:8px">
     <mat-icon class="ms-color-icons w3-margin-right">edit</mat-icon>
     <span class="ms-font-rubik">Editar paquete</span>
   </mat-toolbar>
@@ -8,11 +8,11 @@
 </div>
 
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-<mat-dialog-content class="w3-padding-large">
+<mat-dialog-content >
   <span class="mat-subheading-2" style="font-size: 0.8em">¿Está seguro de guardar los cambios?</span>
 </mat-dialog-content>
 <mat-dialog-actions>
   <span class="ms-fill"></span>
   <button mat-stroked-button class="w3-margin-right" color="warn" mat-dialog-close>Cancelar</button>
-  <button mat-raised-button class="ms-color-b-1" (click)="edit()">Editar</button>
+  <button mat-raised-button class="ms-color-b-1" (click)="edit()">Si, guardar</button>
 </mat-dialog-actions>
