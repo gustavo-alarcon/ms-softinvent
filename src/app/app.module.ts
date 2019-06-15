@@ -233,7 +233,8 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
     MatExpansionModule,
     MatCardModule,
     CoreModule,
-    ProductosModule
+    ProductosModule,
+    
 
   ],
   entryComponents: [

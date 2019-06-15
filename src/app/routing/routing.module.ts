@@ -41,7 +41,10 @@ const routes: Routes = [
   {
     path: 'main', component: MainComponent, canActivate: [AuthGuard],
     children: [
-
+      {
+        path: '',
+        loadChildren: '../main/dashboard/dashboard.module#DashboardModule'
+      },
       {
         path: 'config', component: MsConfigComponent,
         children: [
@@ -71,6 +74,10 @@ const routes: Routes = [
             ]
           },
         ]
+      },
+      {
+        path: 'dashboard',
+        loadChildren: '../main/dashboard/dashboard.module#DashboardModule'
       },
       {
         path: 'almacenes', component: WarehousesComponent
