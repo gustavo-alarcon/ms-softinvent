@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { DatabaseService } from 'src/app/core/database.service';
 import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
-import { startWith, map, merge } from 'rxjs/operators';
+import { startWith, map, merge, finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth.service';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-crear-producto',
@@ -13,7 +14,10 @@ import { AuthService } from 'src/app/core/auth.service';
 })
 export class CreateProductComponent implements OnInit {
 
-  createProductFormGroup: FormGroup;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  uploadPercent: Observable<number>;
+
   categoryFromList = new FormControl('');
   warehouseFromList = new FormControl('');
   unitFromList = new FormControl('');
@@ -27,24 +31,27 @@ export class CreateProductComponent implements OnInit {
   codeAlreadyExist = false;
   productAlreadyExist = false;
   loading = false;
+  selectedFile: File;
+  imageSrc: string | ArrayBuffer;
 
   constructor(
     private fb: FormBuilder,
     public dbs: DatabaseService,
     public auth: AuthService,
     public snackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<CreateProductComponent>
+    public dialogRef: MatDialogRef<CreateProductComponent>,
+    private storage: AngularFireStorage
   ) { }
 
   ngOnInit() {
-
-    this.createProductFormGroup = this.fb.group({
+    this.firstFormGroup = this.fb.group({
       id: '',
-      category: ['', Validators.required],
-      warehouse: ['', Validators.required],
+      category : ['', Validators.required],
+      warehouse : ['', Validators.required],
       code: ['', Validators.required],
       name: ['', Validators.required],
-      unit: ['', Validators.required],
+    });
+    this.secondFormGroup = this.fb.group({
       initialStock: ['', Validators.required],
       warningStock: ['', Validators.required],
       alertStock: ['', Validators.required],
@@ -57,7 +64,6 @@ export class CreateProductComponent implements OnInit {
       userName: this.auth.userInvent.name + ', ' + this.auth.userInvent.lastname,
       userId: this.auth.userInvent.uid
     });
-
     this.filteredCategoryOptions = this.categoryFromList.valueChanges
       .pipe(
         startWith(''),
@@ -79,7 +85,7 @@ export class CreateProductComponent implements OnInit {
 
   private _filterCategories(value): any {
     const filterValue = value.toLowerCase();
-    return this.dbs.categoryTypes['categoryTypes'].filter(option => option.toLowerCase().includes(filterValue) && option !== '');
+    return this.dbs.categoryTypes.filter(option => option['name'].toLowerCase().includes(filterValue) && option !== '');
   }
 
   private _filterWarehouses(value): any {
@@ -92,67 +98,80 @@ export class CreateProductComponent implements OnInit {
     return this.dbs.unitTypes['unitTypes'].filter(option => option.toLowerCase().includes(filterValue) && option !== '');
   }
 
-  setCategoryField(category): void {
-    this.createProductFormGroup.patchValue({
-      category: category
-    })
-  }
+ 
 
-  setUnitField(unit): void {
-    this.createProductFormGroup.patchValue({
-      unit: unit
-    });
-  }
 
-  setWarehouseField(warehouse, name, code): void {
-    this.createProductFormGroup.patchValue({
-      warehouse: warehouse
-    });
-
-    this.checkIfProductExist(warehouse, name, code);
-  }
-
-  onSubmit(): void {
-
+  crearProducto(): void {
     this.loading = true;
 
-    this.createProductFormGroup.patchValue({
-      stock: this.createProductFormGroup.get('initialStock').value
-    })
-
-    this.dbs.productsCollection.add({
-      id: '',
-      category: this.createProductFormGroup.value.category.trim(),
-      warehouse: this.createProductFormGroup.value.warehouse.trim(),
-      code: this.createProductFormGroup.value.code.trim(),
-      name: this.createProductFormGroup.value.name.trim(),
-      unit: this.createProductFormGroup.value.unit.trim(),
-      initialStock: this.createProductFormGroup.value.initialStock,
-      warningStock: this.createProductFormGroup.value.warningStock,
-      alertStock: this.createProductFormGroup.value.alertStock,
-      stock: this.createProductFormGroup.value.stock,
-      currency: this.createProductFormGroup.value.currency,
-      purchase: this.createProductFormGroup.value.purchase,
-      sale: this.createProductFormGroup.value.sale,
-      maxDiscount: this.createProductFormGroup.value.maxDiscount,
-      regDate: this.createProductFormGroup.value.regDate,
-      userName: this.createProductFormGroup.value.userName,
-      userId: this.createProductFormGroup.value.userId
-    })
-      .then(ref => {
-        ref.update({ id: ref.id });
-
-        this.loading = false;
-        this.dialogRef.close();
+    if (this.selectedFile) {
+      const filePath = `/productsPictures/` + Date.now() + `${this.selectedFile.name}`;
+      const fileRef = this.storage.ref(filePath);
+      const task = this.storage.upload(filePath, this.selectedFile);
+      this.uploadPercent = task.percentageChanges();
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(res => {
+            if (res) {
+              this.dbs.productsCollection.add({
+                id: '',
+                category: this.categoryFromList.value,
+                warehouse: this.warehouseFromList.value,
+                code: this.firstFormGroup.value.code,
+                name: this.firstFormGroup.value.name,
+                unit: this.unitFromList.value,
+                initialStock: this.secondFormGroup.value.initialStock,
+                warningStock: this.secondFormGroup.value.warningStock,
+                alertStock: this.secondFormGroup.value.alertStock,
+                stock: this.secondFormGroup.value.stock,
+                currency: this.secondFormGroup.value.currency,
+                purchase: this.secondFormGroup.value.purchase,
+                sale: this.secondFormGroup.value.sale,
+                maxDiscount: this.secondFormGroup.value.maxDiscount,
+                regDate: this.secondFormGroup.value.regDate,
+                userName: this.secondFormGroup.value.userName,
+                userId: this.secondFormGroup.value.userId,
+                img : res
+              })
+                .then(ref => {
+                  ref.update({ id: ref.id });
+          
+                  this.loading = false;
+                  this.dialogRef.close();
+                })
+            }
+          })
+        })
+      ).subscribe()
+    }
+    else{
+      this.dbs.productsCollection.add({
+        id: '',
+        category: this.categoryFromList.value,
+        warehouse: this.warehouseFromList.value,
+        code: this.firstFormGroup.value.code,
+        name: this.firstFormGroup.value.name,
+        unit: this.unitFromList.value,
+        initialStock: this.secondFormGroup.value.initialStock,
+        warningStock: this.secondFormGroup.value.warningStock,
+        alertStock: this.secondFormGroup.value.alertStock,
+        stock: this.secondFormGroup.value.stock,
+        currency: this.secondFormGroup.value.currency,
+        purchase: this.secondFormGroup.value.purchase,
+        sale: this.secondFormGroup.value.sale,
+        maxDiscount: this.secondFormGroup.value.maxDiscount,
+        regDate: this.secondFormGroup.value.regDate,
+        userName: this.secondFormGroup.value.userName,
+        userId: this.secondFormGroup.value.userId,
+        img : ''
       })
-
-
-    this.dbs.checkIfCategoryExist(this.createProductFormGroup.value.category).subscribe(exist => {
+    }
+    this.dbs.checkIfCategoryExist(this.categoryFromList.value).subscribe(exist => {
       if (!exist) {
 
         const data = {
           id: '',
-          name: this.createProductFormGroup.value.category,
+          name: this.categoryFromList.value,
           regDate: Date.now()
         }
 
@@ -167,10 +186,10 @@ export class CreateProductComponent implements OnInit {
       }
     });
 
-    this.dbs.checkIfUnitExist(this.createProductFormGroup.value.unit).subscribe(exist => {
+    this.dbs.checkIfUnitExist(this.unitFromList.value).subscribe(exist => {
       if (!exist) {
 
-        this.dbs.unitTypes['unitTypes'].push(this.createProductFormGroup.value.unit);
+        this.dbs.unitTypes['unitTypes'].push(this.unitFromList.value);
 
         this.dbs.unitTypesDocument.get().forEach(unitArray => {
           unitArray.ref.set({
@@ -223,5 +242,40 @@ export class CreateProductComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
+  openExplorer(event): void {
+    this.selectedFile = event.target.files[0];
+
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
+      reader.readAsDataURL(file);
+    }
+
+  }
+  
+  setCategoryField(category): void {
+    this.firstFormGroup.patchValue({
+      category: category
+    })
+  }
+
+  setUnitField(unit): void {
+    this.secondFormGroup.patchValue({
+      unit: unit
+    });
+  }
+
+  setWarehouseField(warehouse, name, code): void {
+    this.firstFormGroup.patchValue({
+      warehouse: warehouse
+    });
+
+    this.checkIfProductExist(warehouse, name, code);
+  }
 
 }
+
+
+
