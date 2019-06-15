@@ -19,12 +19,13 @@ import {  MatIconModule,
           MatDialogModule} from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ConfirmarRechazarRecepcionComponent } from './confirmar-rechazar-recepcion/confirmar-rechazar-recepcion.component';
-import { CorrelativePipe } from 'src/app/pipes/correlative.pipe';
+import { ConfirmarRestaurarRecepcionComponent } from './confirmar-restaurar-recepcion/confirmar-restaurar-recepcion.component';
 
 @NgModule({
   declarations: [
     RecepcionComponent,
-    ConfirmarRechazarRecepcionComponent
+    ConfirmarRechazarRecepcionComponent,
+    ConfirmarRestaurarRecepcionComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +48,8 @@ import { CorrelativePipe } from 'src/app/pipes/correlative.pipe';
     MatDialogModule
   ],
   entryComponents: [
-    ConfirmarRechazarRecepcionComponent
+    ConfirmarRechazarRecepcionComponent,
+    ConfirmarRestaurarRecepcionComponent
   ]
 })
 export class RecepcionModule { }

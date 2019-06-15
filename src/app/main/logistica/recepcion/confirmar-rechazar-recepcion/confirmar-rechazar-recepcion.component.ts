@@ -15,7 +15,7 @@ export class ConfirmarRechazarRecepcionComponent implements OnInit {
   constructor(
     public dbs: DatabaseService,
     private snackbar: MatSnackBar,
-    private dialogRef: MatDialogRef<ConfirmarRechazarRecepcionComponent>
+    private dialogRef: MatDialogRef<ConfirmarRechazarRecepcionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Transfer
   ) { }
 

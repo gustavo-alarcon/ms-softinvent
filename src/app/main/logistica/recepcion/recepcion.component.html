@@ -102,7 +102,8 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons *ngIf="transfer.length > 5"></mat-paginator>
       <mat-toolbar style="background:#424242">
         <span class="ms-fill"></span>
-        <button mat-stroked-button class="w3-margin-right" color="warn" (click)="rejectTransfer(transfer)">Rechazar</button>
+        <button mat-stroked-button class="w3-margin-right" color="warn" (click)="rejectTransfer(transfer)" *ngIf="transfer.status !== 'Rechazado'">Rechazar</button>
+        <button mat-stroked-button class="w3-margin-right" color="warn" (click)="restoreTransfer(transfer)" *ngIf="transfer.status === 'Rechazado'">Restaurar</button>
         <button mat-raised-button class="ms-color-b-1 w3-margin-right">Guardar</button>
         <button mat-raised-button class="ms-color-action-3">Finalizar</button>
       </mat-toolbar>

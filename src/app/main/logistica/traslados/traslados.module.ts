@@ -11,7 +11,10 @@ import {  MatIconModule,
           MatNativeDateModule,
           MatButtonModule,
           MatCheckboxModule,
-          MatDividerModule} from '@angular/material';
+          MatDividerModule,
+          MatToolbarModule,
+          MatAutocompleteModule,
+          MatProgressBarModule} from '@angular/material';
 import { CrearTrasladoComponent } from './crear-traslado/crear-traslado.component';
 
 @NgModule({
@@ -24,6 +27,7 @@ import { CrearTrasladoComponent } from './crear-traslado/crear-traslado.componen
     TrasladosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
@@ -32,6 +36,8 @@ import { CrearTrasladoComponent } from './crear-traslado/crear-traslado.componen
     MatButtonModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatAutocompleteModule,
+    MatProgressBarModule
 
   ], 
   entryComponents : [

@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { Transfer } from 'src/app/core/ms-types';
 import { ConfirmarRechazarRecepcionComponent } from './confirmar-rechazar-recepcion/confirmar-rechazar-recepcion.component';
+import { ConfirmarRestaurarRecepcionComponent } from './confirmar-restaurar-recepcion/confirmar-restaurar-recepcion.component';
 
 @Component({
   selector: 'app-recepcion',
@@ -214,6 +215,13 @@ export class RecepcionComponent implements OnInit {
 
   rejectTransfer(transfer: Transfer): void {
     this.dialog.open(ConfirmarRechazarRecepcionComponent, {
+      data: transfer,
+      panelClass: ['ms-custom-dialogbox']
+    });
+  }
+
+  restoreTransfer(transfer: Transfer): void {
+    this.dialog.open(ConfirmarRestaurarRecepcionComponent, {
       data: transfer,
       panelClass: ['ms-custom-dialogbox']
     });
