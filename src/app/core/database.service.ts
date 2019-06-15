@@ -1,4 +1,4 @@
-import { Promo, PromoProduct, Transfer, TransferProduct, PackageProduct } from 'src/app/core/ms-types';
+import { Promo, PromoProduct, Transfer, TransferProduct, PackageProduct, Package } from 'src/app/core/ms-types';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from "@angular/fire/firestore";
 import { Observable, of, BehaviorSubject } from "rxjs";

@@ -30,7 +30,6 @@ export class CrearPaqueteComponent implements OnInit {
   quantityItems: number = 0;
   selectedFile: File;
   imageSrc: string | ArrayBuffer;
-  alreadyExist = false;
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<CrearPaqueteComponent>,
