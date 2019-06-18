@@ -38,7 +38,7 @@ export class AuthService {
     permits: ''
   };
 
-  authLoader: boolean = false;
+  authLoader = false;
   now = new Date();
 
   // CUSTOMER'S COMPANIES
@@ -111,7 +111,6 @@ export class AuthService {
   }
 
   emailLogin(email: string, password: string) {
-    console.log(email, password);
     this.authLoader = true;
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(credential => {

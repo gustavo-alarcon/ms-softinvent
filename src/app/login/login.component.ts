@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../core/auth.service";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AuthService } from '../core/auth.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginFormGroup: FormGroup;
-  isAuth: boolean = false;
+  isAuth = false;
   element: any;
-  visibility: boolean = true;
+  visibility = true;
 
   constructor(
     public auth: AuthService,
@@ -23,14 +23,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginFormGroup = this.fb.group({
-      email: ['',[
-        Validators.required,
-        Validators.email
-      ]],
-      password: ['', [
-        Validators.required
-      ]]
+      email: ['', [ Validators.required, Validators.email ]],
+      password: ['', [ Validators.required ]]
     });
+
+    console.log('uid:', !!this.auth.userInvent.uid);
   }
 
   get email() {
@@ -50,12 +47,12 @@ export class LoginComponent implements OnInit {
   }
 
   showPassword(): void{
-    this.element = document.getElementById("pass");
-    if(this.element.getAttribute("type") === "password") {
-      this.element.setAttribute("type","text");
+    this.element = document.getElementById('pass');
+    if(this.element.getAttribute('type') === 'password') {
+      this.element.setAttribute('type', 'text');
       this.visibility = false;
     } else {
-      this.element.setAttribute("type","password");
+      this.element.setAttribute('type', 'password');
       this.visibility = true;
     }
   }

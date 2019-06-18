@@ -196,7 +196,7 @@ import { EditStockComponent } from './ms-ticket/ms-sidenav-tickets-products/ms-t
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase, 'softhotel'),
+    AngularFireModule.initializeApp(environment.firebase, 'softinvent'),
     AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireStorageModule,
